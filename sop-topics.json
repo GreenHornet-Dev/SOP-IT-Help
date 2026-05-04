@@ -15,5 +15,7 @@
   { "title": "Printers & Print Servers", "tag": "Printers", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/printers-print-servers.md" },
   { "title": "AT&T Wireless Activation", "tag": "WIRELESS", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/att-wireless-activation.md" },
   { "title": "New Hire IT Checklist", "tag": "New Hire", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.md" },
-  { "title": "Departing Employee IT Checklist", "tag": "Offboarding", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/departing-employee-checklist.md" }
+  { "title": "Departing Employee IT Checklist", "tag": "Offboarding", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/departing-employee-checklist.md" },
+  { "title": "Change User UPN", "tag": "UPN", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.md#step-7--change-upn-if-needed-powershell" },
+  { "title": "Verify UPN Change", "tag": "UPN", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.md#step-7--change-upn-if-needed-powershell" }
 ]
