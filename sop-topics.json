@@ -17,5 +17,12 @@
   { "title": "New Hire IT Checklist", "tag": "New Hire", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.md" },
   { "title": "Departing Employee IT Checklist", "tag": "Offboarding", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/departing-employee-checklist.md" },
   { "title": "Change User UPN", "tag": "UPN", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.md#step-7--change-upn-if-needed-powershell" },
-  { "title": "Verify UPN Change", "tag": "UPN", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.md#step-7--change-upn-if-needed-powershell" }
+  { "title": "Verify UPN Change", "tag": "UPN", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.md#step-7--change-upn-if-needed-powershell" },
+  { "title": "Forward Email to Manager", "tag": "Offboarding", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/departing-employee-checklist.md" },
+  { "title": "Equipment Return Checklist", "tag": "Offboarding", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/departing-employee-checklist.md" },
+  { "title": "Remote Wipe Device via Intune", "tag": "Offboarding", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/departing-employee-checklist.md" },
+  { "title": "HR Equipment All Clear Notification", "tag": "Power Automate", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/power-automate.md" },
+  { "title": "Add User to All Users Group", "tag": "New Hire", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.md" },
+  { "title": "Enroll Device in Intune MDM", "tag": "New Hire", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.md" },
+  { "title": "Printer Setup", "tag": "Printers", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/printer-setup.md" }
 ]
