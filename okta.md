@@ -197,6 +197,101 @@ Get-Process OneDrive | Select-Object Name, CPU, WorkingSet | Format-Table -AutoS
 
 ---
 
+---
+
+## 8. Hybrid Environment — Okta + Microsoft Entra ID (Azure AD)
+
+> **Applies to:** Organizations using Okta as the primary IdP with Microsoft Entra ID (formerly Azure AD) in a hybrid join or federated configuration. Password changes propagate from Okta → Entra ID → on-prem AD (if synced via Entra Connect).
+
+### Why Hybrid Makes Token Issues Worse
+
+| Layer | What Happens After Password Change |
+|-------|------------------------------------|
+| **Okta** | New session token issued immediately |
+| **Entra ID (cloud)** | Syncs from Okta via OIDC federation — can take 5–15 minutes |
+| **On-prem AD** | Syncs via Entra Connect — can take 15–30 minutes |
+| **Office apps** | Hold cached Entra ID tokens — stale until cleared |
+| **OneDrive** | Authenticates against Entra ID — loops when token mismatches |
+| **Windows credential cache** | Holds both Okta and Entra ID tokens separately |
+
+### Step 1 — Check Entra ID Sync Status (PowerShell)
+
+```powershell
+# Connect to Microsoft Graph (run once)
+Connect-MgGraph -Scopes "User.Read.All"
+
+# Check user's last sync time and account enabled status
+Get-MgUser -UserId "user@domain.com" | Select-Object DisplayName, UserPrincipalName, AccountEnabled, OnPremisesSyncEnabled, OnPremisesLastSyncDateTime
+```
+
+> If `OnPremisesSyncEnabled` is `True`, the password change must propagate through Entra Connect before desktop apps will accept the new token. Wait for sync or force it (see below).
+
+### Step 2 — Force Entra Connect Sync (Run on Entra Connect Server)
+
+```powershell
+# Force a delta sync from on-prem AD to Entra ID
+Import-Module ADSync
+Start-ADSyncSyncCycle -PolicyType Delta
+
+# Or full sync if delta doesn't resolve it
+Start-ADSyncSyncCycle -PolicyType Initial
+```
+
+> Run this on the **server running Entra Connect (Azure AD Connect)**. After sync completes (1–2 minutes), the new password hash propagates to Entra ID, and Office apps + OneDrive will accept new credentials.
+
+### Step 3 — Re-Register Windows Device with Entra ID (if device is Hybrid Joined)
+
+> If the device is **Hybrid Entra Joined** (not just registered), the device token itself may be stale after a password change.
+
+```powershell
+# Check current Entra ID / Azure AD join status
+dsregcmd /status
+```
+
+Look for:
+- `AzureAdJoined : YES` — device is cloud joined
+- `DomainJoined : YES` — device is on-prem joined (hybrid)
+- `SSO State` section — check for `AzureAdPrt : YES` (Primary Refresh Token active)
+
+If `AzureAdPrt` is **NO** after a password change:
+
+```powershell
+# Force PRT refresh - run as the affected user (NOT admin)
+dsregcmd /refreshprt
+```
+
+If that fails, sign out and back in to Windows with the new password to refresh the PRT.
+
+### Step 4 — Re-Authenticate OneDrive in Hybrid Environment
+
+In a hybrid setup, OneDrive authenticates against **Entra ID**, not Okta directly. After password change:
+
+| Step | Action |
+|------|--------|
+| 1 | Wait for Entra Connect sync to complete (or force it — see Step 2) |
+| 2 | Unlink OneDrive: system tray > Settings > Account > **Unlink this PC** |
+| 3 | Run the OneDrive reset PowerShell (see Step 3 in main SOP) |
+| 4 | Sign back in to OneDrive with the **Microsoft/Entra ID account** (not Okta URL directly) |
+| 5 | Verify green checkmark in tray within 2–3 minutes |
+
+### Step 5 — Verify Hybrid Token Chain is Clean
+
+```powershell
+# Confirm PRT (Primary Refresh Token) is valid
+dsregcmd /status | findstr /i "AzureAdPrt"
+
+# Confirm Entra ID user is enabled and synced
+Get-MgUser -UserId "user@domain.com" | Select-Object AccountEnabled, OnPremisesLastSyncDateTime, PasswordPolicies
+```
+
+| Expected Output | Means |
+|----------------|-------|
+| `AzureAdPrt : YES` | Device has valid Entra ID session token |
+| `AccountEnabled : True` | Account not locked in Entra ID |
+| `OnPremisesLastSyncDateTime` within last 30 min | Sync is current |
+
+> **If AccountEnabled shows False in Entra ID** but the user can log in to Okta — the sync has not propagated yet or there is a conflict. Force a sync cycle and check again in 5 minutes.
+
 > **Summary:** After an Okta password change — always start at the Okta dashboard, launch Office apps from the app tile to pass a fresh token, unlink and re-link OneDrive, and clear stale credentials from Windows Credential Manager. A reboot after completing all steps ensures a clean slate.
 
 [Back to SOP Index](./README.md)
