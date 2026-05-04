@@ -13,5 +13,7 @@
   { "title": "8x8 Phone System", "tag": "8x8", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/8x8-phone-system.md" },
   { "title": "Zoom", "tag": "Zoom", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/zoom.md" },
   { "title": "Printers & Print Servers", "tag": "Printers", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/printers-print-servers.md" },
-  { "title": "AT&T Wireless Activation", "tag": "WIRELESS", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/att-wireless-activation.md" }
+  { "title": "AT&T Wireless Activation", "tag": "WIRELESS", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/att-wireless-activation.md" },
+  { "title": "New Hire IT Checklist", "tag": "New Hire", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.md" },
+  { "title": "Departing Employee IT Checklist", "tag": "Offboarding", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/departing-employee-checklist.md" }
 ]
