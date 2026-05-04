@@ -33,5 +33,13 @@
   { "title": "Lansweeper API Token Setup", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#2-api-setup--authentication--credentials" },
   { "title": "LsAgent macOS Force Sync", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#1-lansweeper-agent-deployment" },
   { "title": "LsAgent macOS Restart", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#1-lansweeper-agent-deployment" },
-  { "title": "LsAgent macOS Status Check", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#1-lansweeper-agent-deployment" }
+  { "title": "LsAgent macOS Status Check", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#1-lansweeper-agent-deployment" },
+  { "title": "LsAgent macOS Force Scan Verify", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#1-lansweeper-agent-deployment" },
+  { "title": "Okta Token Sync After Password Change", "tag": "Okta", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/okta.md" },
+  { "title": "Okta OneDrive Sync Crash Fix", "tag": "Okta", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/okta.md#4-step-3--fix-onedrive-sync-crash--performance" },
+  { "title": "Okta Re-Authenticate Office Apps", "tag": "Okta", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/okta.md#3-step-2--fix-office-apps-token-word-excel-outlook-teams" },
+  { "title": "Okta Dashboard Token Pass", "tag": "Okta", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/okta.md#2-step-1--re-authenticate-via-okta-dashboard" },
+  { "title": "Okta Hybrid Entra ID Token Sync", "tag": "Okta", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/okta.md" },
+  { "title": "Clear Windows Credential Manager Okta", "tag": "Okta", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/okta.md#5-step-4--clear-stale-credentials-from-windows-credential-manager" },
+  { "title": "OneDrive Reset After Password Change", "tag": "Okta", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/okta.md#4-step-3--fix-onedrive-sync-crash--performance" }
 ]
