@@ -87,5 +87,29 @@ Set-MgUserLicense -UserId $user.Id `
 | 4 | License assigned | Visible in M365 Admin |
 | 5 | Device enrolled in MDM | Visible in Intune |
 
+
+## Step 7 — Change UPN if Needed (PowerShell)
+
+> Use this if the user's username/email needs to be corrected after initial setup.
+
+```powershell
+# Connect to Microsoft Graph
+Connect-MgGraph -Scopes "User.ReadWrite.All"
+
+# Change the UPN (login/email address)
+Update-MgUser `
+    -UserId "oldname@domain.com" `
+    -UserPrincipalName "newname@domain.com"
+
+# Verify the change
+$user = Get-MgUser -UserId "newname@domain.com" `
+    -Property "DisplayName,UserPrincipalName,Mail,AccountEnabled"
+
+$user | Select-Object DisplayName, UserPrincipalName, Mail, AccountEnabled
+```
+
+> **Note:** The user must sign out of all devices and sign back in with the new UPN after this change.
+
+---
 ---
 [Back to SOP Index](./README.md)
