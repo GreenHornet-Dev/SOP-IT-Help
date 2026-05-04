@@ -30,5 +30,8 @@
   { "title": "Lansweeper GraphQL API", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#3-graphql-api--key-queries" },
   { "title": "Lansweeper Power Automate Integration", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#4-power-automate-integration-via-http-connector" },
   { "title": "Lansweeper Custom Tables & Reporting", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#5-custom-tables--asset-reporting" },
-  { "title": "Lansweeper API Token Setup", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#2-api-setup--authentication--credentials" }
+  { "title": "Lansweeper API Token Setup", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#2-api-setup--authentication--credentials" },
+  { "title": "LsAgent macOS Force Sync", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#1-lansweeper-agent-deployment" },
+  { "title": "LsAgent macOS Restart", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#1-lansweeper-agent-deployment" },
+  { "title": "LsAgent macOS Status Check", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#1-lansweeper-agent-deployment" }
 ]
