@@ -194,4 +194,20 @@ foreach ($device in $devices) {
 > ⚠️ **This wipe is irreversible.** Confirm the device has been recovered or is unrecoverable before running.
 
 ---
+
+## Step 13 — Notify HR: Equipment All Clear (Power Automate)
+
+> Once all equipment in Step 12 is confirmed collected and wiped, run the Power Automate flow to send HR an automatic "All Clear" notification.
+
+**Flow name:** `HR Equipment Return — All Clear Notification`
+
+| Step | Action |
+|------|--------|
+| 1 | Go to [flow.microsoft.com](https://flow.microsoft.com) and open **My Flows** |
+| 2 | Find and run **HR Equipment Return — All Clear Notification** |
+| 3 | Enter: Employee Name, Employee Email, Manager Email, Return Date |
+| 4 | Submit — HR will receive a confirmation email automatically |
+
+> **See also:** [Power Automate SOP](./power-automate.md) for full flow setup instructions.
+
 [Back to SOP Index](./README.md)
