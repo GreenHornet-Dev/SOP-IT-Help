@@ -1,0 +1,17 @@
+[
+  { "title": "Web Browser Management", "tag": "Browser", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/web-browser-management.md" },
+  { "title": "Email / Mail Setup & Troubleshooting", "tag": "Mail", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/email-setup.md" },
+  { "title": "Printer Setup & Troubleshooting", "tag": "Printers", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/printer-setup.md" },
+  { "title": "Drive Management", "tag": "Drives", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/drive-management.md" },
+  { "title": "Windows Updates", "tag": "Updates", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/windows-updates.md" },
+  { "title": "Common Help Desk Tasks", "tag": "Help Desk", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/help-desk-tasks.md" },
+  { "title": "Claude AI & CoWork SOP", "tag": "AI Tools", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/claude-ai-cowork.md" },
+  { "title": "Microsoft Copilot", "tag": "Copilot", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/microsoft-copilot.md" },
+  { "title": "Power Automate", "tag": "Automation", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/power-automate.md" },
+  { "title": "Office Apps", "tag": "Office 365", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/office-apps.md" },
+  { "title": "Microsoft Teams", "tag": "Teams", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/microsoft-teams.md" },
+  { "title": "8x8 Phone System", "tag": "8x8", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/8x8-phone-system.md" },
+  { "title": "Zoom", "tag": "Zoom", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/zoom.md" },
+  { "title": "Printers & Print Servers", "tag": "Printers", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/printers-print-servers.md" },
+  { "title": "AT&T Wireless Activation", "tag": "WIRELESS", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/att-wireless-activation.md" }
+]
