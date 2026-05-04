@@ -24,5 +24,11 @@
   { "title": "HR Equipment All Clear Notification", "tag": "Power Automate", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/power-automate.md" },
   { "title": "Add User to All Users Group", "tag": "New Hire", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.md" },
   { "title": "Enroll Device in Intune MDM", "tag": "New Hire", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.md" },
-  { "title": "Printer Setup", "tag": "Printers", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/printer-setup.md" }
+  { "title": "Printer Setup", "tag": "Printers", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/printer-setup.md" },
+  { "title": "Lansweeper", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md" },
+  { "title": "Lansweeper Agent Deployment", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#1-lansweeper-agent-deployment" },
+  { "title": "Lansweeper GraphQL API", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#3-graphql-api--key-queries" },
+  { "title": "Lansweeper Power Automate Integration", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#4-power-automate-integration-via-http-connector" },
+  { "title": "Lansweeper Custom Tables & Reporting", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#5-custom-tables--asset-reporting" },
+  { "title": "Lansweeper API Token Setup", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.md#2-api-setup--authentication--credentials" }
 ]
