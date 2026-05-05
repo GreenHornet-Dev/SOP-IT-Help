@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚶 Departing Employee IT Checklist — GreenHornet IT Help Desk</title>
+<style>
+:root {
+  --navy-900: #0a1628;
+  --navy-800: #0f2044;
+  --navy-700: #162a55;
+  --navy-600: #1e3a6e;
+  --teal-500: #00b4d8;
+  --teal-400: #48cae4;
+  --teal-300: #90e0ef;
+  --accent:   #00b4d8;
+  --bg:       #0a1628;
+  --bg2:      #0f2044;
+  --bg3:      #162a55;
+  --text:     #e2e8f0;
+  --text-muted: #94a3b8;
+  --border:   #1e3a6e;
+  --code-bg:  #0d1117;
+  --link:     #48cae4;
+  --warning-bg: #1a1200;
+  --warning-border: #f59e0b;
+  --warning-text: #fbbf24;
+  --tip-bg: #001a0d;
+  --tip-border: #22c55e;
+  --tip-text: #4ade80;
+  --info-bg: #001829;
+  --info-border: #00b4d8;
+  --info-text: #67e8f9;
+  --table-head-bg: #0f2044;
+  --table-row-alt: #0c1a36;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.65; font-size: 1rem;
+  padding: 2rem 1rem;
+}
+.page-wrapper {
+  max-width: 860px; margin: 0 auto;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 2rem 2.5rem;
+}
+.back-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  color: var(--link); text-decoration: none; font-size: 0.875rem;
+  margin-bottom: 1.5rem; opacity: 0.9;
+}
+.back-link:hover { text-decoration: underline; opacity: 1; }
+#content-body h1, #content-body h2, #content-body h3, #content-body h4 {
+  color: var(--teal-400); font-weight: 700;
+  margin: 1.75rem 0 0.75rem; line-height: 1.3;
+}
+#content-body h1 {
+  font-size: 1.6rem;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0.4rem;
+}
+#content-body h2 {
+  font-size: 1.3rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.3rem;
+}
+#content-body h3 { font-size: 1.1rem; }
+#content-body h4 { font-size: 1rem; color: var(--teal-300); }
+#content-body p { margin: 0.75rem 0; color: var(--text); }
+#content-body a { color: var(--link); text-decoration: none; }
+#content-body a:hover { text-decoration: underline; }
+#content-body ul, #content-body ol { margin: 0.75rem 0 0.75rem 1.5rem; }
+#content-body li { margin: 0.3rem 0; }
+#content-body strong { color: var(--teal-300); font-weight: 600; }
+#content-body em { color: var(--text-muted); font-style: italic; }
+#content-body hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+#content-body pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px; padding: 1rem 1.25rem;
+  overflow-x: auto; margin: 1rem 0; font-size: 0.85rem;
+}
+#content-body pre code {
+  background: none; padding: 0;
+  font-family: "Cascadia Code","Fira Code","Consolas","Courier New",monospace;
+  font-size: 0.85rem;
+}
+#content-body code {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px; padding: 2px 6px;
+  font-family: "Cascadia Code","Fira Code","Consolas","Courier New",monospace;
+  font-size: 0.85em; color: var(--teal-300);
+}
+#content-body table {
+  width: 100%; border-collapse: collapse;
+  margin: 1rem 0; font-size: 0.875rem;
+  border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--border);
+}
+#content-body th {
+  background: var(--table-head-bg);
+  color: var(--teal-300); font-weight: 700;
+  text-align: left; padding: 10px 14px;
+  font-size: 0.8rem; text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--border);
+}
+#content-body td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+#content-body tr:nth-child(even) td { background: var(--table-row-alt); }
+#content-body tr:last-child td { border-bottom: none; }
+#content-body tr:hover td { background: rgba(0,180,216,0.06); }
+#content-body blockquote {
+  border-left: 4px solid var(--info-border);
+  background: var(--info-bg); color: var(--info-text);
+  padding: 0.85rem 1rem 0.85rem 1.1rem;
+  border-radius: 0 8px 8px 0; margin: 1rem 0; font-size: 0.9rem;
+}
+#content-body blockquote p { color: inherit; margin: 0.25rem 0; }
+@media (max-width: 700px) {
+  .page-wrapper { padding: 1.25rem 1rem; }
+  #content-body table { font-size: 0.8rem; }
+  #content-body th, #content-body td { padding: 7px 10px; }
+}
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  .page-wrapper { border: none; padding: 0; }
+  .back-link { display: none; }
+  #content-body h1, #content-body h2, #content-body h3, #content-body h4 { color: #000 !important; }
+  #content-body code, #content-body pre { background: #f5f5f5 !important; color: #000 !important; border: 1px solid #ccc !important; }
+  #content-body th { background: #e5e5e5 !important; color: #000 !important; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <a class="back-link" href="./sop-portal.html">← Back to SOP Portal</a>
+  <div id="content-body">
+<h1>🚶 Departing Employee IT Checklist</h1>
+<p><strong>Tag:</strong> Offboarding</p>
+<p>Securely offboard a departing employee from Microsoft 365 and company systems.</p>
+<blockquote>
+<p>⚠️ Complete these steps on or before the employee's last day.</p>
+</blockquote>
+<hr />
+<h2>Step 1 — Block Sign-In (PowerShell)</h2>
+<blockquote>
+<p>Run in PowerShell as Admin</p>
+</blockquote>
+<pre><code class="language-powershell"># Connect to Microsoft Graph
+Connect-MgGraph -Scopes &quot;User.ReadWrite.All&quot;
+
+# Block sign-in for the departing user
+Update-MgUser -UserId &quot;user@domain.com&quot; -AccountEnabled:$false
+</code></pre>
+<hr />
+<h2>Step 2 — Revoke All Active Sessions (PowerShell)</h2>
+<pre><code class="language-powershell"># Revoke all refresh tokens / active sessions immediately
+Revoke-MgUserSignInSession -UserId &quot;user@domain.com&quot;
+</code></pre>
+<hr />
+<h2>Step 3 — Reset Password (PowerShell)</h2>
+<pre><code class="language-powershell"># Set a new random password to lock out the user
+$newPassword = @{
+    Password = &quot;TempP@ss&quot; + (Get-Random -Maximum 9999)
+    ForceChangePasswordNextSignIn = $false
+}
+Update-MgUser -UserId &quot;user@domain.com&quot; -PasswordProfile $newPassword
+</code></pre>
+<hr />
+<h2>Step 4 — Remove from Distribution Groups (PowerShell)</h2>
+<pre><code class="language-powershell"># Connect to Exchange Online
+connect-exchangeonline -ShowBanner:$false
+
+# Remove from All Users group
+Remove-DistributionGroupMember `
+    -Identity &quot;#All Users&quot; `
+    -Member &quot;user@domain.com&quot; `
+    -Confirm:$false
+
+# Check all groups the user belongs to and remove as needed
+Get-DistributionGroup | Where-Object {
+    (Get-DistributionGroupMember $_.Identity | Select-Object -ExpandProperty PrimarySmtpAddress) -contains &quot;user@domain.com&quot;
+} | ForEach-Object {
+    Remove-DistributionGroupMember -Identity $_.Identity -Member &quot;user@domain.com&quot; -Confirm:$false
+}
+</code></pre>
+<hr />
+<h2>Step 5 — Convert Mailbox to Shared (PowerShell)</h2>
+<pre><code class="language-powershell"># Convert mailbox to shared so email is retained without a license
+Set-Mailbox -Identity &quot;user@domain.com&quot; -Type Shared
+</code></pre>
+<hr />
+<h2>Step 6 — Remove License (PowerShell)</h2>
+<pre><code class="language-powershell"># Connect to Microsoft Graph
+Connect-MgGraph -Scopes &quot;User.ReadWrite.All&quot;,&quot;Directory.ReadWrite.All&quot;
+
+# Get the user and their assigned licenses
+$user = Get-MgUser -Filter &quot;userPrincipalName eq 'user@domain.com'&quot;
+$licenses = (Get-MgUserLicenseDetail -UserId $user.Id).SkuId
+
+# Remove all licenses
+Set-MgUserLicense -UserId $user.Id `
+    -AddLicenses @() `
+    -RemoveLicenses $licenses
+</code></pre>
+<hr />
+<h2>Step 7 — Set Out-of-Office Auto-Reply (PowerShell)</h2>
+<pre><code class="language-powershell"># Set automatic reply so senders know the person has left
+Set-MailboxAutoReplyConfiguration `
+    -Identity &quot;user@domain.com&quot; `
+    -AutoReplyState Enabled `
+    -InternalMessage &quot;This employee is no longer with the company. Please contact manager@domain.com.&quot; `
+    -ExternalMessage &quot;This employee is no longer with the company. Please contact manager@domain.com.&quot;
+</code></pre>
+<hr />
+<h2>Step 8 — Grant Mailbox Access to Manager (PowerShell)</h2>
+<pre><code class="language-powershell"># Give the manager full access to the former employee's mailbox
+Add-MailboxPermission `
+    -Identity &quot;user@domain.com&quot; `
+    -User &quot;manager@domain.com&quot; `
+    -AccessRights FullAccess `
+    -InheritanceType All
+</code></pre>
+<hr />
+<h2>Step 9 — Remove from Azure AD / Security Groups (Admin Center)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>What to do</th>
+<th>How to do it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Open M365 Admin &gt; Groups</td>
+<td>Remove user from any security or M365 groups</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Remove from Microsoft Teams</td>
+<td>Open Teams Admin &gt; Users &gt; find user &gt; remove from teams</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Remove from shared drives</td>
+<td>Check SharePoint/OneDrive and revoke access</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Step 10 — Final Checks</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Check</th>
+<th>Expected Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Sign-in blocked</td>
+<td>User cannot log in</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Sessions revoked</td>
+<td>All devices signed out</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Mailbox converted to shared</td>
+<td>No license consumed</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Auto-reply active</td>
+<td>Senders receive OOO message</td>
+</tr>
+<tr>
+<td>5</td>
+<td>License removed</td>
+<td>Freed up in M365 Admin</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Removed from all groups</td>
+<td>Verified in Exchange Admin</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Manager has mailbox access</td>
+<td>Verified in Exchange Admin</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Email forwarding set</td>
+<td>Points to manager's address</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Equipment returned or wiped</td>
+<td>All devices accounted for</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Step 11 — Forward Email to Manager (PowerShell)</h2>
+<pre><code class="language-powershell"># Connect to Exchange Online
+connect-exchangeonline -ShowBanner:$false
+
+# Forward all incoming email to manager
+Set-Mailbox -Identity &quot;user@domain.com&quot; `
+    -ForwardingSmtpAddress &quot;manager@domain.com&quot; `
+    -DeliverToMailboxAndForward $false
+</code></pre>
+<blockquote>
+<p><strong>Note:</strong> Set <code>-DeliverToMailboxAndForward $true</code> if you want a copy kept in the original mailbox as well.</p>
+</blockquote>
+<hr />
+<h2>Step 12 — Equipment Return Checklist</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Item</th>
+<th>Action</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Laptop / Desktop</td>
+<td>Collected and wiped</td>
+<td>Remote wipe via Intune if not returned</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Phone / Mobile device</td>
+<td>Collected and factory reset</td>
+<td>Remote wipe via Intune if not returned</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Chargers &amp; cables</td>
+<td>Collected</td>
+<td>Check for laptop charger, phone charger</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Key fobs / badge</td>
+<td>Collected and deactivated</td>
+<td>Notify building security</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Headset / peripherals</td>
+<td>Collected</td>
+<td>Log in asset tracker</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Company credit card</td>
+<td>Collected and cancelled</td>
+<td>Notify finance/accounting</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Parking pass</td>
+<td>Collected</td>
+<td>Return to office manager</td>
+</tr>
+</tbody>
+</table>
+<h3>Remote Wipe via Intune (PowerShell)</h3>
+<pre><code class="language-powershell"># Install Microsoft Graph if needed
+# Install-Module Microsoft.Graph -Force
+
+Connect-MgGraph -Scopes &quot;DeviceManagementManagedDevices.ReadWrite.All&quot;
+
+# Find the device by user
+$devices = Get-MgUserManagedDevice -UserId &quot;user@domain.com&quot;
+
+# Wipe each device
+foreach ($device in $devices) {
+    Write-Host &quot;Wiping device: $($device.DeviceName)&quot;
+    Clear-MgDeviceManagementManagedDevice -ManagedDeviceId $device.Id
+}
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>This wipe is irreversible.</strong> Confirm the device has been recovered or is unrecoverable before running.</p>
+</blockquote>
+<hr />
+<h2>Step 13 — Notify HR: Equipment All Clear (Power Automate)</h2>
+<blockquote>
+<p>Once all equipment in Step 12 is confirmed collected and wiped, run the Power Automate flow to send HR an automatic "All Clear" notification.</p>
+</blockquote>
+<p><strong>Flow name:</strong> <code>HR Equipment Return — All Clear Notification</code></p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Go to <a href="https://flow.microsoft.com">flow.microsoft.com</a> and open <strong>My Flows</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Find and run <strong>HR Equipment Return — All Clear Notification</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Enter: Employee Name, Employee Email, Manager Email, Return Date</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Submit — HR will receive a confirmation email automatically</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>See also:</strong> <a href="./power-automate.html">Power Automate SOP</a> for full flow setup instructions.</p>
+</blockquote>
+<p><a href="./README.html">Back to SOP Index</a></p>
+  </div>
+</div>
+</body>
+</html>

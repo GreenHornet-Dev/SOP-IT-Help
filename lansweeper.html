@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lansweeper — Agent, API & Power Automate SOP — GreenHornet IT Help Desk</title>
+<style>
+:root {
+  --navy-900: #0a1628;
+  --navy-800: #0f2044;
+  --navy-700: #162a55;
+  --navy-600: #1e3a6e;
+  --teal-500: #00b4d8;
+  --teal-400: #48cae4;
+  --teal-300: #90e0ef;
+  --accent:   #00b4d8;
+  --bg:       #0a1628;
+  --bg2:      #0f2044;
+  --bg3:      #162a55;
+  --text:     #e2e8f0;
+  --text-muted: #94a3b8;
+  --border:   #1e3a6e;
+  --code-bg:  #0d1117;
+  --link:     #48cae4;
+  --warning-bg: #1a1200;
+  --warning-border: #f59e0b;
+  --warning-text: #fbbf24;
+  --tip-bg: #001a0d;
+  --tip-border: #22c55e;
+  --tip-text: #4ade80;
+  --info-bg: #001829;
+  --info-border: #00b4d8;
+  --info-text: #67e8f9;
+  --table-head-bg: #0f2044;
+  --table-row-alt: #0c1a36;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.65; font-size: 1rem;
+  padding: 2rem 1rem;
+}
+.page-wrapper {
+  max-width: 860px; margin: 0 auto;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 2rem 2.5rem;
+}
+.back-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  color: var(--link); text-decoration: none; font-size: 0.875rem;
+  margin-bottom: 1.5rem; opacity: 0.9;
+}
+.back-link:hover { text-decoration: underline; opacity: 1; }
+#content-body h1, #content-body h2, #content-body h3, #content-body h4 {
+  color: var(--teal-400); font-weight: 700;
+  margin: 1.75rem 0 0.75rem; line-height: 1.3;
+}
+#content-body h1 {
+  font-size: 1.6rem;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0.4rem;
+}
+#content-body h2 {
+  font-size: 1.3rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.3rem;
+}
+#content-body h3 { font-size: 1.1rem; }
+#content-body h4 { font-size: 1rem; color: var(--teal-300); }
+#content-body p { margin: 0.75rem 0; color: var(--text); }
+#content-body a { color: var(--link); text-decoration: none; }
+#content-body a:hover { text-decoration: underline; }
+#content-body ul, #content-body ol { margin: 0.75rem 0 0.75rem 1.5rem; }
+#content-body li { margin: 0.3rem 0; }
+#content-body strong { color: var(--teal-300); font-weight: 600; }
+#content-body em { color: var(--text-muted); font-style: italic; }
+#content-body hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+#content-body pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px; padding: 1rem 1.25rem;
+  overflow-x: auto; margin: 1rem 0; font-size: 0.85rem;
+}
+#content-body pre code {
+  background: none; padding: 0;
+  font-family: "Cascadia Code","Fira Code","Consolas","Courier New",monospace;
+  font-size: 0.85rem;
+}
+#content-body code {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px; padding: 2px 6px;
+  font-family: "Cascadia Code","Fira Code","Consolas","Courier New",monospace;
+  font-size: 0.85em; color: var(--teal-300);
+}
+#content-body table {
+  width: 100%; border-collapse: collapse;
+  margin: 1rem 0; font-size: 0.875rem;
+  border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--border);
+}
+#content-body th {
+  background: var(--table-head-bg);
+  color: var(--teal-300); font-weight: 700;
+  text-align: left; padding: 10px 14px;
+  font-size: 0.8rem; text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--border);
+}
+#content-body td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+#content-body tr:nth-child(even) td { background: var(--table-row-alt); }
+#content-body tr:last-child td { border-bottom: none; }
+#content-body tr:hover td { background: rgba(0,180,216,0.06); }
+#content-body blockquote {
+  border-left: 4px solid var(--info-border);
+  background: var(--info-bg); color: var(--info-text);
+  padding: 0.85rem 1rem 0.85rem 1.1rem;
+  border-radius: 0 8px 8px 0; margin: 1rem 0; font-size: 0.9rem;
+}
+#content-body blockquote p { color: inherit; margin: 0.25rem 0; }
+@media (max-width: 700px) {
+  .page-wrapper { padding: 1.25rem 1rem; }
+  #content-body table { font-size: 0.8rem; }
+  #content-body th, #content-body td { padding: 7px 10px; }
+}
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  .page-wrapper { border: none; padding: 0; }
+  .back-link { display: none; }
+  #content-body h1, #content-body h2, #content-body h3, #content-body h4 { color: #000 !important; }
+  #content-body code, #content-body pre { background: #f5f5f5 !important; color: #000 !important; border: 1px solid #ccc !important; }
+  #content-body th { background: #e5e5e5 !important; color: #000 !important; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <a class="back-link" href="./sop-portal.html">← Back to SOP Portal</a>
+  <div id="content-body">
+<h1>Lansweeper — Agent, API &amp; Power Automate SOP</h1>
+<blockquote>
+<p><strong>Purpose:</strong> Guide for IT staff on deploying the Lansweeper agent, using the GraphQL Data API, integrating with Power Automate, and building custom asset reports and tables.</p>
+</blockquote>
+<hr />
+<h2>Table of Contents</h2>
+<ol>
+<li><a href="#1-lansweeper-agent-deployment">Lansweeper Agent Deployment</a></li>
+<li><a href="#2-api-setup--authentication--credentials">API Setup — Authentication &amp; Credentials</a></li>
+<li><a href="#3-graphql-api--key-queries">GraphQL API — Key Queries</a></li>
+<li><a href="#4-power-automate-integration-via-http-connector">Power Automate Integration via HTTP Connector</a></li>
+<li><a href="#5-custom-tables--asset-reporting">Custom Tables &amp; Asset Reporting</a></li>
+<li><a href="#6-useful-links--references">Useful Links &amp; References</a></li>
+</ol>
+<hr />
+<h2>1. Lansweeper Agent Deployment</h2>
+<h3>What the Agent Does</h3>
+<p>The Lansweeper LsAgent scans Windows, macOS, and Linux devices that may not be reachable via network scanning (off-site, VPN, or behind firewalls). It reports asset data directly to your Lansweeper Cloud site.</p>
+<h3>Deployment Steps</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Log in to your Lansweeper Site at <a href="https://app.lansweeper.com">app.lansweeper.com</a></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Go to <strong>Settings &gt; Agent &gt; Download Agent</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Select the OS type (Windows MSI recommended for domain deployment)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Note your <strong>Site Token</strong> — required during install</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Deploy via GPO, Intune, or LogMeIn Resolve package</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Verify device appears in <strong>Assets</strong> within 15-30 minutes</td>
+</tr>
+</tbody>
+</table>
+<h3>Silent Install (Windows — PowerShell / Intune)</h3>
+<pre><code class="language-powershell"># Replace &lt;SiteToken&gt; with your actual token from Lansweeper Settings &gt; Agent
+msiexec /i LsAgent.msi /quiet SITE_TOKEN=&quot;&lt;SiteToken&gt;&quot;
+</code></pre>
+<h3>Verify Agent is Running</h3>
+<pre><code class="language-powershell">Get-Service -Name LsAgent | Select-Object Name, Status, StartType
+</code></pre>
+<blockquote>
+<p><strong>Tip:</strong> If the device does not appear in Lansweeper after 30 minutes, check that the agent service is running and that outbound HTTPS (port 443) is not blocked.</p>
+</blockquote>
+<hr />
+<h2>2. API Setup — Authentication &amp; Credentials</h2>
+<blockquote>
+<p><strong>Base Endpoint:</strong> <code>https://api.lansweeper.com/api/v2/graphql</code><br />
+All requests use <strong>HTTP POST</strong> with a JSON body.</p>
+</blockquote>
+<h3>Create an API Client (Personal Access Token)</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>In your Lansweeper Site, go to <strong>Settings (bottom-left) &gt; Developer Tools &gt; API Clients</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Click <strong>Add New API Client</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Select <strong>Personal Access Token (PAT)</strong></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Give it a name (e.g., <code>PowerAutomate-Integration</code>)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Copy the <strong>Access Token</strong> — you will not see it again</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Store it securely in Azure Key Vault or Power Automate environment variable</td>
+</tr>
+</tbody>
+</table>
+<h3>Required Permissions (Role)</h3>
+<p>Go to <strong>Configuration &gt; Account Management &gt; Roles &amp; Permissions</strong> and ensure the API client role has:<br />
+- View API clients<br />
+- Allow API clients to access this site</p>
+<h3>Request Headers for All API Calls</h3>
+<pre><code>Content-Type: application/json
+Authorization: Bearer &lt;your_access_token&gt;
+</code></pre>
+<hr />
+<h2>3. GraphQL API — Key Queries</h2>
+<h3>Get Authorized Sites (required before asset queries)</h3>
+<pre><code class="language-graphql">query {
+  authorizedSites {
+    sites {
+      id
+      name
+    }
+  }
+}
+</code></pre>
+<h3>Get All Assets for a Site</h3>
+<pre><code class="language-graphql">query GetAssets($siteId: String!) {
+  site(id: $siteId) {
+    assetResources {
+      items {
+        assetBasicInfo {
+          name
+          domain
+          ipAddress
+          mac
+          type
+          firstSeen
+          lastSeen
+        }
+        assetCustom {
+          serialNumber
+          manufacturer
+          model
+        }
+        operatingSystem {
+          caption
+          version
+        }
+      }
+    }
+  }
+}
+</code></pre>
+<h3>Variables block</h3>
+<pre><code class="language-json">{
+  &quot;siteId&quot;: &quot;&lt;your-site-id&gt;&quot;
+}
+</code></pre>
+<h3>Get Installed Software for an Asset</h3>
+<pre><code class="language-graphql">query GetSoftware($siteId: String!, $assetId: String!) {
+  site(id: $siteId) {
+    asset(id: $assetId) {
+      software {
+        name
+        version
+        publisher
+        installDate
+      }
+    }
+  }
+}
+</code></pre>
+<h3>Get Custom Fields for Assets</h3>
+<pre><code class="language-graphql">query GetCustomFields($siteId: String!) {
+  site(id: $siteId) {
+    assetResources {
+      items {
+        assetBasicInfo { name }
+        assetCustom {
+          fields {
+            name
+            value
+          }
+        }
+      }
+    }
+  }
+}
+</code></pre>
+<hr />
+<h2>4. Power Automate Integration via HTTP Connector</h2>
+<blockquote>
+<p>Use the <strong>HTTP</strong> action (premium connector) in Power Automate to query the Lansweeper GraphQL API.</p>
+</blockquote>
+<h3>Flow: Query Lansweeper Assets on Schedule</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Trigger</strong></td>
+<td>Recurrence — Daily or on-demand</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Initialize Variable</strong></td>
+<td>Name: <code>SiteId</code> / Value: your Lansweeper Site ID</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>HTTP Action</strong></td>
+<td>Method: <code>POST</code> / URI: <code>https://api.lansweeper.com/api/v2/graphql</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Headers</strong></td>
+<td><code>Content-Type: application/json</code> / <code>Authorization: Bearer &lt;token&gt;</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Body</strong></td>
+<td>GraphQL query JSON (see below)</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Parse JSON</strong></td>
+<td>Use the response schema to parse asset data</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Apply to Each</strong></td>
+<td>Loop through asset items</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Action</strong></td>
+<td>Update SharePoint list, send Teams alert, or write to Excel</td>
+</tr>
+</tbody>
+</table>
+<h3>HTTP Action Body (paste into Body field)</h3>
+<pre><code class="language-json">{
+  &quot;query&quot;: &quot;query GetAssets($siteId: String!) { site(id: $siteId) { assetResources { items { assetBasicInfo { name ipAddress mac type lastSeen } assetCustom { serialNumber model } operatingSystem { caption } } } } }&quot;,
+  &quot;variables&quot;: {
+    &quot;siteId&quot;: &quot;@{variables('SiteId')}&quot;
+  }
+}
+</code></pre>
+<h3>Store the Token Securely</h3>
+<p>Do <strong>not</strong> hardcode the API token in the HTTP action. Instead:<br />
+- Store it as a <strong>Power Automate Environment Variable</strong> (type: Secret)<br />
+- Or retrieve it from <strong>Azure Key Vault</strong> using the Key Vault connector<br />
+- Reference it in the Authorization header as <code>Bearer @{variables('LansweeperToken')}</code></p>
+<h3>Recommended Flow Use Cases</h3>
+<table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>Trigger</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Daily asset inventory snapshot</td>
+<td>Recurrence</td>
+<td>SharePoint list update</td>
+</tr>
+<tr>
+<td>New device alert</td>
+<td>Recurrence + condition on <code>firstSeen</code> date</td>
+<td>Teams notification</td>
+</tr>
+<tr>
+<td>Offboarding asset verification</td>
+<td>Manually triggered</td>
+<td>HR confirmation email via PA</td>
+</tr>
+<tr>
+<td>Software compliance check</td>
+<td>Recurrence</td>
+<td>Flag devices missing required apps</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>5. Custom Tables &amp; Asset Reporting</h2>
+<h3>Creating Custom Fields in Lansweeper</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Go to <strong>Configuration &gt; Asset Pages &gt; Custom Fields</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Click <strong>Add Field</strong> — choose type: Text, Number, Date, or Dropdown</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Name it clearly (prefix with dept, e.g., <code>IT_AssetTag</code>, <code>HR_AssignedUser</code>)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Fields appear on individual asset pages and in reports</td>
+</tr>
+<tr>
+<td>5</td>
+<td>In the GraphQL API, custom fields are under <code>assetCustom.fields</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Building Custom Reports</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Go to <strong>Reports &gt; Create New Report</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Select asset type (Windows, Network, All assets, etc.)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Add columns — custom fields are available under the <strong>Custom</strong> category</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Filter by OS, last seen date, asset type, IP range, or custom field value</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Save and optionally <strong>Expose to API</strong> (for Power BI or PA use)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Pin report to Dashboard as a <strong>Table widget</strong> for at-a-glance view</td>
+</tr>
+</tbody>
+</table>
+<h3>Expose Report to API (for Power BI / Power Automate)</h3>
+<ol>
+<li>Open your saved report</li>
+<li>Click <strong>Report Settings &gt; Expose to API</strong></li>
+<li>Use the report ID in your GraphQL query under <code>authorizedReports</code></li>
+<li>Query it via PA HTTP connector on a schedule to feed Power BI or SharePoint</li>
+</ol>
+<h3>Custom Dashboard Widgets</h3>
+<table>
+<thead>
+<tr>
+<th>Widget Type</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Table</strong></td>
+<td>Show report results at a glance (e.g., assets not seen in 30 days)</td>
+</tr>
+<tr>
+<td><strong>Report Overview</strong></td>
+<td>Alert-style list of reports needing attention</td>
+</tr>
+<tr>
+<td><strong>Count</strong></td>
+<td>Total assets, Windows vs Mac, online vs offline</td>
+</tr>
+<tr>
+<td><strong>Chart</strong></td>
+<td>OS distribution, asset type breakdown</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>6. Useful Links &amp; References</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lansweeper Developer Portal</td>
+<td>https://developer.lansweeper.com</td>
+</tr>
+<tr>
+<td>GraphQL API Quickstart</td>
+<td>https://developer.lansweeper.com/docs/data-api/get-started/quickstart/</td>
+</tr>
+<tr>
+<td>GraphQL Endpoint</td>
+<td>https://api.lansweeper.com/api/v2/graphql</td>
+</tr>
+<tr>
+<td>API Types Reference</td>
+<td>https://developer.lansweeper.com/docs/data-api/reference/types/</td>
+</tr>
+<tr>
+<td>Lansweeper App (login)</td>
+<td>https://app.lansweeper.com</td>
+</tr>
+<tr>
+<td>Custom Fields Guide</td>
+<td>https://www.lansweeper.com/blog/pro-tips/consolidating-your-custom-fields/</td>
+</tr>
+<tr>
+<td>Importing Data via API</td>
+<td>https://www.lansweeper.com/blog/pro-tips/importing-data-with-the-lansweeper-api/</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a href="./README.html">Back to SOP Index</a></p>
+  </div>
+</div>
+</body>
+</html>
