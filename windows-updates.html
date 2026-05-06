@@ -1,68 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔄 Windows Updates — GreenHornet IT Help Desk</title>
-<link rel="stylesheet" href="./shared-styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🖥️ Windows Updates — GreenHornet IT Help Desk</title>
+  <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
-<div class="page-wrapper">
-  <a class="back-link" href="./sop-portal.html">← Back to SOP Portal</a>
-  <div id="content-body">
-<h1>🔄 Windows Updates</h1>
-<p><strong>Tag:</strong> Updates</p>
-<p>Keep Windows up to date and fix stuck updates.</p>
-<h2>Steps</h2>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>What to do</th>
-<th>How to do it</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Check for updates</td>
-<td>Go to Start &gt; Settings &gt; Windows Update &gt; Check for Updates. Let it finish.</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Update is stuck</td>
-<td>Restart your computer. If still stuck, go to Windows Update &gt; Troubleshoot &gt; Windows Update and click Run.</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Pause updates temporarily</td>
-<td>Go to Start &gt; Settings &gt; Windows Update &gt; Pause Updates. Choose up to 5 weeks.</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Update history</td>
-<td>Go to Settings &gt; Windows Update &gt; Update History to see what has been installed.</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Clear update cache</td>
-<td>Open Start, type Services, find Windows Update, right-click &gt; Stop. Then delete files in C:\Windows\SoftwareDistribution\Download. Restart the service.</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Updates failed to install</td>
-<td>Run Windows Update Troubleshooter from Settings &gt; System &gt; Troubleshoot &gt; Other Troubleshooters.</td>
-</tr>
-<tr>
-<td>7</td>
-<td>Restart to finish update</td>
-<td>Save all your work first, then go to Start &gt; Power &gt; Update and Restart.</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<p><a class="back-link" href="./sop-portal.html">← Back to SOP Index</a></p>
-  </div>
-</div>
+  <header class="cds-navbar">
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo"><span>CDS</span> GreenHornet IT</a>
+    <nav>
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html" class="active">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </nav>
+  </header>
+  <main class="page-wrapper">
+    <div class="page-header">
+      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Windows Updates</span></div>
+      <h1>🖥️ Windows Updates</h1>
+      <span class="tag">Updates</span>
+      <p class="description">Keep Windows up to date and fix stuck updates.</p>
+    </div>
+    <section class="steps-section">
+      <h2>Steps</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Check for updates</td><td class="step-how">Go to Start &gt; Settings &gt; Windows Update &gt; Check for Updates. Let it finish.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Update is stuck</td><td class="step-how">Restart your computer. If still stuck, go to Windows Update &gt; Troubleshoot &gt; Windows Update and click Run.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Pause updates temporarily</td><td class="step-how">Go to Start &gt; Settings &gt; Windows Update &gt; Pause Updates. Choose up to 5 weeks.</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">Update history</td><td class="step-how">Go to Settings &gt; Windows Update &gt; Update History to see what has been installed.</td></tr>
+          <tr><td class="step-num">5</td><td class="step-what">Clear update cache</td><td class="step-how">Open Services, find Windows Update, right-click &gt; Stop. Then delete files in <code>C:\Windows\SoftwareDistribution\Download</code>. Restart the service.</td></tr>
+          <tr><td class="step-num">6</td><td class="step-what">Updates failed to install</td><td class="step-how">Run Windows Update Troubleshooter from Settings &gt; System &gt; Troubleshoot &gt; Other Troubleshooters.</td></tr>
+          <tr><td class="step-num">7</td><td class="step-what">Restart to finish updates</td><td class="step-how">Save all your work first, then go to Start &gt; Power &gt; Update and Restart.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
+  </main>
+  <footer class="cds-footer">
+    <div class="footer-nav">
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 <span>Custom Design Systems LLC</span> &middot; GreenHornet IT Help Desk</p>
+  </footer>
 </body>
 </html>
