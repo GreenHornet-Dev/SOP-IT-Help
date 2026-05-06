@@ -1,211 +1,116 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>👤 New Hire IT Checklist — GreenHornet IT Help Desk</title>
-<link rel="stylesheet" href="./shared-styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Hire IT Checklist - GreenHornet IT Help Desk</title>
+  <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
-<div class="page-wrapper">
-  <a class="back-link" href="./sop-portal.html">← Back to SOP Portal</a>
-  <div id="content-body">
-<h1>👤 New Hire IT Checklist</h1>
-<p><strong>Tag:</strong> New Hire</p>
-<p>Complete IT setup for a new employee in Microsoft 365.</p>
-<hr />
-<h2>Step 1 — Create the M365 Account</h2>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>What to do</th>
-<th>How to do it</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Go to Microsoft 365 Admin Center</td>
-<td>https://admin.microsoft.com &gt; Users &gt; Active Users &gt; Add a user</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Fill in name, username, and temp password</td>
-<td>Set username as firstname.lastname@domain.com</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Assign a license</td>
-<td>Check the appropriate M365 license (Business Standard, E3, etc.)</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Finish and save</td>
-<td>Click Add and close</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2>Step 2 — Add to Distribution Groups (PowerShell)</h2>
-<blockquote>
-<p>Run in PowerShell as Admin</p>
-</blockquote>
-<pre><code class="language-powershell"># Connect to Exchange Online
+  <header class="cds-navbar">
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo"><span>CDS</span> GreenHornet IT</a>
+    <nav>
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html" class="active">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </nav>
+  </header>
+  <main class="page-wrapper">
+    <div class="page-header">
+      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">&gt; Training</a><span>/</span><span><a href="./sop-portal.html">SOP Portal</a></span><span>/</span><span>New Hire Checklist</span></div>
+      <h1>New Hire IT Checklist</h1>
+      <span class="tag">New Hire</span>
+      <p class="description">Complete IT setup for a new employee in Microsoft 365.</p>
+    </div>
+    <section class="steps-section">
+      <h2>Step 1 &mdash; Create the M365 Account</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Go to Microsoft 365 Admin Center</td><td class="step-how">https://admin.microsoft.com &gt; Users &gt; Active Users &gt; Add a user</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Fill in name, username, and temp password</td><td class="step-how">Set username as firstname.lastname@domain.com</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Assign a license</td><td class="step-how">Check the appropriate M365 license (Business Standard, E3, etc.)</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">Finish and save</td><td class="step-how">Click Add and close</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="steps-section">
+      <h2>Step 2 &mdash; Add to Distribution Groups (PowerShell)</h2>
+      <pre><code># Connect to Exchange Online
 connect-exchangeonline -ShowBanner:$false
-
 # Add to All Users distribution group
-Add-DistributionGroupMember `
-    -Identity &quot;#All Users&quot; `
-    -Member user@domain.com
-</code></pre>
-<hr />
-<h2>Step 3 — Assign Additional Licenses (PowerShell)</h2>
-<blockquote>
-<p>Run in PowerShell as Admin</p>
-</blockquote>
-<pre><code class="language-powershell"># Connect to Microsoft Graph
-Connect-MgGraph -Scopes &quot;User.ReadWrite.All&quot;,&quot;Directory.ReadWrite.All&quot;
-
+Add-DistributionGroupMember -Identity "#All Users" -Member user@domain.com</code></pre>
+    </section>
+    <section class="steps-section">
+      <h2>Step 3 &mdash; Assign Additional Licenses (PowerShell)</h2>
+      <pre><code># Connect to Microsoft Graph
+Connect-MgGraph -Scopes "User.ReadWrite.All","Directory.ReadWrite.All"
 # Find the user's object ID
-$user = Get-MgUser -Filter &quot;userPrincipalName eq 'user@domain.com'&quot;
-
-# Find the license SKU ID (example: Microsoft 365 Business Standard)
+$user = Get-MgUser -Filter "userPrincipalName eq 'user@domain.com'"
+# Find the license SKU ID
 $sku = Get-MgSubscribedSku | Where-Object { $_.SkuPartNumber -eq 'O365_BUSINESS_PREMIUM' }
-
 # Assign the license
-Set-MgUserLicense -UserId $user.Id `
-    -AddLicenses @{SkuId = $sku.SkuId} `
-    -RemoveLicenses @()
-</code></pre>
-<hr />
-<h2>Step 4 — Add to Security Groups / Teams (Admin Center)</h2>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>What to do</th>
-<th>How to do it</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Open Azure AD or M365 Admin &gt; Groups</td>
-<td>Find the relevant department group</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Add the new user as a member</td>
-<td>Click the group &gt; Members &gt; Add members</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Add to Microsoft Teams</td>
-<td>Open Teams &gt; find the team &gt; Add member</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2>Step 5 — Configure Device</h2>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>What to do</th>
-<th>How to do it</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Enroll in Intune / MDM</td>
-<td>Open Company Portal on the device and sign in with work account</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Install required apps</td>
-<td>Use WinGet bootstrap or Software Center</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Map network drives</td>
-<td>Use the Drive Management SOP</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Set up 8x8 phone</td>
-<td>Use the 8x8 Phone System SOP</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Verify Teams and Outlook work</td>
-<td>Sign in and send a test message / email</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2>Step 6 — Confirm Setup</h2>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>Check</th>
-<th>Expected Result</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Can sign into M365</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Email receives messages</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Added to All Users group</td>
-<td>Verify in Exchange Admin</td>
-</tr>
-<tr>
-<td>4</td>
-<td>License assigned</td>
-<td>Visible in M365 Admin</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Device enrolled in MDM</td>
-<td>Visible in Intune</td>
-</tr>
-</tbody>
-</table>
-<h2>Step 7 — Change UPN if Needed (PowerShell)</h2>
-<blockquote>
-<p>Use this if the user's username/email needs to be corrected after initial setup.</p>
-</blockquote>
-<pre><code class="language-powershell"># Connect to Microsoft Graph
-Connect-MgGraph -Scopes &quot;User.ReadWrite.All&quot;
-
+Set-MgUserLicense -UserId $user.Id -AddLicenses @{SkuId = $sku.SkuId} -RemoveLicenses @()</code></pre>
+    </section>
+    <section class="steps-section">
+      <h2>Step 4 &mdash; Add to Security Groups / Teams (Admin Center)</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Open Azure AD or M365 Admin &gt; Groups</td><td class="step-how">Find the relevant department group</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Add the new user as a member</td><td class="step-how">Click the group &gt; Members &gt; Add members</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Add to Microsoft Teams</td><td class="step-how">Open Teams &gt; find the team &gt; Add member</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="steps-section">
+      <h2>Step 5 &mdash; Configure Device</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Enroll in Intune / MDM</td><td class="step-how">Open Company Portal on the device and sign in with work account</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Install required apps</td><td class="step-how">Use WinGet bootstrap or Software Center</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Map network drives</td><td class="step-how">Use the <a href="./drive-management.html">Drive Management SOP</a></td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">Set up 8x8 phone</td><td class="step-how">Use the <a href="./8x8-phone-system.html">8x8 Phone System SOP</a></td></tr>
+          <tr><td class="step-num">5</td><td class="step-what">Verify Teams and Outlook work</td><td class="step-how">Sign in and send a test message / email</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="steps-section">
+      <h2>Step 6 &mdash; Confirm Setup (Checklist)</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">Check</th><th class="step-how">Expected Result</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Can sign into M365</td><td class="step-how">Yes</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Email receives messages</td><td class="step-how">Yes</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Added to All Users group</td><td class="step-how">Verify in Exchange Admin</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">License assigned</td><td class="step-how">Visible in M365 Admin</td></tr>
+          <tr><td class="step-num">5</td><td class="step-what">Device enrolled in MDM</td><td class="step-how">Visible in Intune</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="steps-section">
+      <h2>Step 7 &mdash; Change UPN if Needed (PowerShell)</h2>
+      <pre><code># Connect to Microsoft Graph
+Connect-MgGraph -Scopes "User.ReadWrite.All"
 # Change the UPN (login/email address)
-Update-MgUser `
-    -UserId &quot;oldname@domain.com&quot; `
-    -UserPrincipalName &quot;newname@domain.com&quot;
-
+Update-MgUser -UserId "oldname@domain.com" -UserPrincipalName "newname@domain.com"
 # Verify the change
-$user = Get-MgUser -UserId &quot;newname@domain.com&quot; `
-    -Property &quot;DisplayName,UserPrincipalName,Mail,AccountEnabled&quot;
-
-$user | Select-Object DisplayName, UserPrincipalName, Mail, AccountEnabled
-</code></pre>
-<blockquote>
-<p><strong>Note:</strong> The user must sign out of all devices and sign back in with the new UPN after this change.</p>
-</blockquote>
-<h2>---</h2>
-<p><a class="back-link" href="./sop-portal.html">← Back to SOP Index</a></p>
-  </div>
-</div>
+$user = Get-MgUser -UserId "newname@domain.com" -Property "DisplayName,UserPrincipalName,Mail,AccountEnabled"
+$user | Select-Object DisplayName, UserPrincipalName, Mail, AccountEnabled</code></pre>
+      <p><strong>Note:</strong> User must sign out of all devices and sign back in with new UPN.</p>
+    </section>
+    <a href="./sop-portal.html" class="back-link">&gt; Back to SOP Portal</a>
+  </main>
+  <footer class="cds-footer">
+    <div class="footer-nav">
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 <span>Custom Design Systems LLC</span> &middot; GreenHornet IT Help Desk</p>
+  </footer>
 </body>
 </html>
