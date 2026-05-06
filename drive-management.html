@@ -1,58 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💾 Drive Management — GreenHornet IT Help Desk</title>
-<link rel="stylesheet" href="./shared-styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💾 Drive Management — GreenHornet IT Help Desk</title>
+  <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
-<div class="page-wrapper">
-  <a class="back-link" href="./sop-portal.html">← Back to SOP Portal</a>
-  <div id="content-body">
-<h1>💾 Drive Management</h1>
-<p><strong>Tag:</strong> Drives</p>
-<p>Manage storage drives and network folders.</p>
-<h2>Steps</h2>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>What to do</th>
-<th>How to do it</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Map a network drive</td>
-<td>Open File Explorer &gt; This PC &gt; Map network drive. Enter the folder path and check Reconnect at sign-in.</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Check disk space</td>
-<td>Open File Explorer and look at your drives. Right-click a drive &gt; Properties to see used/free space.</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Run disk cleanup</td>
-<td>Search for Disk Cleanup in Start. Select drive C:. Check items to delete and click OK.</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Fix drive not showing</td>
-<td>Open Disk Management (search in Start). Right-click the drive and assign a letter.</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Disconnect network drive</td>
-<td>Open File Explorer &gt; This PC. Right-click the mapped drive &gt; Disconnect.</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<p><a class="back-link" href="./sop-portal.html">← Back to SOP Index</a></p>
-  </div>
-</div>
+  <header class="cds-navbar">
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo"><span>CDS</span> GreenHornet IT</a>
+    <nav>
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html" class="active">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </nav>
+  </header>
+  <main class="page-wrapper">
+    <div class="page-header">
+      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Drive Management</span></div>
+      <h1>💾 Drive Management</h1>
+      <span class="tag">Drives</span>
+      <p class="description">Manage storage drives and network folders.</p>
+    </div>
+    <section class="steps-section">
+      <h2>Steps</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Map a network drive</td><td class="step-how">Open File Explorer &gt; This PC &gt; Map network drive. Enter the folder path and check Reconnect at sign-in.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Check disk space</td><td class="step-how">Open File Explorer and look at your drives. Right-click a drive &gt; Properties to see used/free space.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Run disk cleanup</td><td class="step-how">Search for Disk Cleanup in Start. Select drive C:. Check items to delete and click OK.</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">Fix drive not showing</td><td class="step-how">Open Disk Management (search in Start). Right-click the drive and assign a letter.</td></tr>
+          <tr><td class="step-num">5</td><td class="step-what">Disconnect network drive</td><td class="step-how">Open File Explorer &gt; This PC. Right-click the mapped drive &gt; Disconnect.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
+  </main>
+  <footer class="cds-footer">
+    <div class="footer-nav">
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 <span>Custom Design Systems LLC</span> &middot; GreenHornet IT Help Desk</p>
+  </footer>
 </body>
 </html>
