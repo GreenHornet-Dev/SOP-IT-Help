@@ -1,63 +1,104 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🖨️ Printers & Print Servers — GreenHornet IT Help Desk</title>
-<link rel="stylesheet" href="./shared-styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🖨️ Printers & Print Servers — GreenHornet IT Help Desk</title>
+  <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
-<div class="page-wrapper">
-  <a class="back-link" href="./sop-portal.html">← Back to SOP Portal</a>
-  <div id="content-body">
-<h1>🖨️ Printers &amp; Print Servers</h1>
-<p><strong>Tag:</strong> Printers</p>
-<p>Connect to shared office printers.</p>
-<h2>Steps</h2>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>What to do</th>
-<th>How to do it</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Find your office printer</td>
-<td>Ask your IT team for the name of the print server and printer.</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Connect to print server</td>
-<td>Open File Explorer, type \\printserver in the address bar (your IT team will give you the exact name). Double-click your printer to install it.</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Print queue stuck</td>
-<td>Go to Settings &gt; Printers, click your printer, open the print queue, right-click stuck jobs and click Cancel.</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Wrong printer prints job</td>
-<td>Before printing, always check the printer name shown in the print dialog. Change it if needed.</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Update printer driver</td>
-<td>Go to Device Manager &gt; Printers &gt; right-click your printer &gt; Update Driver &gt; Search Automatically.</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Remove old printers</td>
-<td>Go to Settings &gt; Bluetooth &amp; devices &gt; Printers &amp; scanners, click a printer you no longer use, and click Remove Device.</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<p><a class="back-link" href="./sop-portal.html">← Back to SOP Index</a></p>
-  </div>
-</div>
+
+  <!-- NAVBAR -->
+  <header class="cds-navbar">
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo">
+      <span>CDS</span> GreenHornet IT
+    </a>
+    <nav>
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html" class="active">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </nav>
+  </header>
+
+  <!-- CONTENT -->
+  <main class="page-wrapper">
+
+    <!-- BREADCRUMB -->
+    <div class="page-header">
+      <div class="breadcrumb">
+        <a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a>
+        <span>/</span>
+        <a href="./sop-portal.html">SOP Portal</a>
+        <span>/</span>
+        <span>Printers & Print Servers</span>
+      </div>
+      <h1>🖨️ Printers & Print Servers</h1>
+      <span class="tag">Printers</span>
+      <p class="description">Connect to and troubleshoot shared office printers.</p>
+    </div>
+
+    <!-- STEPS -->
+    <section class="steps-section">
+      <h2>Steps</h2>
+      <table class="steps-table">
+        <thead>
+          <tr>
+            <th class="step-num">#</th>
+            <th class="step-what">What to Do</th>
+            <th class="step-how">How to Do It</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="step-num">1</td>
+            <td class="step-what">Find your office printer</td>
+            <td class="step-how">Ask your IT team for the name of the print server and printer.</td>
+          </tr>
+          <tr>
+            <td class="step-num">2</td>
+            <td class="step-what">Connect to print server</td>
+            <td class="step-how">Open File Explorer, type <code>\\printserver</code> in the address bar (your IT team will give you the exact name). Double-click your printer to install it.</td>
+          </tr>
+          <tr>
+            <td class="step-num">3</td>
+            <td class="step-what">Print queue stuck</td>
+            <td class="step-how">Go to Settings &gt; Printers, click your printer, open the print queue, right-click stuck jobs and click Cancel.</td>
+          </tr>
+          <tr>
+            <td class="step-num">4</td>
+            <td class="step-what">Wrong printer prints job</td>
+            <td class="step-how">Before printing, always check the printer name shown in the print dialog. Change it if needed.</td>
+          </tr>
+          <tr>
+            <td class="step-num">5</td>
+            <td class="step-what">Update printer driver</td>
+            <td class="step-how">Go to Device Manager &gt; Printers &gt; right-click your printer &gt; Update Driver &gt; Search Automatically.</td>
+          </tr>
+          <tr>
+            <td class="step-num">6</td>
+            <td class="step-what">Remove old printers</td>
+            <td class="step-how">Go to Settings &gt; Bluetooth & devices &gt; Printers & scanners, click a printer you no longer use, and click Remove Device.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- BACK LINK -->
+    <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="cds-footer">
+    <div class="footer-nav">
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 <span>Custom Design Systems LLC</span> &middot; GreenHornet IT Help Desk</p>
+  </footer>
+
 </body>
 </html>
