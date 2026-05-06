@@ -1,68 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💬 Microsoft Teams — GreenHornet IT Help Desk</title>
-<link rel="stylesheet" href="./shared-styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💬 Microsoft Teams — GreenHornet IT Help Desk</title>
+  <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
-<div class="page-wrapper">
-  <a class="back-link" href="./sop-portal.html">← Back to SOP Portal</a>
-  <div id="content-body">
-<h1>💬 Microsoft Teams</h1>
-<p><strong>Tag:</strong> Teams</p>
-<p>Set up Teams and fix common issues.</p>
-<h2>Steps</h2>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>What to do</th>
-<th>How to do it</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Install Teams</td>
-<td>Download from teams.microsoft.com or find it in your company's software portal.</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Sign in to Teams</td>
-<td>Open Teams and sign in with your work Microsoft 365 account.</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Join a meeting</td>
-<td>Click the meeting link in your calendar or email. Click Join now.</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Fix no audio in meeting</td>
-<td>Click the three dots &gt; Device settings. Make sure the correct microphone and speaker are selected.</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Share your screen</td>
-<td>In a meeting, click Share &gt; Screen or Window. Select what you want others to see.</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Fix Teams not loading</td>
-<td>Close Teams completely from the system tray, reopen it. If still failing, clear cache: go to %appdata%\Microsoft\Teams and delete the Cache folder.</td>
-</tr>
-<tr>
-<td>7</td>
-<td>Set status</td>
-<td>Click your profile picture &gt; Set status message or change your status dot.</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<p><a class="back-link" href="./sop-portal.html">← Back to SOP Index</a></p>
-  </div>
-</div>
+  <header class="cds-navbar">
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo"><span>CDS</span> GreenHornet IT</a>
+    <nav>
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html" class="active">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </nav>
+  </header>
+  <main class="page-wrapper">
+    <div class="page-header">
+      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Microsoft Teams</span></div>
+      <h1>💬 Microsoft Teams</h1>
+      <span class="tag">Teams</span>
+      <p class="description">Set up Teams and fix common issues.</p>
+    </div>
+    <section class="steps-section">
+      <h2>Steps</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Install Teams</td><td class="step-how">Download from teams.microsoft.com or find it in your company's software portal.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Sign in to Teams</td><td class="step-how">Open Teams and sign in with your work Microsoft 365 account.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Join a meeting</td><td class="step-how">Click the meeting link in your calendar or email. Click Join now.</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">Fix no audio in meeting</td><td class="step-how">Click the three dots &gt; Device settings. Make sure the correct microphone and speaker are selected.</td></tr>
+          <tr><td class="step-num">5</td><td class="step-what">Share your screen</td><td class="step-how">In a meeting, click Share &gt; Screen or Window. Select what you want others to see.</td></tr>
+          <tr><td class="step-num">6</td><td class="step-what">Teams not loading</td><td class="step-how">Close Teams completely from the system tray, reopen it. If still failing, clear cache: go to <code>%appdata%\Microsoft\Teams</code> and delete the Cache folder.</td></tr>
+          <tr><td class="step-num">7</td><td class="step-what">Set status</td><td class="step-how">Click your profile picture &gt; Set status message or change your status dot.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
+  </main>
+  <footer class="cds-footer">
+    <div class="footer-nav">
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 <span>Custom Design Systems LLC</span> &middot; GreenHornet IT Help Desk</p>
+  </footer>
 </body>
 </html>
