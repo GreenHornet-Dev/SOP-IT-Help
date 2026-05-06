@@ -1,45 +1,222 @@
 [
-  { "title": "Web Browser Management", "tag": "Browser", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/web-browser-management.html" },
-  { "title": "Email / Mail Setup & Troubleshooting", "tag": "Mail", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/email-setup.html" },
-  { "title": "Printer Setup & Troubleshooting", "tag": "Printers", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/printer-setup.html" },
-  { "title": "Drive Management", "tag": "Drives", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/drive-management.html" },
-  { "title": "Windows Updates", "tag": "Updates", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/windows-updates.html" },
-  { "title": "Common Help Desk Tasks", "tag": "Help Desk", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/help-desk-tasks.html" },
-  { "title": "Claude AI & CoWork SOP", "tag": "AI Tools", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/claude-ai-cowork.html" },
-  { "title": "Microsoft Copilot", "tag": "Copilot", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/microsoft-copilot.html" },
-  { "title": "Power Automate", "tag": "Automation", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/power-automate.html" },
-  { "title": "Office Apps", "tag": "Office 365", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/office-apps.html" },
-  { "title": "Microsoft Teams", "tag": "Teams", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/microsoft-teams.html" },
-  { "title": "8x8 Phone System", "tag": "8x8", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/8x8-phone-system.html" },
-  { "title": "Zoom", "tag": "Zoom", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/zoom.html" },
-  { "title": "Printers & Print Servers", "tag": "Printers", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/printers-print-servers.html" },
-  { "title": "AT&T Wireless Activation", "tag": "WIRELESS", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/att-wireless-activation.html" },
-  { "title": "New Hire IT Checklist", "tag": "New Hire", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.html" },
-  { "title": "Departing Employee IT Checklist", "tag": "Offboarding", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/departing-employee-checklist.html" },
-  { "title": "Change User UPN", "tag": "UPN", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.html#step-7--change-upn-if-needed-powershell" },
-  { "title": "Verify UPN Change", "tag": "UPN", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.html#step-7--change-upn-if-needed-powershell" },
-  { "title": "Forward Email to Manager", "tag": "Offboarding", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/departing-employee-checklist.html" },
-  { "title": "Equipment Return Checklist", "tag": "Offboarding", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/departing-employee-checklist.html" },
-  { "title": "Remote Wipe Device via Intune", "tag": "Offboarding", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/departing-employee-checklist.html" },
-  { "title": "HR Equipment All Clear Notification", "tag": "Power Automate", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/power-automate.html" },
-  { "title": "Add User to All Users Group", "tag": "New Hire", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.html" },
-  { "title": "Enroll Device in Intune MDM", "tag": "New Hire", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/new-hire-checklist.html" },
-  { "title": "Printer Setup", "tag": "Printers", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/printer-setup.html" },
-  { "title": "Lansweeper", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.html" },
-  { "title": "Lansweeper Agent Deployment", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.html#1-lansweeper-agent-deployment" },
-  { "title": "Lansweeper GraphQL API", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.html#3-graphql-api--key-queries" },
-  { "title": "Lansweeper Power Automate Integration", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.html#4-power-automate-integration-via-http-connector" },
-  { "title": "Lansweeper Custom Tables & Reporting", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.html#5-custom-tables--asset-reporting" },
-  { "title": "Lansweeper API Token Setup", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.html#2-api-setup--authentication--credentials" },
-  { "title": "LsAgent macOS Force Sync", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.html#1-lansweeper-agent-deployment" },
-  { "title": "LsAgent macOS Restart", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.html#1-lansweeper-agent-deployment" },
-  { "title": "LsAgent macOS Status Check", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.html#1-lansweeper-agent-deployment" },
-  { "title": "LsAgent macOS Force Scan Verify", "tag": "Lansweeper", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/lansweeper.html#1-lansweeper-agent-deployment" },
-  { "title": "Okta Token Sync After Password Change", "tag": "Okta", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/okta.html" },
-  { "title": "Okta OneDrive Sync Crash Fix", "tag": "Okta", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/okta.html#4-step-3--fix-onedrive-sync-crash--performance" },
-  { "title": "Okta Re-Authenticate Office Apps", "tag": "Okta", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/okta.html#3-step-2--fix-office-apps-token-word-excel-outlook-teams" },
-  { "title": "Okta Dashboard Token Pass", "tag": "Okta", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/okta.html#2-step-1--re-authenticate-via-okta-dashboard" },
-  { "title": "Okta Hybrid Entra ID Token Sync", "tag": "Okta", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/okta.html" },
-  { "title": "Clear Windows Credential Manager Okta", "tag": "Okta", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/okta.html#5-step-4--clear-stale-credentials-from-windows-credential-manager" },
-  { "title": "OneDrive Reset After Password Change", "tag": "Okta", "url": "https://github.com/GreenHornet-Dev/SOP-IT-Help/blob/main/okta.html#4-step-3--fix-onedrive-sync-crash--performance" }
+  {
+    "title": "Web Browser Management",
+    "tag": "Browser",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/web-browser-management.html"
+  },
+  {
+    "title": "Email / Mail Setup & Troubleshooting",
+    "tag": "Mail",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html"
+  },
+  {
+    "title": "Printer Setup & Troubleshooting",
+    "tag": "Printers",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html"
+  },
+  {
+    "title": "Drive Management",
+    "tag": "Drives",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html"
+  },
+  {
+    "title": "Windows Updates",
+    "tag": "Updates",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html"
+  },
+  {
+    "title": "Common Help Desk Tasks",
+    "tag": "Help Desk",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html"
+  },
+  {
+    "title": "Claude AI & CoWork SOP",
+    "tag": "AI Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/claude-ai-cowork.html"
+  },
+  {
+    "title": "Microsoft Copilot",
+    "tag": "Copilot",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-copilot.html"
+  },
+  {
+    "title": "Power Automate",
+    "tag": "Automation",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html"
+  },
+  {
+    "title": "Office Apps",
+    "tag": "Office 365",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/office-apps.html"
+  },
+  {
+    "title": "Microsoft Teams",
+    "tag": "Teams",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-teams.html"
+  },
+  {
+    "title": "8x8 Phone System",
+    "tag": "8x8",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/8x8-phone-system.html"
+  },
+  {
+    "title": "Zoom",
+    "tag": "Zoom",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/zoom.html"
+  },
+  {
+    "title": "Printers & Print Servers",
+    "tag": "Printers",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printers-print-servers.html"
+  },
+  {
+    "title": "AT&T Wireless Activation",
+    "tag": "WIRELESS",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html"
+  },
+  {
+    "title": "New Hire IT Checklist",
+    "tag": "New Hire",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/new-hire-checklist.html"
+  },
+  {
+    "title": "Departing Employee IT Checklist",
+    "tag": "Offboarding",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/departing-employee-checklist.html"
+  },
+  {
+    "title": "Change User UPN",
+    "tag": "UPN",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/new-hire-checklist.html#step-7--change-upn-if-needed-powershell"
+  },
+  {
+    "title": "Verify UPN Change",
+    "tag": "UPN",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/new-hire-checklist.html#step-7--change-upn-if-needed-powershell"
+  },
+  {
+    "title": "Forward Email to Manager",
+    "tag": "Offboarding",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/departing-employee-checklist.html"
+  },
+  {
+    "title": "Equipment Return Checklist",
+    "tag": "Offboarding",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/departing-employee-checklist.html"
+  },
+  {
+    "title": "Remote Wipe Device via Intune",
+    "tag": "Offboarding",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/departing-employee-checklist.html"
+  },
+  {
+    "title": "HR Equipment All Clear Notification",
+    "tag": "Power Automate",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html"
+  },
+  {
+    "title": "Add User to All Users Group",
+    "tag": "New Hire",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/new-hire-checklist.html"
+  },
+  {
+    "title": "Enroll Device in Intune MDM",
+    "tag": "New Hire",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/new-hire-checklist.html"
+  },
+  {
+    "title": "Printer Setup",
+    "tag": "Printers",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html"
+  },
+  {
+    "title": "Lansweeper",
+    "tag": "Lansweeper",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html"
+  },
+  {
+    "title": "Lansweeper Agent Deployment",
+    "tag": "Lansweeper",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment"
+  },
+  {
+    "title": "Lansweeper GraphQL API",
+    "tag": "Lansweeper",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#3-graphql-api--key-queries"
+  },
+  {
+    "title": "Lansweeper Power Automate Integration",
+    "tag": "Lansweeper",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#4-power-automate-integration-via-http-connector"
+  },
+  {
+    "title": "Lansweeper Custom Tables & Reporting",
+    "tag": "Lansweeper",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#5-custom-tables--asset-reporting"
+  },
+  {
+    "title": "Lansweeper API Token Setup",
+    "tag": "Lansweeper",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#2-api-setup--authentication--credentials"
+  },
+  {
+    "title": "LsAgent macOS Force Sync",
+    "tag": "Lansweeper",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment"
+  },
+  {
+    "title": "LsAgent macOS Restart",
+    "tag": "Lansweeper",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment"
+  },
+  {
+    "title": "LsAgent macOS Status Check",
+    "tag": "Lansweeper",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment"
+  },
+  {
+    "title": "LsAgent macOS Force Scan Verify",
+    "tag": "Lansweeper",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment"
+  },
+  {
+    "title": "Okta Token Sync After Password Change",
+    "tag": "Okta",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html"
+  },
+  {
+    "title": "Okta OneDrive Sync Crash Fix",
+    "tag": "Okta",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#4-step-3--fix-onedrive-sync-crash--performance"
+  },
+  {
+    "title": "Okta Re-Authenticate Office Apps",
+    "tag": "Okta",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#3-step-2--fix-office-apps-token-word-excel-outlook-teams"
+  },
+  {
+    "title": "Okta Dashboard Token Pass",
+    "tag": "Okta",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#2-step-1--re-authenticate-via-okta-dashboard"
+  },
+  {
+    "title": "Okta Hybrid Entra ID Token Sync",
+    "tag": "Okta",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html"
+  },
+  {
+    "title": "Clear Windows Credential Manager Okta",
+    "tag": "Okta",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#5-step-4--clear-stale-credentials-from-windows-credential-manager"
+  },
+  {
+    "title": "OneDrive Reset After Password Change",
+    "tag": "Okta",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#4-step-3--fix-onedrive-sync-crash--performance"
+  },
+  {
+    "title": "GitHub Copilot Agent (Browser)",
+    "tag": "AI Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/github-copilot-agent.html"
+  }
 ]
