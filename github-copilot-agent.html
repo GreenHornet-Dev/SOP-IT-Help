@@ -1,68 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🤖 GitHub Copilot Agent (Browser) — GreenHornet IT Help Desk</title>
-<link rel="stylesheet" href="./shared-styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Copilot Agent (Browser) — GreenHornet IT Help Desk</title>
+  <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
-<div class="page-wrapper">
-  <a class="back-link" href="./sop-portal.html">← Back to SOP Portal</a>
-  <div id="content-body">
-<h1>🤖 GitHub Copilot Agent (Browser)</h1>
-<p><strong>Tag:</strong> AI Tools</p>
-<p>Use GitHub Copilot coding agent directly from your browser to automate code changes and create pull requests.</p>
-<h2>Steps</h2>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>What to do</th>
-<th>How to do it</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Open GitHub repo</td>
-<td>Navigate to your repository on github.com and sign in with your GitHub account.</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Open Copilot Chat</td>
-<td>Click the Copilot icon (sparkle ✨) in the top nav bar or press <code>Ctrl+K</code> to open GitHub Copilot Chat.</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Describe your task</td>
-<td>Type a clear description of what you want Copilot to build or fix. Be specific — include file names and expected behavior.</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Assign to Copilot Agent</td>
-<td>In the chat, click <strong>Assign to Copilot</strong> or use the issue sidebar to assign Copilot as the agent. Copilot will create a branch and PR automatically.</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Review the Pull Request</td>
-<td>Go to <strong>Pull Requests</strong>, find the Copilot-generated PR, review the diff, and leave comments if changes are needed.</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Merge or request changes</td>
-<td>If the code looks good, click <strong>Merge pull request</strong>. If not, add review comments and Copilot will iterate.</td>
-</tr>
-<tr>
-<td>7</td>
-<td>Check CI/CD status</td>
-<td>After merging, verify the GitHub Actions workflows pass (green checkmarks) under the <strong>Actions</strong> tab.</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<p><a class="back-link" href="./sop-portal.html">← Back to SOP Index</a></p>
-  </div>
-</div>
+  <header class="cds-navbar">
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo"><span>CDS</span> GreenHornet IT</a>
+    <nav>
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html" class="active">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </nav>
+  </header>
+  <main class="page-wrapper">
+    <div class="page-header">
+      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>GitHub Copilot Agent</span></div>
+      <h1>🤖 GitHub Copilot Agent (Browser)</h1>
+      <span class="tag">AI Tools</span>
+      <p class="description">Use GitHub Copilot coding agent directly from your browser to automate code changes and create pull requests.</p>
+    </div>
+    <section class="steps-section">
+      <h2>Using the Copilot Agent</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Open GitHub repo</td><td class="step-how">Navigate to your repository on github.com and sign in with your GitHub account.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Open Copilot Chat</td><td class="step-how">Click the Copilot icon (✨) in the top nav bar or press <code>Ctrl+K</code> to open GitHub Copilot Chat.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Describe your task</td><td class="step-how">Type a clear description of what you want Copilot to build or fix. Be specific — include file names and expected behavior.</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">Assign to Copilot Agent</td><td class="step-how">In the chat, click <strong>Assign to Copilot</strong> or use the issue sidebar to assign Copilot as the agent. Copilot will create a branch and PR automatically.</td></tr>
+          <tr><td class="step-num">5</td><td class="step-what">Review the Pull Request</td><td class="step-how">Go to <strong>Pull Requests</strong>, find the Copilot-generated PR, review the diff, and leave comments if changes are needed.</td></tr>
+          <tr><td class="step-num">6</td><td class="step-what">Merge or request changes</td><td class="step-how">If the code looks good, click <strong>Merge pull request</strong>. If not, add review comments and Copilot will iterate.</td></tr>
+          <tr><td class="step-num">7</td><td class="step-what">Check CI/CD status</td><td class="step-how">After merging, verify the GitHub Actions workflows pass (green checkmarks) under the <strong>Actions</strong> tab.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
+  </main>
+  <footer class="cds-footer">
+    <div class="footer-nav">
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 <span>Custom Design Systems LLC</span> &middot; GreenHornet IT Help Desk</p>
+  </footer>
 </body>
 </html>

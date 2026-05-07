@@ -90,7 +90,7 @@ Set-MgUserLicense -UserId $user.Id -AddLicenses @{SkuId = $sku.SkuId} -RemoveLic
         </tbody>
       </table>
     </section>
-    <section class="steps-section">
+    <section id="step-7--change-upn-if-needed-powershell" class="steps-section">
       <h2>Step 7 &mdash; Change UPN if Needed (PowerShell)</h2>
       <pre><code># Connect to Microsoft Graph
 Connect-MgGraph -Scopes "User.ReadWrite.All"
