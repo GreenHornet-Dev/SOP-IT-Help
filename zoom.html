@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📹 Zoom — GreenHornet IT Help Desk</title>
+  <title>Zoom — GreenHornet IT Help Desk</title>
   <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
@@ -21,22 +21,58 @@
       <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Zoom</span></div>
       <h1>📹 Zoom</h1>
       <span class="tag">Zoom</span>
-      <p class="description">Set up and troubleshoot Zoom meetings.</p>
+      <p class="description">Install, join meetings, and troubleshoot audio, video, and screen sharing in Zoom.</p>
     </div>
-    <section class="steps-section">
-      <h2>Steps</h2>
+
+    <section id="install-and-join" class="steps-section">
+      <h2>Install &amp; Join a Meeting</h2>
       <table class="steps-table">
         <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
         <tbody>
           <tr><td class="step-num">1</td><td class="step-what">Install Zoom</td><td class="step-how">Download from zoom.us/download. Run the installer and sign in with your work email.</td></tr>
-          <tr><td class="step-num">2</td><td class="step-what">Join a meeting</td><td class="step-how">Click the meeting link or open Zoom, click Join, and enter the meeting ID and passcode.</td></tr>
-          <tr><td class="step-num">3</td><td class="step-what">Fix audio not working</td><td class="step-how">Click the arrow next to the microphone icon and select the correct audio device. Test speaker and microphone.</td></tr>
-          <tr><td class="step-num">4</td><td class="step-what">Share your screen</td><td class="step-how">Click Share Screen in the meeting controls. Choose the window or screen to share.</td></tr>
-          <tr><td class="step-num">5</td><td class="step-what">Fix black screen when sharing</td><td class="step-how">Try sharing a specific window instead of the whole screen. Disable GPU acceleration in Zoom settings if it persists.</td></tr>
-          <tr><td class="step-num">6</td><td class="step-what">Update Zoom</td><td class="step-how">Click your profile picture in Zoom &gt; Check for Updates.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Join a meeting</td><td class="step-how">Click the meeting link or open Zoom, click <strong>Join</strong>, and enter the meeting ID and passcode.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Update Zoom</td><td class="step-how">Click your profile picture in Zoom &gt; <strong>Check for Updates</strong>.</td></tr>
         </tbody>
       </table>
     </section>
+
+    <section id="audio-video-and-screen-share" class="steps-section">
+      <h2>Audio, Video &amp; Screen Share</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Fix audio not working</td><td class="step-how">Click the arrow next to the microphone icon and select the correct audio device. Test speaker and microphone.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Share your screen</td><td class="step-how">Click <strong>Share Screen</strong> in the meeting controls. Choose the window or screen to share.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Fix camera not showing</td><td class="step-how">Click the arrow next to the camera icon. Select the correct camera from the list.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="troubleshooting" class="steps-section">
+      <h2>Troubleshooting</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">Problem</th><th class="step-how">Fix</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Black screen when sharing</td><td class="step-how">Try sharing a specific window instead of the whole screen. Disable GPU acceleration in Zoom Settings &gt; Video &gt; Advanced if it persists.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Zoom crashes or freezes</td><td class="step-how">Kill Zoom via Task Manager, clear the cache (see Quick Reference), then restart Zoom.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Echo or feedback during call</td><td class="step-how">Use headphones to prevent mic feedback, or mute other participants if you are the host.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="quick-reference" class="steps-section">
+      <h2>Quick Reference — One-Liners</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Task</th><th class="step-how">Command (PowerShell)</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Kill Zoom</td><td class="step-how"><code>Stop-Process -Name Zoom -Force -ErrorAction SilentlyContinue</code></td></tr>
+          <tr><td class="step-what">Clear Zoom logs &amp; cache</td><td class="step-how"><code>Remove-Item -Path "$env:APPDATA\Zoom\logs" -Recurse -Force -ErrorAction SilentlyContinue</code></td></tr>
+          <tr><td class="step-what">Full Zoom data reset</td><td class="step-how"><code>Stop-Process -Name Zoom -Force -ErrorAction SilentlyContinue; Remove-Item -Path "$env:APPDATA\Zoom" -Recurse -Force -ErrorAction SilentlyContinue</code></td></tr>
+          <tr><td class="step-what">Check Zoom install path</td><td class="step-how"><code>Get-Command zoom | Select-Object Source</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
   </main>
   <footer class="cds-footer">

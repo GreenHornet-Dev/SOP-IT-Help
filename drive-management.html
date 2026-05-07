@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>💾 Drive Management — GreenHornet IT Help Desk</title>
+  <title>Drive Management — GreenHornet IT Help Desk</title>
   <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
@@ -21,21 +21,57 @@
       <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Drive Management</span></div>
       <h1>💾 Drive Management</h1>
       <span class="tag">Drives</span>
-      <p class="description">Manage storage drives and network folders.</p>
+      <p class="description">Map and disconnect network drives, check disk space, and fix drives that aren't showing.</p>
     </div>
-    <section class="steps-section">
-      <h2>Steps</h2>
+
+    <section id="map-network-drive" class="steps-section">
+      <h2>Map &amp; Disconnect Network Drives</h2>
       <table class="steps-table">
         <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
         <tbody>
-          <tr><td class="step-num">1</td><td class="step-what">Map a network drive</td><td class="step-how">Open File Explorer &gt; This PC &gt; Map network drive. Enter the folder path and check Reconnect at sign-in.</td></tr>
-          <tr><td class="step-num">2</td><td class="step-what">Check disk space</td><td class="step-how">Open File Explorer and look at your drives. Right-click a drive &gt; Properties to see used/free space.</td></tr>
-          <tr><td class="step-num">3</td><td class="step-what">Run disk cleanup</td><td class="step-how">Search for Disk Cleanup in Start. Select drive C:. Check items to delete and click OK.</td></tr>
-          <tr><td class="step-num">4</td><td class="step-what">Fix drive not showing</td><td class="step-how">Open Disk Management (search in Start). Right-click the drive and assign a letter.</td></tr>
-          <tr><td class="step-num">5</td><td class="step-what">Disconnect network drive</td><td class="step-how">Open File Explorer &gt; This PC. Right-click the mapped drive &gt; Disconnect.</td></tr>
+          <tr><td class="step-num">1</td><td class="step-what">Map a network drive</td><td class="step-how">Open File Explorer &gt; <strong>This PC &gt; Map network drive</strong>. Enter the folder path and check <strong>Reconnect at sign-in</strong>.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Disconnect network drive</td><td class="step-how">Open File Explorer &gt; This PC. Right-click the mapped drive &gt; <strong>Disconnect</strong>.</td></tr>
         </tbody>
       </table>
     </section>
+
+    <section id="disk-space-and-cleanup" class="steps-section">
+      <h2>Disk Space &amp; Cleanup</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Check disk space</td><td class="step-how">Open File Explorer and look at your drives. Right-click a drive &gt; <strong>Properties</strong> to see used/free space.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Run disk cleanup</td><td class="step-how">Search for <strong>Disk Cleanup</strong> in Start. Select drive C:. Check items to delete and click OK.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="troubleshooting" class="steps-section">
+      <h2>Troubleshooting</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">Problem</th><th class="step-how">Fix</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Drive not showing in File Explorer</td><td class="step-how">Open <strong>Disk Management</strong> (search in Start). Right-click the drive and assign a drive letter.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Network drive disconnects on reboot</td><td class="step-how">Re-map the drive and check <strong>Reconnect at sign-in</strong>. Or use the persistent net use one-liner below.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="quick-reference" class="steps-section">
+      <h2>Quick Reference — One-Liners</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Task</th><th class="step-how">Command (PowerShell)</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Map a network drive (persistent)</td><td class="step-how"><code>net use Z: \\server\share /persistent:yes</code></td></tr>
+          <tr><td class="step-what">Disconnect all network drives</td><td class="step-how"><code>net use * /delete /yes</code></td></tr>
+          <tr><td class="step-what">Check disk space (all drives)</td><td class="step-how"><code>Get-PSDrive -PSProvider FileSystem | Select-Object Name, @{N="Used(GB)";E={[math]::Round($_.Used/1GB,1)}}, @{N="Free(GB)";E={[math]::Round($_.Free/1GB,1)}}</code></td></tr>
+          <tr><td class="step-what">List mapped drives</td><td class="step-how"><code>Get-SmbMapping | Select-Object LocalPath, RemotePath, Status</code></td></tr>
+          <tr><td class="step-what">Run disk cleanup silently</td><td class="step-how"><code>cleanmgr /sagerun:1</code></td></tr>
+          <tr><td class="step-what">Open Disk Management</td><td class="step-how"><code>Start-Process diskmgmt.msc</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
   </main>
   <footer class="cds-footer">

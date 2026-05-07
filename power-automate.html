@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>⚡ Power Automate — GreenHornet IT Help Desk</title>
+  <title>Power Automate — GreenHornet IT Help Desk</title>
   <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
@@ -18,41 +18,54 @@
   </header>
   <main class="page-wrapper">
     <div class="page-header">
-      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">&gt; Training</a><span>/</span><span><a href="./sop-portal.html">SOP Portal</a></span><span>/</span><span>Power Automate</span></div>
+      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Power Automate</span></div>
       <h1>⚡ Power Automate</h1>
       <span class="tag">Automation</span>
-      <p class="description">Set up automatic tasks so you don't have to do them manually.</p>
+      <p class="description">Create, test, fix, and share Power Automate flows. Includes the HR Equipment Return All Clear notification flow.</p>
     </div>
-    <section class="steps-section">
-      <h2>Steps</h2>
+
+    <section id="create-a-flow" class="steps-section">
+      <h2>Create a Flow</h2>
       <table class="steps-table">
         <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
         <tbody>
           <tr><td class="step-num">1</td><td class="step-what">Open Power Automate</td><td class="step-how">Go to flow.microsoft.com and sign in with your Microsoft 365 account.</td></tr>
-          <tr><td class="step-num">2</td><td class="step-what">Create a simple flow</td><td class="step-how">Click Create &gt; Automated cloud flow. Choose a trigger like When an email arrives.</td></tr>
-          <tr><td class="step-num">3</td><td class="step-what">Use a template</td><td class="step-how">Click Templates and search for what you need. Click a template and follow the setup steps.</td></tr>
-          <tr><td class="step-num">4</td><td class="step-what">Test your flow</td><td class="step-how">Click Test in the top right. Choose Manually and click Test. Trigger the action to see if it works.</td></tr>
-          <tr><td class="step-num">5</td><td class="step-what">Fix a broken flow</td><td class="step-how">Go to My flows, click the flow, and check the run history. Click a failed run to see which step failed.</td></tr>
-          <tr><td class="step-num">6</td><td class="step-what">Share a flow</td><td class="step-how">Click the three dots next to your flow &gt; Share. Enter your teammate's email.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Create a simple flow</td><td class="step-how">Click <strong>Create &gt; Automated cloud flow</strong>. Choose a trigger like <em>When an email arrives</em>.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Use a template</td><td class="step-how">Click <strong>Templates</strong> and search for what you need. Click a template and follow the setup steps.</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">Share a flow</td><td class="step-how">Click the three dots next to your flow &gt; <strong>Share</strong>. Enter your teammate's email.</td></tr>
         </tbody>
       </table>
     </section>
-    <section class="steps-section">
-      <h2>Flow: HR Equipment Return &mdash; All Clear Notification</h2>
-      <p><strong>Purpose:</strong> When IT confirms all equipment has been returned and wiped during offboarding, this flow automatically sends HR an &ldquo;All Clear&rdquo; email so they can close out the departing employee&rsquo;s record.</p>
+
+    <section id="test-and-fix-flows" class="steps-section">
+      <h2>Test &amp; Fix Flows</h2>
       <table class="steps-table">
-        <thead><tr><th class="step-num">#</th><th class="step-what">Step</th><th class="step-how">Details</th></tr></thead>
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
         <tbody>
-          <tr><td class="step-num">1</td><td class="step-what">Trigger</td><td class="step-how">Manually trigger a flow &mdash; input fields: Employee Name, Employee Email, Manager Email, Return Date.</td></tr>
-          <tr><td class="step-num">2</td><td class="step-what">Condition</td><td class="step-how">Check that all items are confirmed (use a Yes/No input or a SharePoint list lookup).</td></tr>
-          <tr><td class="step-num">3</td><td class="step-what">Send an email (V2)</td><td class="step-how">To: HR email (e.g. hr@domain.com) &mdash; Subject: Equipment Return Confirmed &ndash; [Employee Name].</td></tr>
-          <tr><td class="step-num">4</td><td class="step-what">Email Body</td><td class="step-how">Include employee name, return date, list of returned items, and IT sign-off.</td></tr>
-          <tr><td class="step-num">5</td><td class="step-what">Post a Teams message (optional)</td><td class="step-how">Notify the IT channel that offboarding equipment step is complete.</td></tr>
-          <tr><td class="step-num">6</td><td class="step-what">Update SharePoint list (optional)</td><td class="step-how">Mark the offboarding record row as Equipment Returned = Yes.</td></tr>
+          <tr><td class="step-num">1</td><td class="step-what">Test your flow</td><td class="step-how">Click <strong>Test</strong> in the top right. Choose <strong>Manually</strong> and click Test. Trigger the action to see if it works.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Fix a broken flow</td><td class="step-how">Go to <strong>My flows</strong>, click the flow, and check the run history. Click a failed run to see which step failed and why.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Re-run a failed flow</td><td class="step-how">In the run history, click a failed run &gt; <strong>Resubmit</strong> to retry with the same trigger data.</td></tr>
         </tbody>
       </table>
     </section>
-    <a href="./sop-portal.html" class="back-link">&gt; Back to SOP Portal</a>
+
+    <section id="hr-equipment-return-flow" class="steps-section">
+      <h2>Flow: HR Equipment Return — All Clear Notification</h2>
+      <p>When IT confirms all equipment has been returned and wiped during offboarding, this flow automatically sends HR an "All Clear" email so they can close out the departing employee's record.</p>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-what">Action</th><th class="step-how">Detail</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what"><strong>Trigger</strong></td><td class="step-how">Manually trigger a flow — input fields: Employee Name, Employee Email, Manager Email, Return Date.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what"><strong>Condition</strong></td><td class="step-how">Check that all items are confirmed (use a Yes/No input or a SharePoint list lookup).</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what"><strong>Send an email (V2)</strong></td><td class="step-how">To: hr@domain.com — Subject: <em>Equipment Return Confirmed – [Employee Name]</em>.</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what"><strong>Email body</strong></td><td class="step-how">Include employee name, return date, list of returned items, and IT sign-off.</td></tr>
+          <tr><td class="step-num">5</td><td class="step-what"><strong>Teams message (optional)</strong></td><td class="step-how">Post to the IT channel that the offboarding equipment step is complete.</td></tr>
+          <tr><td class="step-num">6</td><td class="step-what"><strong>Update SharePoint (optional)</strong></td><td class="step-how">Mark the offboarding record row as <strong>Equipment Returned = Yes</strong>.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
   </main>
   <footer class="cds-footer">
     <div class="footer-nav">

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🌐 Web Browser Management — GreenHornet IT Help Desk</title>
+  <title>Web Browser Management — GreenHornet IT Help Desk</title>
   <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
@@ -18,24 +18,50 @@
   </header>
   <main class="page-wrapper">
     <div class="page-header">
-      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Web Browser</span></div>
+      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Web Browser Management</span></div>
       <h1>🌐 Web Browser Management</h1>
       <span class="tag">Browser</span>
-      <p class="description">Fix and manage your web browser.</p>
+      <p class="description">Clear cache, manage extensions, reset browser settings, and set the default browser.</p>
     </div>
-    <section class="steps-section">
-      <h2>Steps</h2>
+
+    <section id="clear-cache-and-cookies" class="steps-section">
+      <h2>Clear Cache &amp; Cookies</h2>
       <table class="steps-table">
         <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
         <tbody>
-          <tr><td class="step-num">1</td><td class="step-what">Clear browser cache</td><td class="step-how">Go to Settings &gt; Privacy &gt; Clear browsing data. Check Cache and Cookies. Click Clear data.</td></tr>
-          <tr><td class="step-num">2</td><td class="step-what">Update the browser</td><td class="step-how">Go to Settings &gt; Help &gt; About. The browser will check for updates automatically.</td></tr>
-          <tr><td class="step-num">3</td><td class="step-what">Reset browser settings</td><td class="step-how">Go to Settings &gt; Reset settings. This fixes most unusual browser behavior.</td></tr>
-          <tr><td class="step-num">4</td><td class="step-what">Manage extensions</td><td class="step-how">Go to Settings &gt; Extensions. Disable or remove extensions causing issues.</td></tr>
-          <tr><td class="step-num">5</td><td class="step-what">Set default browser</td><td class="step-how">Go to Windows Settings &gt; Apps &gt; Default Apps. Choose your preferred browser.</td></tr>
+          <tr><td class="step-num">1</td><td class="step-what">Clear browser cache (UI)</td><td class="step-how">Go to <strong>Settings &gt; Privacy &gt; Clear browsing data</strong>. Check Cache and Cookies. Click Clear data.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Clear cache — keyboard shortcut</td><td class="step-how">Press <strong>Ctrl+Shift+Delete</strong> in any browser to open the clear data dialog directly.</td></tr>
         </tbody>
       </table>
     </section>
+
+    <section id="manage-browser" class="steps-section">
+      <h2>Manage Browser Settings</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Update the browser</td><td class="step-how">Go to <strong>Settings &gt; Help &gt; About</strong>. The browser will check for and apply updates automatically.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Reset browser settings</td><td class="step-how">Go to <strong>Settings &gt; Reset settings</strong>. This fixes most unusual browser behavior without losing bookmarks.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Manage extensions</td><td class="step-how">Go to <strong>Settings &gt; Extensions</strong>. Disable or remove extensions causing issues.</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">Set default browser</td><td class="step-how">Go to <strong>Windows Settings &gt; Apps &gt; Default Apps</strong>. Choose your preferred browser.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="quick-reference" class="steps-section">
+      <h2>Quick Reference — One-Liners</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Task</th><th class="step-how">Command (PowerShell)</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Clear Edge cache</td><td class="step-how"><code>Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue</code></td></tr>
+          <tr><td class="step-what">Clear Chrome cache</td><td class="step-how"><code>Remove-Item -Path "$env:LOCALAPPDATA\Google\Chrome\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue</code></td></tr>
+          <tr><td class="step-what">Kill Edge</td><td class="step-how"><code>Stop-Process -Name msedge -Force -ErrorAction SilentlyContinue</code></td></tr>
+          <tr><td class="step-what">Kill Chrome</td><td class="step-how"><code>Stop-Process -Name chrome -Force -ErrorAction SilentlyContinue</code></td></tr>
+          <tr><td class="step-what">Set Edge as default (registry)</td><td class="step-how"><code>Start-Process "ms-settings:defaultapps"</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
   </main>
   <footer class="cds-footer">

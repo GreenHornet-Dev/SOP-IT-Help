@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>💬 Microsoft Teams — GreenHornet IT Help Desk</title>
+  <title>Microsoft Teams — GreenHornet IT Help Desk</title>
   <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
@@ -21,23 +21,59 @@
       <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Microsoft Teams</span></div>
       <h1>💬 Microsoft Teams</h1>
       <span class="tag">Teams</span>
-      <p class="description">Set up Teams and fix common issues.</p>
+      <p class="description">Install, use, and troubleshoot Microsoft Teams for meetings, chat, and screen sharing.</p>
     </div>
-    <section class="steps-section">
-      <h2>Steps</h2>
+
+    <section id="install-and-sign-in" class="steps-section">
+      <h2>Install &amp; Sign In</h2>
       <table class="steps-table">
         <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
         <tbody>
           <tr><td class="step-num">1</td><td class="step-what">Install Teams</td><td class="step-how">Download from teams.microsoft.com or find it in your company's software portal.</td></tr>
           <tr><td class="step-num">2</td><td class="step-what">Sign in to Teams</td><td class="step-how">Open Teams and sign in with your work Microsoft 365 account.</td></tr>
-          <tr><td class="step-num">3</td><td class="step-what">Join a meeting</td><td class="step-how">Click the meeting link in your calendar or email. Click Join now.</td></tr>
-          <tr><td class="step-num">4</td><td class="step-what">Fix no audio in meeting</td><td class="step-how">Click the three dots &gt; Device settings. Make sure the correct microphone and speaker are selected.</td></tr>
-          <tr><td class="step-num">5</td><td class="step-what">Share your screen</td><td class="step-how">In a meeting, click Share &gt; Screen or Window. Select what you want others to see.</td></tr>
-          <tr><td class="step-num">6</td><td class="step-what">Teams not loading</td><td class="step-how">Close Teams completely from the system tray, reopen it. If still failing, clear cache: go to <code>%appdata%\Microsoft\Teams</code> and delete the Cache folder.</td></tr>
-          <tr><td class="step-num">7</td><td class="step-what">Set status</td><td class="step-how">Click your profile picture &gt; Set status message or change your status dot.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Set your status</td><td class="step-how">Click your profile picture &gt; Set status message or change your status dot.</td></tr>
         </tbody>
       </table>
     </section>
+
+    <section id="meetings-and-screen-share" class="steps-section">
+      <h2>Meetings &amp; Screen Share</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Join a meeting</td><td class="step-how">Click the meeting link in your calendar or email, then click <strong>Join now</strong>.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Fix no audio in meeting</td><td class="step-how">Click the three dots &gt; <strong>Device settings</strong>. Make sure the correct microphone and speaker are selected.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Share your screen</td><td class="step-how">In a meeting, click <strong>Share</strong> &gt; Screen or Window. Select what you want others to see.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="troubleshooting" class="steps-section">
+      <h2>Troubleshooting</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">Problem</th><th class="step-how">Fix</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Teams not loading</td><td class="step-how">Close Teams completely from the system tray, then reopen. If still failing, clear the cache (see Quick Reference below).</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Teams crashes on launch</td><td class="step-how">Run the Clear Cache one-liner, then restart Teams.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Missing meetings or chats</td><td class="step-how">Sign out of Teams (profile &gt; Sign out), then sign back in to force a full sync.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="quick-reference" class="steps-section">
+      <h2>Quick Reference — One-Liners</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Task</th><th class="step-how">Command (PowerShell)</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Kill Teams</td><td class="step-how"><code>Stop-Process -Name Teams -Force -ErrorAction SilentlyContinue</code></td></tr>
+          <tr><td class="step-what">Clear Teams cache</td><td class="step-how"><code>Remove-Item -Path "$env:APPDATA\Microsoft\Teams\Cache" -Recurse -Force -ErrorAction SilentlyContinue</code></td></tr>
+          <tr><td class="step-what">Clear full Teams app data</td><td class="step-how"><code>Get-ChildItem "$env:APPDATA\Microsoft\Teams" -Exclude "desktop-config.json","settings.json" | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue</code></td></tr>
+          <tr><td class="step-what">Restart Teams</td><td class="step-how"><code>Start-Process "$env:LOCALAPPDATA\Microsoft\Teams\Update.exe" "--processStart" "Teams.exe"</code></td></tr>
+          <tr><td class="step-what">Check Teams version</td><td class="step-how"><code>(Get-AppxPackage -Name "MicrosoftTeams").Version</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
   </main>
   <footer class="cds-footer">

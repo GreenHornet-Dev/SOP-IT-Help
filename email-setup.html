@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📧 Email / Mail Setup & Troubleshooting — GreenHornet IT Help Desk</title>
+  <title>Email Setup &amp; Troubleshooting — GreenHornet IT Help Desk</title>
   <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
@@ -19,23 +19,59 @@
   <main class="page-wrapper">
     <div class="page-header">
       <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Email Setup</span></div>
-      <h1>📧 Email / Mail Setup & Troubleshooting</h1>
+      <h1>📧 Email / Mail Setup &amp; Troubleshooting</h1>
       <span class="tag">Mail</span>
-      <p class="description">Set up and fix email problems.</p>
+      <p class="description">Add email accounts, fix sending issues, recover deleted emails, and configure Out of Office in Outlook.</p>
     </div>
-    <section class="steps-section">
-      <h2>Steps</h2>
+
+    <section id="add-email-account" class="steps-section">
+      <h2>Add an Email Account</h2>
       <table class="steps-table">
         <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
         <tbody>
-          <tr><td class="step-num">1</td><td class="step-what">Add email account in Outlook</td><td class="step-how">Open Outlook &gt; File &gt; Add Account. Enter your email and follow the prompts.</td></tr>
-          <tr><td class="step-num">2</td><td class="step-what">Fix emails not sending</td><td class="step-how">Check your internet connection. Then go to Outbox and try resending. If stuck, restart Outlook.</td></tr>
-          <tr><td class="step-num">3</td><td class="step-what">Recover deleted emails</td><td class="step-how">Go to the Deleted Items folder. Right-click email &gt; Restore.</td></tr>
-          <tr><td class="step-num">4</td><td class="step-what">Set up Out of Office</td><td class="step-how">File &gt; Automatic Replies. Set the date range and message.</td></tr>
-          <tr><td class="step-num">5</td><td class="step-what">Fix Outlook not opening</td><td class="step-how">Close Outlook, open Task Manager and end any Outlook processes, then reopen.</td></tr>
+          <tr><td class="step-num">1</td><td class="step-what">Add email account in Outlook</td><td class="step-how">Open Outlook &gt; <strong>File &gt; Add Account</strong>. Enter your email and follow the prompts.</td></tr>
         </tbody>
       </table>
     </section>
+
+    <section id="out-of-office" class="steps-section">
+      <h2>Out of Office (Automatic Replies)</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Set up Out of Office</td><td class="step-how">Go to <strong>File &gt; Automatic Replies</strong>. Set the date range and message, then click OK.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Turn off Out of Office</td><td class="step-how">Go to <strong>File &gt; Automatic Replies</strong> and select <strong>Do not send automatic replies</strong>.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="troubleshoot-email" class="steps-section">
+      <h2>Troubleshoot Outlook</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">Problem</th><th class="step-how">Fix</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Emails not sending</td><td class="step-how">Check your internet connection. Then go to Outbox and try resending. If stuck, restart Outlook.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Recover deleted emails</td><td class="step-how">Go to the <strong>Deleted Items</strong> folder. Right-click email &gt; <strong>Restore</strong>.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Outlook not opening</td><td class="step-how">Close Outlook, open Task Manager and end any Outlook processes, then reopen. Or use the one-liner below.</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">Outlook running slow or freezing</td><td class="step-how">Clear the .ost cache (see Quick Reference). Back up the file first if possible.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="quick-reference" class="steps-section">
+      <h2>Quick Reference — One-Liners</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Task</th><th class="step-how">Command (PowerShell)</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Kill Outlook</td><td class="step-how"><code>Stop-Process -Name OUTLOOK -Force -ErrorAction SilentlyContinue</code></td></tr>
+          <tr><td class="step-what">Restart Outlook</td><td class="step-how"><code>Stop-Process -Name OUTLOOK -Force -ErrorAction SilentlyContinue; Start-Process OUTLOOK</code></td></tr>
+          <tr><td class="step-what">List .ost cache files</td><td class="step-how"><code>Get-ChildItem "$env:LOCALAPPDATA\Microsoft\Outlook" -Filter "*.ost" | Select-Object Name, Length, LastWriteTime</code></td></tr>
+          <tr><td class="step-what">Open Outlook safe mode</td><td class="step-how"><code>Start-Process "OUTLOOK" "/safe"</code></td></tr>
+          <tr><td class="step-what">Check mail profile</td><td class="step-how"><code>Start-Process "control" "mlcfg32.cpl"</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
   </main>
   <footer class="cds-footer">

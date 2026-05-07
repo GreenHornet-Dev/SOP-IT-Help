@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🖨️ Printer Setup & Troubleshooting — GreenHornet IT Help Desk</title>
+  <title>Printer Setup &amp; Troubleshooting — GreenHornet IT Help Desk</title>
   <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
@@ -19,24 +19,59 @@
   <main class="page-wrapper">
     <div class="page-header">
       <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Printer Setup</span></div>
-      <h1>🖨️ Printer Setup & Troubleshooting</h1>
+      <h1>🖨️ Printer Setup &amp; Troubleshooting</h1>
       <span class="tag">Printers</span>
-      <p class="description">Add a printer and fix common print problems.</p>
+      <p class="description">Add local and network printers, fix stuck queues, update drivers, and remove old printers.</p>
     </div>
-    <section class="steps-section">
-      <h2>Steps</h2>
+
+    <section id="add-printer" class="steps-section">
+      <h2>Add a Printer</h2>
       <table class="steps-table">
         <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
         <tbody>
-          <tr><td class="step-num">1</td><td class="step-what">Add a local printer</td><td class="step-how">Go to Settings &gt; Bluetooth &amp; devices &gt; Printers &amp; scanners &gt; Add device.</td></tr>
-          <tr><td class="step-num">2</td><td class="step-what">Add a network printer</td><td class="step-how">Open File Explorer, type <code>\\printserver</code> in the address bar. Double-click your printer to install it.</td></tr>
-          <tr><td class="step-num">3</td><td class="step-what">Print queue stuck</td><td class="step-how">Go to Settings &gt; Printers, click your printer, open the print queue, right-click stuck jobs and click Cancel.</td></tr>
-          <tr><td class="step-num">4</td><td class="step-what">Wrong printer prints job</td><td class="step-how">Before printing, always check the printer name shown in the print dialog. Change it if needed.</td></tr>
-          <tr><td class="step-num">5</td><td class="step-what">Update printer driver</td><td class="step-how">Go to Device Manager &gt; Printers &gt; right-click your printer &gt; Update Driver &gt; Search Automatically.</td></tr>
-          <tr><td class="step-num">6</td><td class="step-what">Remove old printers</td><td class="step-how">Go to Settings &gt; Bluetooth &amp; devices &gt; Printers &amp; scanners, click a printer you no longer use, and click Remove Device.</td></tr>
+          <tr><td class="step-num">1</td><td class="step-what">Add a local printer</td><td class="step-how">Go to <strong>Settings &gt; Bluetooth &amp; devices &gt; Printers &amp; scanners &gt; Add device</strong>.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Add a network printer</td><td class="step-how">Open File Explorer, type <strong>\\printserver</strong> in the address bar. Double-click your printer to install it.</td></tr>
         </tbody>
       </table>
     </section>
+
+    <section id="fix-print-queue" class="steps-section">
+      <h2>Fix Stuck Print Queue</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Cancel stuck jobs (UI)</td><td class="step-how">Go to <strong>Settings &gt; Printers</strong>, click your printer, open the print queue, right-click stuck jobs and click <strong>Cancel</strong>.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Clear queue via PowerShell</td><td class="step-how">Use the one-liner below to stop the spooler, wipe stuck jobs, and restart.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="manage-printers" class="steps-section">
+      <h2>Manage &amp; Troubleshoot Printers</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Wrong printer prints job</td><td class="step-how">Before printing, always check the printer name shown in the print dialog. Change it if needed.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Update printer driver</td><td class="step-how">Go to <strong>Device Manager &gt; Printers</strong> &gt; right-click your printer &gt; <strong>Update Driver &gt; Search Automatically</strong>.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Remove old printers</td><td class="step-how">Go to <strong>Settings &gt; Bluetooth &amp; devices &gt; Printers &amp; scanners</strong>, click the old printer, and click <strong>Remove Device</strong>.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="quick-reference" class="steps-section">
+      <h2>Quick Reference — One-Liners</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Task</th><th class="step-how">Command (PowerShell — Run as Admin)</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Clear stuck print queue</td><td class="step-how"><code>Stop-Service Spooler -Force; Remove-Item -Path "C:\Windows\System32\spool\PRINTERS\*" -Force -ErrorAction SilentlyContinue; Start-Service Spooler</code></td></tr>
+          <tr><td class="step-what">List installed printers</td><td class="step-how"><code>Get-Printer | Select-Object Name, PortName, PrinterStatus, Default</code></td></tr>
+          <tr><td class="step-what">Add network printer</td><td class="step-how"><code>Add-Printer -ConnectionName "\\printserver\PrinterName"</code></td></tr>
+          <tr><td class="step-what">Remove a printer</td><td class="step-how"><code>Remove-Printer -Name "PrinterName"</code></td></tr>
+          <tr><td class="step-what">Restart print spooler</td><td class="step-how"><code>Restart-Service Spooler -Force</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
   </main>
   <footer class="cds-footer">

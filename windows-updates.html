@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🖥️ Windows Updates — GreenHornet IT Help Desk</title>
+  <title>Windows Updates — GreenHornet IT Help Desk</title>
   <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
@@ -21,23 +21,69 @@
       <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Windows Updates</span></div>
       <h1>🖥️ Windows Updates</h1>
       <span class="tag">Updates</span>
-      <p class="description">Keep Windows up to date and fix stuck updates.</p>
+      <p class="description">Check, install, manage, and troubleshoot Windows Updates. Includes cache clearing and stuck update fixes.</p>
     </div>
-    <section class="steps-section">
-      <h2>Steps</h2>
+
+    <section id="check-and-install-updates" class="steps-section">
+      <h2>Check &amp; Install Updates</h2>
       <table class="steps-table">
         <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
         <tbody>
-          <tr><td class="step-num">1</td><td class="step-what">Check for updates</td><td class="step-how">Go to Start &gt; Settings &gt; Windows Update &gt; Check for Updates. Let it finish.</td></tr>
-          <tr><td class="step-num">2</td><td class="step-what">Update is stuck</td><td class="step-how">Restart your computer. If still stuck, go to Windows Update &gt; Troubleshoot &gt; Windows Update and click Run.</td></tr>
-          <tr><td class="step-num">3</td><td class="step-what">Pause updates temporarily</td><td class="step-how">Go to Start &gt; Settings &gt; Windows Update &gt; Pause Updates. Choose up to 5 weeks.</td></tr>
-          <tr><td class="step-num">4</td><td class="step-what">Update history</td><td class="step-how">Go to Settings &gt; Windows Update &gt; Update History to see what has been installed.</td></tr>
-          <tr><td class="step-num">5</td><td class="step-what">Clear update cache</td><td class="step-how">Open Services, find Windows Update, right-click &gt; Stop. Then delete files in <code>C:\Windows\SoftwareDistribution\Download</code>. Restart the service.</td></tr>
-          <tr><td class="step-num">6</td><td class="step-what">Updates failed to install</td><td class="step-how">Run Windows Update Troubleshooter from Settings &gt; System &gt; Troubleshoot &gt; Other Troubleshooters.</td></tr>
-          <tr><td class="step-num">7</td><td class="step-what">Restart to finish updates</td><td class="step-how">Save all your work first, then go to Start &gt; Power &gt; Update and Restart.</td></tr>
+          <tr><td class="step-num">1</td><td class="step-what">Check for updates</td><td class="step-how">Go to <strong>Start &gt; Settings &gt; Windows Update &gt; Check for Updates</strong>. Let it finish.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Restart to finish updates</td><td class="step-how">Save all your work first, then go to <strong>Start &gt; Power &gt; Update and Restart</strong>.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">View update history</td><td class="step-how">Go to <strong>Settings &gt; Windows Update &gt; Update History</strong> to see what has been installed.</td></tr>
         </tbody>
       </table>
     </section>
+
+    <section id="manage-updates" class="steps-section">
+      <h2>Manage Updates</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Pause updates temporarily</td><td class="step-how">Go to <strong>Settings &gt; Windows Update &gt; Pause Updates</strong>. Choose up to 5 weeks.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="clear-update-cache" class="steps-section">
+      <h2>Clear Windows Update Cache</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Stop Windows Update service</td><td class="step-how">Open <strong>Services</strong>, find <strong>Windows Update</strong>, right-click &gt; <strong>Stop</strong>.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Delete cached update files</td><td class="step-how">Delete all files in <strong>C:\Windows\SoftwareDistribution\Download\</strong>.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Restart Windows Update service</td><td class="step-how">Go back to Services, right-click <strong>Windows Update</strong> &gt; <strong>Start</strong>. Then check for updates again.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="troubleshoot-updates" class="steps-section">
+      <h2>Troubleshoot Updates</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">Problem</th><th class="step-how">Fix</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Update is stuck</td><td class="step-how">Restart your computer. If still stuck, go to <strong>Settings &gt; System &gt; Troubleshoot &gt; Other Troubleshooters &gt; Windows Update &gt; Run</strong>.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Updates failed to install</td><td class="step-how">Run the Windows Update Troubleshooter (above), then try clearing the cache (see section above).</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="quick-reference" class="steps-section">
+      <h2>Quick Reference — One-Liners</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Task</th><th class="step-how">Command (PowerShell — Run as Admin)</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Force update scan</td><td class="step-how"><code>UsoClient StartScan</code></td></tr>
+          <tr><td class="step-what">Force update download &amp; install</td><td class="step-how"><code>UsoClient StartDownload; UsoClient StartInstall</code></td></tr>
+          <tr><td class="step-what">Clear update cache (one shot)</td><td class="step-how"><code>Stop-Service wuauserv -Force; Remove-Item C:\Windows\SoftwareDistribution\Download\* -Recurse -Force; Start-Service wuauserv</code></td></tr>
+          <tr><td class="step-what">Check last update date</td><td class="step-how"><code>Get-HotFix | Sort-Object InstalledOn -Descending | Select-Object -First 5</code></td></tr>
+          <tr><td class="step-what">Run Windows Update troubleshooter</td><td class="step-how"><code>Start-Process "msdt.exe" "-id WindowsUpdateDiagnostic"</code></td></tr>
+          <tr><td class="step-what">Restart Windows Update service</td><td class="step-how"><code>Restart-Service wuauserv -Force</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
   </main>
   <footer class="cds-footer">

@@ -3,16 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🖨️ Printers & Print Servers — GreenHornet IT Help Desk</title>
+  <title>Printers &amp; Print Servers — GreenHornet IT Help Desk</title>
   <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
-
-  <!-- NAVBAR -->
   <header class="cds-navbar">
-    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo">
-      <span>CDS</span> GreenHornet IT
-    </a>
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo"><span>CDS</span> GreenHornet IT</a>
     <nav>
       <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
       <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
@@ -20,76 +16,65 @@
       <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
     </nav>
   </header>
-
-  <!-- CONTENT -->
   <main class="page-wrapper">
-
-    <!-- BREADCRUMB -->
     <div class="page-header">
-      <div class="breadcrumb">
-        <a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a>
-        <span>/</span>
-        <a href="./sop-portal.html">SOP Portal</a>
-        <span>/</span>
-        <span>Printers & Print Servers</span>
-      </div>
-      <h1>🖨️ Printers & Print Servers</h1>
+      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Printers &amp; Print Servers</span></div>
+      <h1>🖨️ Printers &amp; Print Servers</h1>
       <span class="tag">Printers</span>
-      <p class="description">Connect to and troubleshoot shared office printers.</p>
+      <p class="description">Connect to the office print server, fix stuck print queues, and manage installed printers.</p>
     </div>
 
-    <!-- STEPS -->
-    <section class="steps-section">
-      <h2>Steps</h2>
+    <section id="connect-to-print-server" class="steps-section">
+      <h2>Connect to Print Server</h2>
       <table class="steps-table">
-        <thead>
-          <tr>
-            <th class="step-num">#</th>
-            <th class="step-what">What to Do</th>
-            <th class="step-how">How to Do It</th>
-          </tr>
-        </thead>
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
         <tbody>
-          <tr>
-            <td class="step-num">1</td>
-            <td class="step-what">Find your office printer</td>
-            <td class="step-how">Ask your IT team for the name of the print server and printer.</td>
-          </tr>
-          <tr>
-            <td class="step-num">2</td>
-            <td class="step-what">Connect to print server</td>
-            <td class="step-how">Open File Explorer, type <code>\\printserver</code> in the address bar (your IT team will give you the exact name). Double-click your printer to install it.</td>
-          </tr>
-          <tr>
-            <td class="step-num">3</td>
-            <td class="step-what">Print queue stuck</td>
-            <td class="step-how">Go to Settings &gt; Printers, click your printer, open the print queue, right-click stuck jobs and click Cancel.</td>
-          </tr>
-          <tr>
-            <td class="step-num">4</td>
-            <td class="step-what">Wrong printer prints job</td>
-            <td class="step-how">Before printing, always check the printer name shown in the print dialog. Change it if needed.</td>
-          </tr>
-          <tr>
-            <td class="step-num">5</td>
-            <td class="step-what">Update printer driver</td>
-            <td class="step-how">Go to Device Manager &gt; Printers &gt; right-click your printer &gt; Update Driver &gt; Search Automatically.</td>
-          </tr>
-          <tr>
-            <td class="step-num">6</td>
-            <td class="step-what">Remove old printers</td>
-            <td class="step-how">Go to Settings &gt; Bluetooth & devices &gt; Printers & scanners, click a printer you no longer use, and click Remove Device.</td>
-          </tr>
+          <tr><td class="step-num">1</td><td class="step-what">Find your office printer</td><td class="step-how">Ask your IT team for the name of the print server and the printer.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Connect to print server</td><td class="step-how">Open File Explorer, type <strong>\\printserver</strong> in the address bar (IT will give you the exact name). Double-click your printer to install it.</td></tr>
         </tbody>
       </table>
     </section>
 
-    <!-- BACK LINK -->
+    <section id="fix-print-queue" class="steps-section">
+      <h2>Fix Stuck Print Queue</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Cancel stuck jobs (UI)</td><td class="step-how">Go to <strong>Settings &gt; Printers</strong>, click your printer, open the print queue, right-click stuck jobs and click <strong>Cancel</strong>.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Clear queue via PowerShell</td><td class="step-how">Use the one-liner below to stop the spooler, delete stuck jobs, and restart.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="manage-printers" class="steps-section">
+      <h2>Manage Printers</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Check correct printer before printing</td><td class="step-how">Always verify the printer name shown in the print dialog before clicking Print.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Update printer driver</td><td class="step-how">Go to <strong>Device Manager &gt; Printers</strong> &gt; right-click your printer &gt; <strong>Update Driver &gt; Search Automatically</strong>.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Remove old printers</td><td class="step-how">Go to <strong>Settings &gt; Bluetooth &amp; devices &gt; Printers &amp; scanners</strong>, click a printer you no longer use, and click <strong>Remove Device</strong>.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="quick-reference" class="steps-section">
+      <h2>Quick Reference — One-Liners</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Task</th><th class="step-how">Command (PowerShell — Run as Admin)</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Clear stuck print queue</td><td class="step-how"><code>Stop-Service Spooler -Force; Remove-Item -Path "C:\Windows\System32\spool\PRINTERS\*" -Force -ErrorAction SilentlyContinue; Start-Service Spooler</code></td></tr>
+          <tr><td class="step-what">List installed printers</td><td class="step-how"><code>Get-Printer | Select-Object Name, PortName, PrinterStatus, Default</code></td></tr>
+          <tr><td class="step-what">Add network printer</td><td class="step-how"><code>Add-Printer -ConnectionName "\\printserver\PrinterName"</code></td></tr>
+          <tr><td class="step-what">Remove a printer</td><td class="step-how"><code>Remove-Printer -Name "PrinterName"</code></td></tr>
+          <tr><td class="step-what">Set default printer</td><td class="step-how"><code>Set-Printer -Name "PrinterName" -Shared $false; (New-Object -ComObject WScript.Network).SetDefaultPrinter("PrinterName")</code></td></tr>
+          <tr><td class="step-what">Restart print spooler</td><td class="step-how"><code>Restart-Service Spooler -Force</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
-
   </main>
-
-  <!-- FOOTER -->
   <footer class="cds-footer">
     <div class="footer-nav">
       <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
@@ -99,6 +84,5 @@
     </div>
     <p class="footer-copy">&copy; 2026 <span>Custom Design Systems LLC</span> &middot; GreenHornet IT Help Desk</p>
   </footer>
-
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>💼 Office Apps — GreenHornet IT Help Desk</title>
+  <title>Office Apps — GreenHornet IT Help Desk</title>
   <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
@@ -21,22 +21,57 @@
       <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Office Apps</span></div>
       <h1>💼 Office Apps</h1>
       <span class="tag">Office 365</span>
-      <p class="description">Install, fix, and use Microsoft 365 apps.</p>
+      <p class="description">Install, activate, repair, and update Microsoft 365 Office applications.</p>
     </div>
-    <section class="steps-section">
-      <h2>Steps</h2>
+
+    <section id="install-and-activate" class="steps-section">
+      <h2>Install &amp; Activate</h2>
       <table class="steps-table">
         <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
         <tbody>
-          <tr><td class="step-num">1</td><td class="step-what">Install Microsoft 365</td><td class="step-how">Go to office.com, sign in, click Install Office &gt; Office 365 apps. Run the installer.</td></tr>
+          <tr><td class="step-num">1</td><td class="step-what">Install Microsoft 365</td><td class="step-how">Go to office.com, sign in, click <strong>Install Office</strong> &gt; Office 365 apps. Run the installer.</td></tr>
           <tr><td class="step-num">2</td><td class="step-what">Activate Office</td><td class="step-how">Open any Office app. If it asks for activation, sign in with your work Microsoft account.</td></tr>
-          <tr><td class="step-num">3</td><td class="step-what">Office app crashes</td><td class="step-how">Close the app, open Start &gt; Settings &gt; Apps, find the app, click Modify &gt; Quick Repair.</td></tr>
-          <tr><td class="step-num">4</td><td class="step-what">Update Office apps</td><td class="step-how">Open any Office app &gt; File &gt; Account &gt; Update Options &gt; Update Now.</td></tr>
-          <tr><td class="step-num">5</td><td class="step-what">Save to OneDrive</td><td class="step-how">Click File &gt; Save As &gt; OneDrive. Choose your work folder and click Save.</td></tr>
-          <tr><td class="step-num">6</td><td class="step-what">Open recent files</td><td class="step-how">Click File &gt; Recent in any Office app to see recently opened files.</td></tr>
         </tbody>
       </table>
     </section>
+
+    <section id="repair-and-update" class="steps-section">
+      <h2>Repair &amp; Update</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Office app crashes</td><td class="step-how">Close the app, open <strong>Start &gt; Settings &gt; Apps</strong>, find the Office app, click <strong>Modify &gt; Quick Repair</strong>.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Update Office apps</td><td class="step-how">Open any Office app &gt; <strong>File &gt; Account &gt; Update Options &gt; Update Now</strong>.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Online repair (deeper fix)</td><td class="step-how">Go to <strong>Settings &gt; Apps &gt; Microsoft 365 &gt; Modify &gt; Online Repair</strong>. Requires internet; fixes most persistent issues.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="files-and-storage" class="steps-section">
+      <h2>Files &amp; Storage</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Save to OneDrive</td><td class="step-how">Click <strong>File &gt; Save As &gt; OneDrive</strong>. Choose your work folder and click Save.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Open recent files</td><td class="step-how">Click <strong>File &gt; Recent</strong> in any Office app to see recently opened files.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="quick-reference" class="steps-section">
+      <h2>Quick Reference — One-Liners</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Task</th><th class="step-how">Command (PowerShell)</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Force update Office</td><td class="step-how"><code>&amp; "C:\Program Files\Common Files\microsoft shared\ClickToRun\OfficeC2RClient.exe" /update user</code></td></tr>
+          <tr><td class="step-what">Kill all Office processes</td><td class="step-how"><code>Get-Process WINWORD,EXCEL,OUTLOOK,POWERPNT,ONENOTE -ErrorAction SilentlyContinue | Stop-Process -Force</code></td></tr>
+          <tr><td class="step-what">Check Office version</td><td class="step-how"><code>(Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Office\ClickToRun\Configuration").VersionToReport</code></td></tr>
+          <tr><td class="step-what">Clear Office identity cache</td><td class="step-how"><code>Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\Office\16.0\Licensing" -Recurse -Force -ErrorAction SilentlyContinue</code></td></tr>
+          <tr><td class="step-what">Quick repair silently</td><td class="step-how"><code>&amp; "C:\Program Files\Common Files\microsoft shared\ClickToRun\OfficeC2RClient.exe" /repair /forceappshutdown</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
   </main>
   <footer class="cds-footer">

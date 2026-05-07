@@ -5,9 +5,49 @@
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/web-browser-management.html"
   },
   {
+    "title": "Clear Browser Cache & Cookies",
+    "tag": "Browser",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/web-browser-management.html#clear-cache-and-cookies"
+  },
+  {
+    "title": "Reset Browser Settings",
+    "tag": "Browser",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/web-browser-management.html#manage-browser"
+  },
+  {
+    "title": "Set Default Browser",
+    "tag": "Browser",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/web-browser-management.html#manage-browser"
+  },
+  {
     "title": "Email / Mail Setup & Troubleshooting",
     "tag": "Mail",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html"
+  },
+  {
+    "title": "Add Email Account in Outlook",
+    "tag": "Mail",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html#add-email-account"
+  },
+  {
+    "title": "Set Out of Office Reply",
+    "tag": "Mail",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html#out-of-office"
+  },
+  {
+    "title": "Fix Emails Not Sending",
+    "tag": "Mail",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html#troubleshoot-email"
+  },
+  {
+    "title": "Recover Deleted Emails",
+    "tag": "Mail",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html#troubleshoot-email"
+  },
+  {
+    "title": "Fix Outlook Not Opening",
+    "tag": "Mail",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html#troubleshoot-email"
   },
   {
     "title": "Printer Setup & Troubleshooting",
@@ -15,9 +55,54 @@
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html"
   },
   {
+    "title": "Add Local Printer",
+    "tag": "Printers",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html#add-printer"
+  },
+  {
+    "title": "Add Network Printer",
+    "tag": "Printers",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html#add-printer"
+  },
+  {
+    "title": "Fix Stuck Print Queue",
+    "tag": "Printers",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html#fix-print-queue"
+  },
+  {
+    "title": "Update Printer Driver",
+    "tag": "Printers",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html#manage-printers"
+  },
+  {
     "title": "Drive Management",
     "tag": "Drives",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html"
+  },
+  {
+    "title": "Map a Network Drive",
+    "tag": "Drives",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html#map-network-drive"
+  },
+  {
+    "title": "Disconnect Network Drive",
+    "tag": "Drives",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html#map-network-drive"
+  },
+  {
+    "title": "Check Disk Space",
+    "tag": "Drives",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html#disk-space-and-cleanup"
+  },
+  {
+    "title": "Run Disk Cleanup",
+    "tag": "Drives",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html#disk-space-and-cleanup"
+  },
+  {
+    "title": "Fix Drive Not Showing",
+    "tag": "Drives",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html#troubleshooting"
   },
   {
     "title": "Windows Updates",
@@ -25,14 +110,74 @@
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html"
   },
   {
+    "title": "Check for Windows Updates",
+    "tag": "Updates",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html#check-and-install-updates"
+  },
+  {
+    "title": "Pause Windows Updates",
+    "tag": "Updates",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html#manage-updates"
+  },
+  {
+    "title": "Clear Windows Update Cache",
+    "tag": "Updates",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html#clear-update-cache"
+  },
+  {
+    "title": "Fix Stuck Windows Update",
+    "tag": "Updates",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html#troubleshoot-updates"
+  },
+  {
     "title": "Common Help Desk Tasks",
     "tag": "Help Desk",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html"
   },
   {
+    "title": "Reset User Password",
+    "tag": "Help Desk",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#password-and-accounts"
+  },
+  {
+    "title": "Unlock User Account",
+    "tag": "Help Desk",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#password-and-accounts"
+  },
+  {
+    "title": "Remote Desktop Assistance",
+    "tag": "Help Desk",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#remote-support"
+  },
+  {
+    "title": "Software Installation",
+    "tag": "Help Desk",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#hardware-and-software"
+  },
+  {
+    "title": "Fix Slow Computer",
+    "tag": "Help Desk",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#performance-fix"
+  },
+  {
     "title": "Claude AI & CoWork SOP",
     "tag": "AI Tools",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/claude-ai-cowork.html"
+  },
+  {
+    "title": "Use Claude AI for IT Help",
+    "tag": "AI Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/claude-ai-cowork.html#using-claude-ai"
+  },
+  {
+    "title": "Use CoWork for Company Policies",
+    "tag": "AI Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/claude-ai-cowork.html#using-cowork"
+  },
+  {
+    "title": "AI Privacy Guidelines",
+    "tag": "AI Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/claude-ai-cowork.html#ai-guidelines"
   },
   {
     "title": "Microsoft Copilot",
@@ -70,14 +215,59 @@
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html"
   },
   {
+    "title": "Create a Power Automate Flow",
+    "tag": "Automation",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html#create-a-flow"
+  },
+  {
+    "title": "Test a Flow Manually",
+    "tag": "Automation",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html#test-and-fix-flows"
+  },
+  {
+    "title": "Fix a Broken Flow",
+    "tag": "Automation",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html#test-and-fix-flows"
+  },
+  {
     "title": "Office Apps",
     "tag": "Office 365",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/office-apps.html"
   },
   {
+    "title": "Install Microsoft 365",
+    "tag": "Office 365",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/office-apps.html#install-and-activate"
+  },
+  {
+    "title": "Repair Office App Crash",
+    "tag": "Office 365",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/office-apps.html#repair-and-update"
+  },
+  {
+    "title": "Update Office Apps",
+    "tag": "Office 365",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/office-apps.html#repair-and-update"
+  },
+  {
     "title": "Microsoft Teams",
     "tag": "Teams",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-teams.html"
+  },
+  {
+    "title": "Fix Teams No Audio in Meeting",
+    "tag": "Teams",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-teams.html#meetings-and-screen-share"
+  },
+  {
+    "title": "Share Screen in Teams",
+    "tag": "Teams",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-teams.html#meetings-and-screen-share"
+  },
+  {
+    "title": "Teams Not Loading — Clear Cache",
+    "tag": "Teams",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-teams.html#troubleshooting"
   },
   {
     "title": "8x8 Phone System",
@@ -90,14 +280,64 @@
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/zoom.html"
   },
   {
+    "title": "Fix Zoom Audio Not Working",
+    "tag": "Zoom",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/zoom.html#audio-video-and-screen-share"
+  },
+  {
+    "title": "Share Screen in Zoom",
+    "tag": "Zoom",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/zoom.html#audio-video-and-screen-share"
+  },
+  {
+    "title": "Fix Black Screen When Sharing Zoom",
+    "tag": "Zoom",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/zoom.html#troubleshooting"
+  },
+  {
     "title": "Printers & Print Servers",
     "tag": "Printers",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printers-print-servers.html"
   },
   {
+    "title": "Connect to Print Server",
+    "tag": "Printers",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printers-print-servers.html#connect-to-print-server"
+  },
+  {
+    "title": "Clear Print Queue (PowerShell)",
+    "tag": "Printers",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printers-print-servers.html#quick-reference"
+  },
+  {
+    "title": "Remove Old Printers",
+    "tag": "Printers",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printers-print-servers.html#manage-printers"
+  },
+  {
     "title": "AT&T Wireless Activation",
     "tag": "WIRELESS",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html"
+  },
+  {
+    "title": "Activate AT&T Line (Admin Portal)",
+    "tag": "WIRELESS",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html#admin-portal-activation"
+  },
+  {
+    "title": "AT&T End User Device Setup",
+    "tag": "WIRELESS",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html#end-user-device-setup"
+  },
+  {
+    "title": "Set Up AT&T Voicemail",
+    "tag": "WIRELESS",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html#end-user-device-setup"
+  },
+  {
+    "title": "AT&T No Signal Fix",
+    "tag": "WIRELESS",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html#troubleshooting"
   },
   {
     "title": "New Hire IT Checklist",
@@ -137,7 +377,7 @@
   {
     "title": "HR Equipment All Clear Notification",
     "tag": "Power Automate",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html"
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html#hr-equipment-return-flow"
   },
   {
     "title": "Add User to All Users Group",
@@ -227,7 +467,7 @@
   {
     "title": "Okta Hybrid Entra ID Token Sync",
     "tag": "Okta",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html"
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#8-hybrid-environment--okta--microsoft-entra-id-azure-ad"
   },
   {
     "title": "Clear Windows Credential Manager Okta",

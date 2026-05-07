@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎟️ Common Help Desk Tasks — GreenHornet IT Help Desk</title>
+  <title>Common Help Desk Tasks — GreenHornet IT Help Desk</title>
   <link rel="stylesheet" href="./shared-styles.css">
 </head>
 <body>
@@ -21,22 +21,72 @@
       <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Help Desk Tasks</span></div>
       <h1>🎟️ Common Help Desk Tasks</h1>
       <span class="tag">Help Desk</span>
-      <p class="description">Routine IT help desk tasks and resolutions.</p>
+      <p class="description">Frequently used IT support tasks — password resets, account unlocks, remote assistance, and performance fixes.</p>
     </div>
-    <section class="steps-section">
-      <h2>Steps</h2>
+
+    <section id="password-and-accounts" class="steps-section">
+      <h2>Passwords &amp; Account Unlocks</h2>
       <table class="steps-table">
         <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
         <tbody>
-          <tr><td class="step-num">1</td><td class="step-what">Password reset</td><td class="step-how">Go to Okta or the company login portal and click Forgot Password. Follow the steps to reset via email.</td></tr>
-          <tr><td class="step-num">2</td><td class="step-what">Remote desktop assistance</td><td class="step-how">Use LogMeIn Resolve or the assigned remote tool to connect to the user's machine. Get their permission first.</td></tr>
-          <tr><td class="step-num">3</td><td class="step-what">New hardware request</td><td class="step-how">Submit a ticket in the help desk system with the user's name, department, and hardware needed.</td></tr>
-          <tr><td class="step-num">4</td><td class="step-what">Software installation</td><td class="step-how">Check if the software is approved. Deploy via Lansweeper or RMM tool, or guide the user through manual install.</td></tr>
-          <tr><td class="step-num">5</td><td class="step-what">Account lockout</td><td class="step-how">Check Active Directory or Okta for the locked account. Unlock it and confirm with the user.</td></tr>
-          <tr><td class="step-num">6</td><td class="step-what">Slow computer</td><td class="step-how">Check Task Manager for high CPU/RAM usage. Restart, clear temp files, and run Windows Update.</td></tr>
+          <tr><td class="step-num">1</td><td class="step-what">Password reset (self-service)</td><td class="step-how">Direct user to Okta or the company login portal &gt; click <strong>Forgot Password</strong>. Follow reset steps via email.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Unlock account (Okta)</td><td class="step-how">In the Okta Admin Console go to <strong>Directory &gt; People</strong>, find the user, click <strong>Unlock</strong>.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Unlock account (Active Directory)</td><td class="step-how">In ADUC or via PowerShell: <code>Unlock-ADAccount -Identity "username"</code>. Confirm with the user.</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">Reset AD password (admin)</td><td class="step-how">Use the Quick Reference PowerShell below, or right-click the user in ADUC &gt; <strong>Reset Password</strong>.</td></tr>
         </tbody>
       </table>
     </section>
+
+    <section id="remote-support" class="steps-section">
+      <h2>Remote Desktop Assistance</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Connect to user's machine</td><td class="step-how">Use <strong>LogMeIn Resolve</strong> or the assigned remote tool. Always get the user's verbal permission before connecting.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">RDP to a machine</td><td class="step-how">Press <strong>Win+R</strong> &gt; type <code>mstsc</code> &gt; enter the computer name or IP. Sign in with admin credentials.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="hardware-and-software" class="steps-section">
+      <h2>Hardware &amp; Software Requests</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">New hardware request</td><td class="step-how">Submit a ticket in the help desk system with the user's name, department, and hardware needed.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Software installation</td><td class="step-how">Check if the software is approved. Deploy via Lansweeper or RMM tool, or guide the user through manual install.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="performance-fix" class="steps-section">
+      <h2>Slow Computer Fix</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Check CPU &amp; RAM usage</td><td class="step-how">Open <strong>Task Manager</strong> (Ctrl+Shift+Esc). Look for processes using high CPU or memory.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Restart and clear temp files</td><td class="step-how">Restart the computer, then run <code>cleanmgr</code> or use the one-liner below to clear temp files.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Run Windows Update</td><td class="step-how">Install any pending updates — outdated systems often run slowly due to background update activity.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="quick-reference" class="steps-section">
+      <h2>Quick Reference — One-Liners</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Task</th><th class="step-how">Command (PowerShell — Run as Admin)</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Unlock AD account</td><td class="step-how"><code>Unlock-ADAccount -Identity "username"</code></td></tr>
+          <tr><td class="step-what">Reset AD password</td><td class="step-how"><code>Set-ADAccountPassword -Identity "user" -NewPassword (ConvertTo-SecureString "TempP@ss1!" -AsPlainText -Force) -Reset</code></td></tr>
+          <tr><td class="step-what">Find locked-out accounts</td><td class="step-how"><code>Search-ADAccount -LockedOut | Select-Object Name, SamAccountName, LockedOut</code></td></tr>
+          <tr><td class="step-what">Check account status</td><td class="step-how"><code>Get-ADUser "username" -Properties LockedOut, Enabled, LastLogonDate | Select-Object Name, Enabled, LockedOut, LastLogonDate</code></td></tr>
+          <tr><td class="step-what">Clear user temp files</td><td class="step-how"><code>Remove-Item -Path $env:TEMP\* -Recurse -Force -ErrorAction SilentlyContinue</code></td></tr>
+          <tr><td class="step-what">Check top CPU processes</td><td class="step-how"><code>Get-Process | Sort-Object CPU -Descending | Select-Object -First 10 Name, CPU, WorkingSet</code></td></tr>
+          <tr><td class="step-what">Open RDP</td><td class="step-how"><code>Start-Process mstsc</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
   </main>
   <footer class="cds-footer">
