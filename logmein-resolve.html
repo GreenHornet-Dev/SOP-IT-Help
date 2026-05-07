@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LogMeIn Resolve — GreenHornet IT Help Desk</title>
+  <link rel="stylesheet" href="./shared-styles.css">
+</head>
+<body>
+  <header class="cds-navbar">
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo"><span>CDS</span> GreenHornet IT</a>
+    <nav>
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html" class="active">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </nav>
+  </header>
+  <main class="page-wrapper">
+    <div class="page-header">
+      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>LogMeIn Resolve</span></div>
+      <h1>🖥️ LogMeIn Resolve</h1>
+      <span class="tag">Remote Support</span>
+      <p class="description">Start remote support sessions, deploy unattended access, manage devices, and troubleshoot common LogMeIn Resolve issues.</p>
+    </div>
+
+    <section id="start-session" class="steps-section">
+      <h2>Start a Remote Support Session</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Sign in to Resolve</td><td class="step-how">Go to <strong>resolve.logmeininc.com</strong> and sign in with your IT credentials.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Start a session</td><td class="step-how">Click <strong>Start Session</strong>. Enter the user's email or copy the support link and send it via chat or email.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">User joins</td><td class="step-how">User clicks the link, downloads the small agent, and clicks <strong>Allow</strong> to grant you access.</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">Get verbal permission</td><td class="step-how"><strong>Always</strong> get the user's verbal or written permission before connecting. Sessions are logged.</td></tr>
+          <tr><td class="step-num">5</td><td class="step-what">Use session tools</td><td class="step-how">Use the toolbar to <strong>chat</strong>, <strong>transfer files</strong>, <strong>reboot remotely</strong>, or <strong>run commands</strong> during the session.</td></tr>
+          <tr><td class="step-num">6</td><td class="step-what">End the session</td><td class="step-how">Click <strong>End Session</strong> in the toolbar. The agent uninstalls automatically (unless unattended access is deployed).</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="unattended-access" class="steps-section">
+      <h2>Unattended Access</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Deploy the agent</td><td class="step-how">In Resolve console go to <strong>Computers → Add Computers</strong>. Download the installer or deploy via your RMM / GPO.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Connect without user present</td><td class="step-how">Go to <strong>Computers</strong>, find the device (shows green when online), and click <strong>Connect</strong>.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Admin-level access</td><td class="step-how">Unattended sessions run with the service-level permissions of the installed agent — no user elevation needed.</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">Silent deploy via MSI</td><td class="step-how">Download the MSI from the Resolve console. Deploy via GPO, Lansweeper, or run: <code>msiexec /i ResolveAgent.msi /quiet</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="troubleshooting" class="steps-section">
+      <h2>Troubleshooting</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">Issue</th><th class="step-how">Fix</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">User can't join session</td><td class="step-how">Check that the user's browser allows the download. Try sending the direct link again or use the <strong>PIN code</strong> option instead.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Slow or laggy session</td><td class="step-how">Reduce session quality in Settings → Quality. Check user's network — ask them to move closer to Wi-Fi or plug in Ethernet.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Unattended device shows offline</td><td class="step-how">Check the Resolve agent service on the device: <code>Get-Service -Name "LogMeIn"</code>. Restart if stopped: <code>Restart-Service "LogMeIn" -Force</code></td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">Can't see desktop (black screen)</td><td class="step-how">Ask user to unlock their screen. If unattended, check if the machine is on the Windows login screen — use the <strong>Send Ctrl+Alt+Del</strong> button in the toolbar.</td></tr>
+          <tr><td class="step-num">5</td><td class="step-what">File transfer not working</td><td class="step-how">Ensure the Resolve agent is up to date. Try the <strong>File Manager</strong> tab instead of drag-and-drop.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="quick-reference" class="steps-section">
+      <h2>Quick Reference — One-Liners</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Task</th><th class="step-how">Command (PowerShell — Run as Admin)</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Check LogMeIn agent service</td><td class="step-how"><code>Get-Service -Name "LogMeIn" | Select-Object Name, Status, StartType</code></td></tr>
+          <tr><td class="step-what">Restart LogMeIn agent</td><td class="step-how"><code>Restart-Service "LogMeIn" -Force</code></td></tr>
+          <tr><td class="step-what">Silent install agent (MSI)</td><td class="step-how"><code>msiexec /i "ResolveAgent.msi" /quiet /norestart</code></td></tr>
+          <tr><td class="step-what">Check agent version</td><td class="step-how"><code>Get-WmiObject -Class Win32_Product | Where-Object {$_.Name -like "*LogMeIn*"} | Select-Object Name, Version</code></td></tr>
+          <tr><td class="step-what">Uninstall agent</td><td class="step-how"><code>Get-WmiObject -Class Win32_Product | Where-Object {$_.Name -like "*LogMeIn*"} | ForEach-Object {$_.Uninstall()}</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
+  </main>
+  <footer class="cds-footer">
+    <div class="footer-nav">
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 <span>Custom Design Systems LLC</span> &middot; GreenHornet IT Help Desk</p>
+  </footer>
+  <script src="./clippy.js"></script>
+</body>
+</html>

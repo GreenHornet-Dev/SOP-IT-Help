@@ -154,6 +154,9 @@
         if (p.includes('new-hire'))             return 'sop-newhire';
         if (p.includes('departing'))            return 'sop-offboard';
         if (p.includes('power-automate'))       return 'sop-automate';
+        if (p.includes('lansweeper'))           return 'sop-lansweeper';
+        if (p.includes('logmein'))              return 'sop-logmein';
+        if (p.includes('crowdstrike'))          return 'sop-crowdstrike';
         if (p.includes('training'))             return 'training';
         if (p.includes('services'))             return 'services';
         if (p.includes('shop'))                 return 'shop';
@@ -173,7 +176,10 @@
         'sop-drive':    ['💾 Map Network Drive','🧹 Disk Cleanup','📋 All SOPs'],
         'sop-newhire':  ['🔑 Password Setup','🖨️ Add Printer','💬 Install Teams','📋 All SOPs'],
         'sop-offboard': ['🔑 Disable Account','🖨️ Remove Printers','📋 All SOPs'],
-        'sop-automate': ['⚡ Create Flow','🧪 Test Flow','📋 All SOPs'],
+        'sop-automate':   ['⚡ Create Flow','🧪 Test Flow','📋 All SOPs'],
+        'sop-lansweeper': ['🔍 Find Asset','📊 Run Report','🛡️ CrowdStrike','🖥️ LogMeIn','📋 All SOPs'],
+        'sop-logmein':    ['🖥️ Start Session','🔑 Password Reset','🔍 Lansweeper','🛡️ CrowdStrike','📋 All SOPs'],
+        'sop-crowdstrike':['🛡️ Respond to Detection','🔒 Contain Host','🖥️ RTR Session','🔍 Lansweeper','📋 All SOPs'],
         'training':     ['📋 Browse SOPs','🖨️ Printer Fix','🔑 Password Reset','🛒 Shop Gear'],
         'services':     ['💰 Get a Quote','🛒 Shop Laptops','🖥️ Shop Monitors','📞 Services'],
         'shop':         ['🛒 Shop Laptops','🖥️ Shop Monitors','🖨️ Shop Printers','💰 View Quote'],
@@ -285,6 +291,10 @@
       { label:'Install 7-Zip',              keys:['install 7zip','winget 7zip','install zip'],                           cmd:'winget install 7zip.7zip --silent --accept-source-agreements --accept-package-agreements' },
       { label:'Install Adobe Reader',       keys:['install adobe','winget adobe','install pdf','install acrobat'],       cmd:'winget install Adobe.Acrobat.Reader.64-bit --silent --accept-source-agreements --accept-package-agreements' },
       { label:'Install VS Code',            keys:['install vscode','winget vscode'],                                     cmd:'winget install Microsoft.VisualStudioCode --silent --accept-source-agreements --accept-package-agreements' },
+      { label:'Check Falcon Sensor Service', keys:['falcon service','crowdstrike service','csfalcon','falcon sensor status'], cmd:'Get-Service -Name CSFalconService | Select-Object Name, Status, StartType' },
+      { label:'Restart Falcon Sensor',      keys:['restart falcon','restart crowdstrike','falcon restart','crowdstrike restart'], cmd:'Restart-Service CSFalconService -Force' },
+      { label:'Check LogMeIn Agent',        keys:['logmein service','logmein agent','resolve service','lmi service'],     cmd:'Get-Service -Name "LogMeIn" | Select-Object Name, Status, StartType' },
+      { label:'Restart LogMeIn Agent',      keys:['restart logmein','restart resolve','lmi restart'],                    cmd:'Restart-Service "LogMeIn" -Force' },
     ];
 
     function searchOneLiners(query) {
@@ -309,6 +319,53 @@
 
     /* == Site Knowledge Base == */
   const SITE_KNOWLEDGE = [
+    {
+      keys: ['lansweeper','asset management','asset inventory','device lookup','asset scan','inventory scan','lansweepre','lsagent'],
+      icon: '🔍', title: 'Lansweeper — Asset Management',
+      related: ['Remote Desktop','CrowdStrike Falcon','Help Desk Steps'],
+      steps: [
+        'Access Lansweeper at <code>app.lansweeper.com</code> or your self-hosted URL.',
+        '<b>Find a device:</b> Sites → select site → Assets → search by name, IP, or MAC.',
+        '<b>Check software:</b> Click device → Software tab.',
+        '<b>Check last seen / online status:</b> Asset detail → Summary tab.',
+        '<b>Run a report:</b> Reporting → New Report → select template or custom SQL.',
+        '<b>Deploy software or script:</b> Deployment → New Deployment → select assets.',
+        '<b>GraphQL API — find asset by name:</b>',
+        '<code>{ site { assetResources(filters:[{operator:LIKE,path:"name",value:"PC-NAME"}]) { items { name ipAddress operatingSystem } } } }</code>',
+        '<b>See the <a href="./lansweeper.html" style="color:#00ff64">Lansweeper SOP</a> for full API and agent setup.</b>'
+      ]
+    },
+    {
+      keys: ['logmein','resolve','remote support','logmein resolve','remote help','connect to user','logmein connect','remote session','lmi'],
+      icon: '🖥️', title: 'LogMeIn Resolve — Remote Support',
+      related: ['Remote Desktop','Help Desk Steps','Password Reset'],
+      steps: [
+        'Go to <code>resolve.logmeininc.com</code> → sign in.',
+        '<b>Start session:</b> Click Start Session → enter user email or send the support link.',
+        '<b>User side:</b> User clicks link → downloads small agent → clicks Allow.',
+        '<b>Always get verbal permission</b> before connecting. Sessions are logged.',
+        '<b>Session tools:</b> chat, file transfer, remote reboot, run commands.',
+        '<b>Unattended access:</b> Deploy the Resolve agent via GPO or Lansweeper for 24/7 access.',
+        '<b>Slow session?</b> Session toolbar → Settings → reduce quality.',
+        '<b>Check agent service:</b> <code>Get-Service -Name "LogMeIn" | Select-Object Name,Status</code>'
+      ]
+    },
+    {
+      keys: ['crowdstrike','falcon','edr','endpoint detection','crowdstrike falcon','detection','quarantine','rtr','real time response','falcon sensor','crowdstike','crowdstrick','falcon console'],
+      icon: '🛡️', title: 'CrowdStrike Falcon — Endpoint Security',
+      related: ['Lansweeper','Help Desk Steps','Windows Update'],
+      steps: [
+        'Access Falcon at <code>falcon.crowdstrike.com</code>.',
+        '<b>Find a device:</b> Endpoint Security → Endpoint List → search by hostname.',
+        '<b>Respond to detection:</b> Endpoint Security → Detections → click alert → review process tree.',
+        '<b>Quarantine file:</b> Detection detail → Actions → Quarantine File.',
+        '<b>Block hash:</b> IOC Management → Add IOC → SHA256 → Block.',
+        '<b>Contain host (network isolate):</b> Device → Actions → Network Contain.',
+        '<b>RTR session:</b> Device → Actions → Real Time Response → run <code>ps</code>, <code>kill PID</code>, <code>netstat</code>.',
+        '<b>Check sensor service:</b> <code>Get-Service CSFalconService | Select-Object Name,Status</code>',
+        '<b>Restart sensor:</b> <code>Restart-Service CSFalconService -Force</code>'
+      ]
+    },
     {
       keys: ['windows update','update windows','wu','check for updates','run updates','windows updates','windwos update','widnows update'],
       icon: '🔄', title: 'Windows Updates',

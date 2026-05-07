@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrowdStrike Falcon — GreenHornet IT Help Desk</title>
+  <link rel="stylesheet" href="./shared-styles.css">
+</head>
+<body>
+  <header class="cds-navbar">
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo"><span>CDS</span> GreenHornet IT</a>
+    <nav>
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html" class="active">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </nav>
+  </header>
+  <main class="page-wrapper">
+    <div class="page-header">
+      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>CrowdStrike Falcon</span></div>
+      <h1>🛡️ CrowdStrike Falcon</h1>
+      <span class="tag">Security</span>
+      <p class="description">Manage endpoint protection, respond to detections, run Real Time Response sessions, and maintain sensor health across your fleet.</p>
+    </div>
+
+    <section id="falcon-console" class="steps-section">
+      <h2>Falcon Console — Device Management</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Access the console</td><td class="step-how">Go to <strong>falcon.crowdstrike.com</strong> and sign in with SSO or your Falcon credentials.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Find a device</td><td class="step-how">Go to <strong>Endpoint Security → Endpoint List</strong>. Search by hostname, IP, or username. Click the device to see details.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Check sensor status</td><td class="step-how">Device detail shows <strong>Sensor Version</strong>, last check-in time, and prevention policy. A red or grey icon means the sensor is offline or outdated.</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">Update sensor policy</td><td class="step-how">Go to <strong>Endpoint Security → Sensor Update Policies</strong>. Assign devices to the latest sensor version policy.</td></tr>
+          <tr><td class="step-num">5</td><td class="step-what">Contain a host (network isolation)</td><td class="step-how">Device detail → <strong>Actions → Network Contain</strong>. The device is isolated from the network but still reachable via Falcon RTR. Use for active threats.</td></tr>
+          <tr><td class="step-num">6</td><td class="step-what">Lift containment</td><td class="step-how">Device detail → <strong>Actions → Lift Network Containment</strong>. Only lift after confirming the threat is remediated.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="respond-to-detections" class="steps-section">
+      <h2>Respond to Detections &amp; Alerts</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">View active detections</td><td class="step-how">Go to <strong>Endpoint Security → Detections</strong>. Filter by severity — Critical and High first. Click a detection to open the detail view.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">Review the process tree</td><td class="step-how">In the detection detail, click <strong>View Process Tree</strong>. This shows the full execution chain — identify the root cause process.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Quarantine a file</td><td class="step-how">In the detection detail → <strong>Actions → Quarantine File</strong>. This removes the file from the endpoint and stores it in Falcon for analysis.</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">Block a file hash</td><td class="step-how">Go to <strong>Endpoint Security → IOC Management → Add IOC</strong>. Enter the SHA256 hash and set action to <strong>Block</strong>.</td></tr>
+          <tr><td class="step-num">5</td><td class="step-what">Assign and close a detection</td><td class="step-how">Assign the detection to yourself. After remediation, set status to <strong>Closed</strong> and add a comment documenting the action taken.</td></tr>
+          <tr><td class="step-num">6</td><td class="step-what">Escalate if needed</td><td class="step-how">For Critical severity or active ransomware indicators, escalate immediately. Contain the host first, then notify your security lead.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="rtr-commands" class="steps-section">
+      <h2>Real Time Response (RTR)</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-what">Start an RTR session</td><td class="step-how">Device detail → <strong>Actions → Real Time Response</strong>. Requires RTR permission in your Falcon role.</td></tr>
+          <tr><td class="step-num">2</td><td class="step-what">List running processes</td><td class="step-how">In the RTR console type: <code>ps</code></td></tr>
+          <tr><td class="step-num">3</td><td class="step-what">Kill a process</td><td class="step-how"><code>kill &lt;PID&gt;</code> — replace &lt;PID&gt; with the process ID from <code>ps</code> output.</td></tr>
+          <tr><td class="step-num">4</td><td class="step-what">List files</td><td class="step-how"><code>ls C:\Users\username\Downloads</code> — browse the filesystem remotely.</td></tr>
+          <tr><td class="step-num">5</td><td class="step-what">Get a file</td><td class="step-how"><code>get C:\path\to\suspicious.exe</code> — retrieves the file to Falcon for analysis.</td></tr>
+          <tr><td class="step-num">6</td><td class="step-what">Run a script</td><td class="step-how">Upload a PowerShell script to <strong>Custom Scripts</strong> first, then run it via <code>runscript -CloudFile="scriptname.ps1"</code></td></tr>
+          <tr><td class="step-num">7</td><td class="step-what">Check network connections</td><td class="step-how"><code>netstat</code> — shows active connections. Look for unexpected outbound connections on unusual ports.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="quick-reference" class="steps-section">
+      <h2>Quick Reference — One-Liners</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Task</th><th class="step-how">Command (PowerShell — Run as Admin)</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Check Falcon sensor service</td><td class="step-how"><code>Get-Service -Name CSFalconService | Select-Object Name, Status, StartType</code></td></tr>
+          <tr><td class="step-what">Restart Falcon sensor</td><td class="step-how"><code>Restart-Service CSFalconService -Force</code></td></tr>
+          <tr><td class="step-what">Check sensor version</td><td class="step-how"><code>Get-ItemProperty "HKLM:\SYSTEM\CrowdStrike\{9b03c1d9-3138-44ed-9fae-d9f4c034b88d}\{16e0423f-7058-48c9-a204-725362b67639}\Default" -Name "PackageVersion" | Select-Object PackageVersion</code></td></tr>
+          <tr><td class="step-what">Verify sensor is running</td><td class="step-how"><code>Get-Process -Name CSFalconService -ErrorAction SilentlyContinue | Select-Object Name, Id, CPU</code></td></tr>
+          <tr><td class="step-what">Check CrowdStrike install path</td><td class="step-how"><code>Get-WmiObject Win32_Product | Where-Object {$_.Name -like "*CrowdStrike*"} | Select-Object Name, Version, InstallLocation</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
+  </main>
+  <footer class="cds-footer">
+    <div class="footer-nav">
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="./sop-portal.html">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 <span>Custom Design Systems LLC</span> &middot; GreenHornet IT Help Desk</p>
+  </footer>
+  <script src="./clippy.js"></script>
+</body>
+</html>

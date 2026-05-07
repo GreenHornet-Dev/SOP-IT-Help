@@ -137,6 +137,7 @@ Write-Host "OneDrive reset complete. Sign in with new credentials."</code></pre>
 
     <section id="5-step-4--clear-stale-credentials-from-windows-credential-manager" class="steps-section">
       <h2>5. Step 4 — Clear Stale Credentials from Windows Credential Manager</h2>
+      <p><strong>Why this matters:</strong> After an Okta password change, Microsoft apps (Office, Teams, OneDrive) cache an <strong>OAuth bearer token</strong> in Windows Credential Manager. That token is tied to the old password — once Okta invalidates it, apps silently fail to authenticate. Clearing the cached entries forces a fresh OAuth handshake so apps re-authenticate against Okta with the new credentials.</p>
       <p>Windows Credential Manager stores cached passwords and tokens. After an Okta password change, old entries cause repeated auth failures.</p>
       <h3>Manual Steps</h3>
       <table class="steps-table">

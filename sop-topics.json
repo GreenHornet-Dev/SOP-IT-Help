@@ -470,7 +470,7 @@
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#8-hybrid-environment--okta--microsoft-entra-id-azure-ad"
   },
   {
-    "title": "Clear Windows Credential Manager Okta",
+    "title": "Clear Cached Bearer Tokens (Credential Manager)",
     "tag": "Okta",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#5-step-4--clear-stale-credentials-from-windows-credential-manager"
   },
@@ -483,5 +483,55 @@
     "title": "GitHub Copilot Agent (Browser)",
     "tag": "AI Tools",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/github-copilot-agent.html"
+  },
+  {
+    "title": "LogMeIn Resolve — Remote Support",
+    "tag": "Remote Support",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/logmein-resolve.html"
+  },
+  {
+    "title": "Start a Remote Support Session",
+    "tag": "Remote Support",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/logmein-resolve.html#start-session"
+  },
+  {
+    "title": "Deploy LogMeIn Unattended Access",
+    "tag": "Remote Support",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/logmein-resolve.html#unattended-access"
+  },
+  {
+    "title": "Troubleshoot LogMeIn Resolve",
+    "tag": "Remote Support",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/logmein-resolve.html#troubleshooting"
+  },
+  {
+    "title": "CrowdStrike Falcon — Endpoint Security",
+    "tag": "Security",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html"
+  },
+  {
+    "title": "Find & Check Device in Falcon Console",
+    "tag": "Security",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#falcon-console"
+  },
+  {
+    "title": "Respond to CrowdStrike Detection",
+    "tag": "Security",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#respond-to-detections"
+  },
+  {
+    "title": "Network Contain (Isolate) a Host",
+    "tag": "Security",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#falcon-console"
+  },
+  {
+    "title": "Run Real Time Response (RTR) Session",
+    "tag": "Security",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#rtr-commands"
+  },
+  {
+    "title": "Check & Restart Falcon Sensor",
+    "tag": "Security",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#quick-reference"
   }
 ]
