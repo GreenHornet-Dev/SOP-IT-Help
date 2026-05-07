@@ -553,5 +553,20 @@
     "title": "Copy All Winget Install Script",
     "tag": "Winget",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html"
+  },
+  {
+    "title": "Install RSAT — All Remote Server Admin Tools",
+    "tag": "Winget",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html"
+  },
+  {
+    "title": "Install RSAT — Active Directory, GPMC, DNS, DHCP",
+    "tag": "Winget",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html"
+  },
+  {
+    "title": "Install Tailscale (Mesh VPN)",
+    "tag": "Winget",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html"
   }
 ]

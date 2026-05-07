@@ -333,7 +333,42 @@
         '&nbsp;&nbsp;• <b>COPY ALL (bottom bar)</b> — copies a full PowerShell script that installs all 17 core apps at once.',
         'Commands use: <code>winget install -e --id &lt;ID&gt; --scope Machine --silent</code>',
         'Run PowerShell <b>as Administrator</b> for <code>--scope Machine</code> to work.',
-        'Apps include: Chrome, Firefox, Teams, Zoom, VS Code, 7-Zip, Adobe Reader, Notepad++, VLC, WinSCP, PuTTY, IrfanView, CrystalDiskInfo, Malwarebytes, .NET 8, Dell Command Update, 8x8 Work.'
+        'Apps include: Chrome, Firefox, Teams, Zoom, VS Code, 7-Zip, Adobe Reader, Notepad++, VLC, WinSCP, PuTTY, IrfanView, CrystalDiskInfo, Malwarebytes, .NET 8, Dell Command Update, 8x8 Work.',
+        'Help desk: PowerShell 7, Git, mRemoteNG, Tailscale, Rufus, Greenshot, HWiNFO64, TreeSize Free, Process Monitor.',
+        'Windows Features: RSAT (AD, GPMC, DNS, DHCP) via <code>Add-WindowsCapability</code>.'
+      ]
+    },
+    {
+      keys: ['rsat','remote server administration','active directory tools','gpmc','group policy management','dns tools','dhcp tools','ad tools','rsat tools'],
+      icon: '🏢', title: 'RSAT — Remote Server Administration Tools',
+      related: ['Help Desk Steps','Windows Update','winget one-liners'],
+      steps: [
+        'RSAT is installed via <b>Windows Optional Features</b>, not winget.',
+        '<b>Install ALL RSAT tools (Admin PowerShell):</b>',
+        '<code>Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online</code>',
+        '<b>Install specific tools:</b>',
+        '&nbsp;&nbsp;• Active Directory: <code>Add-WindowsCapability -Online -Name "Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0"</code>',
+        '&nbsp;&nbsp;• Group Policy (GPMC): <code>Add-WindowsCapability -Online -Name "Rsat.GroupPolicy.Management.Tools~~~~0.0.1.0"</code>',
+        '&nbsp;&nbsp;• DNS: <code>Add-WindowsCapability -Online -Name "Rsat.Dns.Tools~~~~0.0.1.0"</code>',
+        '&nbsp;&nbsp;• DHCP: <code>Add-WindowsCapability -Online -Name "Rsat.DHCP.Tools~~~~0.0.1.0"</code>',
+        '<b>Via Settings:</b> Settings → Apps → Optional Features → Add a feature → search RSAT.',
+        '<b>Requires:</b> Windows 10/11 Pro or Enterprise (not Home). Needs internet to download.',
+        'All RSAT commands are on the <a href="./winget-one-liners.html" style="color:#00ff64">Winget One-Liners page →</a>'
+      ]
+    },
+    {
+      keys: ['tailscale','vpn','mesh vpn','tailscale install','zero trust vpn','wireguard vpn'],
+      icon: '🔒', title: 'Tailscale — Mesh VPN',
+      related: ['Help Desk Steps','Remote Desktop','winget one-liners'],
+      steps: [
+        '<b>Install Tailscale (Admin PowerShell):</b>',
+        '<code>winget install -e --id Tailscale.Tailscale --scope Machine --silent</code>',
+        'After install, open Tailscale from the system tray → sign in with your org account.',
+        '<b>Connect to a remote device:</b> Once both devices are on the same Tailscale network (tailnet), use the Tailscale IP (100.x.x.x) in RDP, SSH, or browser.',
+        '<b>Check device IP:</b> Tailscale tray → click device name, or run <code>tailscale ip</code> in terminal.',
+        '<b>Admin console:</b> login.tailscale.com → view all devices, manage ACLs.',
+        '<b>Key commands:</b> <code>tailscale up</code> / <code>tailscale down</code> / <code>tailscale status</code>',
+        'Also on the <a href="./winget-one-liners.html" style="color:#00ff64">Winget One-Liners page →</a>'
       ]
     },
     {

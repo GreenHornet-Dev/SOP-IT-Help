@@ -166,11 +166,19 @@
       { icon: '⚡', name: 'PowerShell 7',                id: 'Microsoft.PowerShell',                cmd: 'winget install -e --id Microsoft.PowerShell --scope Machine --silent' },
       { icon: '🐙', name: 'Git',                         id: 'Git.Git',                             cmd: 'winget install -e --id Git.Git --scope Machine --silent' },
       { icon: '🪟', name: 'mRemoteNG',                   id: 'mRemoteNG.mRemoteNG',                 cmd: 'winget install -e --id mRemoteNG.mRemoteNG --scope Machine --silent' },
+      { icon: '🔒', name: 'Tailscale',                   id: 'Tailscale.Tailscale',                 cmd: 'winget install -e --id Tailscale.Tailscale --scope Machine --silent' },
       { icon: '💾', name: 'Rufus',                       id: 'Rufus.Rufus',                         cmd: 'winget install -e --id Rufus.Rufus --scope Machine --silent' },
       { icon: '📸', name: 'Greenshot',                   id: 'Greenshot.Greenshot',                 cmd: 'winget install -e --id Greenshot.Greenshot --scope Machine --silent' },
       { icon: '🔬', name: 'HWiNFO64',                   id: 'REALiX.HWiNFO',                       cmd: 'winget install -e --id REALiX.HWiNFO --scope Machine --silent' },
       { icon: '🌳', name: 'TreeSize Free',               id: 'JAMSoftware.TreeSize.Free',           cmd: 'winget install -e --id JAMSoftware.TreeSize.Free --scope Machine --silent' },
       { icon: '🔍', name: 'Process Monitor',             id: 'Microsoft.Sysinternals.ProcessMonitor', cmd: 'winget install -e --id Microsoft.Sysinternals.ProcessMonitor --scope Machine --silent' },
+
+      { section: 'WINDOWS FEATURES — Add-WindowsCapability (PowerShell as Admin)' },
+      { icon: '🏢', name: 'RSAT — Install All Tools',   id: 'RSAT.*',                              cmd: 'Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online' },
+      { icon: '👤', name: 'RSAT: Active Directory',     id: 'Rsat.ActiveDirectory',                cmd: 'Add-WindowsCapability -Online -Name "Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0"' },
+      { icon: '📋', name: 'RSAT: Group Policy (GPMC)',  id: 'Rsat.GroupPolicy',                    cmd: 'Add-WindowsCapability -Online -Name "Rsat.GroupPolicy.Management.Tools~~~~0.0.1.0"' },
+      { icon: '🌐', name: 'RSAT: DNS Server',           id: 'Rsat.Dns.Tools',                      cmd: 'Add-WindowsCapability -Online -Name "Rsat.Dns.Tools~~~~0.0.1.0"' },
+      { icon: '🔌', name: 'RSAT: DHCP Server',          id: 'Rsat.DHCP.Tools',                     cmd: 'Add-WindowsCapability -Online -Name "Rsat.DHCP.Tools~~~~0.0.1.0"' },
     ];
 
     (function buildTable() {
@@ -206,8 +214,11 @@
     }
 
     function copyAll() {
-      const appRows = APPS.filter(a => !a.section);
-      const lines = ['# Install All Apps — GreenHornet IT\n'].concat(appRows.map(a => a.cmd));
+      const lines = ['# Install All Apps — GreenHornet IT\n'];
+      APPS.forEach(a => {
+        if (a.section) { lines.push('\n# ' + a.section); }
+        else { lines.push(a.cmd); }
+      });
       const script = lines.join('\n');
       const btn = document.getElementById('copy-all-btn');
       navigator.clipboard.writeText(script).then(() => {
