@@ -330,8 +330,29 @@
   function handleQuery(q) {
     const lower = q.toLowerCase();
 
-    // Shop / Product search
-    if (lower.includes('shop') || lower.includes('product') || lower.includes('item') || lower.includes('quote') || lower.includes('price')) {
+    // Site navigation
+    const NAV_PAGES = [
+      { keys: ['home','main page','cds home'], label: 'Home', url: 'https://greenhornet-dev.github.io/cds-green/index.html' },
+      { keys: ['about','about us','who are'], label: 'About', url: 'https://greenhornet-dev.github.io/cds-green/about.html' },
+      { keys: ['training','learn','courses'], label: 'Training', url: 'https://greenhornet-dev.github.io/cds-green/training.html' },
+      { keys: ['services','support','tech support'], label: 'Services', url: 'https://greenhornet-dev.github.io/cds-green/services.html' },
+      { keys: ['sop portal','sop list','all sops'], label: 'SOP Portal', url: './sop-portal.html' },
+      { keys: ['dev','developer','dev page'], label: 'Dev', url: 'https://greenhornet-dev.github.io/cds-green/dev.html' },
+    ];
+    const navMatch = NAV_PAGES.find(p => p.keys.some(k => lower.includes(k)));
+    if (navMatch) {
+      addHTML(`<div id="clippy-result-hover">
+        <div style="font-weight:700;color:#00ff64;margin-bottom:8px;">🔗 ${navMatch.label}</div>
+        <a href="${navMatch.url}" style="background:#00ff64;color:#000;padding:5px 12px;border-radius:6px;font-weight:600;font-size:12px;text-decoration:none;">Open ${navMatch.label} →</a>
+      </div>`);
+      return;
+    }
+
+    // Shop / Product search — require a product keyword alongside "shop"
+    const shopTrigger = lower.includes('product') || lower.includes('price') ||
+      (lower.includes('shop') && lower.replace('shop','').trim().length > 0) ||
+      lower.includes('quote') || lower.includes('item');
+    if (shopTrigger) {
       searchProducts(lower);
       return;
     }
