@@ -533,5 +533,25 @@
     "title": "Check & Restart Falcon Sensor",
     "tag": "Security",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#quick-reference"
+  },
+  {
+    "title": "Winget One-Liners",
+    "tag": "Winget",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html"
+  },
+  {
+    "title": "Silent Install — Core Apps (winget)",
+    "tag": "Winget",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html"
+  },
+  {
+    "title": "Silent Install — Help Desk Utilities (winget)",
+    "tag": "Winget",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html#help-desk-utilities"
+  },
+  {
+    "title": "Copy All Winget Install Script",
+    "tag": "Winget",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html"
   }
 ]

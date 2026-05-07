@@ -157,6 +157,7 @@
         if (p.includes('lansweeper'))           return 'sop-lansweeper';
         if (p.includes('logmein'))              return 'sop-logmein';
         if (p.includes('crowdstrike'))          return 'sop-crowdstrike';
+        if (p.includes('winget-one-liners'))    return 'sop-winget';
         if (p.includes('training'))             return 'training';
         if (p.includes('services'))             return 'services';
         if (p.includes('shop'))                 return 'shop';
@@ -180,6 +181,7 @@
         'sop-lansweeper': ['🔍 Find Asset','📊 Run Report','🛡️ CrowdStrike','🖥️ LogMeIn','📋 All SOPs'],
         'sop-logmein':    ['🖥️ Start Session','🔑 Password Reset','🔍 Lansweeper','🛡️ CrowdStrike','📋 All SOPs'],
         'sop-crowdstrike':['🛡️ Respond to Detection','🔒 Contain Host','🖥️ RTR Session','🔍 Lansweeper','📋 All SOPs'],
+        'sop-winget':   ['📋 Copy All Apps','🌐 Install Chrome','💬 Install Teams','📝 Install Notepad++','📋 All SOPs'],
         'training':     ['📋 Browse SOPs','🖨️ Printer Fix','🔑 Password Reset','🛒 Shop Gear'],
         'services':     ['💰 Get a Quote','🛒 Shop Laptops','🖥️ Shop Monitors','📞 Services'],
         'shop':         ['🛒 Shop Laptops','🖥️ Shop Monitors','🖨️ Shop Printers','💰 View Quote'],
@@ -196,6 +198,7 @@
         'training':     "📚 Training hub — search SOPs, find guides, or ask any IT question.",
         'services':     "💼 Services page — ask about pricing, request support, or build a quote.",
         'shop':         "🛒 Shop — search products to build a quote. Try 'shop laptops' or 'shop monitors'.",
+        'sop-winget':   "🪶 Winget One-Liners — click COPY on any row, or COPY ALL at the bottom for the full PowerShell install script.",
         'default':      "👋 Hi! I'm Clippy. Ask about SOPs, IT fixes, shortcuts, winget installs, or shop for gear.",
     };
 
@@ -319,6 +322,20 @@
 
     /* == Site Knowledge Base == */
   const SITE_KNOWLEDGE = [
+    {
+      keys: ['winget one-liners','winget list','install all apps','bulk install','silent install','app list','core apps','winget table','all winget'],
+      icon: '🪶', title: 'Winget One-Liners',
+      related: ['Windows Update','Help Desk Steps','shortcuts'],
+      steps: [
+        'Open the <a href="./winget-one-liners.html" style="color:#00ff64">Winget One-Liners page</a> for the full reference table.',
+        '<b>Two copy options:</b>',
+        '&nbsp;&nbsp;• <b>COPY (per row)</b> — copies that single silent-install command to your clipboard.',
+        '&nbsp;&nbsp;• <b>COPY ALL (bottom bar)</b> — copies a full PowerShell script that installs all 17 core apps at once.',
+        'Commands use: <code>winget install -e --id &lt;ID&gt; --scope Machine --silent</code>',
+        'Run PowerShell <b>as Administrator</b> for <code>--scope Machine</code> to work.',
+        'Apps include: Chrome, Firefox, Teams, Zoom, VS Code, 7-Zip, Adobe Reader, Notepad++, VLC, WinSCP, PuTTY, IrfanView, CrystalDiskInfo, Malwarebytes, .NET 8, Dell Command Update, 8x8 Work.'
+      ]
+    },
     {
       keys: ['lansweeper','asset management','asset inventory','device lookup','asset scan','inventory scan','lansweepre','lsagent'],
       icon: '🔍', title: 'Lansweeper — Asset Management',
@@ -565,6 +582,7 @@
       { keys: ['training','learn','courses'], label: 'Training', url: 'https://greenhornet-dev.github.io/cds-green/training.html' },
       { keys: ['services','support','tech support'], label: 'Services', url: 'https://greenhornet-dev.github.io/cds-green/services.html' },
       { keys: ['sop portal','sop list','all sops'], label: 'SOP Portal', url: './sop-portal.html' },
+      { keys: ['winget one-liners','winget page','app installs','install all','winget table'], label: 'Winget One-Liners', url: './winget-one-liners.html' },
       { keys: ['dev','developer','dev page'], label: 'Dev', url: 'https://greenhornet-dev.github.io/cds-green/dev.html' },
     ];
     const navMatch = NAV_PAGES.find(p => p.keys.some(k => lower.includes(k)));
