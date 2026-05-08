@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GraphQL vs SQL Parsing — Lansweeper Response Guide — GreenHornet IT</title>
+  <link rel="stylesheet" href="./shared-styles.css">
+</head>
+<body>
+  <header class="cds-navbar">
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo"><img src="https://greenhornet-dev.github.io/cds-green/Green-Hornet-Warrior.jpg" alt="GreenHornet" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #00ff64;vertical-align:middle;margin-right:2px;"> GreenHornet IT</a>
+    <nav>
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/3d-prints.html">3D Prints</a>
+      <a href="./sop-portal.html" class="active">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </nav>
+  </header>
+  <main class="page-wrapper">
+    <div class="page-header">
+      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>GraphQL vs SQL Parsing</span></div>
+      <h1>GraphQL vs SQL — Parsing &amp; Response Formats</h1>
+      <span class="tag">Dev</span>
+      <span class="tag">Lansweeper</span>
+      <span class="tag">GraphQL</span>
+      <p class="description">Why Lansweeper GraphQL responses feel awkward to parse, how to flatten them cleanly, and when SQL is the better call. Practical guide with Python and JavaScript examples.</p>
+    </div>
+
+    <section class="steps-section">
+      <h2>Table of Contents</h2>
+      <ol>
+        <li><a href="#1-why-nested">Why GraphQL Responses Are Nested</a></li>
+        <li><a href="#2-sql-vs-graphql">SQL vs GraphQL — Response Shape Comparison</a></li>
+        <li><a href="#3-flatten-python">Flatten GraphQL Responses — Python</a></li>
+        <li><a href="#4-flatten-js">Flatten GraphQL Responses — JavaScript (Clippy)</a></li>
+        <li><a href="#5-when-to-use">When to Use Each — Decision Guide</a></li>
+        <li><a href="#6-lansweeper-patterns">Lansweeper-Specific Patterns</a></li>
+        <li><a href="#7-useful-links">Useful Links</a></li>
+      </ol>
+    </section>
+
+    <!-- ==================== Section 1 ==================== -->
+    <section id="1-why-nested" class="steps-section">
+      <h2>1. Why GraphQL Responses Are Nested</h2>
+      <p>GraphQL isn't a bug — it's a feature you didn't ask for yet. The response shape <strong>mirrors the query shape exactly</strong>. That's by design. But it means every level of your query adds a level of nesting to the response.</p>
+
+      <h3>The Query Shape Creates the Response Shape</h3>
+      <pre><code># This query...
+{
+  Site {
+    site {
+      assetBasicInfo(where: ...) {
+        name
+        ipAddress
+        userName
+      }
+    }
+  }
+}
+
+# ...produces this response:
+{
+  "data": {
+    "Site": {
+      "site": {
+        "assetBasicInfo": [
+          { "name": "PC-001", "ipAddress": "10.0.0.5", "userName": "jsmith" }
+        ]
+      }
+    }
+  }
+}</code></pre>
+
+      <p>You have to navigate <code>data → Site → site → assetBasicInfo</code> — four levels — before you reach the array you actually want. SQL hands you the array immediately.</p>
+
+      <h3>Why Lansweeper's GraphQL Is Especially Deep</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Level</th><th class="step-how">What it represents</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><code>data</code></td><td class="step-how">GraphQL standard wrapper — every response has this</td></tr>
+          <tr><td class="step-what"><code>data.Site</code></td><td class="step-how">Lansweeper's top-level scope — their schema design choice</td></tr>
+          <tr><td class="step-what"><code>data.Site.site</code></td><td class="step-how">Multi-site support — the site object (even if you only have one)</td></tr>
+          <tr><td class="step-what"><code>data.Site.site.assetBasicInfo</code></td><td class="step-how">The actual data array you wanted</td></tr>
+        </tbody>
+      </table>
+
+      <p>Three of those four levels are just Lansweeper's schema structure. The data is fine — you just need to know the path to it.</p>
+    </section>
+
+    <!-- ==================== Section 2 ==================== -->
+    <section id="2-sql-vs-graphql" class="steps-section">
+      <h2>2. SQL vs GraphQL — Response Shape Comparison</h2>
+
+      <h3>SQL — Flat Rows (Clean to Parse)</h3>
+      <pre><code># Query
+SELECT a.Name, a.IPAddress, ac.Username
+FROM tblAssets a
+JOIN tblAssetCustom ac ON a.AssetID = ac.AssetID
+
+# Response — already flat, ready to use
+[
+  { "Name": "PC-001", "IPAddress": "10.0.0.5", "Username": "jsmith" },
+  { "Name": "PC-002", "IPAddress": "10.0.0.6", "Username": "ajones" }
+]
+
+# Parse it — one line
+for row in results:
+    print(row["Name"], row["IPAddress"])</code></pre>
+
+      <h3>GraphQL — Nested (Needs Navigation)</h3>
+      <pre><code># Same data, same fields — GraphQL response
+{
+  "data": {
+    "Site": {
+      "site": {
+        "assetBasicInfo": [
+          { "name": "PC-001", "ipAddress": "10.0.0.5", "userName": "jsmith" },
+          { "name": "PC-002", "ipAddress": "10.0.0.6", "userName": "ajones" }
+        ]
+      }
+    }
+  }
+}
+
+# Parse it — navigate 4 levels first
+assets = data["data"]["Site"]["site"]["assetBasicInfo"]
+for a in assets:
+    print(a["name"], a["ipAddress"])</code></pre>
+
+      <h3>Side-by-Side Summary</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Factor</th><th>SQL</th><th>GraphQL</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>Response structure</strong></td><td>Flat rows — immediate array</td><td>Nested object — navigate to array</td></tr>
+          <tr><td class="step-what"><strong>Parse complexity</strong></td><td>One level — <code>row["Field"]</code></td><td>Four+ levels — <code>data["data"]["Site"]["site"]["assetBasicInfo"]</code></td></tr>
+          <tr><td class="step-what"><strong>Null fields</strong></td><td>Explicit NULL in SQL</td><td>Field may be missing entirely or <code>null</code></td></tr>
+          <tr><td class="step-what"><strong>CSV/Excel export</strong></td><td>Trivial — rows map directly</td><td>Must flatten first</td></tr>
+          <tr><td class="step-what"><strong>Joins / relations</strong></td><td>Flat after JOIN — still easy</td><td>Nested objects within objects — harder</td></tr>
+          <tr><td class="step-what"><strong>Field names</strong></td><td>Your column aliases — you control them</td><td>Schema names — Lansweeper's naming (camelCase)</td></tr>
+          <tr><td class="step-what"><strong>Requires DB access</strong></td><td>Yes — network access to SQL Server</td><td>No — HTTP API, works from anywhere</td></tr>
+          <tr><td class="step-what"><strong>Works remotely / VPN</strong></td><td>Only if SQL port is reachable</td><td>Yes — HTTPS, works anywhere with a PAT</td></tr>
+        </tbody>
+      </table>
+
+      <p><strong>The trade-off:</strong> SQL is cleaner to parse but requires direct database access. GraphQL works remotely over HTTPS but the response needs navigation. Both return the same data.</p>
+    </section>
+
+    <!-- ==================== Section 3 ==================== -->
+    <section id="3-flatten-python" class="steps-section">
+      <h2>3. Flatten GraphQL Responses — Python</h2>
+      <p>The fix is simple: extract the deep path once at the top, assign it to a variable, then work with the flat array like SQL rows.</p>
+
+      <h3>The One-Line Fix</h3>
+      <pre><code>import requests
+
+r = requests.post(LS_URL, json={"query": QUERY}, headers={"Authorization": f"Bearer {PAT}"})
+data = r.json()
+
+# Navigate once — assign to a clean variable
+assets = data["data"]["Site"]["site"]["assetBasicInfo"]
+
+# Now it's flat — parse exactly like SQL rows
+for a in assets:
+    print(a["name"], a.get("ipAddress","—"), a.get("userName","—"))</code></pre>
+
+      <h3>Safe Navigation — Handle Missing Fields</h3>
+      <p>GraphQL fields can be <code>null</code> or absent if the asset hasn't reported that data. Use <code>.get()</code> with a default:</p>
+      <pre><code># Risky — crashes if userName is null
+print(a["userName"].upper())
+
+# Safe — .get() returns default if field is missing or null
+name     = a.get("name", "Unknown")
+ip       = a.get("ipAddress", "No IP")
+user     = a.get("userName") or "Unassigned"   # handles None AND empty string
+last_seen = a.get("lastSeen", "Never")
+os_name  = a.get("operatingSystem", "Unknown OS")</code></pre>
+
+      <h3>Flatten to a List of Dicts (SQL-style)</h3>
+      <pre><code># Convert GraphQL response to flat row format — same shape as SQL output
+def flatten_ls_assets(gql_response):
+    try:
+        raw = gql_response["data"]["Site"]["site"]["assetBasicInfo"]
+    except (KeyError, TypeError):
+        return []
+    return [
+        {
+            "name":     a.get("name", ""),
+            "ip":       a.get("ipAddress", ""),
+            "user":     a.get("userName") or "",
+            "os":       a.get("operatingSystem", ""),
+            "last_seen": a.get("lastSeen", ""),
+        }
+        for a in (raw or [])
+    ]
+
+# Use it
+assets = flatten_ls_assets(r.json())
+for a in assets:
+    print(a["name"], a["ip"], a["user"])</code></pre>
+
+      <h3>Export Flattened GraphQL to CSV</h3>
+      <pre><code">import pandas as pd
+
+assets = flatten_ls_assets(r.json())
+pd.DataFrame(assets).to_csv("assets.csv", index=False)
+# or
+pd.DataFrame(assets).to_excel("assets.xlsx", index=False)</code></pre>
+
+      <h3>Handling Nested Objects Within GraphQL Results</h3>
+      <p>Some Lansweeper queries return nested objects (e.g., software list within an asset). Flatten those with a loop:</p>
+      <pre><code># Query returns: asset → software[] within each asset
+# Response shape:
+# { "data": { "Site": { "site": {
+#     "software": [
+#       { "softwareName": "Teams", "softwareVersion": "1.6", "publisher": "Microsoft" }
+#     ]
+# } } } }
+
+software_list = data["data"]["Site"]["site"].get("software", [])
+rows = []
+for s in software_list:
+    rows.append({
+        "app":       s.get("softwareName", ""),
+        "version":   s.get("softwareVersion", ""),
+        "publisher": s.get("publisher", ""),
+    })
+pd.DataFrame(rows).to_csv("software.csv", index=False)</code></pre>
+    </section>
+
+    <!-- ==================== Section 4 ==================== -->
+    <section id="4-flatten-js" class="steps-section">
+      <h2>4. Flatten GraphQL Responses — JavaScript (Clippy)</h2>
+      <p>Same principle in JS — navigate once, then use the flat array. This is the pattern inside <code>clippy.js</code> for Lansweeper calls.</p>
+
+      <h3>Current Clippy Pattern</h3>
+      <pre><code>// After fetch() resolves
+const data = await r.json();
+
+// Navigate the nesting — assign to flat variable
+const assets = data?.data?.Site?.site?.assetBasicInfo ?? [];
+
+// Now iterate cleanly
+assets.forEach(a => {
+    const name     = a.name     ?? "Unknown";
+    const ip       = a.ipAddress ?? "No IP";
+    const user     = a.userName  || "Unassigned";
+    const lastSeen = a.lastSeen  ?? "Never";
+    console.log(name, ip, user);
+});</code></pre>
+
+      <h3>Optional Chaining (?.) — Why It Matters for GraphQL</h3>
+      <p>The <code>?.</code> operator short-circuits to <code>undefined</code> if any level is null/missing, instead of throwing a TypeError. Essential for GraphQL where any level can be absent:</p>
+      <pre><code>// Without ?. — crashes if Site is null
+const assets = data.data.Site.site.assetBasicInfo;  // TypeError!
+
+// With ?. — safely returns undefined, ?? [] gives empty array fallback
+const assets = data?.data?.Site?.site?.assetBasicInfo ?? [];
+
+// Also safe on individual fields
+const os = asset?.operatingSystem ?? "Unknown OS";</code></pre>
+
+      <h3>Build a Reusable Flatten Helper</h3>
+      <pre><code">// Put this once near the top of your script
+function lsAssets(gqlData) {
+    return (gqlData?.data?.Site?.site?.assetBasicInfo ?? []).map(a => ({
+        name:     a.name     ?? "",
+        ip:       a.ipAddress ?? "",
+        user:     a.userName  || "",
+        os:       a.operatingSystem ?? "",
+        lastSeen: a.lastSeen  ?? "",
+    }));
+}
+
+// Use it anywhere
+const assets = lsAssets(await r.json());
+assets.forEach(a => renderAssetCard(a));</code></pre>
+
+      <h3>Render Flat Assets as an HTML Table</h3>
+      <pre><code">function renderAssetsTable(assets) {
+    if (!assets.length) return "<p>No assets found.</p>";
+    const rows = assets.map(a =>
+        `<tr><td>${a.name}</td><td>${a.ip}</td><td>${a.user || "—"}</td><td>${a.lastSeen?.split("T")[0] ?? "—"}</td></tr>`
+    ).join("");
+    return `<table style="width:100%;font-size:11px;border-collapse:collapse;">
+        <thead><tr style="color:#00ff64;">
+            <th>Name</th><th>IP</th><th>User</th><th>Last Seen</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+    </table>`;
+}</code></pre>
+    </section>
+
+    <!-- ==================== Section 5 ==================== -->
+    <section id="5-when-to-use" class="steps-section">
+      <h2>5. When to Use Each — Decision Guide</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Situation</th><th class="step-how">Use</th><th style="width:80px;">Why</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Working remotely / VPN / from Clippy in a browser</td><td class="step-how"><strong>GraphQL</strong></td><td>HTTPS only, no DB port needed</td></tr>
+          <tr><td class="step-what">On-prem, direct DB access, writing reports for SSMS</td><td class="step-how"><strong>SQL</strong></td><td>Flat output, easier to paste into Excel</td></tr>
+          <tr><td class="step-what">Exporting to CSV / Excel for a non-tech stakeholder</td><td class="step-how"><strong>SQL</strong></td><td>Flat rows — no flattening step</td></tr>
+          <tr><td class="step-what">Real-time asset lookup from a web tool or script</td><td class="step-how"><strong>GraphQL</strong></td><td>API, no firewall issues, returns quickly</td></tr>
+          <tr><td class="step-what">Complex joins across many Lansweeper tables</td><td class="step-how"><strong>SQL</strong></td><td>GraphQL joins are limited; SQL JOINs are more flexible</td></tr>
+          <tr><td class="step-what">Power Automate flow needs asset data</td><td class="step-how"><strong>GraphQL</strong></td><td>PA HTTP connector works, no SQL Server connector needed</td></tr>
+          <tr><td class="step-what">Need patch status, services, logon history</td><td class="step-how"><strong>SQL</strong></td><td>Deeper Lansweeper tables not all exposed in GraphQL</td></tr>
+          <tr><td class="step-what">Quick lookup — one hostname, right now</td><td class="step-how"><strong>GraphQL</strong></td><td>Clippy's <code>find HOSTNAME</code> command uses this path</td></tr>
+        </tbody>
+      </table>
+
+      <h3>The Mental Model</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Think of it like...</th><th class="step-how">SQL</th><th>GraphQL</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Analogy</td><td class="step-how">Spreadsheet — rows and columns, already flat</td><td>JSON tree — you pick what branches to read</td></tr>
+          <tr><td class="step-what">Access method</td><td class="step-how">Direct database connection (port 1433)</td><td>HTTP API (port 443 — same as any website)</td></tr>
+          <tr><td class="step-what">Parse effort</td><td class="step-how">None — it's already rows</td><td>Navigate once, then same as rows</td></tr>
+          <tr><td class="step-what">Best formatted as</td><td class="step-how">CSV / Excel directly</td><td>JSON first, then flatten to CSV</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ==================== Section 6 ==================== -->
+    <section id="6-lansweeper-patterns" class="steps-section">
+      <h2>6. Lansweeper-Specific Patterns</h2>
+
+      <h3>The Standard Path — Memorize This</h3>
+      <pre><code"># Python — every Lansweeper GraphQL response starts here
+assets = response["data"]["Site"]["site"]["COLLECTION_NAME"]
+
+# JavaScript
+const assets = data?.data?.Site?.site?.COLLECTION_NAME ?? [];
+
+# COLLECTION_NAME is whatever you queried:
+# assetBasicInfo, software, authorizedReports, ipAddresses, etc.</code></pre>
+
+      <h3>Common Collection Names &amp; Their Paths</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Data you want</th><th class="step-how">GraphQL collection name</th><th style="width:120px;">SQL table equivalent</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Asset summary (name, IP, user, OS)</td><td class="step-how"><code>assetBasicInfo</code></td><td><code>tblAssets + tblAssetCustom</code></td></tr>
+          <tr><td class="step-what">Software installed</td><td class="step-how"><code>software</code></td><td><code>tblSoftware</code></td></tr>
+          <tr><td class="step-what">IP addresses per asset</td><td class="step-how"><code>ipAddresses</code></td><td><code>tblNetworkAdapters</code></td></tr>
+          <tr><td class="step-what">Authorized / saved reports</td><td class="step-how"><code>authorizedReports</code></td><td>Lansweeper report engine</td></tr>
+          <tr><td class="step-what">Sites in your account</td><td class="step-how"><code>sites</code> (top level)</td><td>N/A — cloud concept</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Multi-Site Setup — Slightly Different Path</h3>
+      <pre><code># Single site (most setups) — standard path
+assets = data["data"]["Site"]["site"]["assetBasicInfo"]
+
+# Multi-site — iterate sites first
+for site in data["data"]["Site"]["sites"]:
+    site_name = site["name"]
+    assets    = site.get("assetBasicInfo", [])
+    for a in assets:
+        print(site_name, a["name"], a["ipAddress"])</code></pre>
+
+      <h3>Error Checking — GraphQL Returns 200 Even on Errors</h3>
+      <p>Unlike REST APIs, GraphQL always returns HTTP 200. Errors are inside the response body under an <code>errors</code> key:</p>
+      <pre><code>data = r.json()
+
+# Always check for errors before navigating
+if "errors" in data:
+    for err in data["errors"]:
+        print("GraphQL error:", err["message"])
+else:
+    assets = data["data"]["Site"]["site"]["assetBasicInfo"]
+    # ... process assets</code></pre>
+
+      <h3>Debugging — Pretty Print the Full Response</h3>
+      <pre><code">import json
+
+# When parsing feels wrong — print the whole thing formatted
+r = requests.post(LS_URL, json={"query": QUERY}, headers={"Authorization": f"Bearer {PAT}"})
+print(json.dumps(r.json(), indent=2))
+
+# In VS Code: paste output into a new .json file → Shift+Alt+F to format
+# Then visually trace the path to your data</code></pre>
+    </section>
+
+    <!-- ==================== Section 7 ==================== -->
+    <section id="7-useful-links" class="steps-section">
+      <h2>7. Useful Links</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Resource</th><th class="step-how">URL</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Lansweeper GraphQL API Docs</td><td class="step-how"><a href="https://developer.lansweeper.com/docs/data-api/">developer.lansweeper.com</a></td></tr>
+          <tr><td class="step-what">Lansweeper GraphQL Schema Explorer</td><td class="step-how"><a href="https://developer.lansweeper.com/docs/data-api/reference/types/">Types Reference</a></td></tr>
+          <tr><td class="step-what">GraphQL Official Docs</td><td class="step-how"><a href="https://graphql.org/learn/">graphql.org/learn</a></td></tr>
+          <tr><td class="step-what">Work Tools Query Hub</td><td class="step-how"><a href="./work-tools-query.html">work-tools-query.html — SQL &amp; GraphQL presets</a></td></tr>
+          <tr><td class="step-what">Lansweeper SOP</td><td class="step-how"><a href="./lansweeper.html">lansweeper.html — Agent, API &amp; Power Automate</a></td></tr>
+          <tr><td class="step-what">Python vs Java SOP</td><td class="step-how"><a href="./python-vs-java.html">python-vs-java.html</a></td></tr>
+          <tr><td class="step-what">VS Code Dev SOP</td><td class="step-how"><a href="./vscode-dev-sop.html">vscode-dev-sop.html</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
+  </main>
+  <footer class="cds-footer">
+    <div class="footer-nav">
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/3d-prints.html">3D Prints</a>
+      <a href="./sop-portal.html">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 <span>Custom Design Systems LLC</span> &middot; GreenHornet IT Help Desk</p>
+  </footer>
+  <script src="./clippy.js"></script>
+</body>
+</html>

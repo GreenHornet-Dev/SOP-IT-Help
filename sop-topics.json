@@ -783,5 +783,35 @@
     "title": "VS Code Keyboard Shortcuts — Dev Workflow",
     "tag": "Dev",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#6-shortcuts"
+  },
+  {
+    "title": "GraphQL vs SQL — Parsing & Response Formats",
+    "tag": "GraphQL",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html"
+  },
+  {
+    "title": "Why Lansweeper GraphQL Responses Are Nested",
+    "tag": "GraphQL",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#1-why-nested"
+  },
+  {
+    "title": "Flatten GraphQL Response — Python",
+    "tag": "GraphQL",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#3-flatten-python"
+  },
+  {
+    "title": "Flatten GraphQL Response — JavaScript",
+    "tag": "GraphQL",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#4-flatten-js"
+  },
+  {
+    "title": "Lansweeper GraphQL Collection Names & Paths",
+    "tag": "Lansweeper",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#6-lansweeper-patterns"
+  },
+  {
+    "title": "GraphQL vs SQL — When to Use Each",
+    "tag": "GraphQL",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#5-when-to-use"
   }
 ]

@@ -189,6 +189,7 @@
         if (p.includes('work-tools-query'))     return 'sop-worktools';
         if (p.includes('python-vs-java'))       return 'sop-python';
         if (p.includes('vscode-dev-sop'))       return 'sop-vscode';
+        if (p.includes('graphql-vs-sql'))       return 'sop-gqlsql';
         if (p.includes('training'))             return 'training';
         if (p.includes('services'))             return 'services';
         if (p.includes('shop'))                 return 'shop';
@@ -217,6 +218,7 @@
         'sop-worktools': ['🗄️ SQL Queries','⬡ GraphQL','🎫 JQL Presets','🔗 Portal Queries','⚙️ Work Config'],
         'sop-python':   ['🐍 Python vs Java','📦 Key Libraries','🚀 Getting Started','🗺️ Learning Path','📋 All SOPs'],
         'sop-vscode':   ['🔌 Extensions','📡 API Calls','🗂️ Parsing','⚡ Power Automate','🏷️ SharePoint Labels'],
+        'sop-gqlsql':   ['🌲 Why Nested?','⬡ Flatten GraphQL','🗄️ SQL vs GraphQL','🔍 Lansweeper Paths','📋 All SOPs'],
         'training':     ['📋 Browse SOPs','🖨️ Printer Fix','🔑 Password Reset','🛒 Shop Gear'],
         'services':     ['💰 Get a Quote','🛒 Shop Laptops','🖥️ Shop Monitors','📞 Services'],
         'shop':         ['🛒 Shop Laptops','🖥️ Shop Monitors','🖨️ Shop Printers','💰 View Quote'],
@@ -238,6 +240,7 @@
         'sop-worktools': "⚡ Work Tools Query Hub — type <b>sql</b>, <b>graphql</b>, or <b>jql</b> to open query libraries. Type <b>work config</b> to set up your credentials (stored locally, never in the repo).",
         'sop-python':   "🐍 Python vs Java — ask about libraries, getting started, or how Python connects to Jira, Lansweeper, or Claude.",
         'sop-vscode':   "💻 VS Code Dev SOP — extensions, API calls, JSON/CSV parsing, Power Automate integration, and SharePoint sensitivity labels for HR &amp; Finance.",
+        'sop-gqlsql':   "⬡ GraphQL vs SQL Parsing — why Lansweeper responses are nested, how to flatten them, and when SQL is the cleaner call.",
         'default':      "👋 Hi! I'm Clippy. Ask about SOPs, IT fixes, shortcuts, winget installs, or shop for gear.",
     };
 
