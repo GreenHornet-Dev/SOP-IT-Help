@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copilot Studio Teams Bot — GreenHornet IT Help Desk</title>
+  <link rel="stylesheet" href="./shared-styles.css">
+  <style>
+    .arch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin: var(--space-4) 0;
+    }
+    .arch-card {
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+    .arch-card-title {
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .arch-card ul {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 12px;
+      color: var(--color-text-muted);
+      line-height: 1.9;
+    }
+    .arch-card ul li span { color: var(--color-text); font-weight: 600; }
+    .expiry-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .expiry-table th { background: var(--color-surface-3); padding: 8px 12px; text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--color-primary); border-bottom: 1px solid var(--color-border); }
+    .expiry-table td { padding: 9px 12px; border-bottom: 1px solid rgba(0,255,100,0.06); vertical-align: top; }
+    .expiry-table tr:last-child td { border-bottom: none; }
+    .badge { display: inline-block; border-radius: 20px; padding: 2px 10px; font-size: 10px; font-weight: 700; }
+    .badge-red    { background: rgba(255,80,80,0.15);  color: #ff5050; border: 1px solid rgba(255,80,80,0.3); }
+    .badge-yellow { background: rgba(255,180,0,0.15);  color: #ffb400; border: 1px solid rgba(255,180,0,0.3); }
+    .badge-green  { background: rgba(0,255,100,0.12);  color: #00ff64; border: 1px solid rgba(0,255,100,0.25); }
+    .badge-blue   { background: rgba(0,180,255,0.12);  color: #00b4ff; border: 1px solid rgba(0,180,255,0.25); }
+    .flow-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .flow-box {
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text);
+      text-align: center;
+      min-width: 130px;
+    }
+    .flow-box small { display: block; font-weight: 400; color: var(--color-text-faint); font-size: 10px; margin-top: 2px; }
+    .flow-arrow { color: var(--color-primary); font-size: 18px; padding: 0 6px; }
+    .warn-box {
+      background: rgba(255,180,0,0.08);
+      border: 1px solid rgba(255,180,0,0.25);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #ffb400;
+      margin: 16px 0;
+    }
+    .info-box {
+      background: rgba(0,180,255,0.07);
+      border: 1px solid rgba(0,180,255,0.2);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #00b4ff;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="cds-navbar">
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo"><img src="https://greenhornet-dev.github.io/cds-green/Green-Hornet-Warrior.jpg" alt="GreenHornet" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #00ff64;vertical-align:middle;margin-right:2px;"> GreenHornet IT</a>
+    <nav>
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/3d-prints.html">3D Prints</a>
+      <a href="./sop-portal.html" class="active">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </nav>
+  </header>
+
+  <main class="page-wrapper">
+    <div class="page-header">
+      <div class="breadcrumb"><a href="./sop-portal.html">← SOP Portal</a><span>/</span><span>Copilot Studio Teams Bot</span></div>
+      <h1>🤖 Copilot Studio Teams Bot</h1>
+      <span class="tag">Copilot Studio</span>
+      <span class="tag">Teams</span>
+      <span class="tag">Azure</span>
+      <p class="description">Full architecture map, component ownership, expiry schedule, and renewal procedures for a Copilot Studio bot published to Microsoft Teams with SharePoint knowledge sources.</p>
+    </div>
+
+    <!-- ARCHITECTURE OVERVIEW -->
+    <section id="architecture" class="steps-section">
+      <h2>Architecture Overview</h2>
+      <p style="color:var(--color-text-muted);font-size:13px;margin-bottom:16px;">Every Copilot Studio → Teams bot passes through this chain. Each box is a separate component with its own credentials and admin portal.</p>
+
+      <div class="flow-row">
+        <div class="flow-box">Copilot Studio<small>make.powervirtualagents.microsoft.com</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">Azure Bot Service<small>portal.azure.com</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">Azure AD App Registration<small>portal.azure.com → Entra ID</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">Teams Channel<small>Teams Admin Center</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">End User<small>Microsoft Teams client</small></div>
+      </div>
+
+      <div class="flow-row" style="margin-top:0;">
+        <div class="flow-box" style="border-color:rgba(0,180,255,0.3);">SharePoint Sites<small>Knowledge sources</small></div>
+        <div class="flow-arrow" style="transform:rotate(-90deg);">↑</div>
+        <div class="flow-box" style="border-color:rgba(0,180,255,0.3);">Generative Answers<small>Copilot Studio AI node</small></div>
+        <div class="flow-arrow" style="transform:rotate(-90deg);">↑</div>
+        <div class="flow-box" style="border-color:rgba(0,180,255,0.3);">Power Automate Flows<small>(optional actions)</small></div>
+      </div>
+    </section>
+
+    <!-- COMPONENT MAP -->
+    <section id="components" class="steps-section">
+      <h2>Component Map — What Was Built &amp; Where</h2>
+      <div class="arch-grid">
+        <div class="arch-card">
+          <div class="arch-card-title">🤖 Copilot Studio Bot</div>
+          <ul>
+            <li><span>Portal:</span> make.powervirtualagents.microsoft.com</li>
+            <li><span>Owns:</span> Topics, entities, variables, generative answers config</li>
+            <li><span>Publish button:</span> pushes to registered channels</li>
+            <li><span>Dev/Test mode:</span> runs independently of publish credentials</li>
+            <li><span>Expiry:</span> None — but requires active license to publish</li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <div class="arch-card-title">☁️ Azure Bot Service</div>
+          <ul>
+            <li><span>Portal:</span> portal.azure.com → Bot Services</li>
+            <li><span>Owns:</span> Messaging endpoint, channel registrations</li>
+            <li><span>Key field:</span> Microsoft App ID + App Password (client secret)</li>
+            <li><span>Expiry:</span> App Password expires per App Registration secret policy</li>
+            <li><span>Must match:</span> Secret in App Registration must match here</li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <div class="arch-card-title">🔑 Azure AD App Registration</div>
+          <ul>
+            <li><span>Portal:</span> portal.azure.com → Microsoft Entra ID → App Registrations</li>
+            <li><span>Owns:</span> App ID (permanent), Client Secret (expires)</li>
+            <li><span>Secret expiry:</span> <strong style="color:#ff5050;">1 or 2 years</strong> — most common failure point</li>
+            <li><span>Permissions:</span> Bot Framework API, Teams, SharePoint (if direct)</li>
+            <li><span>Owner:</span> Whoever created the registration (check Owners tab)</li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <div class="arch-card-title">💬 Teams Channel</div>
+          <ul>
+            <li><span>Registered in:</span> Azure Bot Service → Channels → Microsoft Teams</li>
+            <li><span>Deployed via:</span> Teams Admin Center → Manage Apps (org-wide) or user sideload</li>
+            <li><span>Owns:</span> Teams app manifest, app ID within Teams</li>
+            <li><span>Expiry:</span> Channel itself doesn't expire — breaks when Bot Service credentials go stale</li>
+            <li><span>Fix:</span> Disconnect + reconnect channel after secret renewal</li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <div class="arch-card-title">📂 SharePoint Knowledge Sources</div>
+          <ul>
+            <li><span>Configured in:</span> Copilot Studio → Knowledge → Add knowledge</li>
+            <li><span>Owns:</span> Site URLs indexed for generative answers</li>
+            <li><span>Auth:</span> Uses the bot's service identity / tenant permissions</li>
+            <li><span>Breaks when:</span> SharePoint site permissions change, site deleted, or DLP policy blocks connector</li>
+            <li><span>Check:</span> Knowledge tab shows green ✓ or red ✗ per source</li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <div class="arch-card-title">⚡ Power Automate Flows</div>
+          <ul>
+            <li><span>Configured in:</span> Copilot Studio → Topics → Call an action</li>
+            <li><span>Auth:</span> Connection credentials tied to the flow creator's account</li>
+            <li><span>Breaks when:</span> Creator's password changes, account disabled, or MFA token expires</li>
+            <li><span>Check:</span> power.microsoft.com → My Flows → look for Suspended status</li>
+            <li><span>Fix:</span> Open flow → Edit connections → re-authenticate</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPIRY SCHEDULE -->
+    <section id="expiry-schedule" class="steps-section">
+      <h2>Expiry &amp; Maintenance Schedule</h2>
+      <div class="warn-box">⚠ The <strong>Azure AD Client Secret</strong> is the #1 cause of Teams bot failures. Set a calendar reminder 30 days before expiry to renew proactively.</div>
+      <table class="expiry-table">
+        <thead>
+          <tr><th>Component</th><th>Expires?</th><th>Typical Timeframe</th><th>Symptom When Broken</th><th>Where to Check</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Azure AD Client Secret</strong></td>
+            <td><span class="badge badge-red">YES</span></td>
+            <td>1–2 years (set at creation)</td>
+            <td>Teams channel stops responding; dev/test mode still works</td>
+            <td>Entra ID → App Registrations → [app] → Certificates &amp; Secrets</td>
+          </tr>
+          <tr>
+            <td><strong>Power Automate Flow Connections</strong></td>
+            <td><span class="badge badge-yellow">CONDITIONAL</span></td>
+            <td>When owner password changes or account is disabled</td>
+            <td>Specific topics fail with "Action failed" error; other topics work</td>
+            <td>power.microsoft.com → My Flows → check for Suspended badge</td>
+          </tr>
+          <tr>
+            <td><strong>SharePoint Knowledge Sources</strong></td>
+            <td><span class="badge badge-yellow">CONDITIONAL</span></td>
+            <td>When site permissions change or DLP policy changes</td>
+            <td>Generative answers return "I couldn't find that" or blank</td>
+            <td>Copilot Studio → Knowledge — check for red ✗ status</td>
+          </tr>
+          <tr>
+            <td><strong>Copilot Studio License</strong></td>
+            <td><span class="badge badge-yellow">CONDITIONAL</span></td>
+            <td>Trial: 30 days. Paid: annual subscription</td>
+            <td>Publish button disabled or "License required" error on publish</td>
+            <td>Power Platform Admin Center → Billing → Licenses</td>
+          </tr>
+          <tr>
+            <td><strong>Teams App Registration</strong></td>
+            <td><span class="badge badge-green">NO</span></td>
+            <td>Does not expire</td>
+            <td>N/A — breaks only if bot service credentials change</td>
+            <td>Teams Admin Center → Manage Apps</td>
+          </tr>
+          <tr>
+            <td><strong>Azure Bot Service</strong></td>
+            <td><span class="badge badge-green">NO</span></td>
+            <td>Does not expire</td>
+            <td>N/A — only needs updating when secret changes</td>
+            <td>portal.azure.com → Bot Services → Configuration</td>
+          </tr>
+          <tr>
+            <td><strong>AI Builder / Message Capacity</strong></td>
+            <td><span class="badge badge-yellow">CONDITIONAL</span></td>
+            <td>Monthly quota (200 sessions free; resets monthly)</td>
+            <td>Generative answers fail mid-month; basic topics still work</td>
+            <td>Power Platform Admin Center → Capacity → AI Builder</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- RENEWAL: CLIENT SECRET -->
+    <section id="renew-client-secret" class="steps-section">
+      <h2>Renew the Azure AD Client Secret (Teams Channel Fix)</h2>
+      <div class="info-box">ℹ This is the fix for: bot works in dev/test but Teams channel says "agent can't be reached" or stops responding after months of working.</div>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="step-num">1</td>
+            <td class="step-what">Find the App Registration</td>
+            <td class="step-how">Go to <strong>portal.azure.com</strong> → Microsoft Entra ID → App Registrations → All Applications. Search for your bot name or "Copilot Studio." Open the registration.</td>
+          </tr>
+          <tr>
+            <td class="step-num">2</td>
+            <td class="step-what">Check the expired secret</td>
+            <td class="step-how">In the app registration, click <strong>Certificates &amp; secrets</strong> → Client secrets tab. Look for a secret with a red or past Expires date. Note the Description name for reference.</td>
+          </tr>
+          <tr>
+            <td class="step-num">3</td>
+            <td class="step-what">Create a new secret</td>
+            <td class="step-how">Click <strong>+ New client secret</strong>. Set Description (e.g. "Teams Bot 2026") and Expires to <strong>24 months</strong>. Click Add. <strong>Immediately copy the Value</strong> — it is only shown once.</td>
+          </tr>
+          <tr>
+            <td class="step-num">4</td>
+            <td class="step-what">Update Azure Bot Service</td>
+            <td class="step-how">Go to <strong>portal.azure.com</strong> → Bot Services → your bot → <strong>Configuration</strong>. Paste the new secret into <strong>Microsoft App Password</strong>. Click Apply / Save.</td>
+          </tr>
+          <tr>
+            <td class="step-num">5</td>
+            <td class="step-what">Reconnect the Teams channel</td>
+            <td class="step-how">In Azure Bot Service → <strong>Channels</strong> → Microsoft Teams → click the channel → <strong>Delete</strong> to disconnect it. Then re-add it: + Add channel → Microsoft Teams → configure and save.</td>
+          </tr>
+          <tr>
+            <td class="step-num">6</td>
+            <td class="step-what">Re-publish from Copilot Studio</td>
+            <td class="step-how">Go to <strong>make.powervirtualagents.microsoft.com</strong> → your bot → <strong>Publish</strong> → Publish. Wait for confirmation. Test in Teams — allow 5–10 minutes for propagation.</td>
+          </tr>
+          <tr>
+            <td class="step-num">7</td>
+            <td class="step-what">Delete the old expired secret</td>
+            <td class="step-how">Back in Entra ID → App Registration → Certificates &amp; secrets — delete the old expired secret to keep the list clean.</td>
+          </tr>
+          <tr>
+            <td class="step-num">8</td>
+            <td class="step-what">Set a renewal reminder</td>
+            <td class="step-how">Add a calendar reminder 30 days before the new secret's expiry date (24 months from today). Label it "Renew Teams Bot Azure Secret."</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- FIX: SHAREPOINT KNOWLEDGE -->
+    <section id="fix-sharepoint-knowledge" class="steps-section">
+      <h2>Fix Broken SharePoint Knowledge Sources</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="step-num">1</td>
+            <td class="step-what">Check knowledge source status</td>
+            <td class="step-how">Copilot Studio → your bot → <strong>Knowledge</strong> tab. Each source shows a status icon. Red ✗ or "Failed" means the source is broken.</td>
+          </tr>
+          <tr>
+            <td class="step-num">2</td>
+            <td class="step-what">Verify SharePoint permissions</td>
+            <td class="step-how">Open the SharePoint site URL. Confirm the bot's service account or the Copilot connector still has at least <strong>Read</strong> access. Check Site Settings → Site Permissions.</td>
+          </tr>
+          <tr>
+            <td class="step-num">3</td>
+            <td class="step-what">Remove and re-add the source</td>
+            <td class="step-how">In Copilot Studio → Knowledge → click the broken source → <strong>Delete</strong>. Then <strong>+ Add knowledge</strong> → SharePoint → paste the site URL again → Add. Allow up to 24 hours for re-indexing.</td>
+          </tr>
+          <tr>
+            <td class="step-num">4</td>
+            <td class="step-what">Check DLP policies</td>
+            <td class="step-how">Power Platform Admin Center → Policies → Data policies. Confirm SharePoint connector is not blocked in the environment the bot lives in. If it was moved to a restricted group, move it back to Business.</td>
+          </tr>
+          <tr>
+            <td class="step-num">5</td>
+            <td class="step-what">Re-publish after fix</td>
+            <td class="step-how">Copilot Studio → <strong>Publish</strong> after knowledge sources show green ✓. Test with a question that should pull from the SharePoint content.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- FIX: POWER AUTOMATE FLOWS -->
+    <section id="fix-flows" class="steps-section">
+      <h2>Fix Suspended Power Automate Flows</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">What to Do</th><th class="step-how">How to Do It</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="step-num">1</td>
+            <td class="step-what">Find suspended flows</td>
+            <td class="step-how">Go to <strong>power.microsoft.com</strong> → My Flows (or All Flows if admin). Look for flows with a <strong>Suspended</strong> or <strong>Warning</strong> badge — these are the ones the bot topics call.</td>
+          </tr>
+          <tr>
+            <td class="step-num">2</td>
+            <td class="step-what">Re-authenticate the connection</td>
+            <td class="step-how">Open the suspended flow → Edit → click on the step showing the broken connection (red border) → sign in again with valid credentials. Save the flow.</td>
+          </tr>
+          <tr>
+            <td class="step-num">3</td>
+            <td class="step-what">Change connection owner (if needed)</td>
+            <td class="step-how">If the original owner's account is gone, open the flow → Connections → <strong>+ New connection</strong> → sign in with a service account or shared mailbox that won't be affected by staff turnover.</td>
+          </tr>
+          <tr>
+            <td class="step-num">4</td>
+            <td class="step-what">Test the flow</td>
+            <td class="step-how">In the flow editor, click <strong>Test</strong> → Manually → Run flow. Confirm it runs without errors before testing in the bot.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- TROUBLESHOOT PUBLISH -->
+    <section id="troubleshoot-publish" class="steps-section">
+      <h2>Troubleshoot: Can Publish to Demo Site but Not Teams</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">#</th><th class="step-what">Check</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="step-num">1</td>
+            <td class="step-what">Teams channel registration state</td>
+            <td class="step-how">Azure Bot Service → Channels. If the Microsoft Teams channel shows an error icon or "Disconnected," delete and re-add the channel (see Renew steps 5–6 above).</td>
+          </tr>
+          <tr>
+            <td class="step-num">2</td>
+            <td class="step-what">Azure AD client secret expired</td>
+            <td class="step-how">Most common cause. Follow the full Renew the Azure AD Client Secret procedure above.</td>
+          </tr>
+          <tr>
+            <td class="step-num">3</td>
+            <td class="step-what">Teams Admin Center app policy</td>
+            <td class="step-how">Teams Admin Center → Teams Apps → Setup Policies → check if the bot's app is blocked or if the policy changed. Ask your Teams admin to check org-wide app settings.</td>
+          </tr>
+          <tr>
+            <td class="step-num">4</td>
+            <td class="step-what">Copilot Studio license</td>
+            <td class="step-how">Power Platform Admin Center → Billing → Licenses → Copilot Studio. If the license shows expired or 0 available, the Publish button will succeed locally but fail to activate the Teams channel.</td>
+          </tr>
+          <tr>
+            <td class="step-num">5</td>
+            <td class="step-what">Bot registered in wrong environment</td>
+            <td class="step-how">Confirm the bot is published in the same Power Platform environment where the Teams app is registered. Environment mismatch causes silent publish failures.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- QUICK REFERENCE -->
+    <section id="quick-reference" class="steps-section">
+      <h2>Quick Reference — Admin Portals</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Portal</th><th class="step-what">URL</th><th class="step-how">Used For</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">Copilot Studio</td><td class="step-what"><strong>make.powervirtualagents.microsoft.com</strong></td><td class="step-how">Build, test, publish bot; manage topics and knowledge</td></tr>
+          <tr><td class="step-num">Azure Portal</td><td class="step-what"><strong>portal.azure.com</strong></td><td class="step-how">Bot Service config, App Registration, client secret renewal</td></tr>
+          <tr><td class="step-num">Entra ID</td><td class="step-what"><strong>entra.microsoft.com</strong></td><td class="step-how">App Registrations → Certificates &amp; Secrets</td></tr>
+          <tr><td class="step-num">Power Automate</td><td class="step-what"><strong>make.powerautomate.com</strong></td><td class="step-how">Fix suspended flows, re-authenticate connections</td></tr>
+          <tr><td class="step-num">Power Platform Admin</td><td class="step-what"><strong>admin.powerplatform.microsoft.com</strong></td><td class="step-how">Licenses, DLP policies, capacity, environments</td></tr>
+          <tr><td class="step-num">Teams Admin Center</td><td class="step-what"><strong>admin.teams.microsoft.com</strong></td><td class="step-how">Manage apps, setup policies, org-wide deployment</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <footer class="cds-footer">
+    <p>&copy; 2026 GreenHornet IT Help Desk &mdash; <a href="./sop-portal.html">SOP Portal</a></p>
+  </footer>
+
+  <script src="./clippy.js"></script>
+</body>
+</html>

@@ -185,6 +185,7 @@
         if (p.includes('logmein'))              return 'sop-logmein';
         if (p.includes('crowdstrike'))          return 'sop-crowdstrike';
         if (p.includes('winget-one-liners'))    return 'sop-winget';
+        if (p.includes('copilot-studio'))       return 'sop-copilot-studio';
         if (p.includes('training'))             return 'training';
         if (p.includes('services'))             return 'services';
         if (p.includes('shop'))                 return 'shop';
@@ -209,6 +210,7 @@
         'sop-logmein':    ['🖥️ Start Session','🔑 Password Reset','🔍 Lansweeper','🛡️ CrowdStrike','📋 All SOPs'],
         'sop-crowdstrike':['🛡️ Respond to Detection','🔒 Contain Host','🖥️ RTR Session','🔍 Lansweeper','📋 All SOPs'],
         'sop-winget':   ['📋 Copy All Apps','🌐 Install Chrome','💬 Install Teams','📝 Install Notepad++','📋 All SOPs'],
+        'sop-copilot-studio': ['🔑 Renew Azure Secret','📂 Fix SharePoint Knowledge','⚡ Fix Broken Flow','📋 Expiry Schedule','📋 All SOPs'],
         'training':     ['📋 Browse SOPs','🖨️ Printer Fix','🔑 Password Reset','🛒 Shop Gear'],
         'services':     ['💰 Get a Quote','🛒 Shop Laptops','🖥️ Shop Monitors','📞 Services'],
         'shop':         ['🛒 Shop Laptops','🖥️ Shop Monitors','🖨️ Shop Printers','💰 View Quote'],
@@ -226,6 +228,7 @@
         'services':     "💼 Services page — ask about pricing, request support, or build a quote.",
         'shop':         "🛒 Shop — search products to build a quote. Try 'shop laptops' or 'shop monitors'.",
         'sop-winget':   "🪶 Winget One-Liners — click COPY on any row, or COPY ALL at the bottom for the full PowerShell install script.",
+        'sop-copilot-studio': "🤖 Copilot Studio Teams Bot — ask about renewing the Azure secret, fixing broken knowledge sources, or why publishing to Teams fails.",
         'default':      "👋 Hi! I'm Clippy. Ask about SOPs, IT fixes, shortcuts, winget installs, or shop for gear.",
     };
 
@@ -904,6 +907,62 @@
     a.download=poData.poNumber+'.csv'; a.click();
     botMsg('📊 Downloaded: <b>'+poData.poNumber+'.csv</b>');
   };
+
+  /* == Copilot Studio Knowledge == */
+  SITE_KNOWLEDGE.push(
+    {
+      keys: ['copilot studio','pva','power virtual agent','teams bot','bot not working','bot stopped','agent cant be reached','agent can\'t be reached','bot publish','publish teams','copilot bot'],
+      icon: '🤖', title: 'Copilot Studio Teams Bot',
+      related: ['Renew Azure Secret','Fix SharePoint Knowledge','Fix Broken Flow'],
+      steps: [
+        'Full SOP: <a href="./copilot-studio-teams-bot.html" style="color:#00ff64">Copilot Studio Teams Bot Architecture & Maintenance →</a>',
+        '<b>Bot works in Dev/Test but not in Teams?</b> → Expired Azure AD client secret. See <a href="./copilot-studio-teams-bot.html#renew-client-secret" style="color:#00ff64">Renew Azure Secret</a>.',
+        '<b>Can\'t publish to Teams (but Demo site works)?</b> → Teams channel registration broke. <a href="./copilot-studio-teams-bot.html#troubleshoot-publish" style="color:#00ff64">Troubleshoot Publish →</a>',
+        '<b>Generative answers failing?</b> → Check SharePoint knowledge sources. <a href="./copilot-studio-teams-bot.html#fix-sharepoint-knowledge" style="color:#00ff64">Fix Knowledge Sources →</a>',
+        '<b>Specific topics failing with "action failed"?</b> → Power Automate flow suspended. <a href="./copilot-studio-teams-bot.html#fix-flows" style="color:#00ff64">Fix Flows →</a>',
+      ]
+    },
+    {
+      keys: ['renew azure secret','client secret','app registration secret','azure secret expired','azure ad secret','renew bot secret','secret expired','bot secret'],
+      icon: '🔑', title: 'Renew Azure AD Client Secret (Teams Bot)',
+      related: ['Copilot Studio Bot','Fix Broken Flow','Teams Bot Architecture'],
+      steps: [
+        '<b>Go to:</b> portal.azure.com → Microsoft Entra ID → App Registrations → find your bot app.',
+        'Click <b>Certificates & secrets</b> → Client secrets — check the Expires column for a red/past date.',
+        'Click <b>+ New client secret</b> → set 24 months → Add. <b>Copy the Value immediately</b> (shown once only).',
+        'Go to <b>Azure Bot Service → Configuration</b> → paste new secret into Microsoft App Password → Save.',
+        'In Azure Bot Service → <b>Channels → Microsoft Teams</b> → Delete the channel, then re-add it.',
+        'Back in <b>Copilot Studio → Publish</b> → re-publish the bot. Allow 5–10 min for Teams to update.',
+        'Full walkthrough: <a href="./copilot-studio-teams-bot.html#renew-client-secret" style="color:#00ff64">Renew Client Secret SOP →</a>'
+      ]
+    },
+    {
+      keys: ['sharepoint knowledge','knowledge source','knowledge broken','generative answers','bot no answer','bot wrong answer','bot knowledge','fix knowledge','copilot knowledge'],
+      icon: '📂', title: 'Fix Broken SharePoint Knowledge Source',
+      related: ['Copilot Studio Bot','Renew Azure Secret'],
+      steps: [
+        'In <b>Copilot Studio → your bot → Knowledge</b> — check each source for a red ✗ or "Failed" status.',
+        'Confirm the SharePoint site is still accessible and the bot\'s connector still has <b>Read</b> permission.',
+        'To fix: <b>Delete</b> the broken source, then <b>+ Add knowledge</b> → SharePoint → re-paste the URL.',
+        'Re-indexing can take up to 24 hours — test generative answers again after waiting.',
+        'If DLP policy is blocking: Power Platform Admin Center → Policies → confirm SharePoint connector is in the <b>Business</b> group.',
+        'Full steps: <a href="./copilot-studio-teams-bot.html#fix-sharepoint-knowledge" style="color:#00ff64">Fix Knowledge Source SOP →</a>'
+      ]
+    },
+    {
+      keys: ['suspended flow','broken flow','bot action failed','flow not working','power automate bot','fix flow','copilot flow','bot flow','action failed'],
+      icon: '⚡', title: 'Fix Suspended Power Automate Flow (Bot)',
+      related: ['Copilot Studio Bot','Renew Azure Secret'],
+      steps: [
+        'Go to <b>make.powerautomate.com → My Flows</b> — look for flows with a <b>Suspended</b> badge.',
+        'Open the suspended flow → <b>Edit</b> → find the step with a red border (broken connection).',
+        'Click the connection → <b>Sign in again</b> with valid credentials → Save.',
+        'If the original owner\'s account is gone: Connections → <b>+ New connection</b> → use a shared service account.',
+        '<b>Test the flow</b> manually in the editor before testing in the bot.',
+        'Full steps: <a href="./copilot-studio-teams-bot.html#fix-flows" style="color:#00ff64">Fix Flows SOP →</a>'
+      ]
+    }
+  );
 
   /* == Handle Query == */
   function handleQuery(q) {

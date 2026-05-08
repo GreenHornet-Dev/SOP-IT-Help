@@ -568,5 +568,40 @@
     "title": "Install Tailscale (Mesh VPN)",
     "tag": "Winget",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html"
+  },
+  {
+    "title": "Copilot Studio Teams Bot — Architecture & Maintenance",
+    "tag": "Copilot Studio",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html"
+  },
+  {
+    "title": "Renew Azure AD Client Secret (Teams Bot Fix)",
+    "tag": "Copilot Studio",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#renew-client-secret"
+  },
+  {
+    "title": "Copilot Studio Bot Can't Publish to Teams",
+    "tag": "Copilot Studio",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#troubleshoot-publish"
+  },
+  {
+    "title": "Fix Broken SharePoint Knowledge Source",
+    "tag": "Copilot Studio",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#fix-sharepoint-knowledge"
+  },
+  {
+    "title": "Fix Suspended Power Automate Flow (Bot Actions)",
+    "tag": "Copilot Studio",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#fix-flows"
+  },
+  {
+    "title": "Copilot Studio Bot Expiry & Maintenance Schedule",
+    "tag": "Copilot Studio",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#expiry-schedule"
+  },
+  {
+    "title": "Teams Bot Architecture Component Map",
+    "tag": "Copilot Studio",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#components"
   }
 ]
