@@ -117,7 +117,7 @@
     /* == WINGET APPS — synced with winget-one-liners.html == */
     const WINGET_APPS = [
       // Core Apps
-      {label:'Google Chrome',              cmd:'winget install -e --id Google.Chrome --scope Machine --silent',                       apps:['chrome','google chrome','browser']},
+      {label:'Google Chrome',              cmd:'winget install -e --id Google.Chrome --scope Machine --silent',                       apps:['chrome','google chrome','browser','google']},
       {label:'Mozilla Firefox',            cmd:'winget install -e --id Mozilla.Firefox --scope Machine --silent',                     apps:['firefox','mozilla','firefox browser']},
       {label:'Adobe Acrobat Reader 64-bit',cmd:'winget install -e --id Adobe.Acrobat.Reader.64-bit --scope Machine --silent',         apps:['adobe reader','pdf reader','acrobat','adobe acrobat']},
       {label:'Zoom',                       cmd:'winget install -e --id Zoom.Zoom --scope Machine --silent',                           apps:['zoom','video conference','zoom meeting']},
@@ -346,6 +346,23 @@
 
     /* == Site Knowledge Base == */
   const SITE_KNOWLEDGE = [
+    {
+      keys: ['get winget','download winget','install winget','winget missing','winget not found','what is winget','winget setup','no winget'],
+      icon: '🪶', title: 'Get Winget (Windows Package Manager)',
+      related: ['winget one-liners','Windows Update','Help Desk Steps'],
+      steps: [
+        '<b>Windows 10 (1709+) and Windows 11:</b> winget is pre-installed via <b>App Installer</b>.',
+        '<b>Check if you have it:</b> Open PowerShell → type <code>winget --version</code>',
+        '<b>If missing, install App Installer from Microsoft Store:</b>',
+        '&nbsp;&nbsp;Open Microsoft Store → search <b>App Installer</b> → Install (it\'s free, by Microsoft).',
+        '<b>Or install via PowerShell (requires NuGet):</b>',
+        '<code>Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe</code>',
+        '<b>Or download the latest .msixbundle from GitHub:</b>',
+        '&nbsp;&nbsp;github.com/microsoft/winget-cli/releases → download <code>Microsoft.DesktopAppInstaller_*.msixbundle</code>',
+        'After installing, restart PowerShell and run <code>winget --version</code> to confirm.',
+        'Need commands? See the <a href="./winget-one-liners.html" style="color:#00ff64">Winget One-Liners page →</a>'
+      ]
+    },
     {
       keys: ['winget one-liners','winget list','install all apps','bulk install','silent install','app list','core apps','winget table','all winget'],
       icon: '🪶', title: 'Winget One-Liners',
@@ -680,13 +697,7 @@
       return;
     }
 
-    // Winget search
-    if (lower.includes('winget') || (lower.includes('install') && !lower.includes('how'))) {
-      searchWinget(lower);
-      return;
-    }
-
-    // SITE_KNOWLEDGE \u2014 fuzzy + case-insensitive match
+    // SITE_KNOWLEDGE \u2014 checked before winget so KB answers take priority
     function kbMatch(keys) {
       return keys.some(kw => {
         if (lower.includes(kw)) return true;
@@ -711,6 +722,13 @@
       }
       addHTML(stepsHtml);
       if (kb.related) showFollowUps(kb.related);
+      return;
+    }
+
+    // Winget search \u2014 fires on 'winget', 'install', or any known app keyword
+    const wingetAppHit = WINGET_APPS.some(w => w.apps.some(a => lower.includes(a)));
+    if (lower.includes('winget') || (lower.includes('install') && !lower.includes('how')) || wingetAppHit) {
+      searchWinget(lower);
       return;
     }
 
