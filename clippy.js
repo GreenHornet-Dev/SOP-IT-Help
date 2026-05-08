@@ -39,6 +39,8 @@
     #clippy-chips{display:flex;flex-wrap:wrap;gap:6px;padding:6px 12px 4px;}
     .clippy-chip{background:transparent;border:1px solid #00ff64;color:#00ff64;padding:4px 10px;border-radius:14px;font-size:11px;cursor:pointer;transition:all .15s;white-space:nowrap;font-family:inherit;}
     .clippy-chip:hover{background:#00ff64;color:#000;}
+    .clippy-code-copy{background:transparent;border:1px solid #333;color:#888;padding:1px 5px;border-radius:4px;font-size:10px;cursor:pointer;margin-left:4px;transition:all .15s;vertical-align:middle;}
+    .clippy-code-copy:hover{border-color:#00ff64;color:#00ff64;}
     #clippy-input-row{display:flex;gap:8px;padding:0 10px 10px;}
     #clippy-input{flex:1;padding:10px;background:#1a1a2e;border:1px solid #333;border-radius:8px;color:#fff;font-size:14px;outline:none;}
     #clippy-input:focus{border-color:#00ff64;background:#0f0f1a;}
@@ -112,29 +114,51 @@
         { name: "TP-Link Omada EAP660 HD Access Point", category: "Networking", price: 199, sku: "EAP-660" }
     ];
 
-    /* == WINGET APPS (existing) == */
+    /* == WINGET APPS — synced with winget-one-liners.html == */
     const WINGET_APPS = [
-        {cmd:"winget install Microsoft.PowerShell",apps:["powershell","pwsh"]},
-        {cmd:"winget install Microsoft.VisualStudioCode",apps:["vscode","visual studio code","code editor"]},
-        {cmd:"winget install Git.Git",apps:["git","github desktop"]},
-        {cmd:"winget install Google.Chrome",apps:["chrome","google chrome","browser"]},
-        {cmd:"winget install Mozilla.Firefox",apps:["firefox","mozilla"]},
-        {cmd:"winget install Microsoft.Edge",apps:["edge","microsoft edge"]},
-        {cmd:"winget install 7zip.7zip",apps:["7zip","archive","zip"]},
-        {cmd:"winget install Notepad++.Notepad++",apps:["notepad++","notepad plus"]},
-        {cmd:"winget install Adobe.Acrobat.Reader.64-bit",apps:["adobe reader","pdf reader","acrobat"]},
-        {cmd:"winget install VideoLAN.VLC",apps:["vlc","media player","video player"]},
-        {cmd:"winget install Microsoft.Teams",apps:["teams","microsoft teams"]},
-        {cmd:"winget install Zoom.Zoom",apps:["zoom","video conference"]},
-        {cmd:"winget install Slack.Slack",apps:["slack","chat"]},
-        {cmd:"winget install PuTTY.PuTTY",apps:["putty","ssh client"]},
-        {cmd:"winget install WinSCP.WinSCP",apps:["winscp","sftp","ftp"]},
-        {cmd:"winget install Python.Python.3.11",apps:["python","python3"]},
-        {cmd:"winget install OpenJS.NodeJS",apps:["nodejs","node","npm"]},
-        {cmd:"winget install Microsoft.DotNet.SDK.8",apps:["dotnet",".net","sdk"]},
-        {cmd:"winget install Docker.DockerDesktop",apps:["docker","docker desktop","containers"]},
-        {cmd:"winget install OBSProject.OBSStudio",apps:["obs","obs studio","screen recorder"]},
-        {cmd:"winget install Microsoft.PowerToys",apps:["powertoys","power toys","windows utilities"]}
+      // Core Apps
+      {label:'Google Chrome',              cmd:'winget install -e --id Google.Chrome --scope Machine --silent',                       apps:['chrome','google chrome','browser']},
+      {label:'Mozilla Firefox',            cmd:'winget install -e --id Mozilla.Firefox --scope Machine --silent',                     apps:['firefox','mozilla','firefox browser']},
+      {label:'Adobe Acrobat Reader 64-bit',cmd:'winget install -e --id Adobe.Acrobat.Reader.64-bit --scope Machine --silent',         apps:['adobe reader','pdf reader','acrobat','adobe acrobat']},
+      {label:'Zoom',                       cmd:'winget install -e --id Zoom.Zoom --scope Machine --silent',                           apps:['zoom','video conference','zoom meeting']},
+      {label:'Microsoft Teams',            cmd:'winget install -e --id Microsoft.Teams --scope Machine --silent',                     apps:['teams','microsoft teams']},
+      {label:'8x8 Work',                   cmd:'winget install -e --id 8x8.Work --scope Machine --silent',                            apps:['8x8','8x8 work','eight by eight']},
+      {label:'7-Zip',                      cmd:'winget install -e --id 7zip.7zip --scope Machine --silent',                           apps:['7zip','archive','zip','7-zip']},
+      {label:'WinSCP',                     cmd:'winget install -e --id WinSCP.WinSCP --scope Machine --silent',                       apps:['winscp','sftp','ftp client']},
+      {label:'Notepad++',                  cmd:'winget install -e --id Notepad++.Notepad++ --scope Machine --silent',                 apps:['notepad++','notepad plus','notepadpp']},
+      {label:'VS Code',                    cmd:'winget install -e --id Microsoft.VisualStudioCode --scope Machine --silent',          apps:['vscode','visual studio code','code editor','vs code']},
+      {label:'VLC Media Player',           cmd:'winget install -e --id VideoLAN.VLC --scope Machine --silent',                        apps:['vlc','media player','video player','vlc media']},
+      {label:'IrfanView',                  cmd:'winget install -e --id IrfanSkiljan.IrfanView --scope Machine --silent',              apps:['irfanview','image viewer','irfan']},
+      {label:'PuTTY',                      cmd:'winget install -e --id PuTTY.PuTTY --scope Machine --silent',                         apps:['putty','ssh client']},
+      {label:'CrystalDiskInfo',            cmd:'winget install -e --id CrystalDewWorld.CrystalDiskInfo --scope Machine --silent',     apps:['crystaldiskinfo','disk info','disk health','crystal disk']},
+      {label:'Malwarebytes',               cmd:'winget install -e --id Malwarebytes.Malwarebytes --scope Machine --silent',           apps:['malwarebytes','malware','malwarebyte']},
+      {label:'.NET 8 Desktop Runtime',     cmd:'winget install -e --id Microsoft.DotNet.DesktopRuntime.8 --scope Machine --silent',   apps:['.net 8 runtime','dotnet runtime','desktop runtime','.net 8']},
+      {label:'Dell Command Update',        cmd:'winget install -e --id Dell.CommandUpdate --scope Machine --silent',                  apps:['dell command update','dcu','dell update','dell command']},
+      // Help Desk Utilities
+      {label:'PowerShell 7',               cmd:'winget install -e --id Microsoft.PowerShell --scope Machine --silent',               apps:['powershell','pwsh','powershell 7','ps7']},
+      {label:'Git',                        cmd:'winget install -e --id Git.Git --scope Machine --silent',                             apps:['git','git scm']},
+      {label:'mRemoteNG',                  cmd:'winget install -e --id mRemoteNG.mRemoteNG --scope Machine --silent',                 apps:['mremoteng','rdp manager','remote desktop manager','mremote']},
+      {label:'Tailscale',                  cmd:'winget install -e --id Tailscale.Tailscale --scope Machine --silent',                 apps:['tailscale','mesh vpn','tailscale vpn']},
+      {label:'Rufus',                      cmd:'winget install -e --id Rufus.Rufus --scope Machine --silent',                         apps:['rufus','bootable usb','boot usb','usb tool']},
+      {label:'Greenshot',                  cmd:'winget install -e --id Greenshot.Greenshot --scope Machine --silent',                 apps:['greenshot','screenshot greenshot']},
+      {label:'HWiNFO64',                   cmd:'winget install -e --id REALiX.HWiNFO --scope Machine --silent',                      apps:['hwinfo','hwinfo64','hardware info','hardware monitor']},
+      {label:'TreeSize Free',              cmd:'winget install -e --id JAMSoftware.TreeSize.Free --scope Machine --silent',           apps:['treesize','tree size','disk space','treesize free']},
+      {label:'Process Monitor',            cmd:'winget install -e --id Microsoft.Sysinternals.ProcessMonitor --scope Machine --silent',apps:['process monitor','procmon','sysinternals process']},
+      // Additional
+      {label:'Microsoft Edge',             cmd:'winget install -e --id Microsoft.Edge --scope Machine --silent',                      apps:['edge','microsoft edge']},
+      {label:'Slack',                      cmd:'winget install -e --id Slack.Slack --scope Machine --silent',                         apps:['slack','slack chat']},
+      {label:'Python 3',                   cmd:'winget install -e --id Python.Python.3.11 --scope Machine --silent',                  apps:['python','python3']},
+      {label:'Node.js',                    cmd:'winget install -e --id OpenJS.NodeJS --scope Machine --silent',                       apps:['nodejs','node','npm']},
+      {label:'.NET SDK 8',                 cmd:'winget install -e --id Microsoft.DotNet.SDK.8 --scope Machine --silent',              apps:['dotnet sdk','.net sdk','dotnet 8 sdk']},
+      {label:'Docker Desktop',             cmd:'winget install -e --id Docker.DockerDesktop --scope Machine --silent',                apps:['docker','docker desktop','containers']},
+      {label:'OBS Studio',                 cmd:'winget install -e --id OBSProject.OBSStudio --scope Machine --silent',                apps:['obs','obs studio','screen recorder']},
+      {label:'Microsoft PowerToys',        cmd:'winget install -e --id Microsoft.PowerToys --scope Machine --silent',                 apps:['powertoys','power toys','windows utilities']},
+      // RSAT — Windows Features (Add-WindowsCapability)
+      {label:'RSAT — Install All',         cmd:'Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online',           apps:['rsat','remote server admin','install all rsat','rsat tools']},
+      {label:'RSAT: Active Directory',     cmd:'Add-WindowsCapability -Online -Name "Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0"', apps:['rsat active directory','rsat ad','ad tools rsat']},
+      {label:'RSAT: Group Policy (GPMC)',  cmd:'Add-WindowsCapability -Online -Name "Rsat.GroupPolicy.Management.Tools~~~~0.0.1.0"',  apps:['rsat gpmc','rsat group policy','gpmc rsat']},
+      {label:'RSAT: DNS',                  cmd:'Add-WindowsCapability -Online -Name "Rsat.Dns.Tools~~~~0.0.1.0"',                    apps:['rsat dns','dns tools rsat']},
+      {label:'RSAT: DHCP',                 cmd:'Add-WindowsCapability -Online -Name "Rsat.DHCP.Tools~~~~0.0.1.0"',                   apps:['rsat dhcp','dhcp tools rsat']},
     ];
 
     /* == Toggle Window == */
@@ -678,7 +702,7 @@
       botMsg('\uD83D\uDCCB <b>' + kb.icon + ' ' + kb.title + '</b>');
       let stepsHtml = '<div style="margin-top:6px;">';
       kb.steps.forEach(step => {
-        stepsHtml += '<div style="padding:4px 0;border-bottom:1px solid #0f2;opacity:0.85;font-size:12px;">' + step + '</div>';
+        stepsHtml += '<div style="padding:4px 0;border-bottom:1px solid #0f2;opacity:0.85;font-size:12px;">' + addCopyBtns(step) + '</div>';
       });
       stepsHtml += '</div>';
       if (kb.cmd) {
@@ -858,19 +882,31 @@
         );
 
         if (matches.length === 0) {
-            botMsg("🔍 No winget apps found. Try 'chrome', 'vscode', 'teams', etc.");
+            botMsg("🔍 No winget apps found. Try 'chrome', 'teams', 'rsat', 'tailscale', etc. Or see the <a href='./winget-one-liners.html' style='color:#00ff64'>full list →</a>");
             return;
         }
 
         matches.forEach(w => {
-            const fullCmd = `${w.cmd} ${FLAGS}`;
-            let html = `<div id="clippy-result-hover">
-                <div id="clippy-result-hover-line">
-                    <div id="clippy-result-hover-name">${w.cmd}</div>
-                    <button id="clippy-result-hover-copy-btn" onclick="copyToClipboard('${fullCmd.replace(/'/g, "\\'")}')">Copy</button>
-                </div>
-            </div>`;
+            const safeCmd = w.cmd.replace(/"/g, '&quot;');
+            let html = `<div id="clippy-result-hover">`;
+            if (w.label) html += `<div style="font-weight:700;color:#00ff64;font-size:12px;margin-bottom:6px;">🪶 ${w.label}</div>`;
+            html += `<div id="clippy-result-hover-line">
+                <div id="clippy-result-hover-name">${w.cmd}</div>
+                <button id="clippy-result-hover-copy-btn" data-cmd="${safeCmd}" onclick="navigator.clipboard.writeText(this.dataset.cmd);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button>
+            </div></div>`;
             addHTML(html);
+        });
+        if (matches.length > 0) {
+            addHTML(`<div style="font-size:11px;color:#888;margin-top:4px;">📋 <a href="./winget-one-liners.html" style="color:#555">See all apps & Copy All script →</a></div>`);
+        }
+    }
+
+    /* == Inline copy buttons on <code> blocks == */
+    function addCopyBtns(html) {
+        return html.replace(/<code>([^<]+)<\/code>/g, function(_, cmd) {
+            const safe = cmd.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+            return '<code>' + cmd + '</code>'
+                + '<button class="clippy-code-copy" onclick="navigator.clipboard.writeText(\'' + safe + '\');this.textContent=\'✅\';setTimeout(()=>this.textContent=\'⧉\',1500)">⧉</button>';
         });
     }
 
