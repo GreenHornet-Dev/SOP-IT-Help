@@ -153,6 +153,7 @@
       {label:'Docker Desktop',             cmd:'winget install -e --id Docker.DockerDesktop --scope Machine --silent',                apps:['docker','docker desktop','containers']},
       {label:'OBS Studio',                 cmd:'winget install -e --id OBSProject.OBSStudio --scope Machine --silent',                apps:['obs','obs studio','screen recorder']},
       {label:'Microsoft PowerToys',        cmd:'winget install -e --id Microsoft.PowerToys --scope Machine --silent',                 apps:['powertoys','power toys','windows utilities']},
+      {label:'Winget — Upgrade All Apps',  cmd:'winget upgrade --all --scope Machine --silent',                                       apps:['upgrade all','winget upgrade all','update all apps']},
       // RSAT — Windows Features (Add-WindowsCapability)
       {label:'RSAT — Install All',         cmd:'Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online',           apps:['rsat','remote server admin','install all rsat','rsat tools']},
       {label:'RSAT: Active Directory',     cmd:'Add-WindowsCapability -Online -Name "Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0"', apps:['rsat active directory','rsat ad','ad tools rsat']},
@@ -377,6 +378,24 @@
         'Apps include: Chrome, Firefox, Teams, Zoom, VS Code, 7-Zip, Adobe Reader, Notepad++, VLC, WinSCP, PuTTY, IrfanView, CrystalDiskInfo, Malwarebytes, .NET 8, Dell Command Update, 8x8 Work.',
         'Help desk: PowerShell 7, Git, mRemoteNG, Tailscale, Rufus, Greenshot, HWiNFO64, TreeSize Free, Process Monitor.',
         'Windows Features: RSAT (AD, GPMC, DNS, DHCP) via <code>Add-WindowsCapability</code>.'
+      ]
+    },
+    {
+      keys: ['check updates','third party updates','app updates','update apps','winget upgrade','upgrade apps','update third party','check third party','update installed apps','upgrade all apps','outdated apps','apps out of date'],
+      icon: '🔄', title: 'Check & Update Third-Party Apps (Winget)',
+      related: ['Winget One-Liners','Windows Update','Help Desk Steps'],
+      steps: [
+        'Use <b>winget upgrade</b> to find and install updates for installed third-party apps.',
+        '<b>List all available updates:</b>',
+        '<code>winget upgrade</code>',
+        '<b>Upgrade a specific app by ID:</b>',
+        '<code>winget upgrade -e --id Google.Chrome</code>',
+        '<b>Upgrade ALL apps silently (run as Admin):</b>',
+        '<code>winget upgrade --all --scope Machine --silent</code>',
+        '<b>Include apps where version is unknown:</b>',
+        '<code>winget upgrade --all --include-unknown --scope Machine --silent</code>',
+        '<b>Tip:</b> Run PowerShell as Administrator. Some updates require a restart after.',
+        'See the <a href="./winget-one-liners.html" style="color:#00ff64">Winget One-Liners page →</a> for the full install list.'
       ]
     },
     {
@@ -930,8 +949,8 @@
         const sections = [
           { name: '📦 Core Apps',              start: 0,  end: 17 },
           { name: '🛠️ Help Desk Utilities',    start: 17, end: 26 },
-          { name: '⚙️ Additional',             start: 26, end: 34 },
-          { name: '🖥️ RSAT — Windows Features', start: 34, end: WINGET_APPS.length },
+          { name: '⚙️ Additional',             start: 26, end: 35 },
+          { name: '🖥️ RSAT — Windows Features', start: 35, end: WINGET_APPS.length },
         ];
         let html = `<div style="font-weight:700;color:#00ff64;margin-bottom:6px;">📋 All ${WINGET_APPS.length} Available Apps</div>`;
         html += `<div style="max-height:300px;overflow-y:auto;border:1px solid #1a1a1a;border-radius:6px;padding:6px 8px;">`;
