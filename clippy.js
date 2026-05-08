@@ -725,6 +725,13 @@
       return;
     }
 
+    // List ALL winget apps \u2014 must come before the regular winget search
+    if (/\b(list|show|all|what|available)\b/.test(lower) && /\b(winget|apps?)\b/.test(lower) ||
+        lower === 'list winget' || lower === 'winget list' || lower === 'all apps') {
+      listAllWinget();
+      return;
+    }
+
     // Winget search \u2014 fires on 'winget', 'install', or any known app keyword
     const wingetAppHit = WINGET_APPS.some(w => w.apps.some(a => lower.includes(a)));
     if (lower.includes('winget') || (lower.includes('install') && !lower.includes('how')) || wingetAppHit) {
@@ -917,6 +924,31 @@
         if (matches.length > 0) {
             addHTML(`<div style="font-size:11px;color:#888;margin-top:4px;">📋 <a href="./winget-one-liners.html" style="color:#555">See all apps & Copy All script →</a></div>`);
         }
+    }
+
+    function listAllWinget() {
+        const sections = [
+          { name: '📦 Core Apps',              start: 0,  end: 17 },
+          { name: '🛠️ Help Desk Utilities',    start: 17, end: 26 },
+          { name: '⚙️ Additional',             start: 26, end: 34 },
+          { name: '🖥️ RSAT — Windows Features', start: 34, end: WINGET_APPS.length },
+        ];
+        let html = `<div style="font-weight:700;color:#00ff64;margin-bottom:6px;">📋 All ${WINGET_APPS.length} Available Apps</div>`;
+        html += `<div style="max-height:300px;overflow-y:auto;border:1px solid #1a1a1a;border-radius:6px;padding:6px 8px;">`;
+        sections.forEach(sec => {
+          const apps = WINGET_APPS.slice(sec.start, sec.end);
+          html += `<div style="font-size:10px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:0.1em;margin:8px 0 3px;">${sec.name} (${apps.length})</div>`;
+          apps.forEach(w => {
+            const safeCmd = w.cmd.replace(/"/g, '&quot;');
+            html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 2px;border-bottom:1px solid #111;">
+              <span style="font-size:12px;color:#bbb;">${w.label}</span>
+              <button style="font-size:10px;background:transparent;border:1px solid #333;color:#777;padding:1px 7px;border-radius:3px;cursor:pointer;flex-shrink:0;margin-left:8px;" data-cmd="${safeCmd}" onclick="navigator.clipboard.writeText(this.dataset.cmd);this.textContent='✓';setTimeout(()=>this.textContent='Copy',1500)">Copy</button>
+            </div>`;
+          });
+        });
+        html += `</div>`;
+        html += `<div style="font-size:11px;color:#555;margin-top:5px;">📄 <a href="./winget-one-liners.html" style="color:#444">Full page with Copy All script →</a></div>`;
+        addHTML(html);
     }
 
     /* == Inline copy buttons on <code> blocks == */
