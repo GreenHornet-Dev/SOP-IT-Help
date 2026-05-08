@@ -98,6 +98,46 @@ Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\identitycache" -Recurse -Force -E
 Remove-Item -Path "$env:APPDATA\Microsoft\Protect" -Recurse -Force -ErrorAction SilentlyContinue
 Write-Host "Office token cache cleared. Reopen Office apps and sign in."</code></pre>
       <p><strong>After running:</strong> Reopen Office apps and sign in fresh via Okta dashboard tile or with Microsoft credentials linked to Okta.</p>
+
+      <h3>Per-App Reset Commands</h3>
+      <p>Use these when a specific app is still hanging after the generic cache clear above.</p>
+
+      <h4>Outlook — Stop &amp; Clear Auth Cache</h4>
+      <pre><code>Stop-Process -Name OUTLOOK -Force -ErrorAction SilentlyContinue
+Remove-Item "$env:LOCALAPPDATA\Microsoft\Office\16.0\Licensing" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "$env:LOCALAPPDATA\Microsoft\identitycache" -Recurse -Force -ErrorAction SilentlyContinue
+Write-Host "Outlook cache cleared. Reopen and sign in."</code></pre>
+      <p>Still looping? Try <code>Start-Process outlook.exe -ArgumentList "/resetnavpane"</code> to reset the nav pane, or go to <strong>File &gt; Account &gt; Sign Out</strong> and sign back in.</p>
+
+      <h4>Teams (Classic) — Stop &amp; Clear Cache</h4>
+      <pre><code>Stop-Process -Name Teams -Force -ErrorAction SilentlyContinue
+$teamsCache = "$env:APPDATA\Microsoft\Teams"
+Remove-Item "$teamsCache\Cache"         -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "$teamsCache\blob_storage"  -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "$teamsCache\databases"     -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "$teamsCache\GPUCache"      -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "$teamsCache\IndexedDB"     -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "$teamsCache\Local Storage" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "$teamsCache\tmp"           -Recurse -Force -ErrorAction SilentlyContinue
+Write-Host "Teams (Classic) cache cleared. Restart Teams and sign in."</code></pre>
+
+      <h4>Teams (New / Teams 2.0) — Stop &amp; Clear Cache</h4>
+      <pre><code>Stop-Process -Name ms-teams -Force -ErrorAction SilentlyContinue
+Remove-Item "$env:LOCALAPPDATA\Packages\MSTeams_8wekyb3d8bbwe\LocalCache\Microsoft\MSTeams" -Recurse -Force -ErrorAction SilentlyContinue
+Write-Host "New Teams cache cleared. Restart Teams and sign in."</code></pre>
+
+      <h4>Word / Excel — Stop &amp; Clear Token Cache</h4>
+      <pre><code>Stop-Process -Name WINWORD,EXCEL -Force -ErrorAction SilentlyContinue
+Remove-Item "$env:LOCALAPPDATA\Microsoft\Office\16.0\Licensing" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "$env:LOCALAPPDATA\Microsoft\identitycache"         -Recurse -Force -ErrorAction SilentlyContinue
+Write-Host "Word/Excel token cache cleared. Reopen and sign in."</code></pre>
+
+      <h4>OneDrive — Reset (see Step 3 below for full steps)</h4>
+      <pre><code>Stop-Process -Name OneDrive -Force -ErrorAction SilentlyContinue
+& "$env:LOCALAPPDATA\Microsoft\OneDrive\OneDrive.exe" /reset
+Start-Sleep -Seconds 10
+Start-Process "$env:LOCALAPPDATA\Microsoft\OneDrive\OneDrive.exe"
+Write-Host "OneDrive reset. Sign in with new credentials."</code></pre>
     </section>
 
     <section id="4-step-3--fix-onedrive-sync-crash--performance" class="steps-section">

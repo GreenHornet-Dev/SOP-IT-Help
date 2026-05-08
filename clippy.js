@@ -612,6 +612,32 @@
       ]
     },
     {
+      keys: ['reset outlook','reset teams','reset teams cache','teams cache','teams hanging','outlook hanging','outlook stuck','word stuck','excel stuck','reset word','reset excel','reset 365 app','per app reset','office app reset','teams not signing in','outlook not signing in','new teams cache','teams 2.0 reset'],
+      icon: '🔄', title: '365 App Reset Commands (Per App)',
+      related: ['Okta','Help Desk Steps'],
+      steps: [
+        '<b>Outlook — stop &amp; clear auth cache:</b>',
+        '<code>Stop-Process -Name OUTLOOK -Force -ErrorAction SilentlyContinue</code>',
+        '<code>Remove-Item "$env:LOCALAPPDATA\\Microsoft\\Office\\16.0\\Licensing" -Recurse -Force -ErrorAction SilentlyContinue</code>',
+        '<code>Remove-Item "$env:LOCALAPPDATA\\Microsoft\\identitycache" -Recurse -Force -ErrorAction SilentlyContinue</code>',
+        '&nbsp;&nbsp;→ Still looping? Run: <code>Start-Process outlook.exe -ArgumentList "/resetnavpane"</code>',
+        '<b>Teams Classic — stop &amp; clear cache:</b>',
+        '<code>Stop-Process -Name Teams -Force -ErrorAction SilentlyContinue</code>',
+        '<code>$t="$env:APPDATA\\Microsoft\\Teams"; "Cache","blob_storage","databases","GPUCache","IndexedDB","Local Storage","tmp" | ForEach-Object { Remove-Item "$t\\$_" -Recurse -Force -ErrorAction SilentlyContinue }</code>',
+        '<b>Teams New (2.0) — stop &amp; clear cache:</b>',
+        '<code>Stop-Process -Name ms-teams -Force -ErrorAction SilentlyContinue</code>',
+        '<code>Remove-Item "$env:LOCALAPPDATA\\Packages\\MSTeams_8wekyb3d8bbwe\\LocalCache\\Microsoft\\MSTeams" -Recurse -Force -ErrorAction SilentlyContinue</code>',
+        '<b>Word / Excel — stop &amp; clear token cache:</b>',
+        '<code>Stop-Process -Name WINWORD,EXCEL -Force -ErrorAction SilentlyContinue</code>',
+        '<code>Remove-Item "$env:LOCALAPPDATA\\Microsoft\\Office\\16.0\\Licensing" -Recurse -Force -ErrorAction SilentlyContinue</code>',
+        '<code>Remove-Item "$env:LOCALAPPDATA\\Microsoft\\identitycache" -Recurse -Force -ErrorAction SilentlyContinue</code>',
+        '<b>OneDrive reset:</b>',
+        '<code>Stop-Process -Name OneDrive -Force -ErrorAction SilentlyContinue</code>',
+        '<code>& "$env:LOCALAPPDATA\\Microsoft\\OneDrive\\OneDrive.exe" /reset</code>',
+        '<b>Full SOP:</b> <a href="./okta.html#3-step-2--fix-office-apps-token-word-excel-outlook-teams" style="color:#00ff64">Okta SOP — Per-App Resets →</a>'
+      ]
+    },
+    {
       keys: ['remote desktop','rdp','remote into','remote access','logmein','connect remotely','remote control','remot desktop','rdpp'],
       icon: '🖥️', title: 'Remote Desktop / RDP',
       related: ['Password Reset','Help Desk','LogMeIn'],
