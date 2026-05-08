@@ -78,6 +78,8 @@
     let hasGreeted = false;
     let quoteList = [];
     let sopTopics = [];
+    let poState = null;
+    let poData = {};
 
     /* == Load SOP Topics == */
     fetch('./sop-topics.json')
@@ -210,7 +212,7 @@
         'training':     ['📋 Browse SOPs','🖨️ Printer Fix','🔑 Password Reset','🛒 Shop Gear'],
         'services':     ['💰 Get a Quote','🛒 Shop Laptops','🖥️ Shop Monitors','📞 Services'],
         'shop':         ['🛒 Shop Laptops','🖥️ Shop Monitors','🖨️ Shop Printers','💰 View Quote'],
-        'default':      ['🖨️ Printer Fix','🔑 Password Reset','🔄 Windows Update','⌨️ Shortcuts','📋 SOPs'],
+        'default':      ['📋 Generate PO','🖨️ Printer Fix','🔑 Password Reset','🔄 Windows Update','⌨️ Shortcuts'],
     };
 
     const PAGE_GREETINGS = {
@@ -722,9 +724,197 @@
     }
   ];
 
+  /* == PURCHASE ORDER WIZARD == */
+  function poGenNum() {
+    return 'PO-' + new Date().getFullYear() + '-' + String(Date.now()).slice(-4);
+  }
+
+  function startPOWizard() {
+    poData = {
+      poNumber: poGenNum(),
+      date: new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}),
+      vendor:'', contact:'', items:[], currentItem:{}, shipping:''
+    };
+    poState = 'vendor';
+    addHTML(`<div id="clippy-msg-bot">
+      <div style="color:#00ff64;font-weight:700;margin-bottom:8px;">📋 Purchase Order Wizard</div>
+      <div style="background:#0a1f12;border-left:3px solid #00ff64;padding:8px;border-radius:4px;font-size:12px;color:#aaa;margin-bottom:10px;">
+        PO # <b style="color:#00ff64;">${poData.poNumber}</b> &nbsp;·&nbsp; ${poData.date}
+      </div>
+      <div style="color:#fff;font-size:13px;">📦 <b>Vendor name?</b></div>
+      <div style="color:#666;font-size:11px;margin-top:4px;">Type <b>cancel</b> at any time to exit.</div>
+    </div>`);
+  }
+
+  function handlePOWizard(input) {
+    const val = input.trim();
+    if (/^(cancel|exit|quit)$/i.test(val)) {
+      poState = null; poData = {};
+      botMsg('❌ PO wizard cancelled.');
+      showChips(); return;
+    }
+    switch (poState) {
+      case 'vendor':
+        poData.vendor = val;
+        poState = 'contact';
+        botMsg('✅ Vendor: <b>' + val + '</b><br><br>📧 Vendor email or phone? <span style="color:#888;font-size:11px;">(type "skip" to omit)</span>');
+        break;
+      case 'contact':
+        poData.contact = /^skip$/i.test(val) ? '' : val;
+        poState = 'item_name';
+        botMsg('📦 <b>Item #1</b> — Description and SKU?<br><span style="color:#888;font-size:11px;">Example: Samsung 980 Pro 1TB SSD, SAM-980<br>(comma-separated, SKU optional)</span>');
+        break;
+      case 'item_name': {
+        const parts = val.split(',');
+        poData.currentItem = { name: parts[0].trim(), sku: (parts[1]||'').trim() };
+        poState = 'item_qty';
+        botMsg('🔢 Quantity for <b>' + poData.currentItem.name + '</b>?');
+        break;
+      }
+      case 'item_qty':
+        poData.currentItem.qty = parseInt(val) || 1;
+        poState = 'item_price';
+        botMsg('💲 Unit price? <span style="color:#888;font-size:11px;">(e.g. 129.99)</span>');
+        break;
+      case 'item_price': {
+        poData.currentItem.price = parseFloat(val.replace(/[$,]/g,'')) || 0;
+        poData.currentItem.total = poData.currentItem.qty * poData.currentItem.price;
+        poData.items.push({...poData.currentItem});
+        poData.currentItem = {};
+        const sub = poData.items.reduce((s,i)=>s+i.total,0);
+        poState = 'more_items';
+        botMsg('✅ Added. Running subtotal: <b style="color:#00ff64;">$' + sub.toFixed(2) + '</b><br><br>Add another item?');
+        document.getElementById('clippy-chips').innerHTML = ['yes','no','cancel'].map(c=>`<button class="clippy-chip" onclick="clippyChip('${c}')">${c}</button>`).join('');
+        break;
+      }
+      case 'more_items':
+        if (/^y/i.test(val)) {
+          poState = 'item_name';
+          botMsg('📦 <b>Item #' + (poData.items.length+1) + '</b> — Description and SKU?');
+        } else {
+          poState = 'shipping';
+          botMsg('🚚 Shipping address or notes? <span style="color:#888;font-size:11px;">(or type "skip")</span>');
+        }
+        break;
+      case 'shipping':
+        poData.shipping = /^skip$/i.test(val) ? '' : val;
+        poState = 'confirm';
+        showPOSummary();
+        break;
+      case 'confirm':
+        if (/^(yes|confirm|ok|send|y)/i.test(val)) emailPO();
+        else { poState=null; poData={}; botMsg('❌ Cancelled.'); showChips(); }
+        break;
+    }
+  }
+
+  function showPOSummary() {
+    const sub = poData.items.reduce((s,i)=>s+i.total,0);
+    const tax = sub*0.08; const total = sub+tax;
+    const rows = poData.items.map(item=>`
+      <div style="display:grid;grid-template-columns:1fr auto auto auto;gap:6px;padding:5px 0;border-bottom:1px solid #0f2a1a;font-size:12px;align-items:center;">
+        <div><b style="color:#fff;">${item.name}</b>${item.sku?`<span style="color:#444;font-size:10px;margin-left:5px;">${item.sku}</span>`:''}</div>
+        <div style="color:#888;">×${item.qty}</div>
+        <div style="color:#888;">$${item.price.toFixed(2)}</div>
+        <div style="color:#00ff64;font-weight:700;">$${item.total.toFixed(2)}</div>
+      </div>`).join('');
+    addHTML(`<div id="clippy-msg-bot">
+      <div style="color:#00ff64;font-weight:700;margin-bottom:8px;">📋 PO Summary — ${poData.poNumber}</div>
+      <div style="font-size:12px;color:#aaa;margin-bottom:8px;">
+        <b style="color:#fff;">${poData.vendor}</b>${poData.contact?'<br>'+poData.contact:''}
+        ${poData.shipping?'<br>📦 '+poData.shipping:''}
+      </div>
+      ${rows}
+      <div style="margin-top:8px;font-size:12px;text-align:right;color:#aaa;line-height:1.8;">
+        Subtotal: <b>$${sub.toFixed(2)}</b><br>
+        Tax (8%): <b>$${tax.toFixed(2)}</b><br>
+        <span style="font-size:15px;color:#00ff64;font-weight:900;">TOTAL: $${total.toFixed(2)}</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
+        <button style="background:#00ff64;color:#000;border:none;padding:6px 12px;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px;" onclick="emailPO()">📧 Email PO</button>
+        <button class="clippy-chip" onclick="printPO()">🖨️ Print / PDF</button>
+        <button class="clippy-chip" onclick="downloadPOCSV()">📊 CSV</button>
+        <button class="clippy-chip" onclick="poState=null;poData={};botMsg('Cancelled.');showChips()">✕ Cancel</button>
+      </div>
+    </div>`);
+  }
+
+  window.emailPO = function() {
+    const sub = poData.items.reduce((s,i)=>s+i.total,0);
+    const tax = sub*0.08; const total = sub+tax;
+    const itemLines = poData.items.map(item=>
+      item.name+(item.sku?' ['+item.sku+']':'')+'\n  Qty: '+item.qty+'  x  $'+item.price.toFixed(2)+'  =  $'+item.total.toFixed(2)
+    ).join('\n\n');
+    const body=['PURCHASE ORDER','==============',
+      'PO Number: '+poData.poNumber,'Date:      '+poData.date,'From:      Custom Design Systems LLC','',
+      'VENDOR:',poData.vendor,poData.contact||'','',
+      'LINE ITEMS:','-----------',itemLines,'','-----------',
+      'Subtotal:  $'+sub.toFixed(2),'Tax (8%):  $'+tax.toFixed(2),'TOTAL:     $'+total.toFixed(2),'',
+      poData.shipping?'SHIPPING:\n'+poData.shipping+'\n':'',
+      'TERMS: Net 30  |  Check / ACH / Venmo / PayPal','','— Custom Design Systems LLC','jahonen8383@gmail.com'
+    ].join('\n');
+    const to = poData.contact&&poData.contact.includes('@')?encodeURIComponent(poData.contact):'';
+    window.open('mailto:'+to+'?subject='+encodeURIComponent('Purchase Order '+poData.poNumber+' — '+poData.vendor)+'&body='+encodeURIComponent(body));
+    poState=null; botMsg('📧 Email client opened with your PO!'); showChips();
+  };
+
+  window.printPO = function() {
+    const sub = poData.items.reduce((s,i)=>s+i.total,0);
+    const tax = sub*0.08; const total = sub+tax;
+    const itemRows = poData.items.map(item=>`<tr><td>${item.name}</td><td style="text-align:center">${item.sku||'—'}</td><td style="text-align:center">${item.qty}</td><td style="text-align:right">$${item.price.toFixed(2)}</td><td style="text-align:right;font-weight:700">$${item.total.toFixed(2)}</td></tr>`).join('');
+    const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>PO ${poData.poNumber}</title><style>
+      *{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;font-size:12px;color:#222;padding:32px}
+      .hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;border-bottom:3px solid #00c84a;padding-bottom:16px}
+      .co{font-size:22px;font-weight:900;color:#00843a}.cosub{font-size:11px;color:#666;margin-top:4px}
+      .pom{text-align:right}.pon{font-size:18px;font-weight:900}.pod{font-size:11px;color:#666;margin-top:4px}
+      .slbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#888;margin-bottom:6px;margin-top:20px}
+      table{width:100%;border-collapse:collapse;margin-top:12px}th{background:#f0f0f0;padding:8px 10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#555;border-bottom:2px solid #ddd;text-align:left}td{padding:8px 10px;border-bottom:1px solid #eee}
+      .tot td{border:none;padding:3px 10px;text-align:right}.grand td{font-size:16px;font-weight:900;color:#00843a}
+      .footer{margin-top:36px;padding-top:14px;border-top:1px solid #ddd;font-size:11px;color:#888}
+      @media print{.noprint{display:none}}
+    </style></head><body>
+    <div class="hdr">
+      <div><div class="co">Custom Design Systems LLC</div><div class="cosub">Remote Tech Support · Custom Builds · Repair<br>jahonen8383@gmail.com</div></div>
+      <div class="pom"><div class="pon">PURCHASE ORDER</div><div class="pon" style="font-size:14px;color:#00843a">${poData.poNumber}</div><div class="pod">${poData.date}</div></div>
+    </div>
+    <div class="slbl">Vendor</div><b>${poData.vendor}</b>${poData.contact?'<br>'+poData.contact:''}
+    ${poData.shipping?'<div class="slbl">Ship To / Notes</div>'+poData.shipping:''}
+    <table><thead><tr><th>Description</th><th style="text-align:center">SKU</th><th style="text-align:center">Qty</th><th style="text-align:right">Unit Price</th><th style="text-align:right">Total</th></tr></thead><tbody>${itemRows}</tbody></table>
+    <table class="tot" style="margin-top:10px"><tr><td>Subtotal</td><td>$${sub.toFixed(2)}</td></tr><tr><td>Tax (8%)</td><td>$${tax.toFixed(2)}</td></tr></table>
+    <table class="tot grand"><tr><td>TOTAL</td><td>$${total.toFixed(2)}</td></tr></table>
+    <div class="footer">TERMS: Net 30 · Check / ACH / Venmo / PayPal · Custom Design Systems LLC</div>
+    <br><button class="noprint" onclick="window.print()" style="padding:10px 24px;background:#00c84a;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;margin-top:16px;">🖨️ Print / Save as PDF</button>
+    <script>window.onload=function(){window.print();}<\/script></body></html>`;
+    const win=window.open('','_blank'); win.document.write(html); win.document.close();
+    poState=null; botMsg('🖨️ Print window opened — use <b>Save as PDF</b> in the dialog.'); showChips();
+  };
+
+  window.downloadPOCSV = function() {
+    const sub = poData.items.reduce((s,i)=>s+i.total,0);
+    const tax=sub*0.08; const total=sub+tax;
+    const rows=[['PO Number','Date','Vendor','Contact','Item','SKU','Qty','Unit Price','Total'],
+      ...poData.items.map(item=>[poData.poNumber,poData.date,poData.vendor,poData.contact,item.name,item.sku||'',item.qty,item.price.toFixed(2),item.total.toFixed(2)]),
+      ['','','','','','','','Subtotal',sub.toFixed(2)],
+      ['','','','','','','','Tax (8%)',tax.toFixed(2)],
+      ['','','','','','','','TOTAL',total.toFixed(2)]
+    ];
+    const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+    a.download=poData.poNumber+'.csv'; a.click();
+    botMsg('📊 Downloaded: <b>'+poData.poNumber+'.csv</b>');
+  };
+
   /* == Handle Query == */
   function handleQuery(q) {
     const lower = q.toLowerCase();
+
+    // PO wizard — intercept mid-wizard input first
+    if (poState) { handlePOWizard(q); return; }
+    // PO trigger
+    if (/\b(purchase.?order|generate.?po|create.?po|new.?po|make.?po|po.?wizard|build.?po)\b/i.test(lower) || lower==='po') {
+      startPOWizard(); return;
+    }
 
     // Site navigation
     const NAV_PAGES = [
