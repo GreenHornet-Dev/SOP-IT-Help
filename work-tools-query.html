@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work Tools Query Hub — Jira · Lansweeper · Power Automate — GreenHornet IT Help Desk</title>
+  <link rel="stylesheet" href="./shared-styles.css">
+</head>
+<body>
+  <header class="cds-navbar">
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo"><img src="https://greenhornet-dev.github.io/cds-green/Green-Hornet-Warrior.jpg" alt="GreenHornet" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #00ff64;vertical-align:middle;margin-right:2px;"> GreenHornet IT</a>
+    <nav>
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/3d-prints.html">3D Prints</a>
+      <a href="./sop-portal.html" class="active">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </nav>
+  </header>
+  <main class="page-wrapper">
+    <div class="page-header">
+      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Work Tools Query Hub</span></div>
+      <h1>Work Tools Query Hub</h1>
+      <span class="tag">Jira</span>
+      <span class="tag">Lansweeper</span>
+      <span class="tag">Power Automate</span>
+      <span class="tag">SQL</span>
+      <span class="tag">GraphQL</span>
+      <span class="tag">JQL</span>
+      <p class="description">Reference guide and live query interface for IT staff. Connect Clippy to Jira, Lansweeper, and Power Automate via local browser config — credentials stay on your device, never in the repo. Use the SQL preset library, GraphQL runner, and JQL browser from inside Clippy or from this page.</p>
+    </div>
+
+    <section class="steps-section">
+      <h2>Table of Contents</h2>
+      <ol>
+        <li><a href="#1-overview--redacted-build-pattern">Overview &amp; Redacted Build Pattern</a></li>
+        <li><a href="#2-work-config-setup">Work Config Setup (Jira, Lansweeper, Power Automate)</a></li>
+        <li><a href="#3-sql-query-library">SQL Query Library — Lansweeper Database Queries</a></li>
+        <li><a href="#4-graphql-runner">GraphQL Runner — Live Lansweeper API Queries</a></li>
+        <li><a href="#5-jql-preset-browser">JQL Preset Browser — Jira Query Language</a></li>
+        <li><a href="#6-portal-query-center">Portal Query Center — Lansweeper Portal Links</a></li>
+        <li><a href="#7-clippy-commands">Clippy Commands Quick Reference</a></li>
+        <li><a href="#8-useful-links">Useful Links</a></li>
+      </ol>
+    </section>
+
+    <!-- ==================== Section 1 ==================== -->
+    <section id="1-overview--redacted-build-pattern" class="steps-section">
+      <h2>1. Overview &amp; Redacted Build Pattern</h2>
+      <p>The Work Tools Query Hub connects Clippy to your IT management stack: <strong>Jira</strong> (ticket tracking), <strong>Lansweeper</strong> (asset inventory), and <strong>Power Automate</strong> (flow automation). All credentials are stored in <strong>your browser's localStorage only</strong> — nothing sensitive is in this repository or published to GitHub Pages.</p>
+
+      <h3>Redacted Build Architecture</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Layer</th><th class="step-how">What it contains</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>Public repo (GitHub Pages)</strong></td><td class="step-how">All HTML, CSS, JS — zero credentials, zero keys. Safe to publish.</td></tr>
+          <tr><td class="step-what"><strong>Browser localStorage</strong></td><td class="step-how">Jira URL + token, Lansweeper PAT, Power Automate webhook URLs. Set at work, never leaves the device.</td></tr>
+          <tr><td class="step-what"><strong>Private newsbank repo</strong></td><td class="step-how">Future: full config baked in, CORS proxy, SQL endpoint — for controlled-environment deployment.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>What Clippy Can Do When Configured</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Command</th><th class="step-how">What it does</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><code>my tickets</code></td><td class="step-how">Fetches your open Jira tickets (assignee = currentUser)</td></tr>
+          <tr><td class="step-what"><code>IT-123</code></td><td class="step-how">Looks up any Jira ticket by key</td></tr>
+          <tr><td class="step-what"><code>jira teams outage</code></td><td class="step-how">Full-text JQL search across all open tickets</td></tr>
+          <tr><td class="step-what"><code>find HOSTNAME</code></td><td class="step-how">GraphQL asset search in Lansweeper</td></tr>
+          <tr><td class="step-what"><code>my flows</code></td><td class="step-how">Lists your saved Power Automate webhooks with Run / Delete buttons</td></tr>
+          <tr><td class="step-what"><code>sql</code></td><td class="step-how">Opens the SQL preset library (copy for SSMS or run live)</td></tr>
+          <tr><td class="step-what"><code>graphql</code></td><td class="step-how">Opens the GraphQL runner with Lansweeper presets</td></tr>
+          <tr><td class="step-what"><code>jql</code></td><td class="step-how">Opens the JQL preset browser with Jira deep-links</td></tr>
+          <tr><td class="step-what"><code>portal queries</code></td><td class="step-how">Opens the Lansweeper portal link panel</td></tr>
+          <tr><td class="step-what"><code>work config</code></td><td class="step-how">Opens the credential config form</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ==================== Section 2 ==================== -->
+    <section id="2-work-config-setup" class="steps-section">
+      <h2>2. Work Config Setup</h2>
+      <p>Type <strong>work config</strong> in Clippy (the chat bubble, bottom-right) to open the config form. All values are saved to <code>localStorage</code> in your browser — they survive page refreshes but are cleared if you clear site data.</p>
+
+      <h3 id="2-jira-setup">Jira Setup</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Go to your Jira instance → <strong>Profile &gt; Account Settings &gt; Security &gt; API Tokens</strong></td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Click <strong>Create API token</strong> — name it <code>ClippyLocal</code></td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Copy the token (you won't see it again)</td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">In Clippy → <strong>work config</strong> → paste your Jira URL (e.g. <code>https://newsbank.atlassian.net</code>)</td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">Paste your Atlassian email and the API token</td></tr>
+          <tr><td class="step-num">6</td><td class="step-how">Click <strong>Save Jira &amp; LS</strong></td></tr>
+          <tr><td class="step-num">7</td><td class="step-how">Test by typing <code>my tickets</code> in Clippy</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Note:</strong> Jira REST API v3 requires Basic auth: <code>base64(email:token)</code>. Clippy builds this for you — just provide email and token separately.</p>
+
+      <h3 id="2-lansweeper-setup">Lansweeper Setup</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Log in to <a href="https://app.lansweeper.com">app.lansweeper.com</a></td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Go to <strong>Settings (gear icon, bottom-left) &gt; Developer Tools &gt; API Clients</strong></td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Click <strong>Add New API Client</strong> → <strong>Personal Access Token (PAT)</strong></td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">Name it <code>ClippyLocal</code> — copy the access token</td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">In Clippy → <strong>work config</strong> → paste the GraphQL endpoint: <code>https://api.lansweeper.com/api/v2/graphql</code></td></tr>
+          <tr><td class="step-num">6</td><td class="step-how">Paste the PAT — optionally enter your site name to filter results</td></tr>
+          <tr><td class="step-num">7</td><td class="step-how">Test by typing <code>find HOSTNAME</code> in Clippy</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="2-power-automate-setup">Power Automate Webhook Setup</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Open your flow in <a href="https://make.powerautomate.com">make.powerautomate.com</a></td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Add a <strong>When an HTTP request is received</strong> trigger (if not already present)</td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Save the flow — Power Automate generates an HTTPS POST URL</td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">Copy the generated URL</td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">In Clippy → <strong>work config</strong> → enter a name and paste the URL → click <strong>+ Save Flow</strong></td></tr>
+          <tr><td class="step-num">6</td><td class="step-how">Type <code>my flows</code> to see and run saved flows</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="2-sql-endpoint">SQL Endpoint (Optional — for Live Query Execution)</h3>
+      <p>By default, SQL presets are <strong>copy-only</strong> — paste into SSMS and run there. If you have a Lansweeper SQL proxy endpoint (a local API that accepts POST with <code>{query}</code> and returns JSON rows), add it in work config under <strong>SQL Endpoint URL</strong>. Without it, all SQL features still work — just copy to clipboard.</p>
+    </section>
+
+    <!-- ==================== Section 3 ==================== -->
+    <section id="3-sql-query-library" class="steps-section">
+      <h2>3. SQL Query Library — Lansweeper Database Queries</h2>
+      <p>These T-SQL queries run against the Lansweeper on-premise database (<strong>lansweeperdb</strong>). In Clippy, type <code>sql</code> to open the browser and copy any query. If a SQL proxy endpoint is configured, use <strong>▶ Run</strong> to execute live.</p>
+      <p><strong>Clippy command:</strong> <code>sql</code> — opens full library. <code>sql software</code>, <code>sql offline</code>, etc. — filtered view.</p>
+
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Preset</th><th class="step-how">Description</th><th style="width:120px;">Clippy filter</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="step-what"><strong>All Assets — Summary</strong></td>
+            <td class="step-how">Full inventory: name, domain, IP, user, department, last scan date</td>
+            <td><code>sql assets</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>Assets Not Seen 30+ Days</strong></td>
+            <td class="step-how">Offline/stale assets ordered by last scan ascending</td>
+            <td><code>sql offline</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>Assets by Department</strong></td>
+            <td class="step-how">Count of assets per department — useful for inventory audits</td>
+            <td><code>sql department</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>Software Inventory — Find App</strong></td>
+            <td class="step-how">Which assets have a specific app installed (edit <code>LIKE</code> clause)</td>
+            <td><code>sql software</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>OS Version Count</strong></td>
+            <td class="step-how">Count of each OS version across all assets</td>
+            <td><code>sql os</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>Assets by User / Username</strong></td>
+            <td class="step-how">All assets assigned to a specific username (edit <code>LIKE</code> clause)</td>
+            <td><code>sql user</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>Find Asset by Serial Number</strong></td>
+            <td class="step-how">Single asset lookup by serial — replace <code>ABC123</code> with actual serial</td>
+            <td><code>sql serial</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>Recent Logon Events</strong></td>
+            <td class="step-how">Top 50 most recent logon/logoff events across all assets</td>
+            <td><code>sql logon</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>Services — Find Running / Stopped</strong></td>
+            <td class="step-how">Find a named service and its state across all assets</td>
+            <td><code>sql service</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>Windows Update / Patch Status</strong></td>
+            <td class="step-how">Assets with pending (not yet installed) Windows updates</td>
+            <td><code>sql patch</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Key Tables Reference</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Table</th><th class="step-how">Contains</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><code>tblAssets</code></td><td class="step-how">Core asset record — name, IP, domain, OS, last scan</td></tr>
+          <tr><td class="step-what"><code>tblAssetCustom</code></td><td class="step-how">Extended asset data — username, department, serial number</td></tr>
+          <tr><td class="step-what"><code>tblSoftware</code></td><td class="step-how">Installed software per asset — name, version</td></tr>
+          <tr><td class="step-what"><code>tblNtServices</code></td><td class="step-how">Windows services — caption, state, start mode</td></tr>
+          <tr><td class="step-what"><code>tblUserlogon</code></td><td class="step-how">Logon / logoff events with timestamps</td></tr>
+          <tr><td class="step-what"><code>tblWindowsUpdates</code></td><td class="step-how">Windows Update history — title, install date (NULL = pending)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ==================== Section 4 ==================== -->
+    <section id="4-graphql-runner" class="steps-section">
+      <h2>4. GraphQL Runner — Live Lansweeper API Queries</h2>
+      <p>The GraphQL runner executes live queries against the Lansweeper Data API. Requires your <strong>Lansweeper PAT</strong> configured in work config (or entered directly in the runner). Type <code>graphql</code> in Clippy to open the runner.</p>
+      <p><strong>Endpoint:</strong> <code>https://api.lansweeper.com/api/v2/graphql</code> — all requests use <strong>HTTP POST</strong> with <code>Authorization: Bearer &lt;PAT&gt;</code>.</p>
+
+      <h3>GraphQL Preset Reference</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Preset</th><th class="step-how">Description</th><th style="width:100px;">Placeholder</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>Find Asset by Name</strong></td><td class="step-how">Returns IP, user, last seen, OS for matching hostnames</td><td><code>HOSTNAME</code></td></tr>
+          <tr><td class="step-what"><strong>Assets in Department</strong></td><td class="step-how">All assets where custom department field matches</td><td><code>"IT"</code></td></tr>
+          <tr><td class="step-what"><strong>Find by Serial Number</strong></td><td class="step-how">Exact serial match — returns asset summary</td><td><code>SERIAL</code></td></tr>
+          <tr><td class="step-what"><strong>Software on Asset</strong></td><td class="step-how">All software installed on a specific hostname</td><td><code>HOSTNAME</code></td></tr>
+          <tr><td class="step-what"><strong>Assets for a User</strong></td><td class="step-how">All assets where userName contains the search string</td><td><code>username</code></td></tr>
+          <tr><td class="step-what"><strong>Assets Not Seen 30+ Days</strong></td><td class="step-how">Stale assets — requires ISO 8601 date for <code>DATEOFFSET</code></td><td><code>DATEOFFSET</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Example — Find Asset by Name</h3>
+      <pre><code>{
+  Site {
+    site {
+      assetBasicInfo(
+        where: { assetBasicInfo: { name: { like: "%HOSTNAME%" } } }
+        limit: 10
+      ) {
+        name
+        ipAddress
+        userName
+        lastSeen
+        operatingSystem
+      }
+    }
+  }
+}</code></pre>
+
+      <h3>How to Use the Runner</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Type <code>graphql</code> in Clippy — the runner panel opens</td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Click a preset button to load a query</td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Edit the placeholder values (<code>HOSTNAME</code>, <code>SERIAL</code>, etc.)</td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">Verify the endpoint and token are filled (auto-populated from work config)</td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">Click <strong>▶ Run Query</strong> — results render as pretty JSON</td></tr>
+          <tr><td class="step-num">6</td><td class="step-how">Click <strong>📋 Copy JSON</strong> to copy full results</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Date Offset Format (for Stale Assets)</h3>
+      <p>Lansweeper's <code>lt</code> (less than) date filter accepts ISO 8601 format. To query assets not seen in 30 days, calculate the cutoff date:</p>
+      <pre><code># PowerShell — get the date 30 days ago in ISO 8601 format
+(Get-Date).AddDays(-30).ToString("yyyy-MM-ddTHH:mm:ssZ")</code></pre>
+      <p>Paste the output (e.g. <code>2026-04-08T00:00:00Z</code>) into the <code>DATEOFFSET</code> placeholder in the preset.</p>
+    </section>
+
+    <!-- ==================== Section 5 ==================== -->
+    <section id="5-jql-preset-browser" class="steps-section">
+      <h2>5. JQL Preset Browser — Jira Query Language</h2>
+      <p>JQL (Jira Query Language) lets you filter and find tickets with precision. Type <code>jql</code> in Clippy to open the preset browser with copy buttons and direct "Open in Jira" deep-links (requires Jira URL configured in work config).</p>
+
+      <h3>JQL Preset Reference</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Preset</th><th class="step-how">JQL Query</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="step-what"><strong>My Open Tickets</strong></td>
+            <td class="step-how"><code>assignee = currentUser() AND resolution = Unresolved ORDER BY updated DESC</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>Current Sprint — IT Project</strong></td>
+            <td class="step-how"><code>project = IT AND sprint in openSprints() ORDER BY priority DESC</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>Critical / High Priority</strong></td>
+            <td class="step-how"><code>priority in (Critical, High) AND resolution = Unresolved ORDER BY created ASC</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>Updated Today</strong></td>
+            <td class="step-how"><code>updated &gt;= startOfDay() ORDER BY updated DESC</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>Overdue</strong></td>
+            <td class="step-how"><code>duedate &lt; now() AND resolution = Unresolved ORDER BY duedate ASC</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>Created by Me This Week</strong></td>
+            <td class="step-how"><code>reporter = currentUser() AND created &gt;= startOfWeek() ORDER BY created DESC</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>Unassigned Open Tickets</strong></td>
+            <td class="step-how"><code>assignee is EMPTY AND resolution = Unresolved ORDER BY created ASC</code></td>
+          </tr>
+          <tr>
+            <td class="step-what"><strong>Waiting on Me</strong></td>
+            <td class="step-how"><code>assignee = currentUser() AND status = "Waiting for Support" ORDER BY updated ASC</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>JQL Quick Reference — Common Operators</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Operator</th><th class="step-how">Meaning / Example</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><code>=</code> / <code>!=</code></td><td class="step-how">Exact match — <code>status = "In Progress"</code></td></tr>
+          <tr><td class="step-what"><code>in</code> / <code>not in</code></td><td class="step-how">List match — <code>priority in (High, Critical)</code></td></tr>
+          <tr><td class="step-what"><code>~</code></td><td class="step-how">Contains text — <code>summary ~ "Teams outage"</code></td></tr>
+          <tr><td class="step-what"><code>is EMPTY</code></td><td class="step-how">Field not set — <code>assignee is EMPTY</code></td></tr>
+          <tr><td class="step-what"><code>&gt;= / &lt;=</code></td><td class="step-how">Date range — <code>created &gt;= "2026-05-01"</code></td></tr>
+          <tr><td class="step-what"><code>AND / OR</code></td><td class="step-how">Combine conditions — <code>project = IT AND status != Done</code></td></tr>
+          <tr><td class="step-what"><code>ORDER BY</code></td><td class="step-how">Sort — <code>ORDER BY priority DESC, updated DESC</code></td></tr>
+          <tr><td class="step-what"><code>currentUser()</code></td><td class="step-how">Dynamic — resolves to whoever is logged in</td></tr>
+          <tr><td class="step-what"><code>startOfDay()</code> / <code>startOfWeek()</code></td><td class="step-how">Rolling time window — no hardcoded dates needed</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ==================== Section 6 ==================== -->
+    <section id="6-portal-query-center" class="steps-section">
+      <h2>6. Portal Query Center — Lansweeper Portal Links</h2>
+      <p>Type <code>portal queries</code> in Clippy to open the portal link panel. These links open Lansweeper's built-in web UI for report building, software inventory, and patch tracking — no API required.</p>
+
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Portal Section</th><th class="step-how">What it does</th><th style="width:140px;">URL (relative to your site)</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">🖥️ <strong>All Assets Report</strong></td><td class="step-how">Full asset inventory list with filters</td><td><code>/report</code></td></tr>
+          <tr><td class="step-what">📊 <strong>Report Builder</strong></td><td class="step-how">Create custom SQL or template-based reports</td><td><code>/report/new</code></td></tr>
+          <tr><td class="step-what">📡 <strong>Network Discovery</strong></td><td class="step-how">Manage scanning targets and credential sets</td><td><code>/scanning-targets</code></td></tr>
+          <tr><td class="step-what">🧩 <strong>Software Inventory</strong></td><td class="step-how">All software found across assets</td><td><code>/software</code></td></tr>
+          <tr><td class="step-what">🔐 <strong>Windows Updates</strong></td><td class="step-how">Patch compliance view</td><td><code>/updates</code></td></tr>
+          <tr><td class="step-what">📋 <strong>Active Issues</strong></td><td class="step-how">Failed scans, offline agents, scan errors</td><td><code>/issues</code></td></tr>
+          <tr><td class="step-what">🔗 <strong>Integrations</strong></td><td class="step-how">API keys, connectors, webhooks</td><td><code>/settings/integrations</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Building a Custom Report in Lansweeper Portal</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Go to <strong>Reports &gt; Create New Report</strong></td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Choose asset type: Windows, All Assets, Network Device, etc.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Add columns — custom fields appear under the <strong>Custom</strong> category</td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">Filter by OS, last seen, IP range, or department</td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">Save report — optionally <strong>Expose to API</strong> for Power Automate or Power BI</td></tr>
+          <tr><td class="step-num">6</td><td class="step-how">Pin to dashboard as a <strong>Table widget</strong> for at-a-glance monitoring</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Expose a Report to the GraphQL API</h3>
+      <ol>
+        <li>Open the saved report in Lansweeper portal</li>
+        <li>Click <strong>Report Settings &gt; Expose to API</strong></li>
+        <li>Note the report ID from the URL</li>
+        <li>Query it via GraphQL under <code>authorizedReports</code> using your PAT</li>
+        <li>Use in a scheduled Power Automate flow to feed SharePoint or Power BI</li>
+      </ol>
+    </section>
+
+    <!-- ==================== Section 7 ==================== -->
+    <section id="7-clippy-commands" class="steps-section">
+      <h2>7. Clippy Commands Quick Reference</h2>
+      <p>All commands are typed into the Clippy chat box (bottom-right bubble). Commands are case-insensitive.</p>
+
+      <h3>Work Tools Commands</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">What you type</th><th class="step-how">What happens</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><code>work config</code></td><td class="step-how">Opens credential config form (Jira, Lansweeper, Power Automate, SQL endpoint)</td></tr>
+          <tr><td class="step-what"><code>my tickets</code></td><td class="step-how">Fetches your open Jira tickets via REST API</td></tr>
+          <tr><td class="step-what"><code>IT-123</code></td><td class="step-how">Looks up any Jira ticket by key (works with any project prefix)</td></tr>
+          <tr><td class="step-what"><code>jira [search text]</code></td><td class="step-how">Full-text JQL search — e.g. <code>jira email not working</code></td></tr>
+          <tr><td class="step-what"><code>find HOSTNAME</code></td><td class="step-how">GraphQL asset search in Lansweeper</td></tr>
+          <tr><td class="step-what"><code>my flows</code></td><td class="step-how">Lists Power Automate webhooks with Run / Delete buttons</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Query Library Commands</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">What you type</th><th class="step-how">What happens</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><code>sql</code></td><td class="step-how">Opens SQL preset library — all 10 Lansweeper queries</td></tr>
+          <tr><td class="step-what"><code>sql [tag]</code></td><td class="step-how">Filtered — e.g. <code>sql software</code>, <code>sql offline</code>, <code>sql patch</code></td></tr>
+          <tr><td class="step-what"><code>graphql</code> or <code>gql</code></td><td class="step-how">Opens GraphQL runner with 6 Lansweeper presets</td></tr>
+          <tr><td class="step-what"><code>jql</code></td><td class="step-how">Opens JQL preset browser — all 8 Jira filters with copy + deep-links</td></tr>
+          <tr><td class="step-what"><code>jql [tag]</code></td><td class="step-how">Filtered — e.g. <code>jql sprint</code>, <code>jql overdue</code>, <code>jql mine</code></td></tr>
+          <tr><td class="step-what"><code>portal queries</code></td><td class="step-how">Opens Lansweeper portal link panel</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Navigation Commands</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">What you type</th><th class="step-how">What happens</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><code>lansweeper portal</code></td><td class="step-how">Opens Lansweeper web app (app.lansweeper.com)</td></tr>
+          <tr><td class="step-what"><code>power automate</code></td><td class="step-how">Opens make.powerautomate.com</td></tr>
+          <tr><td class="step-what"><code>work tools sop</code></td><td class="step-how">Navigates to this page</td></tr>
+          <tr><td class="step-what"><code>browse topics</code></td><td class="step-how">Shows all SOP topic categories</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ==================== Section 8 ==================== -->
+    <section id="8-useful-links" class="steps-section">
+      <h2>8. Useful Links</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Resource</th><th class="step-how">URL</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Lansweeper Developer Portal</td><td class="step-how"><a href="https://developer.lansweeper.com">developer.lansweeper.com</a></td></tr>
+          <tr><td class="step-what">Lansweeper GraphQL Quickstart</td><td class="step-how"><a href="https://developer.lansweeper.com/docs/data-api/get-started/quickstart/">developer.lansweeper.com — Quickstart</a></td></tr>
+          <tr><td class="step-what">Lansweeper GraphQL Endpoint</td><td class="step-how"><code>https://api.lansweeper.com/api/v2/graphql</code></td></tr>
+          <tr><td class="step-what">Jira REST API v3 Docs</td><td class="step-how"><a href="https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/">developer.atlassian.com — Jira REST API</a></td></tr>
+          <tr><td class="step-what">Jira API Token Management</td><td class="step-how"><a href="https://id.atlassian.com/manage-profile/security/api-tokens">id.atlassian.com — API Tokens</a></td></tr>
+          <tr><td class="step-what">JQL Reference Guide</td><td class="step-how"><a href="https://support.atlassian.com/jira-service-management-cloud/docs/use-advanced-search-with-jira-query-language-jql/">Atlassian — JQL Docs</a></td></tr>
+          <tr><td class="step-what">Power Automate HTTP Trigger</td><td class="step-how"><a href="https://make.powerautomate.com">make.powerautomate.com</a></td></tr>
+          <tr><td class="step-what">Lansweeper SOP</td><td class="step-how"><a href="./lansweeper.html">lansweeper.html — Agent, API &amp; Power Automate SOP</a></td></tr>
+          <tr><td class="step-what">Power Automate SOP</td><td class="step-how"><a href="./power-automate.html">power-automate.html — Flow Setup SOP</a></td></tr>
+          <tr><td class="step-what">Copilot Studio SOP</td><td class="step-how"><a href="./copilot-studio-teams-bot.html">copilot-studio-teams-bot.html</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
+  </main>
+  <footer class="cds-footer">
+    <div class="footer-nav">
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/3d-prints.html">3D Prints</a>
+      <a href="./sop-portal.html">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 <span>Custom Design Systems LLC</span> &middot; GreenHornet IT Help Desk</p>
+  </footer>
+  <script src="./clippy.js"></script>
+</body>
+</html>

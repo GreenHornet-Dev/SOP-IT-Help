@@ -186,6 +186,7 @@
         if (p.includes('crowdstrike'))          return 'sop-crowdstrike';
         if (p.includes('winget-one-liners'))    return 'sop-winget';
         if (p.includes('copilot-studio'))       return 'sop-copilot-studio';
+        if (p.includes('work-tools-query'))     return 'sop-worktools';
         if (p.includes('training'))             return 'training';
         if (p.includes('services'))             return 'services';
         if (p.includes('shop'))                 return 'shop';
@@ -193,11 +194,11 @@
     }
 
     const PAGE_CHIPS = {
-        'sop-portal':   ['🖨️ Printer Fix','🔑 Password Reset','🔄 Windows Update','🛒 Shop Gear','⌨️ Shortcuts'],
+        'sop-portal':   ['🖨️ Printer Fix','🔑 Password Reset','🔄 Windows Update','📚 Browse Topics','⌨️ Shortcuts'],
         'sop-printer':  ['🖨️ Clear Queue','🔌 Update Driver','➕ Add Printer','📋 All SOPs'],
-        'sop-okta':     ['🔐 Okta password change','📧 Fix Office 365 token','🔄 Fix OneDrive sync','🧹 Clear credentials','📋 All SOPs'],
+        'sop-okta':     ['🔐 Okta Login','🔐 Change Password','📧 Fix Office 365 token','🔄 Fix OneDrive sync','📋 All SOPs'],
         'sop-email':    ['📧 Email Fix','📅 Out of Office','🔑 Password Reset','📋 All SOPs'],
-        'sop-helpdesk': ['🔑 Password Reset','🔓 Unlock Account','🖥️ Remote Desktop','🔄 Windows Update'],
+        'sop-helpdesk': ['🎫 My Tickets','🔑 Password Reset','🔓 Unlock Account','🖥️ Remote Desktop','⚙️ Work Config'],
         'sop-updates':  ['🔄 Windows Update','🖥️ Dell Command Update','🧹 Clear Update Cache','📋 All SOPs'],
         'sop-teams':    ['💬 Teams Fix','📞 Teams Audio','🔄 Windows Update','📋 All SOPs'],
         'sop-office':   ['⌨️ Office Shortcuts','🔧 Repair Office','🔄 Update Office','📋 All SOPs'],
@@ -205,16 +206,17 @@
         'sop-drive':    ['💾 Map Network Drive','🧹 Disk Cleanup','📋 All SOPs'],
         'sop-newhire':  ['🔑 Password Setup','🖨️ Add Printer','💬 Install Teams','📋 All SOPs'],
         'sop-offboard': ['🔑 Disable Account','🖨️ Remove Printers','📋 All SOPs'],
-        'sop-automate':   ['⚡ Create Flow','🧪 Test Flow','📋 All SOPs'],
-        'sop-lansweeper': ['🔍 Find Asset','📊 Run Report','🛡️ CrowdStrike','🖥️ LogMeIn','📋 All SOPs'],
+        'sop-automate':   ['⚡ My Flows','🎫 My Tickets','🧪 Test Flow','⚙️ Work Config','📋 All SOPs'],
+        'sop-lansweeper': ['🔍 Find Asset','🎫 My Tickets','⚡ My Flows','⚙️ Work Config','📋 All SOPs'],
         'sop-logmein':    ['🖥️ Start Session','🔑 Password Reset','🔍 Lansweeper','🛡️ CrowdStrike','📋 All SOPs'],
         'sop-crowdstrike':['🛡️ Respond to Detection','🔒 Contain Host','🖥️ RTR Session','🔍 Lansweeper','📋 All SOPs'],
         'sop-winget':   ['📋 Copy All Apps','🌐 Install Chrome','💬 Install Teams','📝 Install Notepad++','📋 All SOPs'],
         'sop-copilot-studio': ['🔑 Renew Azure Secret','📂 Fix SharePoint Knowledge','⚡ Fix Broken Flow','📋 Expiry Schedule','📋 All SOPs'],
+        'sop-worktools': ['🗄️ SQL Queries','⬡ GraphQL','🎫 JQL Presets','🔗 Portal Queries','⚙️ Work Config'],
         'training':     ['📋 Browse SOPs','🖨️ Printer Fix','🔑 Password Reset','🛒 Shop Gear'],
         'services':     ['💰 Get a Quote','🛒 Shop Laptops','🖥️ Shop Monitors','📞 Services'],
         'shop':         ['🛒 Shop Laptops','🖥️ Shop Monitors','🖨️ Shop Printers','💰 View Quote'],
-        'default':      ['📋 Generate PO','🖨️ Printer Fix','🔑 Password Reset','🔄 Windows Update','⌨️ Shortcuts'],
+        'default':      ['🎫 My Tickets','🖨️ Printer Fix','🔑 Password Reset','📚 Browse Topics','⚙️ Work Config'],
     };
 
     const PAGE_GREETINGS = {
@@ -229,6 +231,7 @@
         'shop':         "🛒 Shop — search products to build a quote. Try 'shop laptops' or 'shop monitors'.",
         'sop-winget':   "🪶 Winget One-Liners — click COPY on any row, or COPY ALL at the bottom for the full PowerShell install script.",
         'sop-copilot-studio': "🤖 Copilot Studio Teams Bot — ask about renewing the Azure secret, fixing broken knowledge sources, or why publishing to Teams fails.",
+        'sop-worktools': "⚡ Work Tools Query Hub — type <b>sql</b>, <b>graphql</b>, or <b>jql</b> to open query libraries. Type <b>work config</b> to set up your credentials (stored locally, never in the repo).",
         'default':      "👋 Hi! I'm Clippy. Ask about SOPs, IT fixes, shortcuts, winget installs, or shop for gear.",
     };
 
@@ -259,9 +262,14 @@
         const win = document.getElementById('clippy-window');
         win.classList.toggle('open', isOpen);
         if (isOpen) {
+            updateWorkModeUI();
             if (!hasGreeted) {
                 const ctx = getPageContext();
-                botMsg(PAGE_GREETINGS[ctx] || PAGE_GREETINGS['default']);
+                let greeting = PAGE_GREETINGS[ctx] || PAGE_GREETINGS['default'];
+                if (isWorkMode() && ctx === 'default') {
+                    greeting = "⚡ <b>Work mode active.</b> Try: <b>my tickets</b>, <b>find HOSTNAME</b>, <b>my flows</b>, <b>sql</b>, <b>graphql</b>, or <b>jql</b>.";
+                }
+                botMsg(greeting);
                 hasGreeted = true;
             }
             showChips();
@@ -964,6 +972,29 @@
     }
   );
 
+  /* == Password Change Knowledge == */
+  SITE_KNOWLEDGE.push(
+    {
+      keys: ['password change','change password','reset password','okta password','password sync','update password','new password','forgot password','password expired','sync password','password okta','ctrl alt del password','network password','domain password','ad password','active directory password','password not syncing','apps not updated password'],
+      icon: '🔐', title: 'Change Password — Okta or Network (Ctrl+Alt+Del)',
+      related: ['Okta Dashboard','VPN Connect','Account Lockout'],
+      steps: [
+        '<b>Method 1 — Okta Dashboard (any location):</b>',
+        'Go to your Okta Dashboard (<a href="https://newsbank.okta.com" style="color:#00ff64" target="_blank">newsbank.okta.com</a>) and sign in.',
+        'Click your <b>name/avatar (top-right) → Settings → Change Password</b> (under Security).',
+        'Enter your current password, then your new password twice → <b>Save</b>.',
+        'Okta propagates the new password to all connected apps automatically within a few minutes.',
+        'If an app still asks for the old password: sign out of that app and sign back in, or click the app tile in Okta to re-authenticate.',
+        '<b>Method 2 — Ctrl+Alt+Del on the corporate network (domain-joined PC):</b>',
+        'Must be physically on the office network <b>or connected via VPN</b> before starting.',
+        'Press <b>Ctrl + Alt + Del</b> → click <b>"Change a password"</b>.',
+        'Enter your old password, then your new password twice → press the arrow or Enter.',
+        'This updates your <b>Active Directory</b> password. The Okta AD Agent will sync the change automatically — allow up to 10 minutes.',
+        '<b>Tip:</b> If both methods fail or account is locked, contact IT to unlock in Azure AD / Okta Admin.',
+      ]
+    }
+  );
+
   /* == Handle Query == */
   function handleQuery(q) {
     const lower = q.toLowerCase();
@@ -984,12 +1015,22 @@
       { keys: ['sop portal','sop list','all sops'], label: 'SOP Portal', url: './sop-portal.html' },
       { keys: ['winget one-liners','winget page','app installs','install all','winget table'], label: 'Winget One-Liners', url: './winget-one-liners.html' },
       { keys: ['dev','developer','dev page'], label: 'Dev', url: 'https://greenhornet-dev.github.io/cds-green/dev.html' },
+      // External portals
+      { keys: ['adp','time card','timecard','adp timecard','workforcenow','adp portal','clock in','punch in'], label: 'ADP Time Card', url: 'https://workforcenow.adp.com/theme/index.html#/Myself/MyselfTabTimecardsAttendanceSchCategoryTLMWebMyTimecard' },
+      { keys: ['okta','okta dashboard','okta portal','okta login','newsbank okta','sign in okta','change password'], label: 'Okta Dashboard', url: 'https://newsbank.okta.com', note: '⚠️ Work network / VPN required — blocked externally.' },
+      { keys: ['logmein','gotoresolve','goto resolve','remote support portal','logmein portal'], label: 'LogMeIn Resolve', url: 'https://portal.console.gotoresolve.com' },
+      { keys: ['lansweeper portal','lansweeper site','lansweeper login','open lansweeper'], label: 'Lansweeper', url: 'https://app.lansweeper.com' },
+      { keys: ['power automate','make.powerautomate','flow portal','my flows'], label: 'Power Automate', url: 'https://make.powerautomate.com' },
+      { keys: ['microsoft 365','m365 portal','office portal','o365 portal'], label: 'Microsoft 365', url: 'https://m365.cloud.microsoft/' },
+      { keys: ['work tools sop','query sop','query hub','query center','work query','work tools page'], label: 'Work Tools Query Hub', url: './work-tools-query.html' },
     ];
     const navMatch = NAV_PAGES.find(p => p.keys.some(k => lower.includes(k)));
     if (navMatch) {
+      const noteHtml = navMatch.note ? `<div style="font-size:11px;color:#f90;margin-top:6px;">${navMatch.note}</div>` : '';
       addHTML(`<div id="clippy-result-hover">
         <div style="font-weight:700;color:#00ff64;margin-bottom:8px;">🔗 ${navMatch.label}</div>
-        <a href="${navMatch.url}" style="background:#00ff64;color:#000;padding:5px 12px;border-radius:6px;font-weight:600;font-size:12px;text-decoration:none;">Open ${navMatch.label} →</a>
+        <a href="${navMatch.url}" target="_blank" style="background:#00ff64;color:#000;padding:5px 12px;border-radius:6px;font-weight:600;font-size:12px;text-decoration:none;">Open ${navMatch.label} →</a>
+        ${noteHtml}
       </div>`);
       return;
     }
@@ -1018,6 +1059,67 @@
         lower.includes('one liner') || lower.includes('oneliner') || lower.includes('script') ||
         PS_CMDS.some(p => p.keys.some(k => lower.includes(k)))) {
       searchOneLiners(lower);
+      return;
+    }
+
+    // Work mode toggle
+    if (lower === 'work mode on' || lower === 'enable work mode' || lower === 'work mode activate') {
+      setWorkModeFlag(true);
+      botMsg('⚡ Work mode enabled. Try: <b>my tickets</b>, <b>find HOSTNAME</b>, <b>sql</b>, <b>graphql</b>, <b>jql</b>.'); return;
+    }
+    if (lower === 'work mode off' || lower === 'disable work mode' || lower === 'work mode deactivate') {
+      setWorkModeFlag(false);
+      botMsg('Work mode disabled. Type <b>work mode on</b> to re-enable.'); return;
+    }
+    // Work config
+    if (lower.includes('work config') || lower.includes('configure work') || lower === 'work tools' || lower === 'config') {
+      showWorkConfig(); return;
+    }
+    // Jira ticket key \u2014 e.g. IT-123, HELP-45
+    const jiraKeyMatch = q.match(/\b([A-Za-z]{2,10}-\d{1,6})\b/);
+    if (jiraKeyMatch) { fetchJiraTicket(jiraKeyMatch[1]); return; }
+    // Jira: my tickets
+    if (lower === 'my tickets' || lower === 'jira' || lower.includes('my jira') || lower.includes('open tickets') || lower.includes('assigned tickets')) {
+      fetchMyTickets(); return;
+    }
+    // Jira: search
+    if ((lower.startsWith('jira ') || lower.startsWith('ticket ') || lower.includes('jira search')) && lower.length > 6) {
+      searchJiraTickets(lower.replace(/^(jira search|jira|ticket)\s+/i, '')); return;
+    }
+    // Lansweeper: find asset
+    const lsMatch = lower.match(/^(?:find asset|find|ls|lansweeper find)\s+(.+)/);
+    if (lsMatch && lsMatch[1].length > 1) { lsSearch(lsMatch[1]); return; }
+    // Power Automate: flows
+    if (lower === 'my flows' || lower === 'flows' || lower.includes('run flow') || lower.includes('pa flows') || lower.includes('automate flows')) {
+      showPAFlows(); return;
+    }
+    // SQL query library
+    if (lower === 'sql' || lower.includes('sql queries') || lower.includes('sql browser') || lower.startsWith('sql ')) {
+      const sqlFilter = lower.replace(/^sql\s*/,'').trim();
+      showSQLBrowser(sqlFilter || null); return;
+    }
+    // GraphQL runner
+    if (lower === 'graphql' || lower === 'gql' || lower.includes('graphql runner') || lower.includes('gql query') || lower.startsWith('gql ') || lower.startsWith('graphql ')) {
+      showGQLRunner(); return;
+    }
+    // JQL preset browser
+    if (lower === 'jql' || lower.includes('jql presets') || lower.includes('jira filter') || lower.startsWith('jql ')) {
+      const jqlFilter = lower.replace(/^jql\s*/,'').trim();
+      showJQLPresets(jqlFilter || null); return;
+    }
+    // Portal queries — Lansweeper portal report builder
+    if (lower.includes('portal query') || lower.includes('portal queries') || lower.includes('portle query') || lower.includes('query portal') || lower === 'portal') {
+      showPortalQueries(); return;
+    }
+
+    // Browse Topics \u2014 show all topic categories from sop-topics.json
+    if (lower.includes('browse topics') || lower.includes('all topics') || lower === 'topics' || lower === 'browse') {
+      showTopicBrowser();
+      return;
+    }
+    // Topic filter \u2014 from browse UI chip click (e.g. "topic:Password")
+    if (lower.startsWith('topic:')) {
+      showTopicEntries(q.slice(6).trim());
       return;
     }
 
@@ -1108,6 +1210,36 @@
     // Default
     botMsg('\uD83E\uDD14 Try: "windows update", "dell command update", "printer fix", "winget install chrome", "shop laptop", or any SOP topic!');
   }
+
+    /* == Topic Browser == */
+    function showTopicBrowser() {
+      if (!sopTopics.length) { botMsg('📋 SOP index still loading — try again in a moment.'); return; }
+      const tags = [...new Set(sopTopics.map(t => t.tag))].sort();
+      const tagBtns = tags.map(tag => {
+        const count = sopTopics.filter(t => t.tag === tag).length;
+        return `<button class="clippy-chip" onclick="clippyChip('topic:${tag}')" style="margin:3px;">${tag} <span style="opacity:0.6;font-size:10px">(${count})</span></button>`;
+      }).join('');
+      addHTML(`<div id="clippy-result-hover">
+        <div style="font-weight:700;color:#00ff64;margin-bottom:6px;">📚 Browse by Topic</div>
+        <div style="font-size:11px;color:#888;margin-bottom:8px;">Tap a category to see all SOPs in that topic:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:2px;">${tagBtns}</div>
+      </div>`);
+    }
+
+    function showTopicEntries(tag) {
+      const entries = sopTopics.filter(t => t.tag.toLowerCase() === tag.toLowerCase());
+      if (!entries.length) { botMsg('No entries found for: ' + tag); return; }
+      const links = entries.map(e =>
+        `<div style="padding:3px 0;"><a href="${e.url}" target="_blank" style="color:#00ff64;font-size:12px;text-decoration:none;">→ ${e.title}</a></div>`
+      ).join('');
+      addHTML(`<div id="clippy-result-hover">
+        <div style="font-weight:700;color:#00ff64;margin-bottom:6px;">📂 ${tag} <span style="font-size:11px;opacity:0.6;">(${entries.length})</span></div>
+        ${links}
+        <div style="margin-top:10px;">
+          <button class="clippy-chip" onclick="clippyChip('browse topics')" style="font-size:10px;">← All Topics</button>
+        </div>
+      </div>`);
+    }
 
     /* == Search Products == */
     function searchProducts(query) {
@@ -1224,6 +1356,33 @@
         }
     }
 
+    /* == Work Mode — auto-detect from hostname, flag, or saved credentials == */
+    function isWorkMode() {
+        if (window.location.hostname.includes('newsbank')) return true;
+        if (localStorage.getItem('clippy_work_mode') === '1') return true;
+        try {
+            const cfg = JSON.parse(localStorage.getItem('clippy_work_v1') || '{}');
+            if (cfg.jiraUrl || cfg.lsUrl) return true;
+        } catch {}
+        return false;
+    }
+
+    function setWorkModeFlag(on) {
+        if (on) { localStorage.setItem('clippy_work_mode', '1'); }
+        else { localStorage.removeItem('clippy_work_mode'); }
+        updateWorkModeUI();
+    }
+
+    function updateWorkModeUI() {
+        const hdr = document.querySelector('#clippy-header span');
+        if (!hdr) return;
+        if (isWorkMode()) {
+            hdr.innerHTML = '📎 Clippy <span style="background:#1a3a1a;border:1px solid #00ff64;color:#00ff64;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:6px;">⚡ WORK</span>';
+        } else {
+            hdr.textContent = '📎 Clippy — IT Assistant & Shop';
+        }
+    }
+
     /* == Search Winget == */
     function searchWinget(query) {
         const matches = WINGET_APPS.filter(w =>
@@ -1273,6 +1432,463 @@
         html += `</div>`;
         html += `<div style="font-size:11px;color:#555;margin-top:5px;">📄 <a href="./winget-one-liners.html" style="color:#444">Full page with Copy All script →</a></div>`;
         addHTML(html);
+    }
+
+    /* ================================================================
+       WORK TOOLS — Jira · Lansweeper · Power Automate
+       Config stored in localStorage (never in repo)
+    ================================================================ */
+
+    const WORK_CFG_KEY  = 'clippy_work_v1';
+    const PA_FLOWS_KEY  = 'clippy_pa_flows_v1';
+    function getWorkCfg()  { try { return JSON.parse(localStorage.getItem(WORK_CFG_KEY)  || '{}'); } catch { return {}; } }
+    function saveWorkCfg(c){ localStorage.setItem(WORK_CFG_KEY, JSON.stringify(c)); }
+    function getPAFlows()  { try { return JSON.parse(localStorage.getItem(PA_FLOWS_KEY) || '[]'); } catch { return []; } }
+
+    /* — Jira helpers — */
+    function jiraBase() { const c = getWorkCfg(); return (c.jiraUrl || '').replace(/\/$/, ''); }
+    function jiraAuth() { const c = getWorkCfg(); return c.jiraEmail && c.jiraToken ? 'Basic ' + btoa(c.jiraEmail + ':' + c.jiraToken) : null; }
+
+    async function jiraFetch(path, opts = {}) {
+      const auth = jiraAuth();
+      if (!auth || !jiraBase()) { botMsg('⚙️ Jira not configured — type <b>work config</b> to set it up.'); return null; }
+      try {
+        const r = await fetch(jiraBase() + '/rest/api/3' + path, {
+          ...opts,
+          headers: { 'Authorization': auth, 'Content-Type': 'application/json', ...(opts.headers || {}) }
+        });
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return await r.json();
+      } catch (e) {
+        botMsg('⚠️ Jira: ' + e.message + ' — verify you are on work network or VPN.');
+        return null;
+      }
+    }
+
+    async function fetchMyTickets() {
+      botMsg('🎫 Fetching your open tickets...');
+      const data = await jiraFetch('/search?jql=' + encodeURIComponent('assignee = currentUser() AND resolution = Unresolved ORDER BY updated DESC') + '&maxResults=8&fields=summary,status,priority,issuetype');
+      if (!data) return;
+      if (!data.issues || !data.issues.length) { botMsg('✅ No open tickets assigned to you.'); return; }
+      let html = `<div id="clippy-result-hover"><div style="font-weight:700;color:#00ff64;margin-bottom:6px;">🎫 Your Open Tickets (${data.total})</div>`;
+      data.issues.forEach(i => {
+        const s = i.fields.status.name;
+        const sc = s === 'In Progress' ? '#00ff64' : s === 'Done' ? '#555' : '#f90';
+        html += `<div style="padding:5px 0;border-bottom:1px solid #1a1a1a;">
+          <a href="${jiraBase()}/browse/${i.key}" target="_blank" style="color:#00ff64;font-weight:700;font-size:12px;">${i.key}</a>
+          <span style="color:#bbb;font-size:11px;margin-left:6px;">${i.fields.summary}</span>
+          <span style="color:${sc};font-size:10px;margin-left:6px;">[${s}]</span>
+        </div>`;
+      });
+      html += `<div style="margin-top:6px;font-size:11px;color:#555;"><a href="${jiraBase()}/issues/?jql=assignee%3DcurrentUser()%20AND%20resolution%3DUnresolved" target="_blank" style="color:#444;">View all ${data.total} in Jira →</a></div></div>`;
+      addHTML(html);
+    }
+
+    async function fetchJiraTicket(key) {
+      botMsg('🎫 Loading ' + key.toUpperCase() + '...');
+      const data = await jiraFetch('/issue/' + key.toUpperCase() + '?fields=summary,status,priority,assignee,description');
+      if (!data) return;
+      const desc = (data.fields.description?.content?.[0]?.content || []).map(c => c.text || '').join(' ').substring(0, 200);
+      addHTML(`<div id="clippy-result-hover">
+        <div style="font-weight:700;color:#00ff64;margin-bottom:4px;">🎫 ${data.key}</div>
+        <div style="font-size:12px;color:#fff;margin-bottom:4px;">${data.fields.summary}</div>
+        <div style="font-size:11px;color:#888;margin-bottom:6px;">
+          Status: <b style="color:#f90">${data.fields.status.name}</b> &nbsp;|&nbsp;
+          Priority: ${data.fields.priority?.name || 'N/A'} &nbsp;|&nbsp;
+          Assignee: ${data.fields.assignee?.displayName || 'Unassigned'}
+        </div>
+        ${desc ? `<div style="font-size:11px;color:#999;margin-bottom:8px;">${desc}…</div>` : ''}
+        <a href="${jiraBase()}/browse/${data.key}" target="_blank" style="background:#00ff64;color:#000;padding:4px 10px;border-radius:6px;font-weight:700;font-size:11px;text-decoration:none;">Open in Jira →</a>
+      </div>`);
+    }
+
+    async function searchJiraTickets(text) {
+      botMsg('🔍 Searching Jira for: ' + text);
+      const jql = `text ~ "${text}" AND resolution = Unresolved ORDER BY updated DESC`;
+      const data = await jiraFetch('/search?jql=' + encodeURIComponent(jql) + '&maxResults=6&fields=summary,status');
+      if (!data) return;
+      if (!data.issues.length) { botMsg('No Jira tickets matched: ' + text); return; }
+      let html = `<div id="clippy-result-hover"><div style="font-weight:700;color:#00ff64;margin-bottom:6px;">🔍 Jira: "${text}" (${data.total})</div>`;
+      data.issues.forEach(i => {
+        html += `<div style="padding:4px 0;border-bottom:1px solid #111;">
+          <a href="${jiraBase()}/browse/${i.key}" target="_blank" style="color:#00ff64;font-size:12px;font-weight:700;">${i.key}</a>
+          <span style="font-size:11px;color:#bbb;margin-left:6px;">${i.fields.summary}</span>
+        </div>`;
+      });
+      html += `</div>`;
+      addHTML(html);
+    }
+
+    /* — Lansweeper (Clippy) — */
+    async function lsSearch(assetName) {
+      const cfg = getWorkCfg();
+      if (!cfg.lsUrl || !cfg.lsPat) { botMsg('⚙️ Lansweeper not configured — type <b>work config</b>'); return; }
+      botMsg('🔍 Searching Lansweeper for: ' + assetName);
+      const siteFilter = cfg.lsSiteId ? `site:{name:{eq:"${cfg.lsSiteId}"}}` : '';
+      const gql = `{Site(where:{${siteFilter}}){site{assetBasicInfo(where:{assetBasicInfo:{name:{like:"%${assetName}%"}}},limit:5){name lastSeen ipAddress userName operatingSystem}}}}`;
+      try {
+        const r = await fetch(cfg.lsUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + cfg.lsPat },
+          body: JSON.stringify({ query: gql })
+        });
+        const data = await r.json();
+        const assets = data?.data?.Site?.[0]?.site?.assetBasicInfo || [];
+        if (!assets.length) { botMsg('No Lansweeper assets found for: ' + assetName); return; }
+        let html = `<div id="clippy-result-hover"><div style="font-weight:700;color:#00ff64;margin-bottom:6px;">🖥️ Lansweeper: ${assetName}</div>`;
+        assets.forEach(a => {
+          html += `<div style="padding:5px 0;border-bottom:1px solid #111;">
+            <b style="color:#00ff64;font-size:12px;">${a.name}</b>
+            <span style="font-size:11px;color:#888;"> — IP: ${a.ipAddress || 'N/A'} | User: ${a.userName || 'None'} | OS: ${(a.operatingSystem || '').split(' ')[0]}</span>
+            <span style="font-size:10px;color:#555;"> | Seen: ${a.lastSeen ? a.lastSeen.substring(0,10) : 'N/A'}</span>
+          </div>`;
+        });
+        html += `</div>`;
+        addHTML(html);
+      } catch (e) {
+        botMsg('⚠️ Lansweeper: ' + e.message + ' — check VPN / CORS proxy config.');
+      }
+    }
+
+    /* — Power Automate flows — */
+    function showPAFlows() {
+      const flows = getPAFlows();
+      if (!flows.length) {
+        botMsg('⚡ No flows saved yet. Type <b>work config</b> → Add Flow to register a webhook.');
+        return;
+      }
+      let html = `<div id="clippy-result-hover"><div style="font-weight:700;color:#00ff64;margin-bottom:6px;">⚡ Power Automate Flows (${flows.length})</div>`;
+      flows.forEach((f, i) => {
+        html += `<div style="padding:5px 0;border-bottom:1px solid #111;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:12px;color:#bbb;">${f.name}</span>
+          <div style="display:flex;gap:5px;">
+            <button class="clippy-chip" onclick="runPAFlow(${i})" style="font-size:10px;padding:2px 8px;">▶ Run</button>
+            <button class="clippy-chip" onclick="deletePAFlow(${i})" style="font-size:10px;padding:2px 8px;border-color:#f44;color:#f44;">✕</button>
+          </div>
+        </div>`;
+      });
+      html += `<div style="margin-top:8px;"><button class="clippy-chip" onclick="clippyChip('work config')" style="font-size:10px;">+ Add Flow</button></div></div>`;
+      addHTML(html);
+    }
+
+    window.runPAFlow = async function(idx) {
+      const flows = getPAFlows();
+      const f = flows[idx];
+      if (!f) return;
+      botMsg(`⚡ Triggering: <b>${f.name}</b>…`);
+      try {
+        const r = await fetch(f.url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ source: 'Clippy', triggeredAt: new Date().toISOString() })
+        });
+        botMsg(r.ok ? `✅ Flow triggered: <b>${f.name}</b>` : `⚠️ Flow returned HTTP ${r.status} — check the webhook URL.`);
+      } catch (e) {
+        botMsg('⚠️ Could not reach flow webhook — check VPN.');
+      }
+    };
+
+    window.deletePAFlow = function(idx) {
+      const flows = getPAFlows();
+      const name = flows[idx].name;
+      flows.splice(idx, 1);
+      localStorage.setItem(PA_FLOWS_KEY, JSON.stringify(flows));
+      botMsg(`🗑️ Removed flow: ${name}`);
+    };
+
+    /* — Work Config UI — */
+    function showWorkConfig() {
+      const c = getWorkCfg();
+      const flows = getPAFlows();
+      addHTML(`<div id="clippy-result-hover" style="font-size:12px;">
+        <div style="font-weight:700;color:#00ff64;margin-bottom:6px;">⚙️ Work Tools Config</div>
+        <div style="font-size:10px;color:#555;margin-bottom:8px;">Saved to this browser only — never leaves your device.</div>
+
+        <div style="font-size:11px;font-weight:700;color:#00ff64;margin:6px 0 3px;">🎫 Jira</div>
+        <input id="wt-jira-url"   placeholder="https://newsbank.atlassian.net" value="${c.jiraUrl||''}"   style="width:100%;background:#0d0d1a;border:1px solid #333;color:#fff;padding:5px 7px;border-radius:4px;margin:2px 0;font-size:11px;box-sizing:border-box;">
+        <input id="wt-jira-email" placeholder="you@newsbank.com" value="${c.jiraEmail||''}" style="width:100%;background:#0d0d1a;border:1px solid #333;color:#fff;padding:5px 7px;border-radius:4px;margin:2px 0;font-size:11px;box-sizing:border-box;">
+        <input id="wt-jira-token" type="password" placeholder="Jira API token (Atlassian account settings)" value="${c.jiraToken||''}" style="width:100%;background:#0d0d1a;border:1px solid #333;color:#fff;padding:5px 7px;border-radius:4px;margin:2px 0;font-size:11px;box-sizing:border-box;">
+
+        <div style="font-size:11px;font-weight:700;color:#00ff64;margin:8px 0 3px;">🔍 Lansweeper</div>
+        <input id="wt-ls-url"  placeholder="GraphQL endpoint URL" value="${c.lsUrl||''}"    style="width:100%;background:#0d0d1a;border:1px solid #333;color:#fff;padding:5px 7px;border-radius:4px;margin:2px 0;font-size:11px;box-sizing:border-box;">
+        <input id="wt-ls-pat"  type="password" placeholder="Personal Access Token (PAT)" value="${c.lsPat||''}" style="width:100%;background:#0d0d1a;border:1px solid #333;color:#fff;padding:5px 7px;border-radius:4px;margin:2px 0;font-size:11px;box-sizing:border-box;">
+        <input id="wt-ls-site" placeholder="Site name (optional filter)" value="${c.lsSiteId||''}" style="width:100%;background:#0d0d1a;border:1px solid #333;color:#fff;padding:5px 7px;border-radius:4px;margin:2px 0;font-size:11px;box-sizing:border-box;">
+
+        <div style="font-size:11px;font-weight:700;color:#00ff64;margin:8px 0 3px;">⚡ Add Power Automate Flow (${flows.length} saved)</div>
+        <input id="wt-pa-name" placeholder="Flow label (e.g. HR Equipment Return)" style="width:100%;background:#0d0d1a;border:1px solid #333;color:#fff;padding:5px 7px;border-radius:4px;margin:2px 0;font-size:11px;box-sizing:border-box;">
+        <input id="wt-pa-url"  placeholder="HTTP trigger webhook URL" style="width:100%;background:#0d0d1a;border:1px solid #333;color:#fff;padding:5px 7px;border-radius:4px;margin:2px 0;font-size:11px;box-sizing:border-box;">
+
+        <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;">
+          <button class="clippy-chip" onclick="saveWorkCfgUI()">💾 Save Jira & LS</button>
+          <button class="clippy-chip" onclick="addPAFlow()" style="border-color:#f90;color:#f90;">+ Save Flow</button>
+          <button class="clippy-chip" onclick="clippyChip('my flows')" style="border-color:#555;color:#555;">View Flows</button>
+        </div>
+      </div>`);
+    }
+
+    window.saveWorkCfgUI = function() {
+      saveWorkCfg({
+        jiraUrl:   (document.getElementById('wt-jira-url')?.value   || '').trim(),
+        jiraEmail: (document.getElementById('wt-jira-email')?.value || '').trim(),
+        jiraToken: (document.getElementById('wt-jira-token')?.value || '').trim(),
+        lsUrl:     (document.getElementById('wt-ls-url')?.value     || '').trim(),
+        lsPat:     (document.getElementById('wt-ls-pat')?.value     || '').trim(),
+        lsSiteId:  (document.getElementById('wt-ls-site')?.value    || '').trim(),
+      });
+      botMsg('✅ Jira & Lansweeper config saved.');
+    };
+
+    window.addPAFlow = function() {
+      const name = (document.getElementById('wt-pa-name')?.value || '').trim();
+      const url  = (document.getElementById('wt-pa-url')?.value  || '').trim();
+      if (!name || !url) { botMsg('⚠️ Enter both a flow name and webhook URL.'); return; }
+      const flows = getPAFlows();
+      flows.push({ name, url });
+      localStorage.setItem(PA_FLOWS_KEY, JSON.stringify(flows));
+      botMsg(`✅ Flow saved: <b>${name}</b> (${flows.length} total)`);
+    };
+
+    /* ================================================================
+       SQL · GraphQL · JQL — Query Libraries
+    ================================================================ */
+
+    const SQL_PRESETS = [
+      { tag:'assets',    label:'All Assets — Summary',
+        sql:`SELECT a.Name, a.Domain, a.IPAddress, ac.Username, ac.Department, a.LastActiveScan\nFROM tblAssets a\nJOIN tblAssetCustom ac ON a.AssetID = ac.AssetID\nORDER BY a.LastActiveScan DESC` },
+      { tag:'offline',   label:'Assets Not Seen 30+ Days',
+        sql:`SELECT a.Name, a.IPAddress, ac.Username, ac.Department, a.LastActiveScan\nFROM tblAssets a\nJOIN tblAssetCustom ac ON a.AssetID = ac.AssetID\nWHERE a.LastActiveScan < DATEADD(day,-30,GETDATE())\nORDER BY a.LastActiveScan ASC` },
+      { tag:'department',label:'Assets by Department',
+        sql:`SELECT ac.Department, COUNT(*) AS AssetCount\nFROM tblAssets a\nJOIN tblAssetCustom ac ON a.AssetID = ac.AssetID\nGROUP BY ac.Department\nORDER BY AssetCount DESC` },
+      { tag:'software',  label:'Software Inventory — Find App',
+        sql:`SELECT a.Name, ac.Username, s.SoftwareName, s.SoftwareVersion\nFROM tblAssets a\nJOIN tblAssetCustom ac ON a.AssetID = ac.AssetID\nJOIN tblSoftware s ON a.AssetID = s.AssetID\nWHERE s.SoftwareName LIKE '%Microsoft Teams%'\nORDER BY a.Name` },
+      { tag:'os',        label:'OS Version Count',
+        sql:`SELECT a.OSName AS OperatingSystem, COUNT(*) AS Count\nFROM tblAssets a\nGROUP BY a.OSName\nORDER BY Count DESC` },
+      { tag:'user',      label:'Assets by User / Username',
+        sql:`SELECT a.Name, a.IPAddress, ac.Username, ac.Department, a.LastActiveScan\nFROM tblAssets a\nJOIN tblAssetCustom ac ON a.AssetID = ac.AssetID\nWHERE ac.Username LIKE '%jahonen%'\nORDER BY a.LastActiveScan DESC` },
+      { tag:'serial',    label:'Find Asset by Serial Number',
+        sql:`SELECT a.Name, a.IPAddress, ac.Username, ac.SerialNumber, a.LastActiveScan\nFROM tblAssets a\nJOIN tblAssetCustom ac ON a.AssetID = ac.AssetID\nWHERE ac.SerialNumber = 'ABC123'\nORDER BY a.Name` },
+      { tag:'logon',     label:'Recent Logon Events',
+        sql:`SELECT TOP 50 a.Name, ul.Username, ul.Logon, ul.Logoff\nFROM tblAssets a\nJOIN tblUserlogon ul ON a.AssetID = ul.AssetID\nORDER BY ul.Logon DESC` },
+      { tag:'service',   label:'Services — Find Running / Stopped',
+        sql:`SELECT a.Name, s.Caption, s.State, s.StartMode\nFROM tblAssets a\nJOIN tblNtServices s ON a.AssetID = s.AssetID\nWHERE s.Caption LIKE '%Lansweeper%'\nORDER BY a.Name` },
+      { tag:'patch',     label:'Windows Update / Patch Status',
+        sql:`SELECT a.Name, ac.Username, wu.Title, wu.InstalledOn\nFROM tblAssets a\nJOIN tblAssetCustom ac ON a.AssetID = ac.AssetID\nJOIN tblWindowsUpdates wu ON a.AssetID = wu.AssetID\nWHERE wu.InstalledOn IS NULL\nORDER BY a.Name` },
+    ];
+
+    const GQL_PRESETS = [
+      { tag:'asset',     label:'Find Asset by Name',
+        gql:`{\n  Site {\n    site {\n      assetBasicInfo(\n        where: { assetBasicInfo: { name: { like: "%HOSTNAME%" } } }\n        limit: 10\n      ) { name ipAddress userName lastSeen operatingSystem }\n    }\n  }\n}` },
+      { tag:'department',label:'Assets in Department',
+        gql:`{\n  Site {\n    site {\n      assetBasicInfo(\n        where: { assetCustom: { department: { eq: "IT" } } }\n        limit: 50\n      ) { name ipAddress userName department lastSeen }\n    }\n  }\n}` },
+      { tag:'serial',    label:'Find by Serial Number',
+        gql:`{\n  Site {\n    site {\n      assetBasicInfo(\n        where: { assetBasicInfo: { serialNumber: { eq: "SERIAL" } } }\n      ) { name ipAddress userName operatingSystem lastSeen }\n    }\n  }\n}` },
+      { tag:'software',  label:'Software on Asset',
+        gql:`{\n  Site {\n    site {\n      software(\n        where: { assetBasicInfo: { name: { eq: "HOSTNAME" } } }\n        limit: 50\n      ) { softwareName softwareVersion publisher }\n    }\n  }\n}` },
+      { tag:'user',      label:'Assets for a User',
+        gql:`{\n  Site {\n    site {\n      assetBasicInfo(\n        where: { assetBasicInfo: { userName: { like: "%username%" } } }\n      ) { name ipAddress userName lastSeen operatingSystem }\n    }\n  }\n}` },
+      { tag:'offline',   label:'Assets Not Seen 30+ Days',
+        gql:`{\n  Site {\n    site {\n      assetBasicInfo(\n        where: { assetBasicInfo: { lastSeen: { lt: "DATEOFFSET" } } }\n        limit: 50\n        sort: { assetBasicInfo: { lastSeen: { order: ASC } } }\n      ) { name ipAddress userName lastSeen department }\n    }\n  }\n}` },
+    ];
+
+    const JQL_PRESETS = [
+      { tag:'mine',      label:'My Open Tickets',
+        jql:`assignee = currentUser() AND resolution = Unresolved ORDER BY updated DESC` },
+      { tag:'sprint',    label:'Current Sprint — IT Project',
+        jql:`project = IT AND sprint in openSprints() ORDER BY priority DESC` },
+      { tag:'critical',  label:'Critical / High Priority Unresolved',
+        jql:`priority in (Critical, High) AND resolution = Unresolved ORDER BY created ASC` },
+      { tag:'today',     label:'Updated Today',
+        jql:`updated >= startOfDay() ORDER BY updated DESC` },
+      { tag:'overdue',   label:'Overdue (Past Due Date)',
+        jql:`duedate < now() AND resolution = Unresolved ORDER BY duedate ASC` },
+      { tag:'created',   label:'Created by Me This Week',
+        jql:`reporter = currentUser() AND created >= startOfWeek() ORDER BY created DESC` },
+      { tag:'unassigned',label:'Unassigned Open Tickets',
+        jql:`assignee is EMPTY AND resolution = Unresolved ORDER BY created ASC` },
+      { tag:'comment',   label:'Tickets Waiting on Me',
+        jql:`assignee = currentUser() AND status = "Waiting for Support" ORDER BY updated ASC` },
+    ];
+
+    /* — SQL Browser — */
+    function showSQLBrowser(filter) {
+      const cfg = getWorkCfg();
+      const results = filter
+        ? SQL_PRESETS.filter(s => s.tag.includes(filter) || s.label.toLowerCase().includes(filter))
+        : SQL_PRESETS;
+      if (!results.length) { botMsg('No SQL presets matched: ' + filter); return; }
+      let html = `<div id="clippy-result-hover">
+        <div style="font-weight:700;color:#00ff64;margin-bottom:6px;">🗄️ SQL Queries${filter ? ': ' + filter : ''}</div>
+        ${!cfg.sqlUrl ? '<div style="font-size:10px;color:#f90;margin-bottom:6px;">⚠️ No SQL endpoint — copy queries for SSMS. Add <b>sqlUrl</b> in work config to execute live.</div>' : ''}`;
+      results.forEach((s, i) => {
+        const safe = s.sql.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,'\\n');
+        html += `<div style="margin-bottom:8px;border-bottom:1px solid #111;padding-bottom:6px;">
+          <div style="font-size:11px;font-weight:700;color:#bbb;margin-bottom:3px;">${s.label}</div>
+          <pre style="font-size:10px;color:#00ff64;background:#0a0a14;padding:6px;border-radius:4px;overflow-x:auto;margin:0;white-space:pre-wrap;">${s.sql}</pre>
+          <div style="display:flex;gap:5px;margin-top:4px;">
+            <button class="clippy-chip" style="font-size:10px;" onclick="navigator.clipboard.writeText('${safe}'.replace(/\\n/g,'\\n'));this.textContent='✅ Copied';setTimeout(()=>this.textContent='📋 Copy',1500)">📋 Copy</button>
+            ${cfg.sqlUrl ? `<button class="clippy-chip" style="font-size:10px;border-color:#0f2;color:#0f2;" onclick="runSQL(${i})">▶ Run</button>` : ''}
+          </div>
+        </div>`;
+      });
+      if (!filter) {
+        const tags = [...new Set(SQL_PRESETS.map(s => s.tag))];
+        html += `<div style="margin-top:4px;font-size:10px;color:#555;">Filter: ` + tags.map(t => `<button class="clippy-chip" onclick="clippyChip('sql ${t}')" style="font-size:9px;padding:1px 6px;">${t}</button>`).join(' ') + `</div>`;
+      }
+      html += `</div>`;
+      addHTML(html);
+    }
+
+    window.runSQL = async function(idx) {
+      const cfg = getWorkCfg();
+      if (!cfg.sqlUrl) { botMsg('⚙️ No SQL endpoint — add sqlUrl in work config.'); return; }
+      const s = SQL_PRESETS[idx];
+      botMsg(`🗄️ Running: ${s.label}…`);
+      try {
+        const r = await fetch(cfg.sqlUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', ...(cfg.sqlToken ? { 'Authorization': 'Bearer ' + cfg.sqlToken } : {}) },
+          body: JSON.stringify({ query: s.sql })
+        });
+        const data = await r.json();
+        const rows = Array.isArray(data) ? data : (data.results || data.rows || []);
+        if (!rows.length) { botMsg('Query returned no rows.'); return; }
+        const cols = Object.keys(rows[0]);
+        let html = `<div id="clippy-result-hover"><div style="font-weight:700;color:#00ff64;margin-bottom:6px;">🗄️ ${s.label} (${rows.length} rows)</div>
+          <div style="overflow-x:auto;font-size:10px;"><table style="border-collapse:collapse;width:100%;">
+          <tr>${cols.map(c => `<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #00ff64;color:#00ff64;">${c}</th>`).join('')}</tr>
+          ${rows.slice(0,15).map(row => `<tr>${cols.map(c => `<td style="padding:3px 6px;border-bottom:1px solid #111;color:#bbb;">${row[c] ?? ''}</td>`).join('')}</tr>`).join('')}
+          </table></div>
+          ${rows.length > 15 ? `<div style="font-size:10px;color:#555;margin-top:4px;">${rows.length - 15} more rows — copy query for SSMS to see all.</div>` : ''}
+        </div>`;
+        addHTML(html);
+      } catch(e) {
+        botMsg('⚠️ SQL endpoint error: ' + e.message);
+      }
+    };
+
+    /* — GraphQL Runner — */
+    function showGQLRunner(presetIdx) {
+      const cfg = getWorkCfg();
+      const preset = presetIdx !== undefined ? GQL_PRESETS[presetIdx] : null;
+      const presetBtns = GQL_PRESETS.map((p, i) =>
+        `<button class="clippy-chip" onclick="showGQLPreset(${i})" style="font-size:9px;margin:2px;">${p.label}</button>`
+      ).join('');
+      addHTML(`<div id="clippy-result-hover">
+        <div style="font-weight:700;color:#00ff64;margin-bottom:6px;">⬡ GraphQL Runner</div>
+        <div style="margin-bottom:6px;font-size:10px;color:#888;">Presets:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:2px;margin-bottom:8px;">${presetBtns}</div>
+        <input id="gql-endpoint" placeholder="GraphQL endpoint URL" value="${cfg.lsUrl||''}" style="width:100%;background:#0d0d1a;border:1px solid #333;color:#fff;padding:5px 7px;border-radius:4px;margin:2px 0;font-size:11px;box-sizing:border-box;">
+        <input id="gql-token" type="password" placeholder="Bearer token / PAT" value="${cfg.lsPat||''}" style="width:100%;background:#0d0d1a;border:1px solid #333;color:#fff;padding:5px 7px;border-radius:4px;margin:2px 0;font-size:11px;box-sizing:border-box;">
+        <textarea id="gql-query" placeholder="Enter GraphQL query..." style="width:100%;background:#0a0a14;border:1px solid #333;color:#00ff64;padding:6px;border-radius:4px;margin:4px 0;font-size:11px;font-family:monospace;height:100px;box-sizing:border-box;">${preset ? preset.gql : ''}</textarea>
+        <textarea id="gql-vars" placeholder='Variables (JSON, optional) {"key":"value"}' style="width:100%;background:#0a0a14;border:1px solid #333;color:#888;padding:6px;border-radius:4px;margin:2px 0;font-size:11px;font-family:monospace;height:40px;box-sizing:border-box;"></textarea>
+        <div style="display:flex;gap:6px;margin-top:8px;">
+          <button class="clippy-chip" onclick="runGQL()" style="border-color:#00ff64;color:#00ff64;">▶ Run Query</button>
+          <button class="clippy-chip" onclick="copyGQL()" style="font-size:10px;">📋 Copy</button>
+        </div>
+      </div>`);
+    }
+
+    window.showGQLPreset = function(idx) {
+      const ta = document.getElementById('gql-query');
+      if (ta) ta.value = GQL_PRESETS[idx].gql;
+    };
+
+    window.copyGQL = function() {
+      const q = document.getElementById('gql-query')?.value || '';
+      navigator.clipboard.writeText(q).then(() => botMsg('📋 Query copied.'));
+    };
+
+    window.runGQL = async function() {
+      const url   = document.getElementById('gql-endpoint')?.value.trim();
+      const token = document.getElementById('gql-token')?.value.trim();
+      const query = document.getElementById('gql-query')?.value.trim();
+      const varsRaw = document.getElementById('gql-vars')?.value.trim();
+      if (!url || !query) { botMsg('⚠️ Enter endpoint URL and query.'); return; }
+      let variables = {};
+      if (varsRaw) { try { variables = JSON.parse(varsRaw); } catch { botMsg('⚠️ Variables JSON is invalid.'); return; } }
+      botMsg('⬡ Running GraphQL query…');
+      try {
+        const r = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', ...(token ? { 'Authorization': 'Bearer ' + token } : {}) },
+          body: JSON.stringify({ query, variables })
+        });
+        const data = await r.json();
+        if (data.errors) { botMsg('⚠️ GraphQL errors: ' + data.errors.map(e => e.message).join(', ')); return; }
+        const pretty = JSON.stringify(data.data, null, 2);
+        addHTML(`<div id="clippy-result-hover">
+          <div style="font-weight:700;color:#00ff64;margin-bottom:6px;">⬡ GraphQL Result</div>
+          <pre style="font-size:10px;color:#bbb;background:#0a0a14;padding:8px;border-radius:4px;overflow:auto;max-height:200px;margin:0;">${pretty.replace(/</g,'&lt;')}</pre>
+          <button class="clippy-chip" style="margin-top:6px;font-size:10px;" onclick="navigator.clipboard.writeText(${JSON.stringify(pretty)});this.textContent='✅ Copied';setTimeout(()=>this.textContent='📋 Copy JSON',1500)">📋 Copy JSON</button>
+        </div>`);
+      } catch(e) {
+        botMsg('⚠️ GraphQL error: ' + e.message + ' — check endpoint, token, and VPN.');
+      }
+    };
+
+    /* — JQL Preset Browser — */
+    function showJQLPresets(filter) {
+      const results = filter
+        ? JQL_PRESETS.filter(j => j.tag.includes(filter) || j.label.toLowerCase().includes(filter))
+        : JQL_PRESETS;
+      const base = jiraBase();
+      let html = `<div id="clippy-result-hover">
+        <div style="font-weight:700;color:#00ff64;margin-bottom:6px;">🎫 JQL Presets</div>`;
+      results.forEach(j => {
+        const safe = j.jql.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+        const jiraLink = base ? `<a href="${base}/issues/?jql=${encodeURIComponent(j.jql)}" target="_blank" class="clippy-chip" style="font-size:10px;text-decoration:none;">↗ Open in Jira</a>` : '';
+        html += `<div style="margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #111;">
+          <div style="font-size:11px;font-weight:700;color:#bbb;margin-bottom:3px;">${j.label}</div>
+          <pre style="font-size:10px;color:#f90;background:#0a0a14;padding:5px;border-radius:4px;margin:0;white-space:pre-wrap;">${j.jql}</pre>
+          <div style="display:flex;gap:5px;margin-top:4px;align-items:center;">
+            <button class="clippy-chip" style="font-size:10px;" onclick="navigator.clipboard.writeText('${safe}');this.textContent='✅ Copied';setTimeout(()=>this.textContent='📋 Copy',1500)">📋 Copy</button>
+            ${jiraLink}
+          </div>
+        </div>`;
+      });
+      html += `</div>`;
+      addHTML(html);
+    }
+
+    /* — Portal Query Library — Lansweeper portal-level report links + common queries — */
+    function showPortalQueries() {
+      const cfg = getWorkCfg();
+      const lsBase = cfg.lsUrl ? cfg.lsUrl.replace('/api/v2/graphql','').replace('/graphql','') : 'https://app.lansweeper.com';
+      const portals = [
+        { icon:'🖥️', label:'All Assets Report',     desc:'Full asset inventory list',          url: lsBase + '/report' },
+        { icon:'📊', label:'Report Builder',          desc:'Create custom SQL/template reports',  url: lsBase + '/report/new' },
+        { icon:'📡', label:'Network Discovery',       desc:'Scan ranges and credential sets',     url: lsBase + '/scanning-targets' },
+        { icon:'🧩', label:'Software Inventory',      desc:'Apps installed across all assets',    url: lsBase + '/software' },
+        { icon:'🔐', label:'Windows Updates View',    desc:'Patch compliance dashboard',          url: lsBase + '/updates' },
+        { icon:'📋', label:'Active Issues',           desc:'Failed scans, offline agents',        url: lsBase + '/issues' },
+        { icon:'🔗', label:'Integrations',            desc:'API keys, connectors, webhooks',      url: lsBase + '/settings/integrations' },
+      ];
+      const queries = [
+        { icon:'🔍', label:'Find asset by hostname',  call: () => { botMsg('Type: <b>find HOSTNAME</b> to search Lansweeper via GraphQL'); } },
+        { icon:'🗄️', label:'SQL query library',       call: () => showSQLBrowser(null) },
+        { icon:'⬡',  label:'GraphQL runner',          call: () => showGQLRunner() },
+        { icon:'🎫', label:'JQL preset browser',       call: () => showJQLPresets(null) },
+      ];
+      let html = `<div id="clippy-result-hover">
+        <div style="font-weight:700;color:#00ff64;margin-bottom:6px;">🔗 Portal Query Center</div>
+        <div style="font-size:10px;color:#888;margin-bottom:8px;">Lansweeper portal links + query tools</div>
+        <div style="font-size:11px;font-weight:700;color:#bbb;margin:4px 0;">📡 Portal Links</div>`;
+      portals.forEach(p => {
+        html += `<div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid #111;">
+          <span style="font-size:14px;">${p.icon}</span>
+          <div style="flex:1;">
+            <a href="${p.url}" target="_blank" style="color:#00ff64;font-size:11px;font-weight:700;text-decoration:none;">${p.label}</a>
+            <div style="font-size:10px;color:#555;">${p.desc}</div>
+          </div>
+        </div>`;
+      });
+      html += `<div style="font-size:11px;font-weight:700;color:#bbb;margin:8px 0 4px;">⚡ Query Tools</div>`;
+      queries.forEach((q, i) => {
+        html += `<button class="clippy-chip" style="margin:2px;font-size:10px;" onclick="window.__pq${i}&&window.__pq${i}()">${q.icon} ${q.label}</button>`;
+        window[`__pq${i}`] = q.call;
+      });
+      html += `</div>`;
+      addHTML(html);
     }
 
     /* == Inline copy buttons on <code> blocks == */

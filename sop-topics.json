@@ -603,5 +603,115 @@
     "title": "Teams Bot Architecture Component Map",
     "tag": "Copilot Studio",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#components"
+  },
+  {
+    "title": "Change Password — Okta Dashboard",
+    "tag": "Password",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#2-step-1--re-authenticate-via-okta-dashboard"
+  },
+  {
+    "title": "Change Password — Network (Ctrl+Alt+Del)",
+    "tag": "Password",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#password-and-accounts"
+  },
+  {
+    "title": "Password Not Syncing to Apps After Change",
+    "tag": "Password",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#1-what-happens-after-an-okta-password-change"
+  },
+  {
+    "title": "Fix Office 365 Sign-In After Password Change",
+    "tag": "Password",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#3-step-2--fix-office-apps-token-word-excel-outlook-teams"
+  },
+  {
+    "title": "8x8 Call Forwarding Setup",
+    "tag": "8x8",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/8x8-phone-system.html"
+  },
+  {
+    "title": "8x8 Voicemail Setup",
+    "tag": "8x8",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/8x8-phone-system.html"
+  },
+  {
+    "title": "8x8 Troubleshooting — No Audio / Can't Connect",
+    "tag": "8x8",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/8x8-phone-system.html"
+  },
+  {
+    "title": "CDS Dev Hub — GitHub Projects & Installers",
+    "tag": "CDS",
+    "url": "https://greenhornet-dev.github.io/cds-green/dev.html"
+  },
+  {
+    "title": "CDS PO Builder — Create Purchase Orders",
+    "tag": "CDS",
+    "url": "https://greenhornet-dev.github.io/cds-green/po-builder.html"
+  },
+  {
+    "title": "CDS Shop — Hardware & Gear",
+    "tag": "CDS",
+    "url": "https://greenhornet-dev.github.io/cds-green/shop.html"
+  },
+  {
+    "title": "CDS Services & Pricing",
+    "tag": "CDS",
+    "url": "https://greenhornet-dev.github.io/cds-green/services.html"
+  },
+  {
+    "title": "GitHub Copilot Agent — Browser SOP",
+    "tag": "AI Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/github-copilot-agent.html"
+  },
+  {
+    "title": "Work Tools Query Hub",
+    "tag": "Work Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html"
+  },
+  {
+    "title": "Work Config — Jira, Lansweeper, Power Automate Setup",
+    "tag": "Work Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#2-work-config-setup"
+  },
+  {
+    "title": "SQL Query Library — Lansweeper Database Queries",
+    "tag": "Work Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#3-sql-query-library"
+  },
+  {
+    "title": "GraphQL Runner — Live Lansweeper API Queries",
+    "tag": "Work Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#4-graphql-runner"
+  },
+  {
+    "title": "JQL Preset Browser — Jira Query Language",
+    "tag": "Work Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#5-jql-preset-browser"
+  },
+  {
+    "title": "Portal Query Center — Lansweeper Portal Links",
+    "tag": "Work Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#6-portal-query-center"
+  },
+  {
+    "title": "Clippy Work Tools Commands — Quick Reference",
+    "tag": "Work Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#7-clippy-commands"
+  },
+  {
+    "title": "Jira API Token Setup for Clippy",
+    "tag": "Work Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#2-jira-setup"
+  },
+  {
+    "title": "Lansweeper PAT Setup for Clippy",
+    "tag": "Work Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#2-lansweeper-setup"
+  },
+  {
+    "title": "Redacted Build Pattern — Credentials in localStorage",
+    "tag": "Work Tools",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#1-overview--redacted-build-pattern"
   }
 ]
