@@ -738,5 +738,50 @@
     "title": "Python Learning Path — IT Staff",
     "tag": "Dev",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html#8-learning-path"
+  },
+  {
+    "title": "VS Code Dev SOP — API Calls, Parsing, Power Automate & SharePoint",
+    "tag": "Dev",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html"
+  },
+  {
+    "title": "VS Code Extensions — Essential Dev Setup",
+    "tag": "Dev",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#1-vscode-setup"
+  },
+  {
+    "title": "API Calls from VS Code — REST Client & Thunder Client",
+    "tag": "Dev",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#2-api-calls"
+  },
+  {
+    "title": "JSON & CSV Indexing and Parsing — Python",
+    "tag": "Dev",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#3-indexing-parsing"
+  },
+  {
+    "title": "Power Automate Next Level — Python + Flask + PA Integration",
+    "tag": "Power Automate",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#4-power-automate"
+  },
+  {
+    "title": "SharePoint Sensitivity Labels — HR & Finance Redaction",
+    "tag": "SharePoint",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#5-sharepoint-redaction"
+  },
+  {
+    "title": "SharePoint DLP Policy — Block External Sharing",
+    "tag": "SharePoint",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#5-sharepoint-redaction"
+  },
+  {
+    "title": "Microsoft Purview Auto-Labeling — SSN & Financial Data",
+    "tag": "SharePoint",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#5-sharepoint-redaction"
+  },
+  {
+    "title": "VS Code Keyboard Shortcuts — Dev Workflow",
+    "tag": "Dev",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#6-shortcuts"
   }
 ]

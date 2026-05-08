@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VS Code Dev SOP — API Calls, Parsing, Power Automate & SharePoint — GreenHornet IT</title>
+  <link rel="stylesheet" href="./shared-styles.css">
+</head>
+<body>
+  <header class="cds-navbar">
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo"><img src="https://greenhornet-dev.github.io/cds-green/Green-Hornet-Warrior.jpg" alt="GreenHornet" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #00ff64;vertical-align:middle;margin-right:2px;"> GreenHornet IT</a>
+    <nav>
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/3d-prints.html">3D Prints</a>
+      <a href="./sop-portal.html" class="active">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </nav>
+  </header>
+  <main class="page-wrapper">
+    <div class="page-header">
+      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>VS Code Dev SOP</span></div>
+      <h1>VS Code Dev SOP</h1>
+      <span class="tag">Dev</span>
+      <span class="tag">VS Code</span>
+      <span class="tag">Python</span>
+      <span class="tag">Power Automate</span>
+      <span class="tag">SharePoint</span>
+      <p class="description">Next-tier noob guide — VS Code setup, API calls, JSON/CSV indexing and parsing, Power Automate HTTP integration, and SharePoint sensitivity label redaction for HR and Finance data.</p>
+    </div>
+
+    <section class="steps-section">
+      <h2>Table of Contents</h2>
+      <ol>
+        <li><a href="#1-vscode-setup">VS Code Setup — Extensions &amp; Settings</a></li>
+        <li><a href="#2-api-calls">API Calls from VS Code — REST Client &amp; Python</a></li>
+        <li><a href="#3-indexing-parsing">Indexing &amp; Parsing — JSON, CSV, and Data Formats</a></li>
+        <li><a href="#4-power-automate">Power Automate — Next Level Integration</a></li>
+        <li><a href="#5-sharepoint-redaction">SharePoint Tag Redaction — HR &amp; Finance</a></li>
+        <li><a href="#6-shortcuts">VS Code Keyboard Shortcuts — Dev Workflow</a></li>
+        <li><a href="#7-useful-links">Useful Links</a></li>
+      </ol>
+    </section>
+
+    <!-- ==================== Section 1 ==================== -->
+    <section id="1-vscode-setup" class="steps-section">
+      <h2>1. VS Code Setup — Extensions &amp; Settings</h2>
+
+      <h3>Install VS Code (if needed)</h3>
+      <pre><code>winget install Microsoft.VisualStudioCode</code></pre>
+
+      <h3>Essential Extensions — Install All</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Extension</th><th class="step-how">Why you need it</th><th style="width:160px;">Install command</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>Python</strong> (ms-python)</td><td class="step-how">IntelliSense, linting, run scripts, virtual envs</td><td><code>code --install-extension ms-python.python</code></td></tr>
+          <tr><td class="step-what"><strong>REST Client</strong></td><td class="step-how">Make API calls directly from a <code>.http</code> file — no Postman needed</td><td><code>code --install-extension humao.rest-client</code></td></tr>
+          <tr><td class="step-what"><strong>GitLens</strong></td><td class="step-how">See who changed what, inline blame, history explorer</td><td><code>code --install-extension eamodio.gitlens</code></td></tr>
+          <tr><td class="step-what"><strong>Prettier</strong></td><td class="step-how">Auto-format JSON, HTML, JS, CSS on save</td><td><code>code --install-extension esbenp.prettier-vscode</code></td></tr>
+          <tr><td class="step-what"><strong>Python Dotenv</strong></td><td class="step-how">Highlights .env files, warns on missing vars</td><td><code>code --install-extension mikestead.dotenv</code></td></tr>
+          <tr><td class="step-what"><strong>Thunder Client</strong></td><td class="step-how">Full API test GUI inside VS Code — collections, environments</td><td><code>code --install-extension rangav.vscode-thunder-client</code></td></tr>
+          <tr><td class="step-what"><strong>Excel Viewer</strong></td><td class="step-how">Preview CSV/Excel files in a table grid without opening Excel</td><td><code>code --install-extension GrapeCity.gc-excelviewer</code></td></tr>
+          <tr><td class="step-what"><strong>SharePoint Framework</strong> (optional)</td><td class="step-how">Build SharePoint web parts and extensions locally</td><td><code>code --install-extension eliostruyf.vscode-spfx</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Install All at Once (PowerShell)</h3>
+      <pre><code>$extensions = @(
+    "ms-python.python",
+    "humao.rest-client",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "mikestead.dotenv",
+    "rangav.vscode-thunder-client",
+    "GrapeCity.gc-excelviewer"
+)
+foreach ($ext in $extensions) { code --install-extension $ext }</code></pre>
+
+      <h3>Key Settings (settings.json)</h3>
+      <p>Open with <strong>Ctrl+Shift+P → "Open User Settings (JSON)"</strong></p>
+      <pre><code>{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "python.terminal.activateEnvironment": true,
+  "files.autoSave": "onFocusChange",
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "editor.minimap.enabled": false,
+  "workbench.colorTheme": "Default Dark+"
+}</code></pre>
+    </section>
+
+    <!-- ==================== Section 2 ==================== -->
+    <section id="2-api-calls" class="steps-section">
+      <h2>2. API Calls from VS Code — REST Client &amp; Python</h2>
+
+      <h3>Method 1 — REST Client Extension (<code>.http</code> files)</h3>
+      <p>Create a file called <code>test-api.http</code>. Click <strong>Send Request</strong> above any request block. Response appears in a split pane — no browser, no Postman.</p>
+      <pre><code>### Lansweeper GraphQL
+POST https://api.lansweeper.com/api/v2/graphql
+Content-Type: application/json
+Authorization: Bearer {{LS_PAT}}
+
+{
+  "query": "{ Site { site { assetBasicInfo(where: { assetBasicInfo: { name: { like: \"%PC-001%\" } } }) { name ipAddress userName } } } }"
+}
+
+###
+
+### Jira — My Open Tickets
+GET https://{{JIRA_HOST}}/rest/api/3/search?jql=assignee%3DcurrentUser()%20AND%20resolution%3DUnresolved
+Authorization: Basic {{JIRA_AUTH}}
+Accept: application/json
+
+###
+
+### Power Automate Webhook — Trigger a Flow
+POST {{PA_WEBHOOK_URL}}
+Content-Type: application/json
+
+{
+  "trigger": "manual",
+  "source": "vscode-test"
+}</code></pre>
+
+      <p>Create a matching <code>.env</code> file (or use the REST Client's environment file <code>.vscode/settings.json</code>):</p>
+      <pre><code># .env — never commit this
+LS_PAT=your-lansweeper-pat
+JIRA_HOST=newsbank.atlassian.net
+JIRA_AUTH=base64(email:token)
+PA_WEBHOOK_URL=https://prod-xx.logic.azure.com/...</code></pre>
+
+      <h3>Method 2 — Thunder Client (GUI)</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Click the Thunder Client icon in the left sidebar (lightning bolt)</td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Click <strong>New Request</strong> — choose GET / POST / etc.</td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Enter URL, set Headers tab → add <code>Authorization: Bearer TOKEN</code></td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">For POST: Body tab → select JSON → paste your payload</td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">Click <strong>Send</strong> — response shows status, headers, and JSON body</td></tr>
+          <tr><td class="step-num">6</td><td class="step-how">Save to a <strong>Collection</strong> — group Jira, Lansweeper, PA calls together</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Method 3 — Python in the VS Code Terminal</h3>
+      <p>Open the integrated terminal: <strong>Ctrl+`</strong> (backtick). Activate your virtual env, then run scripts directly.</p>
+      <pre><code># Activate venv (PowerShell)
+.\.venv\Scripts\Activate.ps1
+
+# Run a script
+python call_jira.py
+
+# Or one-liner test
+python -c "import requests; r=requests.get('https://httpbin.org/json'); print(r.json())"</code></pre>
+
+      <h3>Reading API Responses — What to Look For</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Response part</th><th class="step-how">What it tells you</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>Status 200</strong></td><td class="step-how">Success — check the body for your data</td></tr>
+          <tr><td class="step-what"><strong>Status 401</strong></td><td class="step-how">Auth failed — wrong token, wrong format, or expired</td></tr>
+          <tr><td class="step-what"><strong>Status 403</strong></td><td class="step-how">Token valid but no permission — check scopes/roles</td></tr>
+          <tr><td class="step-what"><strong>Status 404</strong></td><td class="step-how">Wrong URL — check endpoint path and host</td></tr>
+          <tr><td class="step-what"><strong>Status 429</strong></td><td class="step-how">Rate limited — too many requests, add delay or cache results</td></tr>
+          <tr><td class="step-what"><strong>CORS error</strong></td><td class="step-how">Browser-only restriction — run from Python instead, or use a proxy</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ==================== Section 3 ==================== -->
+    <section id="3-indexing-parsing" class="steps-section">
+      <h2>3. Indexing &amp; Parsing — JSON, CSV, and Data Formats</h2>
+      <p>APIs return JSON. Reports come as CSV or Excel. Parsing is how you extract just the fields you care about and get them into a usable format.</p>
+
+      <h3>JSON — Navigate Nested Data</h3>
+      <pre><code>import json
+
+# Load from API response
+data = response.json()
+
+# Navigate nested structure — Jira example
+for issue in data["issues"]:
+    key     = issue["key"]                          # "IT-123"
+    summary = issue["fields"]["summary"]            # ticket title
+    status  = issue["fields"]["status"]["name"]     # "In Progress"
+    assignee = issue["fields"]["assignee"]["displayName"] if issue["fields"]["assignee"] else "Unassigned"
+    print(f"{key} | {status} | {assignee} | {summary}")
+
+# Lansweeper GraphQL example
+assets = data["data"]["Site"]["site"]["assetBasicInfo"]
+for a in assets:
+    print(a["name"], a["ipAddress"], a["userName"], a["lastSeen"])</code></pre>
+
+      <h3>JSON — Format and Pretty-Print</h3>
+      <pre><code>import json
+
+raw = response.json()
+
+# Pretty-print to console
+print(json.dumps(raw, indent=2))
+
+# Save formatted JSON to file
+with open("output.json", "w") as f:
+    json.dump(raw, f, indent=2)
+
+# VS Code: open any .json file → Shift+Alt+F to auto-format it</code></pre>
+
+      <h3>CSV — Read and Write</h3>
+      <pre><code>import csv
+
+# Read a CSV
+with open("assets.csv", newline="") as f:
+    reader = csv.DictReader(f)  # uses first row as field names
+    for row in reader:
+        print(row["Name"], row["IPAddress"], row["Username"])
+
+# Write a CSV from API data
+with open("report.csv", "w", newline="") as f:
+    writer = csv.DictWriter(f, fieldnames=["key","summary","status","assignee"])
+    writer.writeheader()
+    for issue in data["issues"]:
+        writer.writerow({
+            "key":      issue["key"],
+            "summary":  issue["fields"]["summary"],
+            "status":   issue["fields"]["status"]["name"],
+            "assignee": issue["fields"]["assignee"]["displayName"] if issue["fields"]["assignee"] else ""
+        })</code></pre>
+
+      <h3>Excel — Read and Write with pandas</h3>
+      <pre><code>import pandas as pd
+
+# Read Excel
+df = pd.read_excel("assets.xlsx", sheet_name="Sheet1")
+print(df.head())           # first 5 rows
+print(df.columns.tolist()) # column names
+print(df["Username"].unique()) # unique values in a column
+
+# Filter rows
+offline = df[df["LastSeen"] < "2026-04-01"]
+
+# Write back to Excel
+offline.to_excel("offline_assets.xlsx", index=False)
+
+# Convert Lansweeper API results to Excel in one shot
+assets = data["data"]["Site"]["site"]["assetBasicInfo"]
+pd.DataFrame(assets).to_excel("lansweeper_export.xlsx", index=False)</code></pre>
+
+      <h3>Indexing — Build a Lookup Dictionary</h3>
+      <p>When you need to cross-reference two data sources (e.g., Jira assignees vs Lansweeper users), index by a shared key:</p>
+      <pre><code># Index Lansweeper assets by username for fast lookup
+asset_index = {}
+for asset in assets:
+    user = asset["userName"].lower() if asset["userName"] else "unknown"
+    asset_index.setdefault(user, []).append(asset)
+
+# Now cross-reference: for each Jira ticket, find the assignee's assets
+for issue in jira_data["issues"]:
+    assignee = issue["fields"]["assignee"]
+    if assignee:
+        username = assignee["emailAddress"].split("@")[0].lower()
+        machines = asset_index.get(username, [])
+        print(f"{issue['key']} — {username} — machines: {[m['name'] for m in machines]}")</code></pre>
+
+      <h3>Data Format Guide</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Format</th><th class="step-how">Best for</th><th style="width:120px;">Python tool</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>JSON</strong></td><td class="step-how">API responses, config files, nested structured data</td><td><code>json</code> module</td></tr>
+          <tr><td class="step-what"><strong>CSV</strong></td><td class="step-how">Flat tabular data — easy to open in Excel, SharePoint lists</td><td><code>csv</code> module</td></tr>
+          <tr><td class="step-what"><strong>Excel (.xlsx)</strong></td><td class="step-how">Reports shared with non-technical staff, formatted output</td><td><code>pandas</code> / <code>openpyxl</code></td></tr>
+          <tr><td class="step-what"><strong>Markdown (.md)</strong></td><td class="step-how">Documentation, SOPs, GitHub README files</td><td>plain text</td></tr>
+          <tr><td class="step-what"><strong>YAML</strong></td><td class="step-how">Config files, CI/CD pipelines, Power Automate export format</td><td><code>pyyaml</code></td></tr>
+          <tr><td class="step-what"><strong>HTML</strong></td><td class="step-how">Web pages, email reports, SharePoint embeds</td><td>f-strings or <code>jinja2</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ==================== Section 4 ==================== -->
+    <section id="4-power-automate" class="steps-section">
+      <h2>4. Power Automate — Next Level Integration</h2>
+
+      <h3>The Architecture</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Pattern</th><th class="step-how">How it works</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>VS Code → PA (push)</strong></td><td class="step-how">Python script POSTs JSON to a PA HTTP trigger webhook → flow runs</td></tr>
+          <tr><td class="step-what"><strong>PA → VS Code API (pull)</strong></td><td class="step-how">PA HTTP action calls a Flask/FastAPI endpoint you host locally or on Azure</td></tr>
+          <tr><td class="step-what"><strong>PA → SharePoint (write)</strong></td><td class="step-how">PA creates/updates list items, uploads files, sets metadata/labels</td></tr>
+          <tr><td class="step-what"><strong>PA → Teams/Email (notify)</strong></td><td class="step-how">PA posts adaptive cards or emails based on data from your script</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Pattern 1 — Python Triggers a Power Automate Flow</h3>
+      <pre><code>import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+webhook = os.getenv("PA_WEBHOOK_URL")
+
+payload = {
+    "event": "asset_offline",
+    "hostname": "PC-FINANCE-04",
+    "last_seen": "2026-04-07",
+    "assigned_to": "jsmith@newsbank.com",
+    "department": "Finance"
+}
+
+r = requests.post(webhook, json=payload)
+print(f"Flow triggered: {r.status_code}")</code></pre>
+      <p>In Power Automate, the flow receives this JSON, parses the body, and can email the assigned user, create a Jira ticket, or update a SharePoint list — all automatically.</p>
+
+      <h3>Pattern 2 — Build a Local API for Power Automate to Call</h3>
+      <p>Use Flask to expose a local endpoint. PA's HTTP connector calls it on a schedule or trigger.</p>
+      <pre><code>from flask import Flask, request, jsonify
+import pyodbc
+
+app = Flask(__name__)
+
+@app.route("/api/assets/offline", methods=["GET"])
+def offline_assets():
+    conn = pyodbc.connect("DRIVER={SQL Server};SERVER=your-server;DATABASE=lansweeperdb;Trusted_Connection=yes")
+    cursor = conn.cursor()
+    cursor.execute("SELECT Name, IPAddress, Username FROM tblAssets WHERE LastActiveScan < DATEADD(day,-30,GETDATE())")
+    rows = [{"name": r[0], "ip": r[1], "user": r[2]} for r in cursor.fetchall()]
+    return jsonify({"count": len(rows), "assets": rows})
+
+if __name__ == "__main__":
+    app.run(port=5000)</code></pre>
+      <p>In Power Automate: <strong>HTTP action → GET http://localhost:5000/api/assets/offline</strong> → parse JSON response → send Teams alert with the list.</p>
+      <p><strong>For production:</strong> Deploy to Azure App Service or a Windows server running <code>waitress</code> as the WSGI server — same code, accessible from PA without localhost.</p>
+
+      <h3>Pattern 3 — Scheduled Data Sync (PA + Python + SharePoint)</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Python script queries Lansweeper DB or GraphQL API — returns asset list</td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Script POSTs result to PA HTTP trigger webhook</td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">PA flow parses JSON → loops through assets</td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">PA creates or updates SharePoint list items (one row per asset)</td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">SharePoint list becomes a live IT asset dashboard — filterable by HR or Finance</td></tr>
+          <tr><td class="step-num">6</td><td class="step-how">Schedule the Python script with Windows Task Scheduler or as a PA-triggered action</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Power Automate — Next Level Connectors</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Connector</th><th class="step-how">What it unlocks</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>HTTP + Swagger</strong></td><td class="step-how">Call any REST API (Lansweeper, Jira, custom Flask endpoint)</td></tr>
+          <tr><td class="step-what"><strong>SharePoint</strong></td><td class="step-how">Create/update list items, upload files, set metadata and labels</td></tr>
+          <tr><td class="step-what"><strong>Microsoft Graph API</strong></td><td class="step-how">Read/write any M365 data — users, calendar, Teams, OneDrive</td></tr>
+          <tr><td class="step-what"><strong>Azure Key Vault</strong></td><td class="step-how">Pull secrets securely inside a flow — no hardcoded tokens</td></tr>
+          <tr><td class="step-what"><strong>Dataverse</strong></td><td class="step-how">Enterprise database behind Power Apps — structured storage beyond SharePoint lists</td></tr>
+          <tr><td class="step-what"><strong>AI Builder</strong></td><td class="step-how">Document parsing, form recognition, text classification inside PA flows</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ==================== Section 5 ==================== -->
+    <section id="5-sharepoint-redaction" class="steps-section">
+      <h2>5. SharePoint Tag Redaction — HR &amp; Finance</h2>
+      <p>Sensitivity labels classify and optionally redact content in SharePoint — protecting HR (PII, personnel records) and Finance (payroll, contracts) data from unauthorized access while keeping it usable by the right people.</p>
+
+      <h3>Three Layers of Protection</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Layer</th><th class="step-how">What it does</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>Sensitivity Labels</strong> (Microsoft Purview)</td><td class="step-how">Tag documents/sites as Confidential, HR-Only, Finance-Only — enforces encryption, access, and watermarks</td></tr>
+          <tr><td class="step-what"><strong>SharePoint Metadata Tags</strong></td><td class="step-how">Custom columns (Department, Classification) for filtering and Power Automate targeting</td></tr>
+          <tr><td class="step-what"><strong>Permissions / Sharing</strong></td><td class="step-how">Site-level or document library-level access — HR group only, Finance group only</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Step 1 — Create Sensitivity Labels in Microsoft Purview</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Go to <a href="https://purview.microsoft.com">purview.microsoft.com</a> → <strong>Information Protection → Labels</strong></td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Click <strong>Create a label</strong> — name it (e.g., <code>HR-Confidential</code>, <code>Finance-Restricted</code>)</td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Configure scope: <strong>Files &amp; emails</strong> + <strong>Groups &amp; sites</strong></td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">Enable <strong>Encryption</strong> → assign permissions: HR group gets Co-Author, all others get none</td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">Enable <strong>Content marking</strong> → add watermark: "HR CONFIDENTIAL — DO NOT DISTRIBUTE"</td></tr>
+          <tr><td class="step-num">6</td><td class="step-how">Publish the label via a <strong>Label Policy</strong> → assign to HR and Finance users</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Step 2 — Apply Labels to SharePoint Sites &amp; Libraries</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">In the HR SharePoint site: <strong>Settings (gear) → Site information → Sensitivity label</strong></td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Select <code>HR-Confidential</code> — this applies the label to the entire site</td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">For a specific library: <strong>Library Settings → Sensitivity labels → Apply default label</strong></td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">All new documents uploaded automatically inherit the site/library label</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Step 3 — Auto-Label Rules (Power Automate + Purview)</h3>
+      <p>Automatically tag documents based on content — SSNs, salary data, account numbers:</p>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">In Purview → <strong>Auto-labeling policies → Create policy</strong></td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Choose sensitive info types: <strong>U.S. Social Security Number</strong>, <strong>Credit Card Number</strong>, <strong>ABA Routing Number</strong></td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Set location: your HR and Finance SharePoint sites</td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">Run in <strong>Simulation mode</strong> first — see what would be labeled before applying</td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">Enable the policy — documents with matching content are auto-labeled on upload or edit</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Step 4 — Power Automate Flow to Flag Mislabeled Documents</h3>
+      <pre><code># Python: call Microsoft Graph to list SharePoint files missing a label
+import requests, msal, os
+from dotenv import load_dotenv
+load_dotenv()
+
+app = msal.ConfidentialClientApplication(
+    os.getenv("AZURE_CLIENT_ID"),
+    authority=f"https://login.microsoftonline.com/{os.getenv('AZURE_TENANT_ID')}",
+    client_credential=os.getenv("AZURE_CLIENT_SECRET")
+)
+token = app.acquire_token_for_client(["https://graph.microsoft.com/.default"])["access_token"]
+
+# List files in HR SharePoint library
+site_id  = os.getenv("SP_HR_SITE_ID")
+list_id  = os.getenv("SP_HR_LIST_ID")
+r = requests.get(
+    f"https://graph.microsoft.com/v1.0/sites/{site_id}/lists/{list_id}/items?expand=fields",
+    headers={"Authorization": f"Bearer {token}"}
+)
+for item in r.json().get("value", []):
+    label = item["fields"].get("_ComplianceTag", "")
+    name  = item["fields"].get("FileLeafRef", "")
+    if not label:
+        print(f"⚠️  No label: {name}")</code></pre>
+
+      <h3>Redaction vs Classification — What's What</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Term</th><th class="step-how">What it means in practice</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>Classification / Tagging</strong></td><td class="step-how">Label applied — document is marked as sensitive. Access still possible by permitted users.</td></tr>
+          <tr><td class="step-what"><strong>Encryption</strong></td><td class="step-how">File is encrypted — only licensed, permitted users can open it regardless of where it's shared</td></tr>
+          <tr><td class="step-what"><strong>Redaction</strong></td><td class="step-how">Specific content blacked out — requires Microsoft Purview eDiscovery or a third-party tool (not native in SharePoint labels)</td></tr>
+          <tr><td class="step-what"><strong>DLP Policy</strong></td><td class="step-how">Data Loss Prevention — blocks sharing labeled docs externally, alerts IT when attempted</td></tr>
+        </tbody>
+      </table>
+
+      <h3>DLP Policy — Block External Sharing of HR/Finance Docs</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Purview → <strong>Data Loss Prevention → Policies → Create policy</strong></td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Select template: <strong>Financial Data</strong> or <strong>U.S. Personally Identifiable Information</strong></td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Set location: SharePoint sites (select HR and Finance sites)</td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">Rule: if label = <code>HR-Confidential</code> AND shared externally → <strong>Block</strong> + notify IT</td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">Enable <strong>User override</strong> with justification — so users can explain legitimate external shares</td></tr>
+          <tr><td class="step-num">6</td><td class="step-how">Run in <strong>Test mode</strong> for 2 weeks before enforcing</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ==================== Section 6 ==================== -->
+    <section id="6-shortcuts" class="steps-section">
+      <h2>6. VS Code Keyboard Shortcuts — Dev Workflow</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Shortcut</th><th class="step-how">What it does</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>Ctrl+`</strong></td><td class="step-how">Toggle integrated terminal</td></tr>
+          <tr><td class="step-what"><strong>Ctrl+Shift+P</strong></td><td class="step-how">Command palette — run any VS Code command</td></tr>
+          <tr><td class="step-what"><strong>Ctrl+P</strong></td><td class="step-how">Quick file open — type part of a filename</td></tr>
+          <tr><td class="step-what"><strong>Ctrl+Shift+F</strong></td><td class="step-how">Search across all files in the workspace</td></tr>
+          <tr><td class="step-what"><strong>Ctrl+/</strong></td><td class="step-how">Toggle comment on selected lines</td></tr>
+          <tr><td class="step-what"><strong>Alt+Shift+F</strong></td><td class="step-how">Format the entire file (Prettier)</td></tr>
+          <tr><td class="step-what"><strong>F5</strong></td><td class="step-how">Run/debug the current file</td></tr>
+          <tr><td class="step-what"><strong>Ctrl+Shift+`</strong></td><td class="step-how">New terminal instance</td></tr>
+          <tr><td class="step-what"><strong>Ctrl+D</strong></td><td class="step-how">Select next occurrence of current word (multi-cursor)</td></tr>
+          <tr><td class="step-what"><strong>Alt+Click</strong></td><td class="step-how">Add a cursor at click position (edit multiple places at once)</td></tr>
+          <tr><td class="step-what"><strong>Ctrl+Shift+K</strong></td><td class="step-how">Delete current line</td></tr>
+          <tr><td class="step-what"><strong>Alt+↑ / Alt+↓</strong></td><td class="step-how">Move current line up or down</td></tr>
+          <tr><td class="step-what"><strong>Ctrl+B</strong></td><td class="step-how">Toggle sidebar (more screen space when coding)</td></tr>
+          <tr><td class="step-what"><strong>Ctrl+K Z</strong></td><td class="step-how">Zen mode — fullscreen, no distractions</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ==================== Section 7 ==================== -->
+    <section id="7-useful-links" class="steps-section">
+      <h2>7. Useful Links</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Resource</th><th class="step-how">URL</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">VS Code Docs</td><td class="step-how"><a href="https://code.visualstudio.com/docs">code.visualstudio.com/docs</a></td></tr>
+          <tr><td class="step-what">REST Client Extension</td><td class="step-how"><a href="https://marketplace.visualstudio.com/items?itemName=humao.rest-client">REST Client — VS Code Marketplace</a></td></tr>
+          <tr><td class="step-what">Thunder Client</td><td class="step-how"><a href="https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client">Thunder Client — VS Code Marketplace</a></td></tr>
+          <tr><td class="step-what">Microsoft Purview</td><td class="step-how"><a href="https://purview.microsoft.com">purview.microsoft.com</a></td></tr>
+          <tr><td class="step-what">Sensitivity Labels Docs</td><td class="step-how"><a href="https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels">Microsoft Learn — Sensitivity Labels</a></td></tr>
+          <tr><td class="step-what">Microsoft Graph API Explorer</td><td class="step-how"><a href="https://developer.microsoft.com/en-us/graph/graph-explorer">Graph Explorer — Test API calls live</a></td></tr>
+          <tr><td class="step-what">Power Automate Docs</td><td class="step-how"><a href="https://learn.microsoft.com/en-us/power-automate/">Microsoft Learn — Power Automate</a></td></tr>
+          <tr><td class="step-what">Python vs Java SOP</td><td class="step-how"><a href="./python-vs-java.html">python-vs-java.html</a></td></tr>
+          <tr><td class="step-what">Work Tools Query Hub</td><td class="step-how"><a href="./work-tools-query.html">work-tools-query.html</a></td></tr>
+          <tr><td class="step-what">Lansweeper SOP</td><td class="step-how"><a href="./lansweeper.html">lansweeper.html</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
+  </main>
+  <footer class="cds-footer">
+    <div class="footer-nav">
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/3d-prints.html">3D Prints</a>
+      <a href="./sop-portal.html">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 <span>Custom Design Systems LLC</span> &middot; GreenHornet IT Help Desk</p>
+  </footer>
+  <script src="./clippy.js"></script>
+</body>
+</html>
