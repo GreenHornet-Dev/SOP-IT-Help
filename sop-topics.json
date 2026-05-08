@@ -713,5 +713,30 @@
     "title": "Redacted Build Pattern — Credentials in localStorage",
     "tag": "Work Tools",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#1-overview--redacted-build-pattern"
+  },
+  {
+    "title": "Python vs Java — IT Dev Learning Guide",
+    "tag": "Dev",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html"
+  },
+  {
+    "title": "Python for IT Automation — Real Examples",
+    "tag": "Dev",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html#5-python-for-it"
+  },
+  {
+    "title": "Key Python Libraries for IT Work",
+    "tag": "Dev",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html#6-key-libraries"
+  },
+  {
+    "title": "Python Getting Started — Install & First Script",
+    "tag": "Dev",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html#7-getting-started"
+  },
+  {
+    "title": "Python Learning Path — IT Staff",
+    "tag": "Dev",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html#8-learning-path"
   }
 ]

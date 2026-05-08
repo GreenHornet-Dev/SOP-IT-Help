@@ -187,6 +187,7 @@
         if (p.includes('winget-one-liners'))    return 'sop-winget';
         if (p.includes('copilot-studio'))       return 'sop-copilot-studio';
         if (p.includes('work-tools-query'))     return 'sop-worktools';
+        if (p.includes('python-vs-java'))       return 'sop-python';
         if (p.includes('training'))             return 'training';
         if (p.includes('services'))             return 'services';
         if (p.includes('shop'))                 return 'shop';
@@ -213,6 +214,7 @@
         'sop-winget':   ['📋 Copy All Apps','🌐 Install Chrome','💬 Install Teams','📝 Install Notepad++','📋 All SOPs'],
         'sop-copilot-studio': ['🔑 Renew Azure Secret','📂 Fix SharePoint Knowledge','⚡ Fix Broken Flow','📋 Expiry Schedule','📋 All SOPs'],
         'sop-worktools': ['🗄️ SQL Queries','⬡ GraphQL','🎫 JQL Presets','🔗 Portal Queries','⚙️ Work Config'],
+        'sop-python':   ['🐍 Python vs Java','📦 Key Libraries','🚀 Getting Started','🗺️ Learning Path','📋 All SOPs'],
         'training':     ['📋 Browse SOPs','🖨️ Printer Fix','🔑 Password Reset','🛒 Shop Gear'],
         'services':     ['💰 Get a Quote','🛒 Shop Laptops','🖥️ Shop Monitors','📞 Services'],
         'shop':         ['🛒 Shop Laptops','🖥️ Shop Monitors','🖨️ Shop Printers','💰 View Quote'],
@@ -232,6 +234,7 @@
         'sop-winget':   "🪶 Winget One-Liners — click COPY on any row, or COPY ALL at the bottom for the full PowerShell install script.",
         'sop-copilot-studio': "🤖 Copilot Studio Teams Bot — ask about renewing the Azure secret, fixing broken knowledge sources, or why publishing to Teams fails.",
         'sop-worktools': "⚡ Work Tools Query Hub — type <b>sql</b>, <b>graphql</b>, or <b>jql</b> to open query libraries. Type <b>work config</b> to set up your credentials (stored locally, never in the repo).",
+        'sop-python':   "🐍 Python vs Java — ask about libraries, getting started, or how Python connects to Jira, Lansweeper, or Claude.",
         'default':      "👋 Hi! I'm Clippy. Ask about SOPs, IT fixes, shortcuts, winget installs, or shop for gear.",
     };
 

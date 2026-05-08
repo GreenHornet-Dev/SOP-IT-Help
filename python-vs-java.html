@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python vs Java — IT Dev Learning Guide — GreenHornet IT Help Desk</title>
+  <link rel="stylesheet" href="./shared-styles.css">
+</head>
+<body>
+  <header class="cds-navbar">
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo"><img src="https://greenhornet-dev.github.io/cds-green/Green-Hornet-Warrior.jpg" alt="GreenHornet" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #00ff64;vertical-align:middle;margin-right:2px;"> GreenHornet IT</a>
+    <nav>
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/3d-prints.html">3D Prints</a>
+      <a href="./sop-portal.html" class="active">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </nav>
+  </header>
+  <main class="page-wrapper">
+    <div class="page-header">
+      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>Python vs Java</span></div>
+      <h1>Python vs Java — IT Dev Learning Guide</h1>
+      <span class="tag">Dev</span>
+      <span class="tag">Python</span>
+      <span class="tag">AI Tools</span>
+      <p class="description">Practical comparison for IT staff learning to code. When to use each, why Python wins for IT automation and AI work, and a learning path from zero to useful scripts fast.</p>
+    </div>
+
+    <section class="steps-section">
+      <h2>Table of Contents</h2>
+      <ol>
+        <li><a href="#1-quick-decision">Quick Decision Guide</a></li>
+        <li><a href="#2-python-strengths">Python — Strengths &amp; IT Use Cases</a></li>
+        <li><a href="#3-java-strengths">Java — Strengths &amp; When It Matters</a></li>
+        <li><a href="#4-side-by-side">Side-by-Side Comparison</a></li>
+        <li><a href="#5-python-for-it">Python for IT Automation — Real Examples</a></li>
+        <li><a href="#6-key-libraries">Key Python Libraries for IT Work</a></li>
+        <li><a href="#7-getting-started">Getting Started — Install &amp; First Script</a></li>
+        <li><a href="#8-learning-path">Learning Path — IT Staff</a></li>
+        <li><a href="#9-useful-links">Useful Links</a></li>
+      </ol>
+    </section>
+
+    <!-- ==================== Section 1 ==================== -->
+    <section id="1-quick-decision" class="steps-section">
+      <h2>1. Quick Decision Guide</h2>
+      <p>If you only read one section — start here.</p>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">You want to...</th><th class="step-how">Use</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Automate repetitive IT tasks (scripts, reports)</td><td class="step-how"><strong>Python</strong></td></tr>
+          <tr><td class="step-what">Call an API (Jira, Lansweeper, Microsoft Graph)</td><td class="step-how"><strong>Python</strong></td></tr>
+          <tr><td class="step-what">Work with AI / ML / LLMs (Anthropic, OpenAI)</td><td class="step-how"><strong>Python</strong></td></tr>
+          <tr><td class="step-what">Build a quick web tool or data parser</td><td class="step-how"><strong>Python</strong></td></tr>
+          <tr><td class="step-what">Process Excel / CSV / JSON files</td><td class="step-how"><strong>Python</strong></td></tr>
+          <tr><td class="step-what">Build an Android app</td><td class="step-how"><strong>Java</strong> (or Kotlin)</td></tr>
+          <tr><td class="step-what">Work at a company running large enterprise Java systems</td><td class="step-how"><strong>Java</strong></td></tr>
+          <tr><td class="step-what">Build web frontends (Clippy, SOP portal)</td><td class="step-how"><strong>JavaScript</strong> (you already are)</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Bottom line for IT staff:</strong> Learn Python first. It solves real problems fast, every IT tool has a Python SDK, and the entire AI ecosystem runs on it.</p>
+    </section>
+
+    <!-- ==================== Section 2 ==================== -->
+    <section id="2-python-strengths" class="steps-section">
+      <h2>2. Python — Strengths &amp; IT Use Cases</h2>
+
+      <h3>Why Python Wins for IT</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Strength</th><th class="step-how">What it means in practice</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>Readable syntax</strong></td><td class="step-how">Reads almost like English — less time deciphering, more time building</td></tr>
+          <tr><td class="step-what"><strong>Fast to prototype</strong></td><td class="step-how">A working API call is 5 lines. No boilerplate, no compile step.</td></tr>
+          <tr><td class="step-what"><strong>Massive library ecosystem</strong></td><td class="step-how"><code>pip install</code> anything — HTTP requests, Excel parsing, Active Directory, REST APIs</td></tr>
+          <tr><td class="step-what"><strong>AI/ML first</strong></td><td class="step-how">Every AI SDK (Anthropic, OpenAI, HuggingFace) ships Python first</td></tr>
+          <tr><td class="step-what"><strong>Cross-platform</strong></td><td class="step-how">Same script runs on Windows, macOS, Linux — no rewrite</td></tr>
+          <tr><td class="step-what"><strong>PowerShell bridge</strong></td><td class="step-how">Call PowerShell from Python or vice versa — stack them for Windows automation</td></tr>
+        </tbody>
+      </table>
+
+      <h3>IT Tasks Python Handles Well</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Task</th><th class="step-how">Python approach</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Query Lansweeper GraphQL API</td><td class="step-how"><code>requests</code> library — same logic as Clippy's fetch(), but server-side</td></tr>
+          <tr><td class="step-what">Pull Jira tickets, update fields</td><td class="step-how"><code>jira</code> SDK or raw <code>requests</code> with Basic auth</td></tr>
+          <tr><td class="step-what">Parse Active Directory / LDAP</td><td class="step-how"><code>ldap3</code> library — query users, groups, OU structure</td></tr>
+          <tr><td class="step-what">Generate reports from SQL</td><td class="step-how"><code>pyodbc</code> + <code>pandas</code> → Excel/CSV export in minutes</td></tr>
+          <tr><td class="step-what">Automate email / Teams notifications</td><td class="step-how">Microsoft Graph API via <code>requests</code> or <code>msal</code></td></tr>
+          <tr><td class="step-what">Monitor systems, send alerts</td><td class="step-how">Scheduled Python script → POST to Power Automate webhook</td></tr>
+          <tr><td class="step-what">Build AI assistants / chatbots</td><td class="step-how">Anthropic SDK — <code>pip install anthropic</code> and you're running Claude</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ==================== Section 3 ==================== -->
+    <section id="3-java-strengths" class="steps-section">
+      <h2>3. Java — Strengths &amp; When It Matters</h2>
+
+      <h3>Where Java Genuinely Wins</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Strength</th><th class="step-how">What it means in practice</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>Performance at scale</strong></td><td class="step-how">Handles millions of requests per second — banks, airlines, enterprise ERP</td></tr>
+          <tr><td class="step-what"><strong>Strong type system</strong></td><td class="step-how">Compiler catches errors before runtime — safer in large teams</td></tr>
+          <tr><td class="step-what"><strong>Android development</strong></td><td class="step-how">Native Android apps are Java (or Kotlin, which runs on the same JVM)</td></tr>
+          <tr><td class="step-what"><strong>Enterprise ecosystem</strong></td><td class="step-how">Spring Boot, Hibernate, Maven — huge in corporate backend systems</td></tr>
+          <tr><td class="step-what"><strong>Long-running stability</strong></td><td class="step-how">Java 8 code written in 2014 still runs in production today — extreme backwards compatibility</td></tr>
+        </tbody>
+      </table>
+
+      <h3>The Honest Downside for IT Starters</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Friction</th><th class="step-how">What it feels like</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Verbose boilerplate</td><td class="step-how">10 lines of setup before you do anything useful — discouraging for quick scripts</td></tr>
+          <tr><td class="step-what">Compile step required</td><td class="step-how">Can't just run a file — must compile first (slower feedback loop)</td></tr>
+          <tr><td class="step-what">Late to AI/ML</td><td class="step-how">AI libraries exist but are secondary — Python ecosystem is 5 years ahead</td></tr>
+          <tr><td class="step-what">Overkill for scripts</td><td class="step-how">A 5-line Python script becomes a full project structure in Java</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Learn Java when:</strong> A specific job posting requires it, or you're building Android apps. Otherwise, Python gets you productive faster on everything IT-related.</p>
+    </section>
+
+    <!-- ==================== Section 4 ==================== -->
+    <section id="4-side-by-side" class="steps-section">
+      <h2>4. Side-by-Side Comparison</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Factor</th><th>Python</th><th>Java</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>Syntax complexity</strong></td><td>Low — readable, minimal punctuation</td><td>High — verbose, lots of ceremony</td></tr>
+          <tr><td class="step-what"><strong>Time to first working script</strong></td><td>Minutes</td><td>Hours (project setup, compile, etc.)</td></tr>
+          <tr><td class="step-what"><strong>Type system</strong></td><td>Dynamic (optional type hints)</td><td>Static — compiler enforces types</td></tr>
+          <tr><td class="step-what"><strong>Performance</strong></td><td>Good enough for IT tasks; slower than Java at scale</td><td>Faster at high-volume enterprise scale</td></tr>
+          <tr><td class="step-what"><strong>AI / ML ecosystem</strong></td><td>Best in class — everything ships Python first</td><td>Secondary — catching up slowly</td></tr>
+          <tr><td class="step-what"><strong>IT automation</strong></td><td>Excellent — huge library support</td><td>Possible but not natural fit</td></tr>
+          <tr><td class="step-what"><strong>Web backend</strong></td><td>Flask, FastAPI, Django</td><td>Spring Boot (very powerful)</td></tr>
+          <tr><td class="step-what"><strong>Package manager</strong></td><td><code>pip</code> — simple</td><td>Maven / Gradle — more complex</td></tr>
+          <tr><td class="step-what"><strong>Learning curve</strong></td><td>Gentle</td><td>Steep</td></tr>
+          <tr><td class="step-what"><strong>Job market</strong></td><td>Strong across IT, data, AI, web</td><td>Strong in enterprise, Android</td></tr>
+          <tr><td class="step-what"><strong>Same task — lines of code</strong></td><td>~5–15 lines</td><td>~30–60 lines (same result)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Same Task — Different Languages</h3>
+      <p>Fetch data from a REST API and print a field:</p>
+      <pre><code># Python — 4 lines
+import requests
+r = requests.get('https://api.example.com/asset/PC-001', headers={'Authorization': 'Bearer TOKEN'})
+print(r.json()['name'])</code></pre>
+      <pre><code>// Java — same result, much more setup
+import java.net.http.*;
+import java.net.URI;
+HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("https://api.example.com/asset/PC-001"))
+    .header("Authorization", "Bearer TOKEN")
+    .build();
+HttpResponse&lt;String&gt; response = client.send(request, HttpResponse.BodyHandlers.ofString());
+System.out.println(response.body()); // still need to parse JSON separately</code></pre>
+    </section>
+
+    <!-- ==================== Section 5 ==================== -->
+    <section id="5-python-for-it" class="steps-section">
+      <h2>5. Python for IT Automation — Real Examples</h2>
+      <p>These are the kinds of scripts you'd actually run in the GreenHornet / Newsbank environment.</p>
+
+      <h3>Query Lansweeper GraphQL API</h3>
+      <pre><code>import requests
+
+url = "https://api.lansweeper.com/api/v2/graphql"
+token = "your-PAT-here"
+query = """
+{
+  Site {
+    site {
+      assetBasicInfo(where: { assetBasicInfo: { name: { like: "%PC-001%" } } }) {
+        name ipAddress userName lastSeen
+      }
+    }
+  }
+}
+"""
+r = requests.post(url, json={"query": query}, headers={"Authorization": f"Bearer {token}"})
+for asset in r.json()["data"]["Site"]["site"]["assetBasicInfo"]:
+    print(asset["name"], asset["ipAddress"], asset["userName"])</code></pre>
+
+      <h3>Fetch Open Jira Tickets</h3>
+      <pre><code>import requests, base64
+
+jira_url = "https://newsbank.atlassian.net"
+email = "you@newsbank.com"
+token = "your-api-token"
+auth = base64.b64encode(f"{email}:{token}".encode()).decode()
+
+r = requests.get(
+    f"{jira_url}/rest/api/3/search",
+    params={"jql": "assignee = currentUser() AND resolution = Unresolved", "maxResults": 10},
+    headers={"Authorization": f"Basic {auth}", "Accept": "application/json"}
+)
+for issue in r.json()["issues"]:
+    print(issue["key"], issue["fields"]["summary"])</code></pre>
+
+      <h3>Export Lansweeper SQL Report to CSV</h3>
+      <pre><code>import pyodbc, csv
+
+conn = pyodbc.connect("DRIVER={SQL Server};SERVER=your-server;DATABASE=lansweeperdb;Trusted_Connection=yes")
+cursor = conn.cursor()
+cursor.execute("SELECT a.Name, ac.Username, a.IPAddress FROM tblAssets a JOIN tblAssetCustom ac ON a.AssetID = ac.AssetID")
+
+with open("assets.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow(["Name", "Username", "IP"])
+    writer.writerows(cursor.fetchall())
+
+print("Exported assets.csv")</code></pre>
+
+      <h3>POST to a Power Automate Webhook</h3>
+      <pre><code>import requests
+
+webhook_url = "https://prod-xx.westus.logic.azure.com:443/workflows/..."
+payload = {"alert": "Disk space critical", "host": "PC-FILE-01", "threshold": "90%"}
+r = requests.post(webhook_url, json=payload)
+print("Flow triggered:", r.status_code)</code></pre>
+
+      <h3>Call the Anthropic (Claude) API</h3>
+      <pre><code>import anthropic
+
+client = anthropic.Anthropic(api_key="your-key")
+message = client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Summarize this IT incident report: ..."}]
+)
+print(message.content[0].text)</code></pre>
+    </section>
+
+    <!-- ==================== Section 6 ==================== -->
+    <section id="6-key-libraries" class="steps-section">
+      <h2>6. Key Python Libraries for IT Work</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Library</th><th class="step-how">What it does</th><th style="width:140px;">Install</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>requests</strong></td><td class="step-how">HTTP calls to any API — GET, POST, auth headers</td><td><code>pip install requests</code></td></tr>
+          <tr><td class="step-what"><strong>anthropic</strong></td><td class="step-how">Official Claude / Anthropic SDK</td><td><code>pip install anthropic</code></td></tr>
+          <tr><td class="step-what"><strong>pandas</strong></td><td class="step-how">Data tables — read/write Excel, CSV, SQL results</td><td><code>pip install pandas</code></td></tr>
+          <tr><td class="step-what"><strong>pyodbc</strong></td><td class="step-how">Connect to SQL Server (Lansweeper DB, SSMS)</td><td><code>pip install pyodbc</code></td></tr>
+          <tr><td class="step-what"><strong>msal</strong></td><td class="step-how">Microsoft Authentication Library — Graph API, Azure</td><td><code>pip install msal</code></td></tr>
+          <tr><td class="step-what"><strong>ldap3</strong></td><td class="step-how">Active Directory / LDAP queries</td><td><code>pip install ldap3</code></td></tr>
+          <tr><td class="step-what"><strong>openpyxl</strong></td><td class="step-how">Read and write Excel files (.xlsx)</td><td><code>pip install openpyxl</code></td></tr>
+          <tr><td class="step-what"><strong>flask</strong></td><td class="step-how">Lightweight web server — build a local API endpoint</td><td><code>pip install flask</code></td></tr>
+          <tr><td class="step-what"><strong>schedule</strong></td><td class="step-how">Run scripts on a timer (cron-style, no Task Scheduler setup)</td><td><code>pip install schedule</code></td></tr>
+          <tr><td class="step-what"><strong>python-dotenv</strong></td><td class="step-how">Load secrets from a .env file — keeps keys out of code</td><td><code>pip install python-dotenv</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ==================== Section 7 ==================== -->
+    <section id="7-getting-started" class="steps-section">
+      <h2>7. Getting Started — Install &amp; First Script</h2>
+
+      <h3>Install Python (Windows)</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Install via winget: <code>winget install Python.Python.3.12</code></td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Verify: open PowerShell → <code>python --version</code></td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Upgrade pip: <code>python -m pip install --upgrade pip</code></td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">Install VS Code Python extension (if not already): <code>code --install-extension ms-python.python</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Your First IT Script — 60 Seconds</h3>
+      <p>Create a file called <code>hello_it.py</code> and paste this:</p>
+      <pre><code>import requests
+
+# Test: call a public API and print a result
+r = requests.get("https://httpbin.org/json")
+data = r.json()
+print("API call worked:", data["slideshow"]["title"])</code></pre>
+      <p>Run it: <code>python hello_it.py</code></p>
+      <p>That's the pattern for every API you'll ever call — <strong>request → parse JSON → use the data</strong>. Lansweeper, Jira, Microsoft Graph — all the same shape.</p>
+
+      <h3>Virtual Environments (Keep Projects Isolated)</h3>
+      <pre><code># Create a virtual env for a project
+python -m venv .venv
+
+# Activate it (PowerShell)
+.\.venv\Scripts\Activate.ps1
+
+# Now install libraries — they stay inside this project only
+pip install requests anthropic pandas</code></pre>
+      <p>Always use a virtual env per project. Keeps library versions from conflicting between scripts.</p>
+
+      <h3>Secrets — Never Hardcode Keys</h3>
+      <p>Create a <code>.env</code> file in your project folder:</p>
+      <pre><code>JIRA_TOKEN=your-token-here
+LS_PAT=your-pat-here
+ANTHROPIC_KEY=your-key-here</code></pre>
+      <p>Load it in your script:</p>
+      <pre><code>from dotenv import load_dotenv
+import os
+
+load_dotenv()
+token = os.getenv("JIRA_TOKEN")</code></pre>
+      <p><strong>Add <code>.env</code> to your <code>.gitignore</code></strong> — same redacted build pattern as Clippy's localStorage. Keys stay local, code stays clean.</p>
+    </section>
+
+    <!-- ==================== Section 8 ==================== -->
+    <section id="8-learning-path" class="steps-section">
+      <h2>8. Learning Path — IT Staff</h2>
+      <p>Ordered by fastest path to useful results in an IT environment.</p>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Stage</th><th class="step-what">Focus</th><th class="step-how">You can build after this</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="step-num">1</td>
+            <td class="step-what"><strong>Python basics</strong> — variables, lists, dicts, loops, functions</td>
+            <td class="step-how">Any simple automation script</td>
+          </tr>
+          <tr>
+            <td class="step-num">2</td>
+            <td class="step-what"><strong>requests library</strong> — GET/POST, headers, JSON parsing</td>
+            <td class="step-how">Query any REST API (Jira, Lansweeper, Graph)</td>
+          </tr>
+          <tr>
+            <td class="step-num">3</td>
+            <td class="step-what"><strong>File I/O</strong> — read/write text, CSV, JSON</td>
+            <td class="step-how">Export reports, parse config files</td>
+          </tr>
+          <tr>
+            <td class="step-num">4</td>
+            <td class="step-what"><strong>Error handling</strong> — try/except, logging</td>
+            <td class="step-how">Scripts that don't crash silently at 2am</td>
+          </tr>
+          <tr>
+            <td class="step-num">5</td>
+            <td class="step-what"><strong>Environment variables &amp; .env</strong> — python-dotenv</td>
+            <td class="step-how">Safe scripts with no hardcoded credentials</td>
+          </tr>
+          <tr>
+            <td class="step-num">6</td>
+            <td class="step-what"><strong>pandas basics</strong> — DataFrames, read_excel, to_csv</td>
+            <td class="step-how">Transform and export data for reports</td>
+          </tr>
+          <tr>
+            <td class="step-num">7</td>
+            <td class="step-what"><strong>Flask / FastAPI</strong> — build a local HTTP endpoint</td>
+            <td class="step-how">The SQL proxy for Clippy's live query feature</td>
+          </tr>
+          <tr>
+            <td class="step-num">8</td>
+            <td class="step-what"><strong>Anthropic SDK</strong> — call Claude from Python</td>
+            <td class="step-how">Custom AI tools, ticket summarizers, auto-drafts</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>How It Connects to What You're Already Doing</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">You already built (JS)</th><th class="step-how">Python equivalent you'd add next</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Clippy <code>fetch()</code> to Lansweeper GraphQL</td><td class="step-how">Python <code>requests.post()</code> — same query, server-side, schedulable</td></tr>
+          <tr><td class="step-what">localStorage for credentials</td><td class="step-how">Python <code>.env</code> file + <code>dotenv</code></td></tr>
+          <tr><td class="step-what">Clippy JQL preset browser</td><td class="step-how">Python script that runs JQL and exports results to CSV</td></tr>
+          <tr><td class="step-what">Power Automate webhook trigger in Clippy</td><td class="step-how">Python <code>requests.post()</code> to the same webhook on a schedule</td></tr>
+          <tr><td class="step-what">Clippy AI responses (this site)</td><td class="step-how">Python + Anthropic SDK → build your own Claude-powered backend</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ==================== Section 9 ==================== -->
+    <section id="9-useful-links" class="steps-section">
+      <h2>9. Useful Links</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Resource</th><th class="step-how">URL</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Python Official Docs</td><td class="step-how"><a href="https://docs.python.org/3/">docs.python.org/3</a></td></tr>
+          <tr><td class="step-what">Anthropic Python SDK</td><td class="step-how"><a href="https://github.com/anthropics/anthropic-sdk-python">github.com/anthropics/anthropic-sdk-python</a></td></tr>
+          <tr><td class="step-what">Requests Library Docs</td><td class="step-how"><a href="https://requests.readthedocs.io">requests.readthedocs.io</a></td></tr>
+          <tr><td class="step-what">Real Python — IT Automation</td><td class="step-how"><a href="https://realpython.com/python-automation/">realpython.com/python-automation</a></td></tr>
+          <tr><td class="step-what">Automate the Boring Stuff (free book)</td><td class="step-how"><a href="https://automatetheboringstuff.com">automatetheboringstuff.com</a></td></tr>
+          <tr><td class="step-what">Jira REST API v3</td><td class="step-how"><a href="https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/">developer.atlassian.com</a></td></tr>
+          <tr><td class="step-what">Lansweeper GraphQL Docs</td><td class="step-how"><a href="https://developer.lansweeper.com">developer.lansweeper.com</a></td></tr>
+          <tr><td class="step-what">Microsoft Graph Python SDK</td><td class="step-how"><a href="https://github.com/microsoftgraph/msgraph-sdk-python">github.com/microsoftgraph/msgraph-sdk-python</a></td></tr>
+          <tr><td class="step-what">Work Tools Query Hub SOP</td><td class="step-how"><a href="./work-tools-query.html">work-tools-query.html</a></td></tr>
+          <tr><td class="step-what">Lansweeper SOP</td><td class="step-how"><a href="./lansweeper.html">lansweeper.html</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
+  </main>
+  <footer class="cds-footer">
+    <div class="footer-nav">
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/3d-prints.html">3D Prints</a>
+      <a href="./sop-portal.html">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 <span>Custom Design Systems LLC</span> &middot; GreenHornet IT Help Desk</p>
+  </footer>
+  <script src="./clippy.js"></script>
+</body>
+</html>
