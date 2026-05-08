@@ -57,7 +57,7 @@ a:hover { text-decoration: underline; opacity: 0.85; }
   align-items: center;
   gap: 0.5rem;
 }
-.cds-navbar .nav-logo span { color: var(--color-primary); }
+.cds-navbar .nav-logo img { display:inline-block; flex-shrink:0; }
 .cds-navbar nav {
   display: flex;
   gap: 1.5rem;
