@@ -192,7 +192,7 @@
     const PAGE_CHIPS = {
         'sop-portal':   ['🖨️ Printer Fix','🔑 Password Reset','🔄 Windows Update','🛒 Shop Gear','⌨️ Shortcuts'],
         'sop-printer':  ['🖨️ Clear Queue','🔌 Update Driver','➕ Add Printer','📋 All SOPs'],
-        'sop-okta':     ['🔑 Password Reset','🔓 Unlock Account','🔄 Windows Update','📋 All SOPs'],
+        'sop-okta':     ['🔐 Okta password change','📧 Fix Office 365 token','🔄 Fix OneDrive sync','🧹 Clear credentials','📋 All SOPs'],
         'sop-email':    ['📧 Email Fix','📅 Out of Office','🔑 Password Reset','📋 All SOPs'],
         'sop-helpdesk': ['🔑 Password Reset','🔓 Unlock Account','🖥️ Remote Desktop','🔄 Windows Update'],
         'sop-updates':  ['🔄 Windows Update','🖥️ Dell Command Update','🧹 Clear Update Cache','📋 All SOPs'],
@@ -579,6 +579,36 @@
         '<code>Set-ADAccountPassword -Identity "user" -Reset -NewPassword (ConvertTo-SecureString "TempP@ss1!" -AsPlainText -Force)</code>',
         '<b>Check account status:</b> <code>Get-ADUser "username" -Properties LockedOut,Enabled | Select Name,Enabled,LockedOut</code>',
         '<b>Find all locked accounts:</b> <code>Search-ADAccount -LockedOut | Select Name,SamAccountName</code>'
+      ]
+    },
+    {
+      keys: ['okta','okta password change','okta token','okta sync','fix office 365 token','fix office token','fix onedrive sync','onedrive okta','okta re-auth','okta troubleshoot','sync 365','365 after okta','office apps not working okta','clear credentials','credential manager okta','office keeps signing out','onedrive crash okta'],
+      icon: '🔐', title: 'Okta — Password Change & 365 App Token Fix',
+      related: ['Password Reset','Help Desk Steps','Windows Update'],
+      steps: [
+        '<b>After an Okta password change, these commonly break:</b> Office apps (Word/Excel/Outlook), OneDrive sync, Teams sign-in.',
+        '<b>Step 1 — Re-auth via Okta dashboard first:</b>',
+        '&nbsp;&nbsp;→ Go to <code>yourcompany.okta.com</code> → sign in with new password.',
+        '&nbsp;&nbsp;→ Settings → Security → Sessions → <b>Sign out all devices</b>.',
+        '&nbsp;&nbsp;→ Sign back in → launch Office 365, Teams, OneDrive from Okta app tiles.',
+        '<b>Step 2 — Fix Office 365 token (Word/Excel/Outlook):</b>',
+        '&nbsp;&nbsp;→ Any Office app → File → Account → <b>Sign Out</b> → close all Office apps.',
+        '&nbsp;&nbsp;→ Kill remaining processes (Admin PowerShell):',
+        '<code>Get-Process -Name WINWORD,EXCEL,OUTLOOK,TEAMS -ErrorAction SilentlyContinue | Stop-Process -Force</code>',
+        '&nbsp;&nbsp;→ Clear Office token cache:',
+        '<code>Remove-Item "$env:LOCALAPPDATA\\Microsoft\\Office\\16.0\\Licensing" -Recurse -Force -ErrorAction SilentlyContinue</code>',
+        '<code>Remove-Item "$env:LOCALAPPDATA\\Microsoft\\identitycache" -Recurse -Force -ErrorAction SilentlyContinue</code>',
+        '<b>Step 3 — Fix OneDrive sync crash (Admin PowerShell):</b>',
+        '<code>Stop-Process -Name OneDrive -Force -ErrorAction SilentlyContinue</code>',
+        '<code>Remove-Item "$env:LOCALAPPDATA\\Microsoft\\OneDrive\\settings" -Recurse -Force -ErrorAction SilentlyContinue</code>',
+        '<code>Start-Process "$env:LOCALAPPDATA\\Microsoft\\OneDrive\\OneDrive.exe"</code>',
+        '&nbsp;&nbsp;→ If still crashing: <code>& "$env:LOCALAPPDATA\\Microsoft\\OneDrive\\OneDrive.exe" /reset</code>',
+        '<b>Step 4 — Clear Windows Credential Manager:</b>',
+        '&nbsp;&nbsp;→ Control Panel → Credential Manager → Windows Credentials.',
+        '&nbsp;&nbsp;→ Remove entries containing: <code>MicrosoftOffice</code>, <code>OneDrive</code>, <code>Okta</code>, <code>live.com</code>.',
+        '<code>cmdkey /list</code>  ← use to find and then <code>cmdkey /delete:TARGET</code> to remove.',
+        '<b>Verify:</b> OneDrive shows green checkmark, Office opens without sign-in prompt, CPU back to normal.',
+        '<b>Full SOP:</b> <a href="./okta.html" style="color:#00ff64">Okta Token Sync SOP →</a>'
       ]
     },
     {
