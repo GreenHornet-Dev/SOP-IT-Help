@@ -20,7 +20,7 @@
     #clippy-header{background:linear-gradient(135deg,#00ff64,#00c84a);color:#000;padding:12px;border-radius:12px 12px 0 0;display:flex;justify-content:space-between;align-items:center;font-weight:600;}
     #clippy-close{background:none;border:none;font-size:24px;cursor:pointer;color:#000;transition:transform .2s;}
     #clippy-close:hover{transform:rotate(90deg);}
-    #clippy-messages{flex:1;overflow-y:auto;padding:12px;max-height:400px;min-height:200px;scrollbar-width:thin;}
+    #clippy-messages{flex:1;overflow-y:auto;padding:12px;max-height:400px;min-height:200px;scrollbar-width:thin;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 120'%3E%3Ctext x='100' y='52' text-anchor='middle' font-family='Arial Black,sans-serif' font-size='52' font-weight='900' fill='rgba(0,255,100,0.06)'%3ECDS%3C/text%3E%3Ctext x='100' y='82' text-anchor='middle' font-family='monospace' font-size='16' font-weight='700' fill='rgba(0,255,100,0.05)'%3ECLIPY%3C/text%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center center;background-size:160px auto;}
     #clippy-msg-bot{background:#1a1a2e;border-radius:8px;padding:12px;margin-bottom:10px;border-left:4px solid #00ff64;font-size:14px;}
     #clippy-msg-user{background:#222;border-radius:8px;padding:10px;margin-bottom:8px;text-align:right;border-left:4px solid #666;}
     #clippy-result-hover{background:#0f0f1a;border-radius:8px;padding:10px;margin:8px 0;border-left:4px solid #00ff64;}
