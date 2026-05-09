@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YubiKey Reprogram SOP — GreenHornet IT Help Desk</title>
+  <link rel="stylesheet" href="./shared-styles.css">
+</head>
+<body>
+  <header class="cds-navbar">
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo"><img src="https://greenhornet-dev.github.io/cds-green/Green-Hornet-Warrior.jpg" alt="GreenHornet" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #00ff64;vertical-align:middle;margin-right:2px;"> GreenHornet IT</a>
+    <nav>
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/3d-prints.html">3D Prints</a>
+      <a href="./sop-portal.html" class="active">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </nav>
+  </header>
+  <main class="page-wrapper">
+    <div class="page-header">
+      <div class="breadcrumb"><a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a><span>/</span><a href="./sop-portal.html">SOP Portal</a><span>/</span><span>YubiKey Reprogram</span></div>
+      <h1>🔑 YubiKey Reprogram SOP</h1>
+      <span class="tag">Security</span>
+      <span class="tag">MFA</span>
+      <p class="description">Step-by-step procedure for resetting, reprogramming, and re-enrolling a YubiKey hardware token — covering FIDO2/WebAuthn, OTP slots, PIV, and re-registration in Okta MFA.</p>
+    </div>
+
+    <section class="steps-section">
+      <h2>Table of Contents</h2>
+      <ol>
+        <li><a href="#1-when-to-reprogram">When to Reprogram a YubiKey</a></li>
+        <li><a href="#2-prerequisites">Prerequisites &amp; Tools</a></li>
+        <li><a href="#3-identify-yubikey">Identify YubiKey Type &amp; Current Config</a></li>
+        <li><a href="#4-reset-yubikey">Reset the YubiKey (FIDO2 / OTP / PIV)</a></li>
+        <li><a href="#5-reprogram-otp">Reprogram OTP Slot (Optional)</a></li>
+        <li><a href="#6-reenroll-okta">Re-enroll FIDO2 in Okta MFA</a></li>
+        <li><a href="#7-verify">Verify MFA is Working</a></li>
+        <li><a href="#8-quick-reference">Quick Reference — ykman Commands</a></li>
+        <li><a href="#9-troubleshooting">Troubleshooting</a></li>
+      </ol>
+    </section>
+
+    <section id="1-when-to-reprogram" class="steps-section">
+      <h2>1. When to Reprogram a YubiKey</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Scenario</th><th class="step-how">Action Required</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">New hire receiving a previously-used YubiKey</td><td class="step-how">Full reset + re-enroll in Okta with new user account</td></tr>
+          <tr><td class="step-what">Employee forgot their YubiKey PIN</td><td class="step-how">Reset FIDO2 PIN → re-enroll authenticator in Okta</td></tr>
+          <tr><td class="step-what">YubiKey blocked / locked (too many wrong PINs)</td><td class="step-how">Full FIDO2 reset → re-enroll</td></tr>
+          <tr><td class="step-what">Departing employee — wipe before re-issuing</td><td class="step-how">Full reset all applets (FIDO2, OTP, PIV)</td></tr>
+          <tr><td class="step-what">User getting a replacement key (lost/damaged)</td><td class="step-how">Deactivate old key in Okta → enroll new key</td></tr>
+          <tr><td class="step-what">OTP slot producing wrong codes or mis-mapped</td><td class="step-how">Wipe OTP slots → reprogram Slot 1 / Slot 2</td></tr>
+          <tr><td class="step-what">PIV smart card cert expired or wrong cert loaded</td><td class="step-how">PIV reset → re-provision cert from CA or Okta</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Important:</strong> Resetting a YubiKey is irreversible. All stored credentials, PINs, and keys on the reset applet are permanently deleted. Confirm the user is removed from Okta authenticators before resetting, or they will be locked out.</p>
+    </section>
+
+    <section id="2-prerequisites" class="steps-section">
+      <h2>2. Prerequisites &amp; Tools</h2>
+      <h3>Install YubiKey Manager</h3>
+      <p>YubiKey Manager is the official Yubico tool for managing and reprogramming YubiKeys. Install via winget (recommended) or download from yubico.com.</p>
+      <pre><code># Install YubiKey Manager GUI + CLI via winget
+winget install Yubico.YubikeyManager
+
+# Verify ykman CLI is available
+ykman --version</code></pre>
+      <p>The GUI (<strong>YubiKey Manager</strong>) is sufficient for most resets. The CLI (<code>ykman</code>) is faster for bulk operations or scripting.</p>
+
+      <h3>Okta Admin Access</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Requirement</th><th class="step-how">Details</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Okta Super Admin or IT Admin role</td><td class="step-how">Required to deactivate/delete a user's existing YubiKey authenticator</td></tr>
+          <tr><td class="step-what">Okta org URL</td><td class="step-how"><code>https://yourcompany.okta.com</code></td></tr>
+          <tr><td class="step-what">Physical YubiKey in hand</td><td class="step-how">Key must be plugged in during reset and re-enrollment</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Supported YubiKey Models</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Model</th><th class="step-how">Supported Protocols</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">YubiKey 5 NFC / 5C NFC</td><td class="step-how">FIDO2, OTP, PIV, OpenPGP, OATH-TOTP, Smart Card</td></tr>
+          <tr><td class="step-what">YubiKey 5 Nano / 5C Nano</td><td class="step-how">FIDO2, OTP, PIV, OpenPGP, OATH-TOTP</td></tr>
+          <tr><td class="step-what">YubiKey 5C</td><td class="step-how">FIDO2, OTP, PIV, OpenPGP, OATH-TOTP</td></tr>
+          <tr><td class="step-what">Security Key NFC (blue)</td><td class="step-how">FIDO2 / U2F only — no OTP or PIV</td></tr>
+          <tr><td class="step-what">YubiKey Bio</td><td class="step-how">FIDO2 + biometric PIN only</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="3-identify-yubikey" class="steps-section">
+      <h2>3. Identify YubiKey Type &amp; Current Config</h2>
+      <p>Always identify the device before resetting. Different firmware versions have different reset procedures.</p>
+      <pre><code># Plug in YubiKey, then run:
+ykman info</code></pre>
+      <p>Example output:</p>
+      <pre><code>Device type: YubiKey 5 NFC
+Serial number: 12345678
+Firmware version: 5.4.3
+Form factor: Keychain (USB-A)
+Enabled USB interfaces: OTP, FIDO, CCID
+
+Applications
+OTP:         Enabled
+FIDO2:       Enabled
+OATH:        Enabled
+PIV:         Enabled
+OpenPGP:     Enabled</code></pre>
+
+      <h3>Check Which Slots / Applets Are In Use</h3>
+      <pre><code># FIDO2 credentials count
+ykman fido info
+
+# OTP slot status
+ykman otp info
+
+# PIV cert slots
+ykman piv info</code></pre>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Command</th><th class="step-how">What It Shows</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><code>ykman fido info</code></td><td class="step-how">FIDO2 PIN set, number of stored credentials, whether PIN is blocked</td></tr>
+          <tr><td class="step-what"><code>ykman otp info</code></td><td class="step-how">OTP Slot 1 / Slot 2 programmed state</td></tr>
+          <tr><td class="step-what"><code>ykman piv info</code></td><td class="step-how">PIV certificates in slots 9a (auth), 9c (sign), 9d (key mgmt), 9e (card auth)</td></tr>
+          <tr><td class="step-what"><code>ykman oath accounts list</code></td><td class="step-how">TOTP/HOTP accounts stored on the key</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="4-reset-yubikey" class="steps-section">
+      <h2>4. Reset the YubiKey</h2>
+      <p><strong>Before resetting:</strong> Remove the user's YubiKey authenticator from Okta Admin Console first (Security → Multifactor → Users → select user → remove YubiKey). This prevents lockout during the re-enrollment step.</p>
+
+      <h3>Option A — Full Reset via YubiKey Manager GUI</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Plug in the YubiKey</td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Open <strong>YubiKey Manager</strong></td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Click <strong>Applications</strong> in the top nav</td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">For FIDO2: click <strong>FIDO2</strong> → <strong>Reset FIDO2</strong></td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">For OTP: click <strong>OTP</strong> → select slot → <strong>Delete</strong></td></tr>
+          <tr><td class="step-num">6</td><td class="step-how">For PIV: click <strong>PIV</strong> → <strong>Reset PIV</strong></td></tr>
+          <tr><td class="step-num">7</td><td class="step-how">Confirm each reset — the key may ask you to remove and re-insert it</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Option B — Reset via CLI (ykman)</h3>
+      <pre><code># Reset FIDO2 (WebAuthn / FIDO U2F credentials + PIN)
+# Key must be re-inserted within 5 seconds when prompted
+ykman fido reset
+
+# Reset OTP slots (wipes Slot 1 and Slot 2)
+ykman otp delete 1
+ykman otp delete 2
+
+# Reset PIV (wipes all certs and resets PIN/PUK to defaults: 123456 / 12345678)
+ykman piv reset
+
+# Reset OATH (TOTP/HOTP accounts)
+ykman oath reset
+
+# Reset OpenPGP
+ykman openpgp reset</code></pre>
+      <p><strong>FIDO2 reset requires physical touch:</strong> After running <code>ykman fido reset</code>, the LED on the key will flash. Remove and re-insert the key within 5 seconds, then touch the gold contact when it blinks again to confirm the reset.</p>
+
+      <h3>Full Wipe (All Applets)</h3>
+      <pre><code># Wipe everything — use for departing employee key reuse
+ykman fido reset
+ykman otp delete 1
+ykman otp delete 2
+ykman piv reset
+ykman oath reset
+Write-Host "YubiKey fully wiped and ready for re-issue."</code></pre>
+    </section>
+
+    <section id="5-reprogram-otp" class="steps-section">
+      <h2>5. Reprogram OTP Slot (Optional)</h2>
+      <p>Most Okta environments use FIDO2/WebAuthn for YubiKey MFA — skip this section unless your org uses Yubico OTP or HMAC-SHA1 challenge-response. If Okta is configured for FIDO2, jump to Section 6.</p>
+
+      <h3>Program Slot 1 — Yubico OTP (Default)</h3>
+      <p>Slot 1 is activated by a short touch (≤ 0.3 s). This is the standard Yubico OTP configuration used for basic TOTP-style validation.</p>
+      <pre><code># Program Slot 1 with Yubico OTP (generates new private key + public ID automatically)
+ykman otp yubiotp 1 --generate</code></pre>
+      <p>The command outputs the new <strong>Public Identity</strong> and <strong>Private Key</strong> — upload these to your Yubico Validation Server or YubiCloud if applicable.</p>
+
+      <h3>Program Slot 2 — HMAC-SHA1 Challenge-Response</h3>
+      <p>Slot 2 is activated by a long touch (≥ 2.5 s). Used for offline MFA or KeePassXC integration.</p>
+      <pre><code># Program Slot 2 with HMAC-SHA1 Challenge-Response (auto-generate key)
+ykman otp chalresp 2 --generate --touch</code></pre>
+      <p>The <code>--touch</code> flag requires physical touch to respond to challenges, adding a presence check.</p>
+
+      <h3>Verify OTP Slots After Programming</h3>
+      <pre><code>ykman otp info</code></pre>
+      <p>Expected output: <code>Slot 1: programmed</code>, <code>Slot 2: programmed</code>.</p>
+    </section>
+
+    <section id="6-reenroll-okta" class="steps-section">
+      <h2>6. Re-enroll FIDO2 in Okta MFA</h2>
+      <p>After the FIDO2 reset, the user's YubiKey must be re-enrolled as a new WebAuthn authenticator in Okta. There are two paths: user self-enrollment from Okta dashboard, or admin-initiated enrollment link.</p>
+
+      <h3>Step 1 — Remove Old YubiKey Authenticator (Admin)</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Log in to <strong>Okta Admin Console</strong> → <strong>Directory</strong> → <strong>People</strong></td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Search for and open the user's profile</td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Click the <strong>Security</strong> tab</td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">Under <strong>Enrolled Authenticators</strong>, find the YubiKey / Security Key entry</td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">Click <strong>Remove</strong> next to the old authenticator</td></tr>
+          <tr><td class="step-num">6</td><td class="step-how">Confirm removal</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Step 2 — User Self-Enrollment (Preferred)</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">User logs in to <strong>Okta dashboard</strong> → clicks their name → <strong>Settings</strong></td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Scrolls to <strong>Security Methods</strong> (or <strong>Extra Verification</strong>)</td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Clicks <strong>Set up</strong> next to <strong>Security Key or Biometric Authenticator (WebAuthn)</strong></td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">Clicks <strong>Set up</strong> in the popup → browser prompts: <em>"Use your security key"</em></td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">Inserts the YubiKey (if not already) and <strong>touches the gold contact</strong></td></tr>
+          <tr><td class="step-num">6</td><td class="step-how">If prompted to set a PIN, choose a 4–8 digit PIN and confirm it</td></tr>
+          <tr><td class="step-num">7</td><td class="step-how">Okta confirms: <em>"Your security key was enrolled successfully"</em></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Step 3 — Admin-Initiated Enrollment Link (If User Can't Self-Enroll)</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Admin Console → <strong>Directory</strong> → <strong>People</strong> → open user</td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Click <strong>More Actions</strong> → <strong>Reset Multifactor</strong></td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Select <strong>Security Key or Biometric (WebAuthn)</strong> → click <strong>Reset</strong></td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">User will be prompted to enroll a new authenticator on next login</td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">Walk user through the self-enrollment steps above at next login</td></tr>
+        </tbody>
+      </table>
+
+      <h3>If Okta Requires an Existing MFA to Enroll a New One</h3>
+      <p>Some Okta policies require a currently-enrolled factor to add a new one. If the user has no other factor (no phone, no backup code):</p>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Admin: temporarily reset <strong>all MFA factors</strong> for the user (More Actions → Reset Multifactor → Reset All)</td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">User logs in with password only → Okta prompts to set up MFA</td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">User enrolls YubiKey as the primary factor</td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">Admin re-enforces any policy requirement after enrollment</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="7-verify" class="steps-section">
+      <h2>7. Verify MFA is Working</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Check</th><th class="step-how">Expected Result</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Sign out of Okta and sign back in</td><td class="step-how">Okta prompts for YubiKey touch after password — touch the contact to complete login</td></tr>
+          <tr><td class="step-what">Open an Okta-protected app (Office 365, Jira, etc.)</td><td class="step-how">App opens without additional sign-in prompt (SSO token passes from Okta)</td></tr>
+          <tr><td class="step-what">Admin Console → user Security tab</td><td class="step-how">New WebAuthn authenticator appears with a recent enrollment date</td></tr>
+          <tr><td class="step-what">Run <code>ykman fido info</code></td><td class="step-how">Shows PIN is set + credential count is 1 (or more if other FIDO2 sites enrolled)</td></tr>
+          <tr><td class="step-what">Try wrong PIN 3× (test)</td><td class="step-how">Key locks temporarily — run <code>ykman fido access change-pin</code> to reset after correct PIN retry</td></tr>
+        </tbody>
+      </table>
+      <h3>Check FIDO2 PIN Retry Count</h3>
+      <pre><code># Shows how many PIN attempts remain before lockout
+ykman fido info</code></pre>
+      <p>If <code>PIN retries remaining: 0</code> — the key is blocked. A full FIDO2 reset is required (Section 4). All FIDO2 credentials will be lost.</p>
+    </section>
+
+    <section id="8-quick-reference" class="steps-section">
+      <h2>8. Quick Reference — ykman Commands</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Task</th><th class="step-how">Command</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Get device info &amp; serial</td><td class="step-how"><code>ykman info</code></td></tr>
+          <tr><td class="step-what">FIDO2 status &amp; PIN retries</td><td class="step-how"><code>ykman fido info</code></td></tr>
+          <tr><td class="step-what">Reset FIDO2 (touch required)</td><td class="step-how"><code>ykman fido reset</code></td></tr>
+          <tr><td class="step-what">Set/change FIDO2 PIN</td><td class="step-how"><code>ykman fido access change-pin</code></td></tr>
+          <tr><td class="step-what">List FIDO2 credentials</td><td class="step-how"><code>ykman fido credentials list</code></td></tr>
+          <tr><td class="step-what">Delete a specific FIDO2 credential</td><td class="step-how"><code>ykman fido credentials delete &lt;id&gt;</code></td></tr>
+          <tr><td class="step-what">OTP slot status</td><td class="step-how"><code>ykman otp info</code></td></tr>
+          <tr><td class="step-what">Delete OTP Slot 1</td><td class="step-how"><code>ykman otp delete 1</code></td></tr>
+          <tr><td class="step-what">Delete OTP Slot 2</td><td class="step-how"><code>ykman otp delete 2</code></td></tr>
+          <tr><td class="step-what">Program Slot 1 — Yubico OTP</td><td class="step-how"><code>ykman otp yubiotp 1 --generate</code></td></tr>
+          <tr><td class="step-what">Program Slot 2 — HMAC challenge-response</td><td class="step-how"><code>ykman otp chalresp 2 --generate --touch</code></td></tr>
+          <tr><td class="step-what">PIV status</td><td class="step-how"><code>ykman piv info</code></td></tr>
+          <tr><td class="step-what">Reset PIV (all certs + PIN reset to 123456)</td><td class="step-how"><code>ykman piv reset</code></td></tr>
+          <tr><td class="step-what">OATH accounts list</td><td class="step-how"><code>ykman oath accounts list</code></td></tr>
+          <tr><td class="step-what">Reset OATH</td><td class="step-how"><code>ykman oath reset</code></td></tr>
+          <tr><td class="step-what">Enable/disable USB interfaces</td><td class="step-how"><code>ykman config usb --enable FIDO --disable OTP</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="9-troubleshooting" class="steps-section">
+      <h2>9. Troubleshooting</h2>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Problem</th><th class="step-how">Solution</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><code>ykman info</code> shows no device found</td><td class="step-how">Try a different USB port. On Windows: Device Manager → check for unknown HID device. Reinstall <a href="https://www.yubico.com/support/download/yubikey-manager/" target="_blank">YubiKey Manager</a>.</td></tr>
+          <tr><td class="step-what">FIDO2 reset says "touch required" but nothing happens</td><td class="step-how">Remove the key entirely after the command runs, then re-insert within 5 seconds and touch the gold contact once.</td></tr>
+          <tr><td class="step-what">Okta enrollment: browser says "No available authenticator"</td><td class="step-how">Ensure the key is plugged into a USB port (not a hub). Try Chrome or Edge — Firefox requires FIDO2 permissions flag in some versions.</td></tr>
+          <tr><td class="step-what">Okta enrollment fails with "This security key is already registered"</td><td class="step-how">The old FIDO2 credential was not removed from Okta. Admin: remove it under the user's Security tab, then retry enrollment.</td></tr>
+          <tr><td class="step-what">FIDO2 PIN blocked (retries = 0)</td><td class="step-how">Full FIDO2 reset required: <code>ykman fido reset</code>. All stored FIDO2 credentials will be lost and must be re-enrolled.</td></tr>
+          <tr><td class="step-what">After reset, Okta still asks for old YubiKey</td><td class="step-how">Admin must remove the old authenticator entry from the user's Okta profile before re-enrollment (Section 6 Step 1).</td></tr>
+          <tr><td class="step-what">YubiKey touch not detected during Okta sign-in</td><td class="step-how">Check USB connection. Try a direct USB port. On Windows 11: Settings → Bluetooth &amp; Devices → verify key is listed as HID device.</td></tr>
+          <tr><td class="step-what">PIV reset didn't clear smart card cert</td><td class="step-how">After <code>ykman piv reset</code>, default PIN is <code>123456</code> and PUK is <code>12345678</code>. Change them immediately: <code>ykman piv access change-pin</code> and <code>ykman piv access change-puk</code>.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
+  </main>
+  <footer class="cds-footer">
+    <div class="footer-nav">
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/3d-prints.html">3D Prints</a>
+      <a href="./sop-portal.html">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 <span>Custom Design Systems LLC</span> &middot; GreenHornet IT Help Desk</p>
+  </footer>
+  <script src="./clippy.js"></script>
+</body>
+</html>

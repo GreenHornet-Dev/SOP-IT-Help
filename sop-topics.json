@@ -813,5 +813,55 @@
     "title": "GraphQL vs SQL — When to Use Each",
     "tag": "GraphQL",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#5-when-to-use"
+  },
+  {
+    "title": "YubiKey Reprogram SOP",
+    "tag": "Security",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html"
+  },
+  {
+    "title": "Reset YubiKey FIDO2",
+    "tag": "Security",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html#4-reset-yubikey"
+  },
+  {
+    "title": "Re-enroll YubiKey in Okta MFA",
+    "tag": "Security",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html#6-reenroll-okta"
+  },
+  {
+    "title": "Reprogram YubiKey OTP Slot",
+    "tag": "Security",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html#5-reprogram-otp"
+  },
+  {
+    "title": "YubiKey ykman Quick Reference",
+    "tag": "Security",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html#8-quick-reference"
+  },
+  {
+    "title": "YubiKey Troubleshooting — Not Detected / PIN Blocked",
+    "tag": "Security",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html#9-troubleshooting"
+  },
+  {
+    "title": "Okta Admin — Bulk CSV User Import",
+    "tag": "Okta",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#9-okta-admin--csv-user-import"
+  },
+  {
+    "title": "Okta CSV Import — Required Fields & Format",
+    "tag": "Okta",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#9-okta-admin--csv-user-import"
+  },
+  {
+    "title": "Okta CSV Import — Common Errors & Fixes",
+    "tag": "Okta",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#9-okta-admin--csv-user-import"
+  },
+  {
+    "title": "Activate Staged Users After CSV Import",
+    "tag": "Okta",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#9-okta-admin--csv-user-import"
   }
 ]

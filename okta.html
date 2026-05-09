@@ -37,6 +37,7 @@
         <li><a href="#6-step-5--verify-everything-is-working">Step 5 — Verify Everything is Working</a></li>
         <li><a href="#7-quick-reference--one-liners">Quick Reference — One-Liners</a></li>
         <li><a href="#8-hybrid-environment--okta--microsoft-entra-id-azure-ad">Hybrid Environment — Okta + Microsoft Entra ID (Azure AD)</a></li>
+        <li><a href="#9-okta-admin--csv-user-import">Okta Admin — Bulk CSV User Import</a></li>
       </ol>
     </section>
 
@@ -302,6 +303,128 @@ Get-MgUser -UserId "user@domain.com" | Select-Object AccountEnabled, OnPremisesL
         </tbody>
       </table>
       <p><strong>Summary:</strong> After an Okta password change — always start at the Okta dashboard, launch Office apps from the app tile to pass a fresh token, unlink and re-link OneDrive, and clear stale credentials from Windows Credential Manager. A reboot after completing all steps ensures a clean slate.</p>
+    </section>
+
+    <section id="9-okta-admin--csv-user-import" class="steps-section">
+      <h2>9. Okta Admin — Bulk CSV User Import</h2>
+      <p>Use CSV import to provision multiple users at once — new hires, acquisitions, or directory migrations. Okta's built-in CSV import maps columns to user profile attributes and supports group assignment and password staging.</p>
+
+      <h3>When to Use CSV Import vs. Other Methods</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Method</th><th class="step-how">Best For</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><strong>CSV Import</strong></td><td class="step-how">One-time bulk adds, acquisitions, pilot groups — no AD sync available</td></tr>
+          <tr><td class="step-what">Okta AD Agent</td><td class="step-how">Ongoing sync from on-prem Active Directory</td></tr>
+          <tr><td class="step-what">SCIM Provisioning</td><td class="step-how">Automated lifecycle management from HR system (Workday, BambooHR)</td></tr>
+          <tr><td class="step-what">Okta API</td><td class="step-how">Scripted user creation with complex attribute mapping</td></tr>
+          <tr><td class="step-what">Manual (Admin Console)</td><td class="step-how">Single users only — not scalable for bulk</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Step 1 — Prepare the CSV File</h3>
+      <p>Okta's CSV import expects specific column headers. Use the template below. <strong>firstName</strong>, <strong>lastName</strong>, and <strong>email</strong> are the minimum required fields.</p>
+      <pre><code>firstName,lastName,email,login,mobilePhone,department,title,manager,groups
+Jane,Smith,jsmith@company.com,jsmith@company.com,555-100-1001,IT,Systems Admin,manager@company.com,IT-Staff
+John,Doe,jdoe@company.com,jdoe@company.com,555-100-1002,Finance,Analyst,manager@company.com,Finance-Team</code></pre>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Column</th><th class="step-how">Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what"><code>firstName</code> / <code>lastName</code></td><td class="step-how"><strong>Required.</strong> Used for display name in Okta.</td></tr>
+          <tr><td class="step-what"><code>email</code></td><td class="step-how"><strong>Required.</strong> Primary email and used as the Okta username if <code>login</code> is omitted.</td></tr>
+          <tr><td class="step-what"><code>login</code></td><td class="step-how">Okta username (usually same as email). Must be unique. If blank, Okta uses <code>email</code>.</td></tr>
+          <tr><td class="step-what"><code>mobilePhone</code></td><td class="step-how">Used for SMS MFA enrollment. Format: 555-100-1001 or +15551001001.</td></tr>
+          <tr><td class="step-what"><code>department</code></td><td class="step-how">Maps to Okta profile <code>department</code> attribute. Used for group rules.</td></tr>
+          <tr><td class="step-what"><code>title</code></td><td class="step-how">Job title. Optional.</td></tr>
+          <tr><td class="step-what"><code>manager</code></td><td class="step-how">Manager's email. Optional — used for org chart and approval routing.</td></tr>
+          <tr><td class="step-what"><code>groups</code></td><td class="step-how">Comma-separated Okta group names. Groups must already exist in Okta.</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Encoding note:</strong> Save the CSV as UTF-8 (no BOM). In Excel: File → Save As → CSV UTF-8 (Comma delimited). BOM-encoded files can cause import errors.</p>
+
+      <h3>Step 2 — Pre-Import Validation (PowerShell)</h3>
+      <p>Run this before uploading to catch duplicates, missing fields, and malformed emails.</p>
+      <pre><code># Validate a CSV before Okta import
+$csv = Import-Csv "C:\Temp\okta-import.csv"
+
+# Check for missing required fields
+$csv | Where-Object { -not $_.firstName -or -not $_.lastName -or -not $_.email } |
+  Select-Object firstName, lastName, email |
+  Format-Table
+
+# Check for duplicate emails
+$csv | Group-Object email | Where-Object { $_.Count -gt 1 } |
+  Select-Object Name, Count
+
+# Check for invalid email format
+$emailPattern = '^[\w\.\-]+@[\w\.\-]+\.\w{2,}$'
+$csv | Where-Object { $_.email -notmatch $emailPattern } |
+  Select-Object firstName, lastName, email
+
+Write-Host "Validation complete. Fix issues above before uploading."</code></pre>
+
+      <h3>Step 3 — Import via Okta Admin Console</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Log in to <strong>Okta Admin Console</strong></td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Go to <strong>Directory</strong> → <strong>People</strong></td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Click <strong>More Actions</strong> → <strong>Import Users from CSV</strong></td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">Click <strong>Browse</strong> and select your prepared CSV file</td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">Okta displays a <strong>column mapping preview</strong> — verify each column maps to the correct Okta attribute</td></tr>
+          <tr><td class="step-num">6</td><td class="step-how">If columns don't auto-map, use the dropdowns to assign them manually</td></tr>
+          <tr><td class="step-num">7</td><td class="step-how">Choose a <strong>Password Option</strong>: <em>Set by admin</em>, <em>User must change at next login</em>, or <em>Send activation email</em></td></tr>
+          <tr><td class="step-num">8</td><td class="step-how">Click <strong>Import</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Step 4 — Review Import Results &amp; Confirm</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how">Okta shows a <strong>results summary</strong>: Users to Import, Warnings, Errors</td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Review the <strong>Warnings</strong> column — these are users that will be skipped or partially imported</td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Review the <strong>Errors</strong> column — these are rows Okta cannot process (duplicate login, invalid email, missing required field)</td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">For each error row, fix the CSV and re-import just those rows</td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">If results look correct, click <strong>Confirm Import</strong></td></tr>
+          <tr><td class="step-num">6</td><td class="step-how">Okta creates users in <strong>Staged</strong> status (not yet active)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Step 5 — Activate Users &amp; Send Welcome Email</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-num">Step</th><th class="step-how">Action</th></tr></thead>
+        <tbody>
+          <tr><td class="step-num">1</td><td class="step-how"><strong>Directory</strong> → <strong>People</strong> → filter by <strong>Status: Staged</strong></td></tr>
+          <tr><td class="step-num">2</td><td class="step-how">Select all staged users (checkbox in header row)</td></tr>
+          <tr><td class="step-num">3</td><td class="step-how">Click <strong>More Actions</strong> → <strong>Activate</strong></td></tr>
+          <tr><td class="step-num">4</td><td class="step-how">Choose <strong>Send activation email now</strong> to email users their activation link, or <strong>Activate without email</strong> to set passwords manually</td></tr>
+          <tr><td class="step-num">5</td><td class="step-how">Confirm — users move to <strong>Active</strong> status and receive activation email (if selected)</td></tr>
+        </tbody>
+      </table>
+      <p>The activation email contains a time-limited link (72 hours by default). If a user's link expires, go to their profile → <strong>More Actions</strong> → <strong>Re-send Activation Email</strong>.</p>
+
+      <h3>Step 6 — Verify Imported Users</h3>
+      <pre><code># Check import via Okta API — list users created in the last 24 hours
+# Requires Okta API token (Settings → API → Tokens)
+$headers = @{ Authorization = "SSWS YOUR_API_TOKEN" }
+$since = (Get-Date).AddHours(-24).ToString("o")
+$url = "https://yourcompany.okta.com/api/v1/users?filter=created+gt+`"$since`""
+Invoke-RestMethod -Uri $url -Headers $headers | Select-Object @{n='Name';e={$_.profile.displayName}}, @{n='Email';e={$_.profile.email}}, status | Format-Table</code></pre>
+
+      <h3>Common Import Errors &amp; Fixes</h3>
+      <table class="steps-table">
+        <thead><tr><th class="step-what">Error</th><th class="step-how">Cause &amp; Fix</th></tr></thead>
+        <tbody>
+          <tr><td class="step-what">Duplicate login / email already exists</td><td class="step-how">A user with that email already exists in Okta. Remove from CSV or deactivate the existing account first.</td></tr>
+          <tr><td class="step-what">Invalid email format</td><td class="step-how">Email has spaces, special characters, or missing domain. Fix the email field in the CSV row.</td></tr>
+          <tr><td class="step-what">Group not found</td><td class="step-how">The group name in the <code>groups</code> column doesn't match an existing Okta group (case-sensitive). Create the group first or correct the spelling.</td></tr>
+          <tr><td class="step-what">Column mapping error — attribute not found</td><td class="step-how">Column header doesn't match any Okta profile attribute. Use the manual mapping dropdowns in Step 3, or rename the CSV column to match the Okta attribute name exactly.</td></tr>
+          <tr><td class="step-what">CSV encoding error — garbled names</td><td class="step-how">File was saved as UTF-16 or ANSI. Re-save as UTF-8 (no BOM) from Excel or Notepad++.</td></tr>
+          <tr><td class="step-what">Users stuck in Staged status</td><td class="step-how">Manually activate them: Directory → People → filter Staged → select all → Activate.</td></tr>
+          <tr><td class="step-what">Activation email not received</td><td class="step-how">Check spam. If expired: user profile → More Actions → Re-send Activation Email. Verify the email address in the profile is correct.</td></tr>
+          <tr><td class="step-what">MFA enrollment not triggered after activation</td><td class="step-how">Check the user's assigned applications and the MFA policy for those apps. The MFA prompt fires on first app access, not at activation.</td></tr>
+        </tbody>
+      </table>
     </section>
 
     <a href="./sop-portal.html" class="back-link">← Back to SOP Portal</a>
