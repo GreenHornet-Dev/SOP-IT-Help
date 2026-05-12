@@ -427,12 +427,12 @@
   {
     "title": "LsAgent macOS Force Sync",
     "tag": "Lansweeper",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment"
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1b-mac-lsagent-reset--force-scan"
   },
   {
     "title": "LsAgent macOS Restart",
     "tag": "Lansweeper",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment"
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1b-mac-lsagent-reset--force-scan"
   },
   {
     "title": "LsAgent macOS Status Check",
@@ -863,5 +863,160 @@
     "title": "Activate Staged Users After CSV Import",
     "tag": "Okta",
     "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#9-okta-admin--csv-user-import"
+  },
+  {
+    "title": "Mac One-Liners — Help Desk Terminal Commands",
+    "tag": "Mac",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html"
+  },
+  {
+    "title": "Mac — Network: Flush DNS, IP, Wi-Fi",
+    "tag": "Mac",
+    "description": "Flush DNS cache, show IP address, get Wi-Fi SSID, renew DHCP lease on macOS.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#network"
+  },
+  {
+    "title": "Mac — Flush DNS Cache",
+    "tag": "Mac",
+    "description": "sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#network"
+  },
+  {
+    "title": "Mac — Show IP Address & Wi-Fi Name",
+    "tag": "Mac",
+    "description": "ipconfig getifaddr en0; networksetup -getairportnetwork en0",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#network"
+  },
+  {
+    "title": "Mac — Renew DHCP Lease",
+    "tag": "Mac",
+    "description": "sudo ipconfig set en0 DHCP — forces new IP from DHCP server.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#network"
+  },
+  {
+    "title": "Mac — System Info: OS Version, Serial, Hostname",
+    "tag": "Mac",
+    "description": "sw_vers; system_profiler SPHardwareDataType — get macOS version, serial number, model.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#system-info"
+  },
+  {
+    "title": "Mac — Get Serial Number",
+    "tag": "Mac",
+    "description": "system_profiler SPHardwareDataType | grep -E 'Serial|Model'",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#system-info"
+  },
+  {
+    "title": "Mac — Check Disk Space",
+    "tag": "Mac",
+    "description": "df -h / — shows free and used disk space on the main volume.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#system-info"
+  },
+  {
+    "title": "Mac — User Account: List Users, Reset Password, Admin Check",
+    "tag": "Mac",
+    "description": "dscl . list /Users; dscl . read /Groups/admin GroupMembership — manage local user accounts.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#user-account"
+  },
+  {
+    "title": "Mac — Reset Local User Password",
+    "tag": "Mac",
+    "description": "sudo dscl . -passwd /Users/USERNAME newpassword",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#user-account"
+  },
+  {
+    "title": "Mac — Check Admin Group Members",
+    "tag": "Mac",
+    "description": "dscl . read /Groups/admin GroupMembership — verify who has admin rights.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#user-account"
+  },
+  {
+    "title": "Mac — Kill Frozen App, Clear Cache, Rebuild Spotlight",
+    "tag": "Mac",
+    "description": "pkill / killall AppName; rm -rf ~/Library/Caches/...; sudo mdutil -E /",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#software-app"
+  },
+  {
+    "title": "Mac — Kill Frozen App",
+    "tag": "Mac",
+    "description": "killall \"App Name\" or pkill -x \"App Name\" — force-quit a hung application.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#software-app"
+  },
+  {
+    "title": "Mac — Rebuild Spotlight Index",
+    "tag": "Mac",
+    "description": "sudo mdutil -E / — fixes search not finding files in Finder or apps.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#software-app"
+  },
+  {
+    "title": "Mac — Printer: List & Clear Print Queue",
+    "tag": "Mac",
+    "description": "lpstat -p; cancel -a PRINTERNAME — list printers and clear stuck jobs on Mac.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#printer"
+  },
+  {
+    "title": "Mac — Clear Stuck Print Queue",
+    "tag": "Mac",
+    "description": "cancel -a PRINTERNAME — cancels all jobs for a specific printer.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#printer"
+  },
+  {
+    "title": "Mac — NVRAM Flush (Intel) / Boot Flags",
+    "tag": "Mac",
+    "description": "sudo nvram -c — clears NVRAM on Intel Macs. Not needed on Apple Silicon.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#nvram"
+  },
+  {
+    "title": "Mac — Force Safe Mode Next Boot",
+    "tag": "Mac",
+    "description": "sudo nvram boot-args=\"-x\" — sets safe mode flag. Clear with boot-args=\"\".",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#nvram"
+  },
+  {
+    "title": "Mac — LogMeIn Resolve: Agent Check & Restart",
+    "tag": "Mac",
+    "description": "ps aux | grep -i logmein; sudo launchctl stop/start com.logmein.logmeindaemon",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#logmein-remote"
+  },
+  {
+    "title": "Mac — Check SIP Status",
+    "tag": "Mac",
+    "description": "csrutil status — check if System Integrity Protection is enabled or disabled.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#logmein-remote"
+  },
+  {
+    "title": "Mac Boot Failure — Recovery Mode Terminal Commands",
+    "tag": "Mac",
+    "description": "diskutil list; diskutil repairDisk disk0; fsck_apfs -y — run from Recovery Mode Terminal.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#boot-failure"
+  },
+  {
+    "title": "Mac Boot Failure — Disk Repair: diskutil, fsck, APFS",
+    "tag": "Mac",
+    "description": "diskutil repairVolume; diskutil apfs repairContainer disk0 — fix corrupted volumes.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#boot-failure"
+  },
+  {
+    "title": "Mac Boot Failure — Reset Startup Disk (bless)",
+    "tag": "Mac",
+    "description": "bless --mount \"/Volumes/Macintosh HD\" --setBoot --verbose — fix missing boot disk.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#boot-failure"
+  },
+  {
+    "title": "Mac Boot Failure — FileVault Status & Panic Logs",
+    "tag": "Mac",
+    "description": "fdesetup status; ls /Library/Logs/DiagnosticReports/ | grep panic",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#boot-failure"
+  },
+  {
+    "title": "Mac Lansweeper — lsAgent Reset & Force Scan",
+    "tag": "Mac",
+    "description": "Stop lsAgent, clear lsagent.ini, restart to force a clean re-scan in Lansweeper.",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#lansweeper-mac-agent"
+  },
+  {
+    "title": "Mac Lansweeper — Clear lsagent.ini One-Liner",
+    "tag": "Mac",
+    "description": "sudo launchctl stop com.lansweeper.lsagent; sudo rm /Library/LsAgent/lsagent.ini; sudo launchctl start com.lansweeper.lsagent",
+    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#lansweeper-mac-agent"
   }
 ]

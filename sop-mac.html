@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mac One-Liners — GreenHornet IT Help Desk</title>
+  <link rel="stylesheet" href="./shared-styles.css">
+  <style>
+    .mac-eyebrow {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--color-primary); margin-bottom: 0.5rem;
+    }
+    h1 .accent { color: var(--color-primary); }
+    .mac-accent-bar { width: 3rem; height: 3px; background: var(--color-primary); border-radius: 2px; margin: 0.75rem 0 1rem; }
+
+    /* Hero banner */
+    .mac-hero {
+      background: #020a02;
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.75rem;
+      position: relative;
+      overflow: hidden;
+      background-image:
+        linear-gradient(rgba(2,10,2,0.87), rgba(2,10,2,0.87)),
+        url('https://greenhornet-dev.github.io/cds-green/Green-Hornet-Warrior.jpg');
+      background-size: auto 180px;
+      background-repeat: no-repeat;
+      background-position: right 1.25rem center;
+      box-shadow: 0 0 24px rgba(0,255,100,0.3);
+    }
+    .mac-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom, transparent 0px, transparent 3px,
+        rgba(0,255,100,0.016) 3px, rgba(0,255,100,0.016) 4px
+      );
+      pointer-events: none;
+      animation: mac-scanline 0.4s linear infinite;
+    }
+    @keyframes mac-scanline {
+      0%   { background-position: 0 0; }
+      100% { background-position: 0 4px; }
+    }
+    .mac-hero > * { position: relative; z-index: 1; }
+    .mac-hero p { color: #a0c8a0; font-size: 0.9rem; margin-top: 0.4rem; }
+    .mac-hero p strong { color: var(--color-primary); }
+
+    /* Table */
+    .mac-table { width: 100%; border-collapse: collapse; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border); }
+    .mac-table thead tr { background: #071c0e; }
+    .mac-table thead th {
+      padding: 0.8rem 1rem; text-align: left;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--color-primary);
+    }
+    .mac-table thead th.col-copy { width: 96px; text-align: center; }
+    .mac-table tbody tr { border-bottom: 1px solid var(--color-border); transition: background 0.15s; }
+    .mac-table tbody tr:hover:not(.section-row) { background: rgba(0,255,100,0.04); }
+    .mac-table tbody tr:last-child { border-bottom: none; }
+    .mac-table td { padding: 0.8rem 1rem; vertical-align: middle; }
+
+    .section-row td {
+      padding: 0.5rem 1rem;
+      background: #050f08;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--color-muted);
+      border-top: 1px solid var(--color-border);
+    }
+    .section-row .section-icon { margin-right: 0.4rem; }
+
+    .td-name { font-weight: 600; font-size: 0.92rem; white-space: nowrap; color: var(--color-text); }
+    .td-name small { display: block; color: var(--color-muted); font-weight: 400; font-size: 0.75rem; margin-top: 2px; }
+    .td-cmd {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.77rem; color: #7ecf7e;
+      max-width: 380px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .mac-badge {
+      display: inline-block;
+      background: rgba(0,255,100,0.07);
+      border: 1px solid rgba(0,255,100,0.3);
+      color: var(--color-primary);
+      border-radius: var(--radius-sm);
+      padding: 2px 8px;
+      font-size: 0.7rem; font-weight: 700; font-family: monospace;
+    }
+    .copy-btn {
+      display: flex; align-items: center; gap: 5px;
+      background: var(--color-primary); color: #000;
+      border: none; border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      cursor: pointer; transition: var(--transition); white-space: nowrap;
+      margin: 0 auto;
+    }
+    .copy-btn:hover { background: #00e057; box-shadow: var(--glow-green); }
+    .copy-btn.copied { background: #00c94a; }
+    .td-copy { text-align: center; }
+
+    /* Lansweeper link row */
+    .ls-link-row td { background: rgba(0,255,100,0.05); }
+    .ls-link-row .td-name { color: var(--color-primary); }
+
+    /* Bottom bar */
+    .copy-all-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(5,5,5,0.97);
+      border-top: 1px solid rgba(0,255,100,0.2);
+      backdrop-filter: blur(14px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 2rem;
+    }
+    .copy-all-label { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 0.88rem; }
+    .copy-all-label span { color: var(--color-primary); }
+    .copy-all-btn {
+      background: var(--color-primary); color: #000;
+      border: none; border-radius: var(--radius-sm);
+      padding: 9px 20px;
+      font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em;
+      cursor: pointer; transition: var(--transition);
+    }
+    .copy-all-btn:hover { background: #00e057; box-shadow: var(--glow-green); }
+    main { padding-bottom: 80px; }
+  </style>
+</head>
+<body>
+  <header class="cds-navbar">
+    <a href="https://greenhornet-dev.github.io/cds-green/index.html" class="nav-logo">
+      <img src="https://greenhornet-dev.github.io/cds-green/Green-Hornet-Warrior.jpg" alt="GreenHornet" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #00ff64;vertical-align:middle;margin-right:2px;">
+      GreenHornet IT
+    </a>
+    <nav>
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/3d-prints.html">3D Prints</a>
+      <a href="./sop-portal.html" class="active">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </nav>
+  </header>
+
+  <main class="page-wrapper">
+    <div class="page-header">
+      <div class="breadcrumb">
+        <a href="https://greenhornet-dev.github.io/cds-green/training.html">← Training</a>
+        <span>/</span><a href="./sop-portal.html">SOP Portal</a>
+        <span>/</span><span>Mac One-Liners</span>
+      </div>
+      <div class="mac-eyebrow">macOS Terminal</div>
+      <h1><span class="accent"> </span> Mac One-Liners</h1>
+      <div class="mac-accent-bar"></div>
+      <p class="description">Quick terminal commands for help desk techs — run via LogMeIn Resolve remote session or Recovery Mode. Click any row to copy.</p>
+    </div>
+
+    <div class="mac-hero">
+      <div class="mac-eyebrow"> LogMeIn Resolve — Terminal Session</div>
+      <p>All commands run in macOS Terminal via <strong>LogMeIn Resolve</strong> remote session. Boot-failure commands run from <strong>Recovery Mode → Utilities → Terminal</strong>. Recovery Mode: hold <strong>Cmd+R</strong> (Intel) or <strong>Power</strong> (Apple Silicon).</p>
+    </div>
+
+    <table class="mac-table" id="macTable">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Command</th>
+          <th class="col-copy">Copy</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- NETWORK -->
+        <tr id="network" class="section-row"><td colspan="3"><span class="section-icon"></span>Network</td></tr>
+        <tr>
+          <td class="td-name">Show IP addresses<small>en0 = Wi-Fi / en1 = Ethernet</small></td>
+          <td class="td-cmd">ipconfig getifaddr en0; ipconfig getifaddr en1</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Flush DNS cache</td>
+          <td class="td-cmd">sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Show Wi-Fi network name</td>
+          <td class="td-cmd">networksetup -getairportnetwork en0</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Release / renew DHCP</td>
+          <td class="td-cmd">sudo ipconfig set en0 DHCP</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Ping test (4 packets)</td>
+          <td class="td-cmd">ping -c 4 8.8.8.8</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">DNS resolution test</td>
+          <td class="td-cmd">nslookup google.com</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+
+        <!-- SYSTEM INFO -->
+        <tr id="system-info" class="section-row"><td colspan="3"><span class="section-icon"></span>System Info</td></tr>
+        <tr>
+          <td class="td-name">OS version + serial number</td>
+          <td class="td-cmd">sw_vers; system_profiler SPHardwareDataType | grep -E "Serial|Model"</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Hostname</td>
+          <td class="td-cmd">hostname</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Uptime</td>
+          <td class="td-cmd">uptime</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Disk space</td>
+          <td class="td-cmd">df -h /</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">RAM usage</td>
+          <td class="td-cmd">vm_stat | head -5</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">MAC address (en0)</td>
+          <td class="td-cmd">ifconfig en0 | grep ether</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+
+        <!-- USER ACCOUNT -->
+        <tr id="user-account" class="section-row"><td colspan="3"><span class="section-icon"></span>User Account</td></tr>
+        <tr>
+          <td class="td-name">Current user</td>
+          <td class="td-cmd">whoami; id</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">List all local users</td>
+          <td class="td-cmd">dscl . list /Users | grep -v '^_'</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Check admin group members</td>
+          <td class="td-cmd">dscl . read /Groups/admin GroupMembership</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Reset password<small>Replace USERNAME and newpassword</small></td>
+          <td class="td-cmd">sudo dscl . -passwd /Users/USERNAME newpassword</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Fix home folder permissions</td>
+          <td class="td-cmd">sudo chown -R $(whoami) ~/</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+
+        <!-- SOFTWARE / APP -->
+        <tr id="software-app" class="section-row"><td colspan="3"><span class="section-icon"></span>Software / App Issues</td></tr>
+        <tr>
+          <td class="td-name">Kill frozen app by name</td>
+          <td class="td-cmd">pkill -x "App Name"</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Force-quit all instances</td>
+          <td class="td-cmd">killall "App Name"</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Clear app cache<small>Replace com.vendor.AppName</small></td>
+          <td class="td-cmd">rm -rf ~/Library/Caches/com.vendor.AppName</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">List recent crash logs</td>
+          <td class="td-cmd">ls -lt ~/Library/Logs/DiagnosticReports | head -50</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Rebuild Spotlight index</td>
+          <td class="td-cmd">sudo mdutil -E /</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+
+        <!-- PRINTER -->
+        <tr id="printer" class="section-row"><td colspan="3"><span class="section-icon"></span>Printer</td></tr>
+        <tr>
+          <td class="td-name">List printers</td>
+          <td class="td-cmd">lpstat -p</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Clear print queue<small>Replace PRINTERNAME</small></td>
+          <td class="td-cmd">cancel -a PRINTERNAME</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Remove printer (reset)<small>Replace PRINTERNAME</small></td>
+          <td class="td-cmd">sudo lpadmin -x PRINTERNAME</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+
+        <!-- LOGMEIN / REMOTE -->
+        <tr id="logmein-remote" class="section-row"><td colspan="3"><span class="section-icon"></span>LogMeIn / Remote</td></tr>
+        <tr>
+          <td class="td-name">Check LogMeIn agent running</td>
+          <td class="td-cmd">ps aux | grep -i logmein</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Restart LogMeIn service</td>
+          <td class="td-cmd">sudo launchctl stop com.logmein.logmeindaemon && sudo launchctl start com.logmein.logmeindaemon</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Check SIP status</td>
+          <td class="td-cmd">csrutil status</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">List startup items</td>
+          <td class="td-cmd">ls /Library/LaunchDaemons/ /Library/LaunchAgents/</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+
+        <!-- NVRAM -->
+        <tr id="nvram" class="section-row"><td colspan="3"><span class="section-icon"></span>NVRAM / Boot Flags</td></tr>
+        <tr>
+          <td class="td-name">Flush NVRAM (Intel only)<small>Reboot required — not needed on Apple Silicon</small></td>
+          <td class="td-cmd">sudo nvram -c</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Force safe mode next boot</td>
+          <td class="td-cmd">sudo nvram boot-args="-x"</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Clear safe mode flag</td>
+          <td class="td-cmd">sudo nvram boot-args=""</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Check safe mode flags</td>
+          <td class="td-cmd">nvram boot-args | grep "-x" && echo "Safe Mode set" || echo "Normal boot"</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+
+        <!-- BOOT FAILURE — Recovery Mode -->
+        <tr id="boot-failure" class="section-row"><td colspan="3"><span class="section-icon"></span>Boot Failure — Recovery Mode Terminal</td></tr>
+        <tr>
+          <td class="td-name">List all disks and volumes</td>
+          <td class="td-cmd">diskutil list</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Repair main disk</td>
+          <td class="td-cmd">diskutil repairDisk disk0</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Repair boot volume</td>
+          <td class="td-cmd">diskutil repairVolume disk1s1</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">APFS container repair</td>
+          <td class="td-cmd">diskutil apfs repairContainer disk0</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">fsck filesystem check (APFS)</td>
+          <td class="td-cmd">fsck_apfs -y /dev/disk1s1</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Reset startup disk</td>
+          <td class="td-cmd">bless --mount "/Volumes/Macintosh HD" --setBoot --verbose</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Last boot log (tail 100)</td>
+          <td class="td-cmd">log show --last boot | tail -100</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">List panic logs</td>
+          <td class="td-cmd">ls /Library/Logs/DiagnosticReports/ | grep panic</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Mount read-write (Single User — Intel)</td>
+          <td class="td-cmd">/sbin/fsck -fy; /sbin/mount -uw /</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Check FileVault status</td>
+          <td class="td-cmd">fdesetup status</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Disable SIP (Recovery only — re-enable after)</td>
+          <td class="td-cmd">csrutil disable</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+
+        <!-- LANSWEEPER MAC AGENT -->
+        <tr id="lansweeper-mac-agent" class="section-row"><td colspan="3"><span class="section-icon"></span>Lansweeper Mac Agent (lsAgent)</td></tr>
+        <tr>
+          <td class="td-name">Find lsagent.ini location</td>
+          <td class="td-cmd">sudo find /Library -name "lsagent.ini" 2>/dev/null</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Stop lsAgent service</td>
+          <td class="td-cmd">sudo launchctl stop com.lansweeper.lsagent</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Clear lsagent.ini (full reset)</td>
+          <td class="td-cmd">sudo rm /Library/LsAgent/lsagent.ini</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Clear UniqueID only (re-scan, no re-register)</td>
+          <td class="td-cmd">sudo sed -i '' 's/^UniqueID=.*/UniqueID=/' /Library/LsAgent/lsagent.ini</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Restart lsAgent</td>
+          <td class="td-cmd">sudo launchctl start com.lansweeper.lsagent</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">One-liner: stop → clear → restart</td>
+          <td class="td-cmd">sudo launchctl stop com.lansweeper.lsagent; sudo rm /Library/LsAgent/lsagent.ini; sudo launchctl start com.lansweeper.lsagent</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr>
+          <td class="td-name">Watch lsAgent log</td>
+          <td class="td-cmd">sudo tail -f /Library/LsAgent/lsagent.log</td>
+          <td class="td-copy"><button class="copy-btn" onclick="copyCmd(this)">Copy</button></td>
+        </tr>
+        <tr class="ls-link-row">
+          <td class="td-name" colspan="2">
+            Full Lansweeper Mac Agent SOP &rarr;
+            <a href="./lansweeper.html#1b-mac-lsagent-reset--force-scan" style="color:var(--color-primary);font-weight:700;">
+              lansweeper.html — Section 1b
+            </a>
+          </td>
+          <td class="td-copy"></td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <a href="./sop-portal.html" class="back-link" style="margin-top:1.5rem;display:inline-flex;">← Back to SOP Portal</a>
+  </main>
+
+  <div class="copy-all-bar">
+    <div class="copy-all-label"> <span>Mac One-Liners</span> — click any row or use Copy buttons</div>
+    <button class="copy-all-btn" onclick="copyAll()">Copy All Commands</button>
+  </div>
+
+  <footer class="cds-footer">
+    <div class="footer-nav">
+      <a href="https://greenhornet-dev.github.io/cds-green/index.html">Home</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/about.html">About</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/training.html">Training</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/3d-prints.html">3D Prints</a>
+      <a href="./sop-portal.html">SOP Portal</a>
+      <a href="https://greenhornet-dev.github.io/cds-green/dev.html">Dev</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 <span>Custom Design Systems LLC</span> &middot; GreenHornet IT Help Desk</p>
+  </footer>
+
+  <!-- Margin Martians -->
+  <div class="page-alien page-alien--left" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 205" width="78" height="182" overflow="visible">
+      <line x1="34" y1="16" x2="20" y2="3" stroke="#00ff64" stroke-width="2"/>
+      <circle cx="19" cy="2" r="4.5" fill="#00ff64"/>
+      <line x1="56" y1="16" x2="70" y2="3" stroke="#00ff64" stroke-width="2"/>
+      <circle cx="71" cy="2" r="4.5" fill="#00ff64"/>
+      <ellipse cx="45" cy="58" rx="37" ry="45" fill="#010d01" stroke="#00ff64" stroke-width="1.5"/>
+      <ellipse cx="27" cy="53" rx="13" ry="15" fill="#000" stroke="#00ff64" stroke-width="1"/>
+      <ellipse cx="63" cy="53" rx="13" ry="15" fill="#000" stroke="#00ff64" stroke-width="1"/>
+      <ellipse cx="27" cy="54" rx="9" ry="11" fill="#00ff64" opacity="0.9"/>
+      <ellipse cx="63" cy="54" rx="9" ry="11" fill="#00ff64" opacity="0.9"/>
+      <ellipse cx="27" cy="55" rx="5" ry="6.5" fill="#000"/>
+      <ellipse cx="63" cy="55" rx="5" ry="6.5" fill="#000"/>
+      <circle cx="24" cy="50" r="2.5" fill="#fff" opacity="0.45"/>
+      <circle cx="60" cy="50" r="2.5" fill="#fff" opacity="0.45"/>
+      <line x1="42" y1="76" x2="42" y2="82" stroke="#00ff64" stroke-width="1.5" opacity="0.55"/>
+      <line x1="48" y1="76" x2="48" y2="82" stroke="#00ff64" stroke-width="1.5" opacity="0.55"/>
+      <path d="M 33 90 Q 45 98 57 90" stroke="#00ff64" stroke-width="1.5" fill="none" opacity="0.75"/>
+      <rect x="37" y="101" width="16" height="12" rx="3" fill="#010d01" stroke="#00ff64" stroke-width="1"/>
+      <rect x="23" y="113" width="44" height="50" rx="9" fill="#010d01" stroke="#00ff64" stroke-width="1.5"/>
+      <circle cx="45" cy="133" r="8" fill="#010d01" stroke="#00ff64" stroke-width="1"/>
+      <circle cx="45" cy="133" r="3.5" fill="#00ff64" opacity="0.85"/>
+      <path d="M 23 122 C 9 131 4 145 2 157" stroke="#00ff64" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <line x1="2" y1="157" x2="-5" y2="150" stroke="#00ff64" stroke-width="2" stroke-linecap="round"/>
+      <line x1="2" y1="157" x2="1" y2="148" stroke="#00ff64" stroke-width="2" stroke-linecap="round"/>
+      <line x1="2" y1="157" x2="8" y2="151" stroke="#00ff64" stroke-width="2" stroke-linecap="round"/>
+      <path d="M 67 122 C 81 131 86 145 88 157" stroke="#00ff64" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <line x1="88" y1="157" x2="95" y2="150" stroke="#00ff64" stroke-width="2" stroke-linecap="round"/>
+      <line x1="88" y1="157" x2="89" y2="148" stroke="#00ff64" stroke-width="2" stroke-linecap="round"/>
+      <line x1="88" y1="157" x2="82" y2="151" stroke="#00ff64" stroke-width="2" stroke-linecap="round"/>
+      <line x1="35" y1="163" x2="29" y2="196" stroke="#00ff64" stroke-width="4.5" stroke-linecap="round"/>
+      <line x1="55" y1="163" x2="61" y2="196" stroke="#00ff64" stroke-width="4.5" stroke-linecap="round"/>
+      <ellipse cx="27" cy="200" rx="12" ry="5.5" fill="#010d01" stroke="#00ff64" stroke-width="1.5"/>
+      <ellipse cx="63" cy="200" rx="12" ry="5.5" fill="#010d01" stroke="#00ff64" stroke-width="1.5"/>
+    </svg>
+  </div>
+
+  <div class="page-alien page-alien--right" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 205" width="78" height="182" overflow="visible">
+      <line x1="34" y1="16" x2="20" y2="3" stroke="#00ff64" stroke-width="2"/>
+      <circle cx="19" cy="2" r="4.5" fill="#00ff64"/>
+      <line x1="56" y1="16" x2="70" y2="3" stroke="#00ff64" stroke-width="2"/>
+      <circle cx="71" cy="2" r="4.5" fill="#00ff64"/>
+      <ellipse cx="45" cy="58" rx="37" ry="45" fill="#010d01" stroke="#00ff64" stroke-width="1.5"/>
+      <ellipse cx="27" cy="53" rx="13" ry="15" fill="#000" stroke="#00ff64" stroke-width="1"/>
+      <ellipse cx="63" cy="53" rx="13" ry="15" fill="#000" stroke="#00ff64" stroke-width="1"/>
+      <ellipse cx="27" cy="54" rx="9" ry="11" fill="#00ff64" opacity="0.9"/>
+      <ellipse cx="63" cy="54" rx="9" ry="11" fill="#00ff64" opacity="0.9"/>
+      <ellipse cx="27" cy="55" rx="5" ry="6.5" fill="#000"/>
+      <ellipse cx="63" cy="55" rx="5" ry="6.5" fill="#000"/>
+      <circle cx="24" cy="50" r="2.5" fill="#fff" opacity="0.45"/>
+      <circle cx="60" cy="50" r="2.5" fill="#fff" opacity="0.45"/>
+      <line x1="42" y1="76" x2="42" y2="82" stroke="#00ff64" stroke-width="1.5" opacity="0.55"/>
+      <line x1="48" y1="76" x2="48" y2="82" stroke="#00ff64" stroke-width="1.5" opacity="0.55"/>
+      <path d="M 33 90 Q 45 98 57 90" stroke="#00ff64" stroke-width="1.5" fill="none" opacity="0.75"/>
+      <rect x="37" y="101" width="16" height="12" rx="3" fill="#010d01" stroke="#00ff64" stroke-width="1"/>
+      <rect x="23" y="113" width="44" height="50" rx="9" fill="#010d01" stroke="#00ff64" stroke-width="1.5"/>
+      <circle cx="45" cy="133" r="8" fill="#010d01" stroke="#00ff64" stroke-width="1"/>
+      <circle cx="45" cy="133" r="3.5" fill="#00ff64" opacity="0.85"/>
+      <path d="M 23 122 C 9 131 4 145 2 157" stroke="#00ff64" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <line x1="2" y1="157" x2="-5" y2="150" stroke="#00ff64" stroke-width="2" stroke-linecap="round"/>
+      <line x1="2" y1="157" x2="1" y2="148" stroke="#00ff64" stroke-width="2" stroke-linecap="round"/>
+      <line x1="2" y1="157" x2="8" y2="151" stroke="#00ff64" stroke-width="2" stroke-linecap="round"/>
+      <path d="M 67 122 C 81 131 86 145 88 157" stroke="#00ff64" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <line x1="88" y1="157" x2="95" y2="150" stroke="#00ff64" stroke-width="2" stroke-linecap="round"/>
+      <line x1="88" y1="157" x2="89" y2="148" stroke="#00ff64" stroke-width="2" stroke-linecap="round"/>
+      <line x1="88" y1="157" x2="82" y2="151" stroke="#00ff64" stroke-width="2" stroke-linecap="round"/>
+      <line x1="35" y1="163" x2="29" y2="196" stroke="#00ff64" stroke-width="4.5" stroke-linecap="round"/>
+      <line x1="55" y1="163" x2="61" y2="196" stroke="#00ff64" stroke-width="4.5" stroke-linecap="round"/>
+      <ellipse cx="27" cy="200" rx="12" ry="5.5" fill="#010d01" stroke="#00ff64" stroke-width="1.5"/>
+      <ellipse cx="63" cy="200" rx="12" ry="5.5" fill="#010d01" stroke="#00ff64" stroke-width="1.5"/>
+    </svg>
+  </div>
+
+  <script>
+    function getCmd(btn) {
+      const row = btn.closest('tr');
+      return row.querySelector('.td-cmd').textContent.trim();
+    }
+    function copyCmd(btn) {
+      const cmd = getCmd(btn);
+      navigator.clipboard.writeText(cmd).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1800);
+      });
+    }
+    function copyAll() {
+      const cmds = [...document.querySelectorAll('.td-cmd')].map(el => el.textContent.trim()).join('\n');
+      navigator.clipboard.writeText(cmds).then(() => {
+        const btn = document.querySelector('.copy-all-btn');
+        btn.textContent = 'Copied All!';
+        setTimeout(() => { btn.textContent = 'Copy All Commands'; }, 2000);
+      });
+    }
+    // Click row to copy
+    document.querySelectorAll('#macTable tbody tr:not(.section-row):not(.ls-link-row)').forEach(row => {
+      row.style.cursor = 'pointer';
+      row.addEventListener('click', e => {
+        if (e.target.tagName === 'BUTTON') return;
+        const btn = row.querySelector('.copy-btn');
+        if (btn) copyCmd(btn);
+      });
+    });
+  </script>
+  <script src="./clippy.js"></script>
+</body>
+</html>
