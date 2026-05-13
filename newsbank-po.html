@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Order Process — NewsBank IT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        header .nb-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 14px;
+            letter-spacing: 0.5px;
+        }
+        header h1 { font-size: 2.2em; margin-bottom: 10px; font-weight: 700; }
+        header p { font-size: 1.05em; opacity: 0.85; }
+        nav {
+            background: #f8f9fa;
+            padding: 14px 0;
+            border-bottom: 1px solid #e9ecef;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav ul { list-style: none; display: flex; justify-content: center; flex-wrap: wrap; padding: 0 20px; }
+        nav li { margin: 4px 14px; }
+        nav a { color: #1a1a2e; text-decoration: none; font-weight: 500; font-size: 0.92em; }
+        nav a:hover { color: #667eea; }
+        main { padding: 40px 24px; max-width: 1100px; margin: 0 auto; }
+        section { margin-bottom: 50px; }
+        section > h2 { font-size: 1.85em; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 3px solid #1a1a2e; color: #1a1a2e; }
+        section > h3 { font-size: 1.3em; margin-top: 28px; margin-bottom: 12px; color: #555; }
+        section > p, section > ul, section > ol { margin-bottom: 14px; color: #555; }
+        section > ul, section > ol { margin-left: 20px; }
+        section > ul li, section > ol li { margin-bottom: 7px; }
+        code { background: #f4f5f7; padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.88em; }
+        a { color: #667eea; text-decoration: none; }
+        a:hover { color: #1a1a2e; text-decoration: underline; }
+        table { width: 100%; border-collapse: collapse; margin: 14px 0; }
+        table th { background: #1a1a2e; color: white; padding: 11px 12px; text-align: left; font-weight: 600; }
+        table td { padding: 10px 12px; border-bottom: 1px solid #e9ecef; }
+        table tr:nth-child(even) { background: #f8f9fa; }
+        .note { background: #e8eaf6; border-left: 4px solid #3949ab; padding: 13px 16px; margin: 14px 0; border-radius: 3px; }
+        .note strong { color: #283593; }
+        .tip { background: #e8f5e9; border-left: 4px solid #43a047; padding: 13px 16px; margin: 14px 0; border-radius: 3px; }
+        .tip strong { color: #2e7d32; }
+        .warning { background: #fff8e1; border-left: 4px solid #ffa000; padding: 13px 16px; margin: 14px 0; border-radius: 3px; }
+        .warning strong { color: #e65100; }
+
+        /* Flow diagram */
+        .flow-diagram {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 24px;
+            margin: 18px 0;
+        }
+        .flow-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .flow-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 42px;
+            width: 2px;
+            height: calc(100% - 10px);
+            background: #ccc;
+        }
+        .flow-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-right: 16px;
+            font-size: 1.1em;
+            color: white;
+        }
+        .icon-blue { background: #1565c0; }
+        .icon-purple { background: #6a1b9a; }
+        .icon-orange { background: #e65100; }
+        .icon-green { background: #2e7d32; }
+        .icon-red { background: #c62828; }
+        .flow-content h4 { margin: 0 0 4px; font-size: 1em; }
+        .flow-content p { margin: 0; font-size: 0.92em; color: #666; }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        .status-pending { background: #fff8e1; color: #e65100; }
+        .status-approved { background: #e8f5e9; color: #2e7d32; }
+        .status-rejected { background: #ffebee; color: #c62828; }
+
+        .contact-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+        .contact-icon { font-size: 1.5em; color: #667eea; flex-shrink: 0; }
+        .contact-info h4 { margin: 0 0 2px; font-size: 1em; }
+        .contact-info p { margin: 0; font-size: 0.88em; color: #666; }
+
+        .back-to-top { display: inline-block; margin-top: 18px; padding: 8px 14px; background: #1a1a2e; color: white; border-radius: 3px; font-size: 0.88em; }
+        .back-to-top:hover { background: #667eea; color: white; text-decoration: none; }
+        footer { background: #f8f9fa; text-align: center; padding: 20px; border-top: 1px solid #e9ecef; color: #666; font-size: 0.9em; }
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.6em; }
+            nav ul { flex-direction: column; align-items: center; }
+            section > h2 { font-size: 1.4em; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<header id="top">
+    <div class="nb-badge">NewsBank, Inc. — Internal Use</div>
+    <h1><i class="fas fa-file-invoice-dollar"></i> Purchase Order Process</h1>
+    <p>How to submit a PO, what happens after you submit, and what to do if you need help</p>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#how-to-submit">How to Submit</a></li>
+        <li><a href="#what-happens">What Happens Next</a></li>
+        <li><a href="#approval-status">Check Status</a></li>
+        <li><a href="#common-orders">Common Orders</a></li>
+        <li><a href="#contacts">Contacts</a></li>
+        <li><a href="#faq">FAQ</a></li>
+    </ul>
+</nav>
+
+<main>
+
+<!-- OVERVIEW -->
+<section id="overview">
+    <h2><i class="fas fa-info-circle"></i> Overview</h2>
+    <p>All equipment, software, and supply purchases require a <strong>Purchase Order (PO)</strong> submitted through the IT purchasing system. Every PO is reviewed by your manager before being actioned by the Purchasing team.</p>
+
+    <table>
+        <tr><th>Item</th><th>Detail</th></tr>
+        <tr><td>Who submits</td><td>Any NewsBank employee needing equipment or supplies</td></tr>
+        <tr><td>Who approves</td><td>Your direct manager (via email approval card)</td></tr>
+        <tr><td>Who processes</td><td>Purchasing team (<code>purchasing@newsbank.com</code>)</td></tr>
+        <tr><td>IT tracking</td><td>Each PO creates a Jira HELP ticket (<code>HELP-XXXX</code>)</td></tr>
+        <tr><td>Questions</td><td><a href="mailto:helpdesk@newsbank.com">helpdesk@newsbank.com</a></td></tr>
+    </table>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- HOW TO SUBMIT -->
+<section id="how-to-submit">
+    <h2><i class="fas fa-paper-plane"></i> How to Submit a Purchase Order</h2>
+
+    <h3>Step 1 — Open the PO App</h3>
+    <p>Open the <strong>Purchase Order PowerApp</strong> from your SharePoint intranet or the link provided by IT. Sign in with your NewsBank Microsoft account if prompted.</p>
+
+    <h3>Step 2 — Fill in the PO form</h3>
+    <ul>
+        <li><strong>Department</strong> — auto-filled from your device record (change if ordering for a different department)</li>
+        <li><strong>GL Code</strong> — auto-filled based on your department; change if needed</li>
+        <li><strong>Items</strong> — add each item: description, quantity, unit price, and vendor</li>
+        <li><strong>Shipping</strong> — select shipping method and enter estimated shipping cost</li>
+        <li><strong>CC Recipients</strong> — optional; add other people to CC on approval emails (e.g. your department head or a co-worker receiving the order)</li>
+    </ul>
+
+    <div class="tip">
+        <strong>Common items:</strong> Headset, 32" Monitor, USB-C Charger, Adobe Creative Cloud, Gemini / Claude AI subscription. See <a href="#common-orders">Common Orders</a> for descriptions and typical vendors.
+    </div>
+
+    <h3>Step 3 — Submit</h3>
+    <p>Click <strong>Submit PO</strong>. The system will:</p>
+    <ul>
+        <li>Assign a PO number</li>
+        <li>Create a Jira HELP ticket for IT tracking</li>
+        <li>Send your manager an approval request</li>
+        <li>Email you and the Purchasing team as confirmation the PO was submitted</li>
+    </ul>
+
+    <div class="note">
+        <strong>Note:</strong> Submitting does not mean the order is placed. It goes to your manager for approval first.
+    </div>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- WHAT HAPPENS NEXT -->
+<section id="what-happens">
+    <h2><i class="fas fa-route"></i> What Happens After You Submit</h2>
+
+    <div class="flow-diagram">
+        <div class="flow-step">
+            <div class="flow-icon icon-blue"><i class="fas fa-check-circle"></i></div>
+            <div class="flow-content">
+                <h4>PO Submitted</h4>
+                <p>You receive a confirmation email. Your manager receives an approval request. Purchasing is CC'd. A Jira HELP ticket (<code>HELP-XXXX</code>) is created for IT tracking.</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-icon icon-purple"><i class="fas fa-user-check"></i></div>
+            <div class="flow-content">
+                <h4>Manager Reviews</h4>
+                <p>Your manager receives an email approval card. They review the PO details and click Approve or Reject with optional notes. There is no set deadline — follow up with your manager if you haven't heard back.</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-icon icon-green"><i class="fas fa-thumbs-up"></i></div>
+            <div class="flow-content">
+                <h4>If Approved</h4>
+                <p>You receive an approval confirmation. Purchasing receives the approved PO and will place the order. The Jira ticket is updated to show approved status with a comment from the manager.</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-icon icon-red"><i class="fas fa-thumbs-down"></i></div>
+            <div class="flow-content">
+                <h4>If Rejected</h4>
+                <p>You receive a rejection email with the manager's reason. The Jira ticket is updated. Review the feedback, update your PO if needed, and resubmit.</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-icon icon-orange"><i class="fas fa-shipping-fast"></i></div>
+            <div class="flow-content">
+                <h4>Order Placed &amp; Received</h4>
+                <p>Purchasing places the order and updates the Jira ticket. When the item arrives, IT will arrange delivery or notify you to pick it up.</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- CHECK STATUS -->
+<section id="approval-status">
+    <h2><i class="fas fa-search"></i> Check Your PO Status</h2>
+
+    <h3>Method 1 — Check your email</h3>
+    <p>You receive an email at each stage: submission, approval/rejection, and (when set up) order placed. Check your inbox for emails with subject <strong>"Purchase Order #XXXX"</strong>.</p>
+
+    <h3>Method 2 — Check the Jira ticket</h3>
+    <p>Every PO has a corresponding <strong>HELP-XXXX</strong> Jira ticket. The Jira ticket link was included in your submission confirmation email. Click it to see the current status and any comments.</p>
+
+    <table>
+        <tr><th>Jira Status</th><th>What it means</th></tr>
+        <tr><td><span class="status-badge status-pending">To Do / Pending</span></td><td>PO submitted — waiting for manager approval</td></tr>
+        <tr><td><span class="status-badge status-approved">In Progress / Approved</span></td><td>Manager approved — Purchasing is actioning the order</td></tr>
+        <tr><td><span class="status-badge status-rejected">Rejected</span></td><td>Manager rejected — see the comment for the reason</td></tr>
+        <tr><td><span class="status-badge status-approved">Done</span></td><td>Order received and closed</td></tr>
+    </table>
+
+    <h3>Method 3 — Contact IT</h3>
+    <p>Email <a href="mailto:helpdesk@newsbank.com">helpdesk@newsbank.com</a> with your PO number and we'll look it up for you.</p>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- COMMON ORDERS -->
+<section id="common-orders">
+    <h2><i class="fas fa-list-alt"></i> Common Orders &amp; Notes</h2>
+    <p>Reference for frequently requested items. When submitting, use exact product names where possible to speed up Purchasing's research.</p>
+
+    <table>
+        <tr><th>Item</th><th>Typical Vendor</th><th>Notes</th></tr>
+        <tr>
+            <td><strong>Headset</strong></td>
+            <td>Jabra, Logitech, Poly</td>
+            <td>Specify if for desk phone, soft phone (Teams/Zoom), or both. USB-A or USB-C.</td>
+        </tr>
+        <tr>
+            <td><strong>32" Monitor</strong></td>
+            <td>Dell, LG, Samsung</td>
+            <td>Specify resolution (1080p/4K) and connection type (HDMI, DisplayPort, USB-C). Include stand or VESA mount preference.</td>
+        </tr>
+        <tr>
+            <td><strong>USB-C Charger / Dock</strong></td>
+            <td>Anker, Belkin, Dell</td>
+            <td>Specify wattage needed and if a docking station (multi-port) or just a charger. Include laptop model for compatibility.</td>
+        </tr>
+        <tr>
+            <td><strong>Adobe Creative Cloud</strong></td>
+            <td>Adobe (direct)</td>
+            <td>Specify individual app (Photoshop, Illustrator, Acrobat) or All Apps license. Include license type (annual vs month-to-month). Contact IT first — we may have volume licensing available.</td>
+        </tr>
+        <tr>
+            <td><strong>Gemini / Google AI</strong></td>
+            <td>Google (direct)</td>
+            <td>Specify Business or Enterprise tier. Include number of seats if requesting for a team.</td>
+        </tr>
+        <tr>
+            <td><strong>Claude AI (claude.ai)</strong></td>
+            <td>Anthropic (direct)</td>
+            <td>Claude Pro or Claude for Teams. Include intended use case.</td>
+        </tr>
+        <tr>
+            <td><strong>Keyboard / Mouse</strong></td>
+            <td>Logitech, Microsoft</td>
+            <td>Specify wired or wireless, ergonomic or standard. If wireless, specify Bluetooth vs USB dongle.</td>
+        </tr>
+        <tr>
+            <td><strong>Laptop / MacBook</strong></td>
+            <td>Dell, Apple</td>
+            <td>Submit a PO request first — IT will validate specs and check inventory before ordering. Include your role and primary use case.</td>
+        </tr>
+    </table>
+
+    <div class="note">
+        <strong>Tip:</strong> The more detail you provide (model number, specs, vendor link), the faster Purchasing can source the item. Vague descriptions like "headset" may cause delays while Purchasing follows up for clarification.
+    </div>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- CONTACTS -->
+<section id="contacts">
+    <h2><i class="fas fa-address-book"></i> Key Contacts</h2>
+
+    <div class="contact-card">
+        <div class="contact-icon"><i class="fas fa-headset"></i></div>
+        <div class="contact-info">
+            <h4>IT Help Desk</h4>
+            <p><a href="mailto:helpdesk@newsbank.com">helpdesk@newsbank.com</a> — Questions about the PO app, status of a ticket, or technical issues with the form.</p>
+        </div>
+    </div>
+
+    <div class="contact-card">
+        <div class="contact-icon"><i class="fas fa-shopping-bag"></i></div>
+        <div class="contact-info">
+            <h4>Purchasing Team</h4>
+            <p><a href="mailto:purchasing@newsbank.com">purchasing@newsbank.com</a> — Questions about an order after it's been approved, delivery status, or vendor issues.</p>
+        </div>
+    </div>
+
+    <div class="contact-card">
+        <div class="contact-icon"><i class="fab fa-jira"></i></div>
+        <div class="contact-info">
+            <h4>Jira Help Desk Portal</h4>
+            <p>View your open tickets and PO tracking at the Jira customer portal. Link included in your PO confirmation email, or ask IT for the URL.</p>
+        </div>
+    </div>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+    <h2><i class="fas fa-question-circle"></i> FAQ</h2>
+
+    <h3>How long does approval take?</h3>
+    <p>There's no set SLA — it depends on your manager. If you need it urgently, reach out to your manager directly and reference your PO number. Most standard requests are approved within 1–2 business days.</p>
+
+    <h3>Can I submit a PO for someone else?</h3>
+    <p>Yes. Fill in the form with your own credentials (you're the requestor of record), but in the Notes/Description field clarify that the item is for a specific team member or department. You can also add their manager to the CC field if the approval chain is different.</p>
+
+    <h3>What if I submitted with the wrong information?</h3>
+    <p>If your PO hasn't been approved yet, email <a href="mailto:helpdesk@newsbank.com">helpdesk@newsbank.com</a> with your PO number and the correction. We can update the Jira ticket. If it's already been approved, Purchasing will need to be notified before the order is placed.</p>
+
+    <h3>How do I know which GL code to use?</h3>
+    <p>The PO form auto-fills your department's default GL code based on your Lansweeper device record. If you're ordering for a different department, select it from the dropdown. If you're unsure, contact your manager or Finance before submitting.</p>
+
+    <h3>My department isn't showing in the dropdown.</h3>
+    <p>The dropdown is populated from Lansweeper asset data. If your device isn't scanned by Lansweeper yet or the department field is blank, contact IT to update your device record. In the meantime, type your department name manually or select the closest match.</p>
+
+    <h3>My manager didn't receive the approval email.</h3>
+    <p>Ask your manager to check their spam/junk folder. If it's not there, email <a href="mailto:helpdesk@newsbank.com">helpdesk@newsbank.com</a> with your PO number and we'll resend the approval request.</p>
+
+    <h3>The PO app isn't loading.</h3>
+    <p>Try a hard refresh (Ctrl+Shift+R), clear your browser cache, or open in a different browser. If the issue persists, email <a href="mailto:helpdesk@newsbank.com">helpdesk@newsbank.com</a>.</p>
+
+    <h3>What's the PO payment term?</h3>
+    <p>Standard terms are <strong>Net 30, requiring manager approval</strong>. Purchasing handles invoicing and payment — you don't need to pay out of pocket.</p>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+</main>
+
+<footer>
+    <p>&copy; 2025 NewsBank, Inc. — Information Technology Department &nbsp;|&nbsp;
+    <a href="https://greenhornet-dev.github.io/SOP-IT-Help/sop-portal.html">IT SOP Portal</a> &nbsp;|&nbsp;
+    <a href="mailto:helpdesk@newsbank.com">helpdesk@newsbank.com</a></p>
+</footer>
+
+</div>
+</body>
+</html>

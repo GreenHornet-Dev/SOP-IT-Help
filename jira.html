@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jira SOP — IT Help Desk | NewsBank IT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #0052cc 0%, #0747a6 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; font-weight: 700; }
+        header p { font-size: 1.1em; opacity: 0.9; }
+        nav {
+            background: #f8f9fa;
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        nav li { margin: 5px 12px; }
+        nav a { color: #0052cc; text-decoration: none; font-weight: 500; font-size: 0.95em; transition: color 0.3s; }
+        nav a:hover { color: #0747a6; }
+        main { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
+        section { margin-bottom: 55px; }
+        section > h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #0052cc;
+            color: #333;
+        }
+        section > h3 { font-size: 1.4em; margin-top: 30px; margin-bottom: 12px; color: #0052cc; }
+        section > h4 { font-size: 1.1em; margin-top: 20px; margin-bottom: 8px; color: #555; font-weight: 600; }
+        section > p, section > ol, section > ul { margin-bottom: 15px; color: #555; }
+        section > ol, section > ul { margin-left: 20px; }
+        section > ol li, section > ul li { margin-bottom: 8px; }
+        code {
+            background: #f4f5f7;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.88em;
+            color: #172b4d;
+        }
+        pre {
+            background: #172b4d;
+            color: #f8f8f2;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-size: 0.9em;
+        }
+        pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        table th { background: #0052cc; color: white; padding: 12px; text-align: left; font-weight: 600; }
+        table td { padding: 11px 12px; border-bottom: 1px solid #dfe1e6; }
+        table tr:nth-child(even) { background: #f4f5f7; }
+        table tr:hover { background: #ebecf0; }
+        a { color: #0052cc; text-decoration: none; }
+        a:hover { color: #0747a6; text-decoration: underline; }
+        .note {
+            background: #e3f2fd;
+            border-left: 4px solid #0052cc;
+            padding: 14px 16px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+        .note strong { color: #0747a6; }
+        .warning {
+            background: #fff8e1;
+            border-left: 4px solid #f59f00;
+            padding: 14px 16px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+        .warning strong { color: #b37400; }
+        .success {
+            background: #e3fcef;
+            border-left: 4px solid #00875a;
+            padding: 14px 16px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+        .success strong { color: #00875a; }
+        .toc {
+            background: #f4f5f7;
+            padding: 20px 24px;
+            border-radius: 6px;
+            margin-bottom: 35px;
+            border: 1px solid #dfe1e6;
+        }
+        .toc h3 { margin-top: 0; color: #0052cc; margin-bottom: 12px; }
+        .toc ul { list-style: none; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; }
+        .toc li { margin: 3px 0; }
+        .toc a { font-size: 0.95em; }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .badge-cloud { background: #deebff; color: #0052cc; }
+        .badge-api { background: #e3fcef; color: #00875a; }
+        .badge-new { background: #fff0b3; color: #974f0c; }
+        .step-list { counter-reset: step; list-style: none; margin-left: 0; }
+        .step-list li {
+            counter-increment: step;
+            padding: 10px 10px 10px 46px;
+            margin-bottom: 10px;
+            position: relative;
+            background: #f4f5f7;
+            border-radius: 4px;
+        }
+        .step-list li::before {
+            content: counter(step);
+            position: absolute;
+            left: 12px;
+            top: 10px;
+            width: 24px;
+            height: 24px;
+            background: #0052cc;
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.85em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-to-top {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 14px;
+            background: #0052cc;
+            color: white;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        .back-to-top:hover { background: #0747a6; color: white; text-decoration: none; }
+        footer {
+            background: #f4f5f7;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #dfe1e6;
+            color: #666;
+            font-size: 0.9em;
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8em; }
+            nav ul { flex-direction: column; align-items: center; }
+            nav li { margin: 4px 0; }
+            section > h2 { font-size: 1.5em; }
+            .toc ul { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<header id="top">
+    <h1><i class="fab fa-jira"></i> Jira — IT Help Desk SOP</h1>
+    <p>API setup, ticket workflow, PO tracking integration, and Lansweeper device sync</p>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#jira-overview">Overview</a></li>
+        <li><a href="#create-ticket">Create Ticket</a></li>
+        <li><a href="#assign-prioritize">Assign &amp; Prioritize</a></li>
+        <li><a href="#transitions">Transitions</a></li>
+        <li><a href="#api-token">API Token</a></li>
+        <li><a href="#basic-auth">Basic Auth</a></li>
+        <li><a href="#api-search">Search API</a></li>
+        <li><a href="#api-update-fields">Update Fields</a></li>
+        <li><a href="#api-comment">Post Comment</a></li>
+        <li><a href="#custom-field-ids">Field IDs</a></li>
+        <li><a href="#transition-ids">Transition IDs</a></li>
+        <li><a href="#po-tracking">PO Tracking</a></li>
+        <li><a href="#lansweeper-sync">Lansweeper Sync</a></li>
+        <li><a href="#webhook-setup">Webhooks</a></li>
+        <li><a href="#cloud-sync-issues">Cloud Sync</a></li>
+        <li><a href="#cors-fix">CORS Fix</a></li>
+    </ul>
+</nav>
+
+<main>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+    <h3><i class="fas fa-list"></i> Contents</h3>
+    <ul>
+        <li><a href="#jira-overview">IT Help Desk Overview</a></li>
+        <li><a href="#create-ticket">Create a New Ticket</a></li>
+        <li><a href="#assign-prioritize">Assign &amp; Prioritize</a></li>
+        <li><a href="#transitions">Transition Ticket Status</a></li>
+        <li><a href="#api-token">Get API Token (Jira Cloud)</a></li>
+        <li><a href="#basic-auth">Build Basic Auth Header</a></li>
+        <li><a href="#api-search">REST API: Search Issues (JQL)</a></li>
+        <li><a href="#api-update-fields">REST API: Update Custom Fields</a></li>
+        <li><a href="#api-comment">REST API: Post a Comment</a></li>
+        <li><a href="#custom-field-ids">Find Custom Field IDs</a></li>
+        <li><a href="#transition-ids">Find Workflow Transition IDs</a></li>
+        <li><a href="#po-tracking">PO Approval Tracking Setup</a></li>
+        <li><a href="#lansweeper-sync">Lansweeper Device Sync Setup</a></li>
+        <li><a href="#webhook-setup">Webhook Setup for Power Automate</a></li>
+        <li><a href="#cloud-sync-issues">Cloud Sync Issues: Customer vs Agent</a></li>
+        <li><a href="#cors-fix">CORS Errors from Browser API Calls</a></li>
+    </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- OVERVIEW -->
+<!-- ============================================================ -->
+<section id="jira-overview">
+    <h2><i class="fab fa-jira"></i> IT Help Desk Overview</h2>
+    <p>NewsBank uses <strong>Jira Cloud</strong> (Software Development / Service Management) for IT Help Desk ticketing. All help desk requests are tracked in the <strong>HELP</strong> project. Issues are formatted as <code>HELP-XXXX</code> (e.g. <code>HELP-1042</code>).</p>
+
+    <h3>Key Details</h3>
+    <table>
+        <tr><th>Item</th><th>Value</th></tr>
+        <tr><td>Jira type</td><td>Jira Cloud (Atlassian hosted)</td></tr>
+        <tr><td>Project key</td><td><code>HELP</code></td></tr>
+        <tr><td>Issue format</td><td><code>HELP-XXXX</code></td></tr>
+        <tr><td>Helpdesk email</td><td><code>helpdesk@newsbank.com</code></td></tr>
+        <tr><td>Purchasing email</td><td><code>purchasing@newsbank.com</code></td></tr>
+        <tr><td>Default issue type</td><td>Task</td></tr>
+        <tr><td>API base URL</td><td><code>https://[YOUR_DOMAIN].atlassian.net/rest/api/3</code></td></tr>
+        <tr><td>Auth method</td><td>Basic Auth (email + API token)</td></tr>
+    </table>
+
+    <h3>Who Uses What</h3>
+    <ul>
+        <li><strong>End users (customers)</strong>: Submit requests via the Jira customer portal or by emailing <code>helpdesk@newsbank.com</code></li>
+        <li><strong>IT agents</strong>: View and work tickets from the agent/board view</li>
+        <li><strong>Power Automate flows</strong>: Create, update, transition, and comment on tickets via the REST API</li>
+        <li><strong>Clippy work mode</strong>: Queries open tickets using JQL via the REST API</li>
+    </ul>
+
+    <div class="note">
+        <strong>Note:</strong> Customer portal submissions and agent-created issues both land in the HELP project but may show different fields. See <a href="#cloud-sync-issues">Cloud Sync Issues</a> if custom fields aren't visible on both sides.
+    </div>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- CREATE TICKET -->
+<!-- ============================================================ -->
+<section id="create-ticket">
+    <h2><i class="fas fa-plus-circle"></i> Create a New Ticket</h2>
+    <p>There are three ways to create a HELP project issue.</p>
+
+    <h3>Method 1 — Customer Portal (end user)</h3>
+    <ol class="step-list">
+        <li>Go to <strong>your-domain.atlassian.net/servicedesk/customer/portal/&lt;ID&gt;</strong></li>
+        <li>Choose the request type (e.g. "Get IT Help")</li>
+        <li>Fill in the summary and description → Submit</li>
+        <li>Jira creates a <code>HELP-XXXX</code> issue and emails a confirmation to the requestor</li>
+    </ol>
+
+    <h3>Method 2 — Email to helpdesk@newsbank.com</h3>
+    <p>Jira can be configured to auto-create an issue from inbound email. When set up, any email to <code>helpdesk@newsbank.com</code> creates a HELP issue with the email subject as the summary and body as the description.</p>
+
+    <h3>Method 3 — REST API (automated flows)</h3>
+    <p>Used by the <code>PO_Jira_Create_Issue_Flow</code> Power Automate flow on PO submission. See <a href="#po-tracking">PO Tracking Setup</a>.</p>
+
+    <pre><code>POST https://[YOUR_DOMAIN].atlassian.net/rest/api/3/issue
+Authorization: Basic &lt;base64(email:apitoken)&gt;
+Content-Type: application/json
+
+{
+  "fields": {
+    "project": { "key": "HELP" },
+    "summary": "PO #2025-042 - Request to Purchase Equipment - Jane Smith",
+    "issuetype": { "name": "Task" },
+    "priority": { "name": "Medium" },
+    "description": {
+      "type": "doc",
+      "version": 1,
+      "content": [
+        { "type": "paragraph", "content": [{ "type": "text", "text": "PO details here." }] }
+      ]
+    },
+    "labels": ["purchase-order", "pending-approval"]
+  }
+}</code></pre>
+
+    <div class="success">
+        <strong>Response (201 Created):</strong> Jira returns <code>{ "id": "10042", "key": "HELP-42", "self": "https://..." }</code>. Save the <code>key</code> value — this is your <code>HELP-XXXX</code> reference.
+    </div>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- ASSIGN AND PRIORITIZE -->
+<!-- ============================================================ -->
+<section id="assign-prioritize">
+    <h2><i class="fas fa-user-check"></i> Assign and Prioritize a Ticket</h2>
+    <p>Once a HELP issue is created, an IT agent assigns it and sets priority.</p>
+
+    <h3>In the Jira UI</h3>
+    <ol class="step-list">
+        <li>Open the issue (e.g. <code>HELP-42</code>)</li>
+        <li>Click the <strong>Assignee</strong> field → select the IT agent responsible</li>
+        <li>Click <strong>Priority</strong> → choose High / Medium / Low</li>
+        <li>Optionally set a <strong>Due date</strong> for SLA tracking</li>
+    </ol>
+
+    <h3>Priority Guidelines</h3>
+    <table>
+        <tr><th>Priority</th><th>When to use</th><th>PO flow auto-set</th></tr>
+        <tr><td><strong>High</strong></td><td>Urgent / blocking work, PO ≥ $1,000</td><td>Total amount ≥ $1,000</td></tr>
+        <tr><td><strong>Medium</strong></td><td>Standard requests, PO $500–$999</td><td>Total amount $500–$999</td></tr>
+        <tr><td><strong>Low</strong></td><td>Non-urgent, PO &lt; $500</td><td>Total amount &lt; $500</td></tr>
+    </table>
+
+    <h3>Via API (update priority and assignee)</h3>
+    <pre><code>PUT https://[YOUR_DOMAIN].atlassian.net/rest/api/3/issue/HELP-42
+Authorization: Basic &lt;base64(email:apitoken)&gt;
+Content-Type: application/json
+
+{
+  "fields": {
+    "assignee": { "accountId": "5b10a2844c20165700ede21g" },
+    "priority": { "name": "High" }
+  }
+}</code></pre>
+
+    <div class="note">
+        <strong>Getting accountId:</strong> Use <code>GET /rest/api/3/user/search?query=firstname.lastname</code> to look up a user's <code>accountId</code>.
+    </div>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- TRANSITIONS -->
+<!-- ============================================================ -->
+<section id="transitions">
+    <h2><i class="fas fa-exchange-alt"></i> Transition Ticket Status</h2>
+    <p>Jira workflow transitions move an issue from one status to another. Each transition has a numeric ID that's required for API calls.</p>
+
+    <h3>Typical HELP Project Workflow</h3>
+    <pre><code>To Do → In Progress → Done
+                   ↘ Rejected / Closed</code></pre>
+
+    <h3>In the Jira UI</h3>
+    <ol class="step-list">
+        <li>Open the issue</li>
+        <li>Click the status dropdown in the top-right area of the issue (e.g. "To Do")</li>
+        <li>Select the new status — Jira moves it and records the transition</li>
+    </ol>
+
+    <h3>Via API</h3>
+    <p>Transitions require the numeric <strong>transition ID</strong>. See <a href="#transition-ids">Find Workflow Transition IDs</a> to get yours.</p>
+
+    <pre><code>POST https://[YOUR_DOMAIN].atlassian.net/rest/api/3/issue/HELP-42/transitions
+Authorization: Basic &lt;base64(email:apitoken)&gt;
+Content-Type: application/json
+
+{
+  "transition": {
+    "id": "21"
+  }
+}</code></pre>
+
+    <div class="success">
+        <strong>Success:</strong> HTTP 204 No Content — no body returned. The issue status has changed.
+    </div>
+    <div class="warning">
+        <strong>400 No transition found:</strong> The transition ID is wrong, or the issue is already in a state that doesn't allow that transition. Verify with <a href="#transition-ids">the transitions API</a>.
+    </div>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- API TOKEN -->
+<!-- ============================================================ -->
+<section id="api-token">
+    <h2><i class="fas fa-key"></i> Get Your API Token <span class="badge badge-cloud">Jira Cloud</span></h2>
+    <p>All automated calls (Power Automate flows, Clippy work mode) authenticate using a Jira Cloud API token tied to a service account email. This is different from a password — it's a token generated at Atlassian's identity portal.</p>
+
+    <h3>Steps</h3>
+    <ol class="step-list">
+        <li>Log in to Jira using the <strong>service account</strong> (e.g. <code>svc-jira@newsbank.com</code> or the IT admin account that will own the automation)</li>
+        <li>Go to <strong>https://id.atlassian.com</strong> → <strong>Security</strong> tab</li>
+        <li>Under "API tokens", click <strong>Create and manage API tokens</strong></li>
+        <li>Click <strong>Create API token</strong></li>
+        <li>Label: <code>Power Automate PO Sync</code> (or similar)</li>
+        <li>Click <strong>Create</strong> → <strong>copy the token immediately</strong> — it is only shown once</li>
+        <li>Note the service account email address — you need <em>both</em> the email and the token</li>
+    </ol>
+
+    <h3>Store in Azure Key Vault</h3>
+    <p>Go to <strong>Azure Portal → Key Vaults → po-system-vault → Secrets → + Generate/Import</strong> and add:</p>
+    <table>
+        <tr><th>Secret Name</th><th>Value</th></tr>
+        <tr><td><code>jira-api-token</code></td><td>The token copied from Atlassian</td></tr>
+        <tr><td><code>jira-service-account-email</code></td><td>The service account email (e.g. <code>svc-jira@newsbank.com</code>)</td></tr>
+    </table>
+
+    <div class="warning">
+        <strong>Token expiry:</strong> Atlassian API tokens do not expire by default, but can be revoked. If flows start returning 401, the token may have been revoked — generate a new one and update the Key Vault secret.
+    </div>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- BASIC AUTH -->
+<!-- ============================================================ -->
+<section id="basic-auth">
+    <h2><i class="fas fa-lock"></i> Build Basic Auth Header for API Calls</h2>
+    <p>Jira Cloud REST API uses HTTP Basic Authentication. The header value is a base64-encoded string of <code>email:apitoken</code>.</p>
+
+    <h3>Format</h3>
+    <pre><code>Authorization: Basic &lt;base64(email:apitoken)&gt;</code></pre>
+
+    <h3>Example — In Power Automate (Compose action)</h3>
+    <pre><code>Basic @{base64(concat(body('Get_Jira_Service_Account_Email')?['value'], ':', body('Get_Jira_API_Token')?['value']))}</code></pre>
+    <p>This reads both Key Vault secrets and builds the header value in one expression.</p>
+
+    <h3>Example — Manual test (PowerShell)</h3>
+    <pre><code># Build the header manually for testing
+$email = "svc-jira@newsbank.com"
+$token = "your-api-token-here"
+$bytes = [System.Text.Encoding]::UTF8.GetBytes("$email`:$token")
+$base64 = [System.Convert]::ToBase64String($bytes)
+$headers = @{ Authorization = "Basic $base64"; "Content-Type" = "application/json" }
+
+# Test: get your own account info
+Invoke-RestMethod -Uri "https://[YOUR_DOMAIN].atlassian.net/rest/api/3/myself" -Headers $headers</code></pre>
+
+    <h3>Example — curl (bash/terminal)</h3>
+    <pre><code>curl -u "svc-jira@newsbank.com:your-api-token" \
+  -H "Accept: application/json" \
+  "https://[YOUR_DOMAIN].atlassian.net/rest/api/3/myself"</code></pre>
+
+    <div class="note">
+        <strong>Note:</strong> Always use HTTPS. Never hard-code the token in flow definitions — pull it from Azure Key Vault at runtime.
+    </div>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- API SEARCH -->
+<!-- ============================================================ -->
+<section id="api-search">
+    <h2><i class="fas fa-search"></i> REST API: Search Issues (JQL)</h2>
+    <p>The core Jira API call for fetching tickets. Used by Clippy work mode to show your open tickets.</p>
+
+    <h3>Endpoint</h3>
+    <pre><code>GET https://[YOUR_DOMAIN].atlassian.net/rest/api/3/search
+  ?jql=&lt;jql-query&gt;
+  &amp;maxResults=10
+  &amp;fields=summary,status,priority,assignee,created,issuetype</code></pre>
+
+    <h3>Key Parameters</h3>
+    <table>
+        <tr><th>Parameter</th><th>Description</th><th>Example</th></tr>
+        <tr><td><code>jql</code></td><td>JQL filter string</td><td><code>project=HELP AND status!="Done"</code></td></tr>
+        <tr><td><code>maxResults</code></td><td>Max issues returned (default 50, max 100)</td><td><code>25</code></td></tr>
+        <tr><td><code>fields</code></td><td>Comma-separated fields to return</td><td><code>summary,status,priority</code></td></tr>
+        <tr><td><code>startAt</code></td><td>Offset for pagination (0-based)</td><td><code>0</code></td></tr>
+    </table>
+
+    <h3>Common JQL Queries</h3>
+    <table>
+        <tr><th>Use Case</th><th>JQL</th></tr>
+        <tr><td>My open tickets</td><td><code>assignee = currentUser() AND status != Done ORDER BY updated DESC</code></td></tr>
+        <tr><td>All HELP tickets open</td><td><code>project = HELP AND status != Done</code></td></tr>
+        <tr><td>Purchase order tickets</td><td><code>project = HELP AND labels = purchase-order</code></td></tr>
+        <tr><td>Created in last 7 days</td><td><code>project = HELP AND created >= -7d ORDER BY created DESC</code></td></tr>
+        <tr><td>High priority open</td><td><code>project = HELP AND priority = High AND status != Done</code></td></tr>
+    </table>
+
+    <h3>Example Response (abbreviated)</h3>
+    <pre><code>{
+  "total": 12,
+  "issues": [
+    {
+      "key": "HELP-42",
+      "fields": {
+        "summary": "PO #2025-042 - Request to Purchase Equipment - Jane Smith",
+        "status": { "name": "In Progress" },
+        "priority": { "name": "High" },
+        "assignee": { "displayName": "IT Admin" }
+      }
+    }
+  ]
+}</code></pre>
+
+    <div class="note">
+        <strong>Clippy work mode:</strong> When you type "my tickets" in Clippy (after work config is set), it runs <code>assignee = currentUser() AND status != Done ORDER BY updated DESC</code> and displays the results as ticket cards.
+    </div>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- API UPDATE FIELDS -->
+<!-- ============================================================ -->
+<section id="api-update-fields">
+    <h2><i class="fas fa-edit"></i> REST API: Update Issue Custom Fields</h2>
+    <p>Used by the Lansweeper Device Sync flow to write device data (hostname, OS, serial number, etc.) into Jira custom fields after a ticket is created.</p>
+
+    <h3>Endpoint</h3>
+    <pre><code>PUT https://[YOUR_DOMAIN].atlassian.net/rest/api/3/issue/{issueKey}
+Authorization: Basic &lt;base64(email:apitoken)&gt;
+Content-Type: application/json</code></pre>
+
+    <h3>Example — Update custom fields</h3>
+    <pre><code>{
+  "fields": {
+    "customfield_10100": "LAPTOP-001",
+    "customfield_10101": "Windows 11 Pro",
+    "customfield_10102": "SN-ABC123456",
+    "customfield_10103": "Dell Latitude 5540",
+    "summary": "Updated summary (optional)"
+  }
+}</code></pre>
+
+    <div class="note">
+        <strong>Finding field IDs:</strong> Replace <code>customfield_10100</code> with your actual field IDs. See <a href="#custom-field-ids">Find Custom Field IDs</a> to discover your field numbers.
+    </div>
+
+    <h3>Example — Update standard fields</h3>
+    <pre><code>{
+  "fields": {
+    "priority": { "name": "High" },
+    "labels": ["purchase-order", "approved"],
+    "assignee": { "accountId": "5b10a2844c20165700ede21g" }
+  }
+}</code></pre>
+
+    <div class="success">
+        <strong>Success:</strong> HTTP 204 No Content. No body is returned on a successful update.
+    </div>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- API COMMENT -->
+<!-- ============================================================ -->
+<section id="api-comment">
+    <h2><i class="fas fa-comment"></i> REST API: Post a Comment</h2>
+    <p>Jira Cloud requires comments to be in <strong>Atlassian Document Format (ADF)</strong> — a JSON structure, not plain HTML or markdown. The PO approval flow posts approval/rejection comments using ADF.</p>
+
+    <h3>Endpoint</h3>
+    <pre><code>POST https://[YOUR_DOMAIN].atlassian.net/rest/api/3/issue/{issueKey}/comment
+Authorization: Basic &lt;base64(email:apitoken)&gt;
+Content-Type: application/json</code></pre>
+
+    <h3>Minimal ADF — Plain paragraph</h3>
+    <pre><code>{
+  "body": {
+    "type": "doc",
+    "version": 1,
+    "content": [
+      {
+        "type": "paragraph",
+        "content": [
+          { "type": "text", "text": "This PO has been approved." }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+    <h3>ADF with Bold + Color (approval comment style)</h3>
+    <pre><code>{
+  "body": {
+    "type": "doc",
+    "version": 1,
+    "content": [
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "APPROVED",
+            "marks": [
+              { "type": "strong" },
+              { "type": "textColor", "attrs": { "color": "#006644" } }
+            ]
+          },
+          { "type": "text", "text": " — PO #2025-042 approved by John Manager on 2025-05-13." }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          { "type": "text", "text": "Approval notes: ", "marks": [{ "type": "strong" }] },
+          { "type": "text", "text": "Standard equipment request, approved." }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+    <h3>ADF Text Mark Types</h3>
+    <table>
+        <tr><th>Mark type</th><th>Effect</th><th>Attrs needed</th></tr>
+        <tr><td><code>strong</code></td><td>Bold</td><td>None</td></tr>
+        <tr><td><code>em</code></td><td>Italic</td><td>None</td></tr>
+        <tr><td><code>underline</code></td><td>Underline</td><td>None</td></tr>
+        <tr><td><code>textColor</code></td><td>Text color</td><td><code>"attrs": { "color": "#HEX" }</code></td></tr>
+        <tr><td><code>code</code></td><td>Inline code</td><td>None</td></tr>
+    </table>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- CUSTOM FIELD IDs -->
+<!-- ============================================================ -->
+<section id="custom-field-ids">
+    <h2><i class="fas fa-list-ul"></i> Find Custom Field IDs</h2>
+    <p>Before you can read or write Jira custom fields via the API, you need to know their numeric IDs (e.g. <code>customfield_10100</code>). Custom fields are created by Jira admins and vary per instance.</p>
+
+    <h3>API call to list all fields</h3>
+    <pre><code>GET https://[YOUR_DOMAIN].atlassian.net/rest/api/3/field
+Authorization: Basic &lt;base64(email:apitoken)&gt;
+Accept: application/json</code></pre>
+
+    <h3>Example response (excerpt)</h3>
+    <pre><code>[
+  {
+    "id": "summary",
+    "name": "Summary",
+    "schema": { "type": "string", "system": "summary" }
+  },
+  {
+    "id": "customfield_10100",
+    "name": "Hostname",
+    "custom": true,
+    "schema": { "type": "string", "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textfield" }
+  },
+  {
+    "id": "customfield_10101",
+    "name": "Operating System",
+    "custom": true,
+    "schema": { "type": "string", "custom": "..." }
+  }
+]</code></pre>
+
+    <h3>In Power Automate (HTTP action)</h3>
+    <ol class="step-list">
+        <li>Add an HTTP action → Method: GET</li>
+        <li>URI: <code>https://[YOUR_DOMAIN].atlassian.net/rest/api/3/field</code></li>
+        <li>Headers: <code>Authorization: Basic @{...}</code>, <code>Accept: application/json</code></li>
+        <li>Run the flow once and look at the output in Run History</li>
+        <li>Ctrl+F for the field name you created (e.g. "Hostname") — the <code>id</code> next to it is your field ID</li>
+    </ol>
+
+    <div class="warning">
+        <strong>Custom field IDs are instance-specific.</strong> The IDs in the Lansweeper Device Sync flow use placeholder names like <code>customfield_HOSTNAME</code>. You must replace these with your actual IDs once you run the field list call from your Jira instance.
+    </div>
+
+    <h3>Record your field IDs</h3>
+    <table>
+        <tr><th>Field Name</th><th>Placeholder</th><th>Your Field ID</th></tr>
+        <tr><td>Hostname</td><td><code>customfield_HOSTNAME</code></td><td>customfield_________</td></tr>
+        <tr><td>Operating System</td><td><code>customfield_OS</code></td><td>customfield_________</td></tr>
+        <tr><td>OS Build</td><td><code>customfield_OS_BUILD</code></td><td>customfield_________</td></tr>
+        <tr><td>Serial Number</td><td><code>customfield_SERIAL</code></td><td>customfield_________</td></tr>
+        <tr><td>Model</td><td><code>customfield_MODEL</code></td><td>customfield_________</td></tr>
+        <tr><td>Warranty Expiry</td><td><code>customfield_WARRANTY</code></td><td>customfield_________</td></tr>
+        <tr><td>Department</td><td><code>customfield_DEPT</code></td><td>customfield_________</td></tr>
+        <tr><td>Location</td><td><code>customfield_LOCATION</code></td><td>customfield_________</td></tr>
+        <tr><td>IP Address</td><td><code>customfield_IP</code></td><td>customfield_________</td></tr>
+        <tr><td>Last Seen</td><td><code>customfield_LASTSEEN</code></td><td>customfield_________</td></tr>
+    </table>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- TRANSITION IDs -->
+<!-- ============================================================ -->
+<section id="transition-ids">
+    <h2><i class="fas fa-sitemap"></i> Find Workflow Transition IDs</h2>
+    <p>To transition a Jira issue via the API (e.g. move from "Pending" to "Approved"), you need the numeric transition ID for your project's workflow. These IDs are unique per Jira instance and project.</p>
+
+    <h3>API call to list transitions for an issue</h3>
+    <pre><code>GET https://[YOUR_DOMAIN].atlassian.net/rest/api/3/issue/HELP-1/transitions
+Authorization: Basic &lt;base64(email:apitoken)&gt;
+Accept: application/json</code></pre>
+    <p>Replace <code>HELP-1</code> with any existing issue in your HELP project.</p>
+
+    <h3>Example response</h3>
+    <pre><code>{
+  "transitions": [
+    { "id": "11", "name": "To Do" },
+    { "id": "21", "name": "In Progress" },
+    { "id": "31", "name": "Done" },
+    { "id": "41", "name": "Rejected" }
+  ]
+}</code></pre>
+
+    <h3>Record your transition IDs</h3>
+    <table>
+        <tr><th>Workflow State</th><th>Transition Name</th><th>Transition ID</th></tr>
+        <tr><td>PO Approved — ready to order</td><td>(e.g. "In Progress")</td><td>___</td></tr>
+        <tr><td>PO Rejected — closed</td><td>(e.g. "Done" or "Rejected")</td><td>___</td></tr>
+    </table>
+
+    <h3>Paste IDs into the flow</h3>
+    <p>In <code>PO_Manager_Approval_Workflow.json</code>, find and replace:</p>
+    <ul>
+        <li><code>[APPROVED_TRANSITION_ID]</code> → your approved transition ID (e.g. <code>21</code>)</li>
+        <li><code>[REJECTED_TRANSITION_ID]</code> → your rejected transition ID (e.g. <code>41</code>)</li>
+    </ul>
+
+    <div class="warning">
+        <strong>Workflow restrictions:</strong> Some Jira workflows only allow certain transitions from specific states. If you get a 400 error saying "No transition found", confirm the issue is in the expected starting state before the transition is attempted.
+    </div>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- PO TRACKING -->
+<!-- ============================================================ -->
+<section id="po-tracking">
+    <h2><i class="fas fa-shopping-cart"></i> PO Approval Tracking Setup</h2>
+    <p>Purchase Orders submitted through the PowerApp create a <code>HELP-XXXX</code> issue in Jira and are tracked from submission through approval or rejection.</p>
+
+    <h3>End-to-End Flow</h3>
+    <pre><code>User submits PO in PowerApp
+  └── PO_Jira_Create_Issue_Flow
+        ├── Creates HELP-XXXX (status: To Do / Pending)
+        ├── Sets priority based on total amount
+        ├── Labels: ["purchase-order", "pending-approval"]
+        └── Returns jiraIssueKey + jiraIssueUrl → saved to SharePoint PO list
+              └── PO_Manager_Approval_Workflow
+                    ├── Sends approval request to manager
+                    ├── CC: requestor + purchasing@newsbank.com + any additional CC
+                    ├── APPROVED
+                    │     ├── Transitions HELP-XXXX → approved state
+                    │     ├── Posts green "APPROVED" comment
+                    │     └── Emails requestor (CC: manager + purchasing@newsbank.com)
+                    └── REJECTED
+                          ├── Transitions HELP-XXXX → rejected/done state
+                          ├── Posts red "REJECTED" comment
+                          └── Emails requestor (CC: manager)</code></pre>
+
+    <h3>What Purchasing Sees in Jira</h3>
+    <p>When a PO is approved, the HELP project issue shows:</p>
+    <ul>
+        <li><strong>Summary:</strong> <code>PO #2025-042 - Request to Purchase Equipment - Jane Smith</code></li>
+        <li><strong>Status:</strong> Approved / In Progress</li>
+        <li><strong>Labels:</strong> <code>purchase-order</code>, <code>approved</code></li>
+        <li><strong>Comment:</strong> APPROVED — details, notes, total amount, shipping</li>
+        <li><strong>Description:</strong> Full PO table with all line items</li>
+    </ul>
+    <p>Purchasing should action the order and update the Jira issue when ordered and again when received.</p>
+
+    <h3>SharePoint PO List</h3>
+    <p>The <code>JiraIssueKey</code> column (single line of text) on the Purchase Orders SharePoint list stores the <code>HELP-XXXX</code> key for cross-reference. IT admins can look up a PO by SharePoint ID and jump directly to the Jira issue.</p>
+
+    <h3>Deployment Steps</h3>
+    <p>See the full deployment guide: <strong>SOPs/SOP_PO_Jira_Deployment.md</strong></p>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- LANSWEEPER SYNC -->
+<!-- ============================================================ -->
+<section id="lansweeper-sync">
+    <h2><i class="fas fa-laptop"></i> Lansweeper Device Sync Setup</h2>
+    <p>When a new Jira HELP issue is created, the <code>Jira_Lansweeper_Device_Sync_Flow</code> automatically looks up the requestor's device in Lansweeper and populates Jira custom fields with device data — no manual data entry needed.</p>
+
+    <h3>How It Works</h3>
+    <ol class="step-list">
+        <li>Jira fires an <strong>issue_created</strong> webhook → HTTP POST to the Power Automate flow trigger URL</li>
+        <li>Flow responds <strong>200 immediately</strong> (Jira needs a fast response or it retries)</li>
+        <li>Flow extracts the reporter's <strong>email (UPN)</strong> from the webhook payload</li>
+        <li>Queries Lansweeper GraphQL: <code>assetUsers.username = reporter@newsbank.com</code></li>
+        <li>If a device is found: <strong>PUT</strong> to Jira to populate custom fields (hostname, OS, serial, model, warranty)</li>
+        <li>Posts a comment on the issue: "Device data populated from Lansweeper"</li>
+        <li>If no device found: posts a "no device found" comment so the agent knows to enter it manually</li>
+    </ol>
+
+    <h3>Custom Fields Populated</h3>
+    <table>
+        <tr><th>Jira Custom Field</th><th>Lansweeper Source</th></tr>
+        <tr><td>Hostname</td><td><code>assetBasicInfo.name</code></td></tr>
+        <tr><td>Operating System</td><td><code>operatingSystem.caption</code></td></tr>
+        <tr><td>OS Build</td><td><code>operatingSystem.buildNumber</code></td></tr>
+        <tr><td>Serial Number</td><td><code>assetCustom.serialNumber</code></td></tr>
+        <tr><td>Model</td><td><code>assetCustom.model</code></td></tr>
+        <tr><td>Warranty Expiry</td><td><code>assetCustom.warrantyDate</code></td></tr>
+        <tr><td>Department</td><td><code>assetCustom.department</code></td></tr>
+        <tr><td>Location</td><td><code>assetCustom.location</code></td></tr>
+        <tr><td>IP Address</td><td><code>assetBasicInfo.ipAddress</code></td></tr>
+        <tr><td>Last Seen</td><td><code>assetBasicInfo.lastSeen</code></td></tr>
+    </table>
+
+    <h3>Setup Steps</h3>
+    <ol class="step-list">
+        <li>Get Lansweeper API token and site ID (if not already in Key Vault)</li>
+        <li>Get Jira API token (see <a href="#api-token">API Token setup</a>)</li>
+        <li>Get your Jira custom field IDs (see <a href="#custom-field-ids">Find Custom Field IDs</a>)</li>
+        <li>Import <code>Jira_Lansweeper_Device_Sync_Flow.json</code> into Power Automate</li>
+        <li>Replace all <code>customfield_HOSTNAME</code> etc. placeholders with real field IDs</li>
+        <li>Replace <code>[YOUR_DOMAIN]</code> with your Atlassian subdomain</li>
+        <li>Set up the Jira webhook (see <a href="#webhook-setup">Webhook Setup</a>)</li>
+    </ol>
+
+    <p>See the full deployment SOP: <strong>SOPs/SOP_Jira_Lansweeper_Device_Sync.md</strong></p>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- WEBHOOK SETUP -->
+<!-- ============================================================ -->
+<section id="webhook-setup">
+    <h2><i class="fas fa-broadcast-tower"></i> Webhook Setup for Power Automate</h2>
+    <p>Jira webhooks fire an HTTP POST to a URL you specify when certain events occur. The Lansweeper sync flow uses a webhook on <strong>issue_created</strong> to trigger automatically when any HELP ticket is created.</p>
+
+    <h3>Steps to Configure in Jira</h3>
+    <ol class="step-list">
+        <li>In Jira: <strong>Settings (gear icon) → System → WebHooks</strong></li>
+        <li>Click <strong>Create a WebHook</strong></li>
+        <li>Name: <code>Lansweeper Device Sync</code></li>
+        <li>URL: paste the <strong>HTTP POST trigger URL</strong> from your Power Automate flow (the URL shown after you add an HTTP request trigger)</li>
+        <li>Events: check <strong>Issue → created</strong></li>
+        <li>JQL filter (optional but recommended): <code>project = HELP</code> — limits the webhook to HELP project only</li>
+        <li>Click <strong>Create</strong></li>
+    </ol>
+
+    <div class="note">
+        <strong>Get the trigger URL:</strong> In Power Automate, open the Jira_Lansweeper_Device_Sync_Flow → edit mode → click the "When a HTTP request is received" trigger → copy the HTTP POST URL shown at the bottom of the trigger card. (The URL only appears after the flow has been saved at least once.)
+    </div>
+
+    <h3>Webhook Payload (what Jira sends)</h3>
+    <pre><code>{
+  "webhookEvent": "jira:issue_created",
+  "issue": {
+    "key": "HELP-42",
+    "fields": {
+      "summary": "Laptop keyboard not working",
+      "reporter": {
+        "emailAddress": "jane.smith@newsbank.com",
+        "displayName": "Jane Smith"
+      },
+      "status": { "name": "To Do" },
+      "issuetype": { "name": "Task" }
+    }
+  }
+}</code></pre>
+
+    <h3>Jira Webhook Delivery Notes</h3>
+    <ul>
+        <li>Jira expects a <strong>200 response within ~10 seconds</strong>. If the flow takes longer (e.g. waiting on Lansweeper), it will retry the webhook</li>
+        <li>The sync flow is designed to <strong>respond 200 immediately</strong> and then do the work asynchronously to avoid this problem</li>
+        <li>Webhook delivery failures appear in <strong>Jira Settings → System → WebHooks → Failed deliveries</strong></li>
+    </ul>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- CLOUD SYNC ISSUES -->
+<!-- ============================================================ -->
+<section id="cloud-sync-issues">
+    <h2><i class="fas fa-exclamation-triangle"></i> Cloud Sync Issues: Customer vs Agent Views</h2>
+    <p>Jira Cloud separates the <strong>customer portal</strong> (what requestors see) from the <strong>agent view</strong> (what IT staff sees in the board/backlog). Data submitted in one view may not appear in the other — this is by design, but causes confusion during automation setup.</p>
+
+    <h3>Common Issues and Fixes</h3>
+
+    <h4>1. Custom fields visible in agent view but not customer portal</h4>
+    <p>Jira Service Management controls which fields appear in each portal request type. Custom fields added to the agent issue screen won't automatically appear in the customer portal form.</p>
+    <ul>
+        <li><strong>Fix:</strong> In Jira → <strong>Project settings → Request types</strong> → select the request type → add the custom field to the form</li>
+        <li>Alternatively: set custom fields via API after creation (this is what the Lansweeper sync does — customers don't enter device info, IT populates it automatically)</li>
+    </ul>
+
+    <h4>2. Fields submitted via customer portal missing in agent view</h4>
+    <p>Customer portal fields use request type fields, not standard issue fields. Some fields submitted by customers may be stored as "additional properties" rather than standard Jira fields.</p>
+    <ul>
+        <li><strong>Fix:</strong> In <strong>Project settings → Fields</strong> → verify the field is mapped to both the agent screen and the portal request type</li>
+    </ul>
+
+    <h4>3. Webhook fires but reporter email is blank</h4>
+    <p>If a ticket was created via the <strong>customer portal</strong> by an unregistered user or an anonymous submission, <code>reporter.emailAddress</code> may be null or a Jira-generated service account email.</p>
+    <ul>
+        <li><strong>Fix:</strong> Ensure the customer portal requires Jira account login (not anonymous), OR add a fallback in the sync flow to skip Lansweeper lookup if <code>emailAddress</code> is empty</li>
+    </ul>
+
+    <h4>4. Webhook fires twice for one ticket</h4>
+    <p>This can happen if Jira triggers <code>issue_created</code> plus an immediate <code>issue_updated</code> for an auto-assigned field. The sync flow uses <code>jira:issue_created</code> filtering, so the second event is ignored — but check <strong>flow run history</strong> if you see duplicate comments on tickets.</p>
+
+    <h4>5. Reporter UPN format mismatch (Jira vs Lansweeper)</h4>
+    <p>The Lansweeper sync queries by <code>assetUsers.username</code>. In some environments, Lansweeper stores the domain prefix format (<code>NEWSBANK\jsmith</code>) rather than the UPN format (<code>jsmith@newsbank.com</code>).</p>
+    <ul>
+        <li><strong>Fix:</strong> Check the Lansweeper Users tab on a known asset — if names show as <code>DOMAIN\username</code>, update the GraphQL query in the sync flow to strip the domain prefix from the UPN for the comparison</li>
+    </ul>
+
+    <h4>6. Custom fields populated by API not visible in customer portal</h4>
+    <p>The Lansweeper sync writes device data to Jira custom fields via the agent-facing API. These fields typically only appear in the <strong>agent view</strong>, which is the intended behavior — device data is for IT staff, not end users.</p>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+<!-- ============================================================ -->
+<!-- CORS FIX -->
+<!-- ============================================================ -->
+<section id="cors-fix">
+    <h2><i class="fas fa-ban"></i> CORS Errors from Browser API Calls</h2>
+    <p>Jira Cloud (and Lansweeper Cloud) actively block API calls made directly from browser JavaScript on domains they don't control. This affects Clippy when it tries to call the Jira or Lansweeper APIs directly.</p>
+
+    <h3>What CORS Means Here</h3>
+    <p>When Clippy (running at <code>greenhornet-dev.github.io</code>) makes a fetch request to <code>[YOUR_DOMAIN].atlassian.net</code>, the browser sends a preflight OPTIONS request. Atlassian's servers respond with CORS headers that block the request unless the origin is on their allowlist — and <code>github.io</code> is not.</p>
+
+    <h3>Symptoms</h3>
+    <pre><code>Access to fetch at 'https://[domain].atlassian.net/rest/api/3/search' from origin
+'https://greenhornet-dev.github.io' has been blocked by CORS policy:
+No 'Access-Control-Allow-Origin' header is present on the requested resource.</code></pre>
+
+    <h3>The Fix: Route Through Power Automate</h3>
+    <p>Power Automate makes the API call <em>server-side</em> — there's no browser CORS restriction when a flow calls an external HTTP endpoint. The pattern:</p>
+    <ol class="step-list">
+        <li>Clippy calls a Power Automate <strong>HTTP trigger</strong> (which is on Microsoft's domain — no CORS issue)</li>
+        <li>The PA flow receives the request, calls Jira or Lansweeper, and returns the result</li>
+        <li>Clippy displays the result</li>
+    </ol>
+
+    <pre><code>Browser (Clippy)
+    → POST https://prod-xx.westus.logic.azure.com/workflows/...   ← no CORS block
+          ↓ Power Automate flow
+          → GET https://[YOUR_DOMAIN].atlassian.net/rest/api/3/search  ← server-side, no CORS
+          ← returns JSON result
+    ← Clippy displays tickets</code></pre>
+
+    <h3>Clippy Error Message When CORS Blocks</h3>
+    <p>When Clippy can't reach Jira directly, it displays:</p>
+    <div class="warning">
+        <strong>CORS blocked:</strong> Jira Cloud doesn't allow direct browser API calls from this origin. Route through a Power Automate HTTP trigger instead — set your Jira URL in work config to point to a PA proxy flow.
+    </div>
+
+    <h3>Short-term Test Workaround (dev only)</h3>
+    <p>During development you can disable CORS in Chrome using a flag or a CORS-proxy extension, but <strong>never use this in production</strong>. The proper fix is the Power Automate proxy pattern above.</p>
+
+    <a href="#top" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to top</a>
+</section>
+
+</main>
+
+<footer>
+    <p>&copy; 2025 NewsBank, Inc. — Information Technology Department &nbsp;|&nbsp; <a href="https://greenhornet-dev.github.io/SOP-IT-Help/sop-portal.html">SOP Portal</a> &nbsp;|&nbsp; <a href="mailto:helpdesk@newsbank.com">helpdesk@newsbank.com</a></p>
+</footer>
+
+</div>
+</body>
+</html>

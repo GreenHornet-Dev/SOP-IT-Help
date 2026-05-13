@@ -1,1022 +1,230 @@
 [
-  {
-    "title": "Web Browser Management",
-    "tag": "Browser",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/web-browser-management.html"
-  },
-  {
-    "title": "Clear Browser Cache & Cookies",
-    "tag": "Browser",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/web-browser-management.html#clear-cache-and-cookies"
-  },
-  {
-    "title": "Reset Browser Settings",
-    "tag": "Browser",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/web-browser-management.html#manage-browser"
-  },
-  {
-    "title": "Set Default Browser",
-    "tag": "Browser",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/web-browser-management.html#manage-browser"
-  },
-  {
-    "title": "Email / Mail Setup & Troubleshooting",
-    "tag": "Mail",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html"
-  },
-  {
-    "title": "Add Email Account in Outlook",
-    "tag": "Mail",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html#add-email-account"
-  },
-  {
-    "title": "Set Out of Office Reply",
-    "tag": "Mail",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html#out-of-office"
-  },
-  {
-    "title": "Fix Emails Not Sending",
-    "tag": "Mail",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html#troubleshoot-email"
-  },
-  {
-    "title": "Recover Deleted Emails",
-    "tag": "Mail",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html#troubleshoot-email"
-  },
-  {
-    "title": "Fix Outlook Not Opening",
-    "tag": "Mail",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html#troubleshoot-email"
-  },
-  {
-    "title": "Printer Setup & Troubleshooting",
-    "tag": "Printers",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html"
-  },
-  {
-    "title": "Add Local Printer",
-    "tag": "Printers",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html#add-printer"
-  },
-  {
-    "title": "Add Network Printer",
-    "tag": "Printers",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html#add-printer"
-  },
-  {
-    "title": "Fix Stuck Print Queue",
-    "tag": "Printers",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html#fix-print-queue"
-  },
-  {
-    "title": "Update Printer Driver",
-    "tag": "Printers",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html#manage-printers"
-  },
-  {
-    "title": "Drive Management",
-    "tag": "Drives",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html"
-  },
-  {
-    "title": "Map a Network Drive",
-    "tag": "Drives",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html#map-network-drive"
-  },
-  {
-    "title": "Disconnect Network Drive",
-    "tag": "Drives",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html#map-network-drive"
-  },
-  {
-    "title": "Check Disk Space",
-    "tag": "Drives",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html#disk-space-and-cleanup"
-  },
-  {
-    "title": "Run Disk Cleanup",
-    "tag": "Drives",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html#disk-space-and-cleanup"
-  },
-  {
-    "title": "Fix Drive Not Showing",
-    "tag": "Drives",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html#troubleshooting"
-  },
-  {
-    "title": "Windows Updates",
-    "tag": "Updates",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html"
-  },
-  {
-    "title": "Check for Windows Updates",
-    "tag": "Updates",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html#check-and-install-updates"
-  },
-  {
-    "title": "Pause Windows Updates",
-    "tag": "Updates",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html#manage-updates"
-  },
-  {
-    "title": "Clear Windows Update Cache",
-    "tag": "Updates",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html#clear-update-cache"
-  },
-  {
-    "title": "Fix Stuck Windows Update",
-    "tag": "Updates",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html#troubleshoot-updates"
-  },
-  {
-    "title": "Common Help Desk Tasks",
-    "tag": "Help Desk",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html"
-  },
-  {
-    "title": "Reset User Password",
-    "tag": "Help Desk",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#password-and-accounts"
-  },
-  {
-    "title": "Unlock User Account",
-    "tag": "Help Desk",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#password-and-accounts"
-  },
-  {
-    "title": "Remote Desktop Assistance",
-    "tag": "Help Desk",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#remote-support"
-  },
-  {
-    "title": "Software Installation",
-    "tag": "Help Desk",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#hardware-and-software"
-  },
-  {
-    "title": "Fix Slow Computer",
-    "tag": "Help Desk",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#performance-fix"
-  },
-  {
-    "title": "Claude AI & CoWork SOP",
-    "tag": "AI Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/claude-ai-cowork.html"
-  },
-  {
-    "title": "Use Claude AI for IT Help",
-    "tag": "AI Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/claude-ai-cowork.html#using-claude-ai"
-  },
-  {
-    "title": "Use CoWork for Company Policies",
-    "tag": "AI Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/claude-ai-cowork.html#using-cowork"
-  },
-  {
-    "title": "AI Privacy Guidelines",
-    "tag": "AI Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/claude-ai-cowork.html#ai-guidelines"
-  },
-  {
-    "title": "Microsoft Copilot",
-    "tag": "Copilot",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-copilot.html"
-  },
-  {
-    "title": "Copilot in Word",
-    "tag": "Copilot",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-copilot.html#copilot-in-word"
-  },
-  {
-    "title": "Draft Email with Copilot",
-    "tag": "Copilot",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-copilot.html#copilot-in-outlook"
-  },
-  {
-    "title": "Summarize Email Thread with Copilot",
-    "tag": "Copilot",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-copilot.html#copilot-in-outlook"
-  },
-  {
-    "title": "Copilot Teams Meeting Recap",
-    "tag": "Copilot",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-copilot.html#copilot-in-teams"
-  },
-  {
-    "title": "Copilot in Excel — Analyze Data",
-    "tag": "Copilot",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-copilot.html#copilot-in-excel"
-  },
-  {
-    "title": "Power Automate",
-    "tag": "Automation",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html"
-  },
-  {
-    "title": "Create a Power Automate Flow",
-    "tag": "Automation",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html#create-a-flow"
-  },
-  {
-    "title": "Test a Flow Manually",
-    "tag": "Automation",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html#test-and-fix-flows"
-  },
-  {
-    "title": "Fix a Broken Flow",
-    "tag": "Automation",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html#test-and-fix-flows"
-  },
-  {
-    "title": "Office Apps",
-    "tag": "Office 365",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/office-apps.html"
-  },
-  {
-    "title": "Install Microsoft 365",
-    "tag": "Office 365",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/office-apps.html#install-and-activate"
-  },
-  {
-    "title": "Repair Office App Crash",
-    "tag": "Office 365",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/office-apps.html#repair-and-update"
-  },
-  {
-    "title": "Update Office Apps",
-    "tag": "Office 365",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/office-apps.html#repair-and-update"
-  },
-  {
-    "title": "Microsoft Teams",
-    "tag": "Teams",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-teams.html"
-  },
-  {
-    "title": "Fix Teams No Audio in Meeting",
-    "tag": "Teams",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-teams.html#meetings-and-screen-share"
-  },
-  {
-    "title": "Share Screen in Teams",
-    "tag": "Teams",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-teams.html#meetings-and-screen-share"
-  },
-  {
-    "title": "Teams Not Loading — Clear Cache",
-    "tag": "Teams",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-teams.html#troubleshooting"
-  },
-  {
-    "title": "8x8 Phone System",
-    "tag": "8x8",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/8x8-phone-system.html"
-  },
-  {
-    "title": "Zoom",
-    "tag": "Zoom",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/zoom.html"
-  },
-  {
-    "title": "Fix Zoom Audio Not Working",
-    "tag": "Zoom",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/zoom.html#audio-video-and-screen-share"
-  },
-  {
-    "title": "Share Screen in Zoom",
-    "tag": "Zoom",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/zoom.html#audio-video-and-screen-share"
-  },
-  {
-    "title": "Fix Black Screen When Sharing Zoom",
-    "tag": "Zoom",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/zoom.html#troubleshooting"
-  },
-  {
-    "title": "Printers & Print Servers",
-    "tag": "Printers",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printers-print-servers.html"
-  },
-  {
-    "title": "Connect to Print Server",
-    "tag": "Printers",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printers-print-servers.html#connect-to-print-server"
-  },
-  {
-    "title": "Clear Print Queue (PowerShell)",
-    "tag": "Printers",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printers-print-servers.html#quick-reference"
-  },
-  {
-    "title": "Remove Old Printers",
-    "tag": "Printers",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printers-print-servers.html#manage-printers"
-  },
-  {
-    "title": "AT&T Wireless Activation",
-    "tag": "WIRELESS",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html"
-  },
-  {
-    "title": "Activate AT&T Line (Admin Portal)",
-    "tag": "WIRELESS",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html#admin-portal-activation"
-  },
-  {
-    "title": "AT&T End User Device Setup",
-    "tag": "WIRELESS",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html#end-user-device-setup"
-  },
-  {
-    "title": "Set Up AT&T Voicemail",
-    "tag": "WIRELESS",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html#end-user-device-setup"
-  },
-  {
-    "title": "AT&T No Signal Fix",
-    "tag": "WIRELESS",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html#troubleshooting"
-  },
-  {
-    "title": "New Hire IT Checklist",
-    "tag": "New Hire",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/new-hire-checklist.html"
-  },
-  {
-    "title": "Departing Employee IT Checklist",
-    "tag": "Offboarding",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/departing-employee-checklist.html"
-  },
-  {
-    "title": "Change User UPN",
-    "tag": "UPN",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/new-hire-checklist.html#step-7--change-upn-if-needed-powershell"
-  },
-  {
-    "title": "Verify UPN Change",
-    "tag": "UPN",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/new-hire-checklist.html#step-7--change-upn-if-needed-powershell"
-  },
-  {
-    "title": "Forward Email to Manager",
-    "tag": "Offboarding",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/departing-employee-checklist.html"
-  },
-  {
-    "title": "Equipment Return Checklist",
-    "tag": "Offboarding",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/departing-employee-checklist.html"
-  },
-  {
-    "title": "Remote Wipe Device via Intune",
-    "tag": "Offboarding",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/departing-employee-checklist.html"
-  },
-  {
-    "title": "HR Equipment All Clear Notification",
-    "tag": "Power Automate",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html#hr-equipment-return-flow"
-  },
-  {
-    "title": "Add User to All Users Group",
-    "tag": "New Hire",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/new-hire-checklist.html"
-  },
-  {
-    "title": "Enroll Device in Intune MDM",
-    "tag": "New Hire",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/new-hire-checklist.html"
-  },
-  {
-    "title": "Printer Setup",
-    "tag": "Printers",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html"
-  },
-  {
-    "title": "Lansweeper",
-    "tag": "Lansweeper",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html"
-  },
-  {
-    "title": "Lansweeper Agent Deployment",
-    "tag": "Lansweeper",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment"
-  },
-  {
-    "title": "Lansweeper GraphQL API",
-    "tag": "Lansweeper",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#3-graphql-api--key-queries"
-  },
-  {
-    "title": "Lansweeper Power Automate Integration",
-    "tag": "Lansweeper",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#4-power-automate-integration-via-http-connector"
-  },
-  {
-    "title": "Lansweeper Custom Tables & Reporting",
-    "tag": "Lansweeper",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#5-custom-tables--asset-reporting"
-  },
-  {
-    "title": "Lansweeper API Token Setup",
-    "tag": "Lansweeper",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#2-api-setup--authentication--credentials"
-  },
-  {
-    "title": "LsAgent macOS Force Sync",
-    "tag": "Lansweeper",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1b-mac-lsagent-reset--force-scan"
-  },
-  {
-    "title": "LsAgent macOS Restart",
-    "tag": "Lansweeper",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1b-mac-lsagent-reset--force-scan"
-  },
-  {
-    "title": "LsAgent macOS Status Check",
-    "tag": "Lansweeper",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment"
-  },
-  {
-    "title": "LsAgent macOS Force Scan Verify",
-    "tag": "Lansweeper",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment"
-  },
-  {
-    "title": "Okta Token Sync After Password Change",
-    "tag": "Okta",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html"
-  },
-  {
-    "title": "Okta OneDrive Sync Crash Fix",
-    "tag": "Okta",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#4-step-3--fix-onedrive-sync-crash--performance"
-  },
-  {
-    "title": "Okta Re-Authenticate Office Apps",
-    "tag": "Okta",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#3-step-2--fix-office-apps-token-word-excel-outlook-teams"
-  },
-  {
-    "title": "Okta Dashboard Token Pass",
-    "tag": "Okta",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#2-step-1--re-authenticate-via-okta-dashboard"
-  },
-  {
-    "title": "Okta Hybrid Entra ID Token Sync",
-    "tag": "Okta",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#8-hybrid-environment--okta--microsoft-entra-id-azure-ad"
-  },
-  {
-    "title": "Clear Cached Bearer Tokens (Credential Manager)",
-    "tag": "Okta",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#5-step-4--clear-stale-credentials-from-windows-credential-manager"
-  },
-  {
-    "title": "OneDrive Reset After Password Change",
-    "tag": "Okta",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#4-step-3--fix-onedrive-sync-crash--performance"
-  },
-  {
-    "title": "GitHub Copilot Agent (Browser)",
-    "tag": "AI Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/github-copilot-agent.html"
-  },
-  {
-    "title": "LogMeIn Resolve — Remote Support",
-    "tag": "Remote Support",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/logmein-resolve.html"
-  },
-  {
-    "title": "Start a Remote Support Session",
-    "tag": "Remote Support",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/logmein-resolve.html#start-session"
-  },
-  {
-    "title": "Deploy LogMeIn Unattended Access",
-    "tag": "Remote Support",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/logmein-resolve.html#unattended-access"
-  },
-  {
-    "title": "Troubleshoot LogMeIn Resolve",
-    "tag": "Remote Support",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/logmein-resolve.html#troubleshooting"
-  },
-  {
-    "title": "CrowdStrike Falcon — Endpoint Security",
-    "tag": "Security",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html"
-  },
-  {
-    "title": "Find & Check Device in Falcon Console",
-    "tag": "Security",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#falcon-console"
-  },
-  {
-    "title": "Respond to CrowdStrike Detection",
-    "tag": "Security",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#respond-to-detections"
-  },
-  {
-    "title": "Network Contain (Isolate) a Host",
-    "tag": "Security",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#falcon-console"
-  },
-  {
-    "title": "Run Real Time Response (RTR) Session",
-    "tag": "Security",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#rtr-commands"
-  },
-  {
-    "title": "Check & Restart Falcon Sensor",
-    "tag": "Security",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#quick-reference"
-  },
-  {
-    "title": "Winget One-Liners",
-    "tag": "Winget",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html"
-  },
-  {
-    "title": "Silent Install — Core Apps (winget)",
-    "tag": "Winget",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html"
-  },
-  {
-    "title": "Silent Install — Help Desk Utilities (winget)",
-    "tag": "Winget",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html#help-desk-utilities"
-  },
-  {
-    "title": "Copy All Winget Install Script",
-    "tag": "Winget",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html"
-  },
-  {
-    "title": "Install RSAT — All Remote Server Admin Tools",
-    "tag": "Winget",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html"
-  },
-  {
-    "title": "Install RSAT — Active Directory, GPMC, DNS, DHCP",
-    "tag": "Winget",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html"
-  },
-  {
-    "title": "Install Tailscale (Mesh VPN)",
-    "tag": "Winget",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html"
-  },
-  {
-    "title": "Copilot Studio Teams Bot — Architecture & Maintenance",
-    "tag": "Copilot Studio",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html"
-  },
-  {
-    "title": "Renew Azure AD Client Secret (Teams Bot Fix)",
-    "tag": "Copilot Studio",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#renew-client-secret"
-  },
-  {
-    "title": "Copilot Studio Bot Can't Publish to Teams",
-    "tag": "Copilot Studio",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#troubleshoot-publish"
-  },
-  {
-    "title": "Fix Broken SharePoint Knowledge Source",
-    "tag": "Copilot Studio",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#fix-sharepoint-knowledge"
-  },
-  {
-    "title": "Fix Suspended Power Automate Flow (Bot Actions)",
-    "tag": "Copilot Studio",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#fix-flows"
-  },
-  {
-    "title": "Copilot Studio Bot Expiry & Maintenance Schedule",
-    "tag": "Copilot Studio",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#expiry-schedule"
-  },
-  {
-    "title": "Teams Bot Architecture Component Map",
-    "tag": "Copilot Studio",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#components"
-  },
-  {
-    "title": "Change Password — Okta Dashboard",
-    "tag": "Password",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#2-step-1--re-authenticate-via-okta-dashboard"
-  },
-  {
-    "title": "Change Password — Network (Ctrl+Alt+Del)",
-    "tag": "Password",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#password-and-accounts"
-  },
-  {
-    "title": "Password Not Syncing to Apps After Change",
-    "tag": "Password",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#1-what-happens-after-an-okta-password-change"
-  },
-  {
-    "title": "Fix Office 365 Sign-In After Password Change",
-    "tag": "Password",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#3-step-2--fix-office-apps-token-word-excel-outlook-teams"
-  },
-  {
-    "title": "8x8 Call Forwarding Setup",
-    "tag": "8x8",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/8x8-phone-system.html"
-  },
-  {
-    "title": "8x8 Voicemail Setup",
-    "tag": "8x8",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/8x8-phone-system.html"
-  },
-  {
-    "title": "8x8 Troubleshooting — No Audio / Can't Connect",
-    "tag": "8x8",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/8x8-phone-system.html"
-  },
-  {
-    "title": "CDS Dev Hub — GitHub Projects & Installers",
-    "tag": "CDS",
-    "url": "https://greenhornet-dev.github.io/cds-green/dev.html"
-  },
-  {
-    "title": "CDS PO Builder — Create Purchase Orders",
-    "tag": "CDS",
-    "url": "https://greenhornet-dev.github.io/cds-green/po-builder.html"
-  },
-  {
-    "title": "CDS Shop — Hardware & Gear",
-    "tag": "CDS",
-    "url": "https://greenhornet-dev.github.io/cds-green/shop.html"
-  },
-  {
-    "title": "CDS Services & Pricing",
-    "tag": "CDS",
-    "url": "https://greenhornet-dev.github.io/cds-green/services.html"
-  },
-  {
-    "title": "GitHub Copilot Agent — Browser SOP",
-    "tag": "AI Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/github-copilot-agent.html"
-  },
-  {
-    "title": "Work Tools Query Hub",
-    "tag": "Work Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html"
-  },
-  {
-    "title": "Work Config — Jira, Lansweeper, Power Automate Setup",
-    "tag": "Work Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#2-work-config-setup"
-  },
-  {
-    "title": "SQL Query Library — Lansweeper Database Queries",
-    "tag": "Work Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#3-sql-query-library"
-  },
-  {
-    "title": "GraphQL Runner — Live Lansweeper API Queries",
-    "tag": "Work Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#4-graphql-runner"
-  },
-  {
-    "title": "JQL Preset Browser — Jira Query Language",
-    "tag": "Work Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#5-jql-preset-browser"
-  },
-  {
-    "title": "Portal Query Center — Lansweeper Portal Links",
-    "tag": "Work Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#6-portal-query-center"
-  },
-  {
-    "title": "Clippy Work Tools Commands — Quick Reference",
-    "tag": "Work Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#7-clippy-commands"
-  },
-  {
-    "title": "Jira API Token Setup for Clippy",
-    "tag": "Work Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#2-jira-setup"
-  },
-  {
-    "title": "Lansweeper PAT Setup for Clippy",
-    "tag": "Work Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#2-lansweeper-setup"
-  },
-  {
-    "title": "Redacted Build Pattern — Credentials in localStorage",
-    "tag": "Work Tools",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#1-overview--redacted-build-pattern"
-  },
-  {
-    "title": "Python vs Java — IT Dev Learning Guide",
-    "tag": "Dev",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html"
-  },
-  {
-    "title": "Python for IT Automation — Real Examples",
-    "tag": "Dev",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html#5-python-for-it"
-  },
-  {
-    "title": "Key Python Libraries for IT Work",
-    "tag": "Dev",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html#6-key-libraries"
-  },
-  {
-    "title": "Python Getting Started — Install & First Script",
-    "tag": "Dev",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html#7-getting-started"
-  },
-  {
-    "title": "Python Learning Path — IT Staff",
-    "tag": "Dev",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html#8-learning-path"
-  },
-  {
-    "title": "VS Code Dev SOP — API Calls, Parsing, Power Automate & SharePoint",
-    "tag": "Dev",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html"
-  },
-  {
-    "title": "VS Code Extensions — Essential Dev Setup",
-    "tag": "Dev",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#1-vscode-setup"
-  },
-  {
-    "title": "API Calls from VS Code — REST Client & Thunder Client",
-    "tag": "Dev",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#2-api-calls"
-  },
-  {
-    "title": "JSON & CSV Indexing and Parsing — Python",
-    "tag": "Dev",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#3-indexing-parsing"
-  },
-  {
-    "title": "Power Automate Next Level — Python + Flask + PA Integration",
-    "tag": "Power Automate",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#4-power-automate"
-  },
-  {
-    "title": "SharePoint Sensitivity Labels — HR & Finance Redaction",
-    "tag": "SharePoint",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#5-sharepoint-redaction"
-  },
-  {
-    "title": "SharePoint DLP Policy — Block External Sharing",
-    "tag": "SharePoint",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#5-sharepoint-redaction"
-  },
-  {
-    "title": "Microsoft Purview Auto-Labeling — SSN & Financial Data",
-    "tag": "SharePoint",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#5-sharepoint-redaction"
-  },
-  {
-    "title": "VS Code Keyboard Shortcuts — Dev Workflow",
-    "tag": "Dev",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#6-shortcuts"
-  },
-  {
-    "title": "GraphQL vs SQL — Parsing & Response Formats",
-    "tag": "GraphQL",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html"
-  },
-  {
-    "title": "Why Lansweeper GraphQL Responses Are Nested",
-    "tag": "GraphQL",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#1-why-nested"
-  },
-  {
-    "title": "Flatten GraphQL Response — Python",
-    "tag": "GraphQL",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#3-flatten-python"
-  },
-  {
-    "title": "Flatten GraphQL Response — JavaScript",
-    "tag": "GraphQL",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#4-flatten-js"
-  },
-  {
-    "title": "Lansweeper GraphQL Collection Names & Paths",
-    "tag": "Lansweeper",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#6-lansweeper-patterns"
-  },
-  {
-    "title": "GraphQL vs SQL — When to Use Each",
-    "tag": "GraphQL",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#5-when-to-use"
-  },
-  {
-    "title": "YubiKey Reprogram SOP",
-    "tag": "Security",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html"
-  },
-  {
-    "title": "Reset YubiKey FIDO2",
-    "tag": "Security",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html#4-reset-yubikey"
-  },
-  {
-    "title": "Re-enroll YubiKey in Okta MFA",
-    "tag": "Security",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html#6-reenroll-okta"
-  },
-  {
-    "title": "Reprogram YubiKey OTP Slot",
-    "tag": "Security",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html#5-reprogram-otp"
-  },
-  {
-    "title": "YubiKey ykman Quick Reference",
-    "tag": "Security",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html#8-quick-reference"
-  },
-  {
-    "title": "YubiKey Troubleshooting — Not Detected / PIN Blocked",
-    "tag": "Security",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html#9-troubleshooting"
-  },
-  {
-    "title": "Okta Admin — Bulk CSV User Import",
-    "tag": "Okta",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#9-okta-admin--csv-user-import"
-  },
-  {
-    "title": "Okta CSV Import — Required Fields & Format",
-    "tag": "Okta",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#9-okta-admin--csv-user-import"
-  },
-  {
-    "title": "Okta CSV Import — Common Errors & Fixes",
-    "tag": "Okta",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#9-okta-admin--csv-user-import"
-  },
-  {
-    "title": "Activate Staged Users After CSV Import",
-    "tag": "Okta",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#9-okta-admin--csv-user-import"
-  },
-  {
-    "title": "Mac One-Liners — Help Desk Terminal Commands",
-    "tag": "Mac",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html"
-  },
-  {
-    "title": "Mac — Network: Flush DNS, IP, Wi-Fi",
-    "tag": "Mac",
-    "description": "Flush DNS cache, show IP address, get Wi-Fi SSID, renew DHCP lease on macOS.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#network"
-  },
-  {
-    "title": "Mac — Flush DNS Cache",
-    "tag": "Mac",
-    "description": "sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#network"
-  },
-  {
-    "title": "Mac — Show IP Address & Wi-Fi Name",
-    "tag": "Mac",
-    "description": "ipconfig getifaddr en0; networksetup -getairportnetwork en0",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#network"
-  },
-  {
-    "title": "Mac — Renew DHCP Lease",
-    "tag": "Mac",
-    "description": "sudo ipconfig set en0 DHCP — forces new IP from DHCP server.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#network"
-  },
-  {
-    "title": "Mac — System Info: OS Version, Serial, Hostname",
-    "tag": "Mac",
-    "description": "sw_vers; system_profiler SPHardwareDataType — get macOS version, serial number, model.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#system-info"
-  },
-  {
-    "title": "Mac — Get Serial Number",
-    "tag": "Mac",
-    "description": "system_profiler SPHardwareDataType | grep -E 'Serial|Model'",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#system-info"
-  },
-  {
-    "title": "Mac — Check Disk Space",
-    "tag": "Mac",
-    "description": "df -h / — shows free and used disk space on the main volume.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#system-info"
-  },
-  {
-    "title": "Mac — User Account: List Users, Reset Password, Admin Check",
-    "tag": "Mac",
-    "description": "dscl . list /Users; dscl . read /Groups/admin GroupMembership — manage local user accounts.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#user-account"
-  },
-  {
-    "title": "Mac — Reset Local User Password",
-    "tag": "Mac",
-    "description": "sudo dscl . -passwd /Users/USERNAME newpassword",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#user-account"
-  },
-  {
-    "title": "Mac — Check Admin Group Members",
-    "tag": "Mac",
-    "description": "dscl . read /Groups/admin GroupMembership — verify who has admin rights.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#user-account"
-  },
-  {
-    "title": "Mac — Kill Frozen App, Clear Cache, Rebuild Spotlight",
-    "tag": "Mac",
-    "description": "pkill / killall AppName; rm -rf ~/Library/Caches/...; sudo mdutil -E /",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#software-app"
-  },
-  {
-    "title": "Mac — Kill Frozen App",
-    "tag": "Mac",
-    "description": "killall \"App Name\" or pkill -x \"App Name\" — force-quit a hung application.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#software-app"
-  },
-  {
-    "title": "Mac — Rebuild Spotlight Index",
-    "tag": "Mac",
-    "description": "sudo mdutil -E / — fixes search not finding files in Finder or apps.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#software-app"
-  },
-  {
-    "title": "Mac — Printer: List & Clear Print Queue",
-    "tag": "Mac",
-    "description": "lpstat -p; cancel -a PRINTERNAME — list printers and clear stuck jobs on Mac.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#printer"
-  },
-  {
-    "title": "Mac — Clear Stuck Print Queue",
-    "tag": "Mac",
-    "description": "cancel -a PRINTERNAME — cancels all jobs for a specific printer.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#printer"
-  },
-  {
-    "title": "Mac — NVRAM Flush (Intel) / Boot Flags",
-    "tag": "Mac",
-    "description": "sudo nvram -c — clears NVRAM on Intel Macs. Not needed on Apple Silicon.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#nvram"
-  },
-  {
-    "title": "Mac — Force Safe Mode Next Boot",
-    "tag": "Mac",
-    "description": "sudo nvram boot-args=\"-x\" — sets safe mode flag. Clear with boot-args=\"\".",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#nvram"
-  },
-  {
-    "title": "Mac — LogMeIn Resolve: Agent Check & Restart",
-    "tag": "Mac",
-    "description": "ps aux | grep -i logmein; sudo launchctl stop/start com.logmein.logmeindaemon",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#logmein-remote"
-  },
-  {
-    "title": "Mac — Check SIP Status",
-    "tag": "Mac",
-    "description": "csrutil status — check if System Integrity Protection is enabled or disabled.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#logmein-remote"
-  },
-  {
-    "title": "Mac Boot Failure — Recovery Mode Terminal Commands",
-    "tag": "Mac",
-    "description": "diskutil list; diskutil repairDisk disk0; fsck_apfs -y — run from Recovery Mode Terminal.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#boot-failure"
-  },
-  {
-    "title": "Mac Boot Failure — Disk Repair: diskutil, fsck, APFS",
-    "tag": "Mac",
-    "description": "diskutil repairVolume; diskutil apfs repairContainer disk0 — fix corrupted volumes.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#boot-failure"
-  },
-  {
-    "title": "Mac Boot Failure — Reset Startup Disk (bless)",
-    "tag": "Mac",
-    "description": "bless --mount \"/Volumes/Macintosh HD\" --setBoot --verbose — fix missing boot disk.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#boot-failure"
-  },
-  {
-    "title": "Mac Boot Failure — FileVault Status & Panic Logs",
-    "tag": "Mac",
-    "description": "fdesetup status; ls /Library/Logs/DiagnosticReports/ | grep panic",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#boot-failure"
-  },
-  {
-    "title": "Mac Lansweeper — lsAgent Reset & Force Scan",
-    "tag": "Mac",
-    "description": "Stop lsAgent, clear lsagent.ini, restart to force a clean re-scan in Lansweeper.",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#lansweeper-mac-agent"
-  },
-  {
-    "title": "Mac Lansweeper — Clear lsagent.ini One-Liner",
-    "tag": "Mac",
-    "description": "sudo launchctl stop com.lansweeper.lsagent; sudo rm /Library/LsAgent/lsagent.ini; sudo launchctl start com.lansweeper.lsagent",
-    "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#lansweeper-mac-agent"
-  }
+  { "title": "Web Browser Management", "tag": "Browser", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/web-browser-management.html" },
+  { "title": "Clear Browser Cache & Cookies", "tag": "Browser", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/web-browser-management.html#clear-cache-and-cookies" },
+  { "title": "Reset Browser Settings", "tag": "Browser", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/web-browser-management.html#manage-browser" },
+  { "title": "Set Default Browser", "tag": "Browser", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/web-browser-management.html#manage-browser" },
+  { "title": "Email / Mail Setup & Troubleshooting", "tag": "Mail", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html" },
+  { "title": "Add Email Account in Outlook", "tag": "Mail", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html#add-email-account" },
+  { "title": "Set Out of Office Reply", "tag": "Mail", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html#out-of-office" },
+  { "title": "Fix Emails Not Sending", "tag": "Mail", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html#troubleshoot-email" },
+  { "title": "Recover Deleted Emails", "tag": "Mail", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html#troubleshoot-email" },
+  { "title": "Fix Outlook Not Opening", "tag": "Mail", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/email-setup.html#troubleshoot-email" },
+  { "title": "Printer Setup & Troubleshooting", "tag": "Printers", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html" },
+  { "title": "Add Local Printer", "tag": "Printers", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html#add-printer" },
+  { "title": "Add Network Printer", "tag": "Printers", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html#add-printer" },
+  { "title": "Fix Stuck Print Queue", "tag": "Printers", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html#fix-print-queue" },
+  { "title": "Update Printer Driver", "tag": "Printers", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html#manage-printers" },
+  { "title": "Drive Management", "tag": "Drives", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html" },
+  { "title": "Map a Network Drive", "tag": "Drives", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html#map-network-drive" },
+  { "title": "Disconnect Network Drive", "tag": "Drives", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html#map-network-drive" },
+  { "title": "Check Disk Space", "tag": "Drives", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html#disk-space-and-cleanup" },
+  { "title": "Run Disk Cleanup", "tag": "Drives", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html#disk-space-and-cleanup" },
+  { "title": "Fix Drive Not Showing", "tag": "Drives", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/drive-management.html#troubleshooting" },
+  { "title": "Windows Updates", "tag": "Updates", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html" },
+  { "title": "Check for Windows Updates", "tag": "Updates", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html#check-and-install-updates" },
+  { "title": "Pause Windows Updates", "tag": "Updates", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html#manage-updates" },
+  { "title": "Clear Windows Update Cache", "tag": "Updates", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html#clear-update-cache" },
+  { "title": "Fix Stuck Windows Update", "tag": "Updates", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/windows-updates.html#troubleshoot-updates" },
+  { "title": "Common Help Desk Tasks", "tag": "Help Desk", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html" },
+  { "title": "Reset User Password", "tag": "Help Desk", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#password-and-accounts" },
+  { "title": "Unlock User Account", "tag": "Help Desk", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#password-and-accounts" },
+  { "title": "Remote Desktop Assistance", "tag": "Help Desk", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#remote-support" },
+  { "title": "Software Installation", "tag": "Help Desk", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#hardware-and-software" },
+  { "title": "Fix Slow Computer", "tag": "Help Desk", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#performance-fix" },
+  { "title": "Claude AI & CoWork SOP", "tag": "AI Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/claude-ai-cowork.html" },
+  { "title": "Use Claude AI for IT Help", "tag": "AI Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/claude-ai-cowork.html#using-claude-ai" },
+  { "title": "Use CoWork for Company Policies", "tag": "AI Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/claude-ai-cowork.html#using-cowork" },
+  { "title": "AI Privacy Guidelines", "tag": "AI Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/claude-ai-cowork.html#ai-guidelines" },
+  { "title": "Microsoft Copilot", "tag": "Copilot", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-copilot.html" },
+  { "title": "Copilot in Word", "tag": "Copilot", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-copilot.html#copilot-in-word" },
+  { "title": "Draft Email with Copilot", "tag": "Copilot", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-copilot.html#copilot-in-outlook" },
+  { "title": "Summarize Email Thread with Copilot", "tag": "Copilot", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-copilot.html#copilot-in-outlook" },
+  { "title": "Copilot Teams Meeting Recap", "tag": "Copilot", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-copilot.html#copilot-in-teams" },
+  { "title": "Copilot in Excel — Analyze Data", "tag": "Copilot", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-copilot.html#copilot-in-excel" },
+  { "title": "Power Automate", "tag": "Automation", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html" },
+  { "title": "Create a Power Automate Flow", "tag": "Automation", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html#create-a-flow" },
+  { "title": "Test a Flow Manually", "tag": "Automation", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html#test-and-fix-flows" },
+  { "title": "Fix a Broken Flow", "tag": "Automation", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html#test-and-fix-flows" },
+  { "title": "Office Apps", "tag": "Office 365", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/office-apps.html" },
+  { "title": "Install Microsoft 365", "tag": "Office 365", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/office-apps.html#install-and-activate" },
+  { "title": "Repair Office App Crash", "tag": "Office 365", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/office-apps.html#repair-and-update" },
+  { "title": "Update Office Apps", "tag": "Office 365", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/office-apps.html#repair-and-update" },
+  { "title": "Microsoft Teams", "tag": "Teams", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-teams.html" },
+  { "title": "Fix Teams No Audio in Meeting", "tag": "Teams", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-teams.html#meetings-and-screen-share" },
+  { "title": "Share Screen in Teams", "tag": "Teams", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-teams.html#meetings-and-screen-share" },
+  { "title": "Teams Not Loading — Clear Cache", "tag": "Teams", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/microsoft-teams.html#troubleshooting" },
+  { "title": "8x8 Phone System", "tag": "8x8", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/8x8-phone-system.html" },
+  { "title": "Zoom", "tag": "Zoom", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/zoom.html" },
+  { "title": "Fix Zoom Audio Not Working", "tag": "Zoom", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/zoom.html#audio-video-and-screen-share" },
+  { "title": "Share Screen in Zoom", "tag": "Zoom", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/zoom.html#audio-video-and-screen-share" },
+  { "title": "Fix Black Screen When Sharing Zoom", "tag": "Zoom", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/zoom.html#troubleshooting" },
+  { "title": "Printers & Print Servers", "tag": "Printers", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printers-print-servers.html" },
+  { "title": "Connect to Print Server", "tag": "Printers", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printers-print-servers.html#connect-to-print-server" },
+  { "title": "Clear Print Queue (PowerShell)", "tag": "Printers", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printers-print-servers.html#quick-reference" },
+  { "title": "Remove Old Printers", "tag": "Printers", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printers-print-servers.html#manage-printers" },
+  { "title": "AT&T Wireless Activation", "tag": "WIRELESS", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html" },
+  { "title": "Activate AT&T Line (Admin Portal)", "tag": "WIRELESS", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html#admin-portal-activation" },
+  { "title": "AT&T End User Device Setup", "tag": "WIRELESS", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html#end-user-device-setup" },
+  { "title": "Set Up AT&T Voicemail", "tag": "WIRELESS", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html#end-user-device-setup" },
+  { "title": "AT&T No Signal Fix", "tag": "WIRELESS", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/att-wireless-activation.html#troubleshooting" },
+  { "title": "New Hire IT Checklist", "tag": "New Hire", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/new-hire-checklist.html" },
+  { "title": "Departing Employee IT Checklist", "tag": "Offboarding", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/departing-employee-checklist.html" },
+  { "title": "Change User UPN", "tag": "UPN", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/new-hire-checklist.html#step-7--change-upn-if-needed-powershell" },
+  { "title": "Verify UPN Change", "tag": "UPN", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/new-hire-checklist.html#step-7--change-upn-if-needed-powershell" },
+  { "title": "Forward Email to Manager", "tag": "Offboarding", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/departing-employee-checklist.html" },
+  { "title": "Equipment Return Checklist", "tag": "Offboarding", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/departing-employee-checklist.html" },
+  { "title": "Remote Wipe Device via Intune", "tag": "Offboarding", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/departing-employee-checklist.html" },
+  { "title": "HR Equipment All Clear Notification", "tag": "Power Automate", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/power-automate.html#hr-equipment-return-flow" },
+  { "title": "Add User to All Users Group", "tag": "New Hire", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/new-hire-checklist.html" },
+  { "title": "Enroll Device in Intune MDM", "tag": "New Hire", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/new-hire-checklist.html" },
+  { "title": "Printer Setup", "tag": "Printers", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/printer-setup.html" },
+  { "title": "Lansweeper", "tag": "Lansweeper", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html" },
+  { "title": "Lansweeper Agent Deployment", "tag": "Lansweeper", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment" },
+  { "title": "Lansweeper GraphQL API", "tag": "Lansweeper", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#3-graphql-api--key-queries" },
+  { "title": "Lansweeper Power Automate Integration", "tag": "Lansweeper", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#4-power-automate-integration-via-http-connector" },
+  { "title": "Lansweeper Custom Tables & Reporting", "tag": "Lansweeper", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#5-custom-tables--asset-reporting" },
+  { "title": "Lansweeper API Token Setup", "tag": "Lansweeper", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#2-api-setup--authentication--credentials" },
+  { "title": "LsAgent macOS Force Sync", "tag": "Lansweeper", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1b-mac-lsagent-reset--force-scan" },
+  { "title": "LsAgent macOS Restart", "tag": "Lansweeper", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1b-mac-lsagent-reset--force-scan" },
+  { "title": "LsAgent macOS Status Check", "tag": "Lansweeper", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment" },
+  { "title": "LsAgent macOS Force Scan Verify", "tag": "Lansweeper", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment" },
+  { "title": "Okta Token Sync After Password Change", "tag": "Okta", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html" },
+  { "title": "Okta OneDrive Sync Crash Fix", "tag": "Okta", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#4-step-3--fix-onedrive-sync-crash--performance" },
+  { "title": "Okta Re-Authenticate Office Apps", "tag": "Okta", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#3-step-2--fix-office-apps-token-word-excel-outlook-teams" },
+  { "title": "Okta Dashboard Token Pass", "tag": "Okta", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#2-step-1--re-authenticate-via-okta-dashboard" },
+  { "title": "Okta Hybrid Entra ID Token Sync", "tag": "Okta", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#8-hybrid-environment--okta--microsoft-entra-id-azure-ad" },
+  { "title": "Clear Cached Bearer Tokens (Credential Manager)", "tag": "Okta", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#5-step-4--clear-stale-credentials-from-windows-credential-manager" },
+  { "title": "OneDrive Reset After Password Change", "tag": "Okta", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#4-step-3--fix-onedrive-sync-crash--performance" },
+  { "title": "GitHub Copilot Agent (Browser)", "tag": "AI Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/github-copilot-agent.html" },
+  { "title": "LogMeIn Resolve — Remote Support", "tag": "Remote Support", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/logmein-resolve.html" },
+  { "title": "Start a Remote Support Session", "tag": "Remote Support", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/logmein-resolve.html#start-session" },
+  { "title": "Deploy LogMeIn Unattended Access", "tag": "Remote Support", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/logmein-resolve.html#unattended-access" },
+  { "title": "Troubleshoot LogMeIn Resolve", "tag": "Remote Support", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/logmein-resolve.html#troubleshooting" },
+  { "title": "CrowdStrike Falcon — Endpoint Security", "tag": "Security", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html" },
+  { "title": "Find & Check Device in Falcon Console", "tag": "Security", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#falcon-console" },
+  { "title": "Respond to CrowdStrike Detection", "tag": "Security", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#respond-to-detections" },
+  { "title": "Network Contain (Isolate) a Host", "tag": "Security", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#falcon-console" },
+  { "title": "Run Real Time Response (RTR) Session", "tag": "Security", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#rtr-commands" },
+  { "title": "Check & Restart Falcon Sensor", "tag": "Security", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/crowdstrike.html#quick-reference" },
+  { "title": "Winget One-Liners", "tag": "Winget", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html" },
+  { "title": "Silent Install — Core Apps (winget)", "tag": "Winget", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html" },
+  { "title": "Silent Install — Help Desk Utilities (winget)", "tag": "Winget", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html#help-desk-utilities" },
+  { "title": "Copy All Winget Install Script", "tag": "Winget", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html" },
+  { "title": "Install RSAT — All Remote Server Admin Tools", "tag": "Winget", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html" },
+  { "title": "Install RSAT — Active Directory, GPMC, DNS, DHCP", "tag": "Winget", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html" },
+  { "title": "Install Tailscale (Mesh VPN)", "tag": "Winget", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/winget-one-liners.html" },
+  { "title": "Copilot Studio Teams Bot — Architecture & Maintenance", "tag": "Copilot Studio", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html" },
+  { "title": "Renew Azure AD Client Secret (Teams Bot Fix)", "tag": "Copilot Studio", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#renew-client-secret" },
+  { "title": "Copilot Studio Bot Can't Publish to Teams", "tag": "Copilot Studio", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#troubleshoot-publish" },
+  { "title": "Fix Broken SharePoint Knowledge Source", "tag": "Copilot Studio", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#fix-sharepoint-knowledge" },
+  { "title": "Fix Suspended Power Automate Flow (Bot Actions)", "tag": "Copilot Studio", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#fix-flows" },
+  { "title": "Copilot Studio Bot Expiry & Maintenance Schedule", "tag": "Copilot Studio", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#expiry-schedule" },
+  { "title": "Teams Bot Architecture Component Map", "tag": "Copilot Studio", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/copilot-studio-teams-bot.html#components" },
+  { "title": "Change Password — Okta Dashboard", "tag": "Password", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#2-step-1--re-authenticate-via-okta-dashboard" },
+  { "title": "Change Password — Network (Ctrl+Alt+Del)", "tag": "Password", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/help-desk-tasks.html#password-and-accounts" },
+  { "title": "Password Not Syncing to Apps After Change", "tag": "Password", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#1-what-happens-after-an-okta-password-change" },
+  { "title": "Fix Office 365 Sign-In After Password Change", "tag": "Password", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#3-step-2--fix-office-apps-token-word-excel-outlook-teams" },
+  { "title": "8x8 Call Forwarding Setup", "tag": "8x8", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/8x8-phone-system.html" },
+  { "title": "8x8 Voicemail Setup", "tag": "8x8", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/8x8-phone-system.html" },
+  { "title": "8x8 Troubleshooting — No Audio / Can't Connect", "tag": "8x8", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/8x8-phone-system.html" },
+  { "title": "CDS Dev Hub — GitHub Projects & Installers", "tag": "CDS", "url": "https://greenhornet-dev.github.io/cds-green/dev.html" },
+  { "title": "CDS PO Builder — Create Purchase Orders", "tag": "CDS", "url": "https://greenhornet-dev.github.io/cds-green/po-builder.html" },
+  { "title": "CDS Shop — Hardware & Gear", "tag": "CDS", "url": "https://greenhornet-dev.github.io/cds-green/shop.html" },
+  { "title": "CDS Services & Pricing", "tag": "CDS", "url": "https://greenhornet-dev.github.io/cds-green/services.html" },
+  { "title": "GitHub Copilot Agent — Browser SOP", "tag": "AI Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/github-copilot-agent.html" },
+  { "title": "Work Tools Query Hub", "tag": "Work Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html" },
+  { "title": "Work Config — Jira, Lansweeper, Power Automate Setup", "tag": "Work Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#2-work-config-setup" },
+  { "title": "SQL Query Library — Lansweeper Database Queries", "tag": "Work Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#3-sql-query-library" },
+  { "title": "GraphQL Runner — Live Lansweeper API Queries", "tag": "Work Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#4-graphql-runner" },
+  { "title": "JQL Preset Browser — Jira Query Language", "tag": "Work Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#5-jql-preset-browser" },
+  { "title": "Portal Query Center — Lansweeper Portal Links", "tag": "Work Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#6-portal-query-center" },
+  { "title": "Clippy Work Tools Commands — Quick Reference", "tag": "Work Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#7-clippy-commands" },
+  { "title": "Jira API Token Setup for Clippy", "tag": "Work Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#2-jira-setup" },
+  { "title": "Lansweeper PAT Setup for Clippy", "tag": "Work Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#2-lansweeper-setup" },
+  { "title": "Redacted Build Pattern — Credentials in localStorage", "tag": "Work Tools", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#1-overview--redacted-build-pattern" },
+  { "title": "Python vs Java — IT Dev Learning Guide", "tag": "Dev", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html" },
+  { "title": "Python for IT Automation — Real Examples", "tag": "Dev", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html#5-python-for-it" },
+  { "title": "Key Python Libraries for IT Work", "tag": "Dev", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html#6-key-libraries" },
+  { "title": "Python Getting Started — Install & First Script", "tag": "Dev", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html#7-getting-started" },
+  { "title": "Python Learning Path — IT Staff", "tag": "Dev", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/python-vs-java.html#8-learning-path" },
+  { "title": "VS Code Dev SOP — API Calls, Parsing, Power Automate & SharePoint", "tag": "Dev", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html" },
+  { "title": "VS Code Extensions — Essential Dev Setup", "tag": "Dev", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#1-vscode-setup" },
+  { "title": "API Calls from VS Code — REST Client & Thunder Client", "tag": "Dev", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#2-api-calls" },
+  { "title": "JSON & CSV Indexing and Parsing — Python", "tag": "Dev", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#3-indexing-parsing" },
+  { "title": "Power Automate Next Level — Python + Flask + PA Integration", "tag": "Power Automate", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#4-power-automate" },
+  { "title": "SharePoint Sensitivity Labels — HR & Finance Redaction", "tag": "SharePoint", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#5-sharepoint-redaction" },
+  { "title": "SharePoint DLP Policy — Block External Sharing", "tag": "SharePoint", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#5-sharepoint-redaction" },
+  { "title": "Microsoft Purview Auto-Labeling — SSN & Financial Data", "tag": "SharePoint", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#5-sharepoint-redaction" },
+  { "title": "VS Code Keyboard Shortcuts — Dev Workflow", "tag": "Dev", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/vscode-dev-sop.html#6-shortcuts" },
+  { "title": "GraphQL vs SQL — Parsing & Response Formats", "tag": "GraphQL", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html" },
+  { "title": "Why Lansweeper GraphQL Responses Are Nested", "tag": "GraphQL", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#1-why-nested" },
+  { "title": "Flatten GraphQL Response — Python", "tag": "GraphQL", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#3-flatten-python" },
+  { "title": "Flatten GraphQL Response — JavaScript", "tag": "GraphQL", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#4-flatten-js" },
+  { "title": "Lansweeper GraphQL Collection Names & Paths", "tag": "Lansweeper", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#6-lansweeper-patterns" },
+  { "title": "GraphQL vs SQL — When to Use Each", "tag": "GraphQL", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/graphql-vs-sql-parsing.html#5-when-to-use" },
+  { "title": "YubiKey Reprogram SOP", "tag": "Security", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html" },
+  { "title": "Reset YubiKey FIDO2", "tag": "Security", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html#4-reset-yubikey" },
+  { "title": "Re-enroll YubiKey in Okta MFA", "tag": "Security", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html#6-reenroll-okta" },
+  { "title": "Reprogram YubiKey OTP Slot", "tag": "Security", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html#5-reprogram-otp" },
+  { "title": "YubiKey ykman Quick Reference", "tag": "Security", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html#8-quick-reference" },
+  { "title": "YubiKey Troubleshooting — Not Detected / PIN Blocked", "tag": "Security", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/yubikey.html#9-troubleshooting" },
+  { "title": "Okta Admin — Bulk CSV User Import", "tag": "Okta", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#9-okta-admin--csv-user-import" },
+  { "title": "Okta CSV Import — Required Fields & Format", "tag": "Okta", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#9-okta-admin--csv-user-import" },
+  { "title": "Okta CSV Import — Common Errors & Fixes", "tag": "Okta", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#9-okta-admin--csv-user-import" },
+  { "title": "Activate Staged Users After CSV Import", "tag": "Okta", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/okta.html#9-okta-admin--csv-user-import" },
+  { "title": "Mac One-Liners — Help Desk Terminal Commands", "tag": "Mac", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html" },
+  { "title": "Mac — Network: Flush DNS, IP, Wi-Fi", "tag": "Mac", "description": "Flush DNS cache, show IP address, get Wi-Fi SSID, renew DHCP lease on macOS.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#network" },
+  { "title": "Mac — Flush DNS Cache", "tag": "Mac", "description": "sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#network" },
+  { "title": "Mac — Show IP Address & Wi-Fi Name", "tag": "Mac", "description": "ipconfig getifaddr en0; networksetup -getairportnetwork en0", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#network" },
+  { "title": "Mac — Renew DHCP Lease", "tag": "Mac", "description": "sudo ipconfig set en0 DHCP — forces new IP from DHCP server.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#network" },
+  { "title": "Mac — System Info: OS Version, Serial, Hostname", "tag": "Mac", "description": "sw_vers; system_profiler SPHardwareDataType — get macOS version, serial number, model.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#system-info" },
+  { "title": "Mac — Get Serial Number", "tag": "Mac", "description": "system_profiler SPHardwareDataType | grep -E 'Serial|Model'", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#system-info" },
+  { "title": "Mac — Check Disk Space", "tag": "Mac", "description": "df -h / — shows free and used disk space on the main volume.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#system-info" },
+  { "title": "Mac — User Account: List Users, Reset Password, Admin Check", "tag": "Mac", "description": "dscl . list /Users; dscl . read /Groups/admin GroupMembership — manage local user accounts.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#user-account" },
+  { "title": "Mac — Reset Local User Password", "tag": "Mac", "description": "sudo dscl . -passwd /Users/USERNAME newpassword", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#user-account" },
+  { "title": "Mac — Check Admin Group Members", "tag": "Mac", "description": "dscl . read /Groups/admin GroupMembership — verify who has admin rights.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#user-account" },
+  { "title": "Mac — Kill Frozen App, Clear Cache, Rebuild Spotlight", "tag": "Mac", "description": "pkill / killall AppName; rm -rf ~/Library/Caches/...; sudo mdutil -E /", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#software-app" },
+  { "title": "Mac — Kill Frozen App", "tag": "Mac", "description": "killall \"App Name\" or pkill -x \"App Name\" — force-quit a hung application.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#software-app" },
+  { "title": "Mac — Rebuild Spotlight Index", "tag": "Mac", "description": "sudo mdutil -E / — fixes search not finding files in Finder or apps.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#software-app" },
+  { "title": "Mac — Printer: List & Clear Print Queue", "tag": "Mac", "description": "lpstat -p; cancel -a PRINTERNAME — list printers and clear stuck jobs on Mac.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#printer" },
+  { "title": "Mac — Clear Stuck Print Queue", "tag": "Mac", "description": "cancel -a PRINTERNAME — cancels all jobs for a specific printer.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#printer" },
+  { "title": "Mac — NVRAM Flush (Intel) / Boot Flags", "tag": "Mac", "description": "sudo nvram -c — clears NVRAM on Intel Macs. Not needed on Apple Silicon.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#nvram" },
+  { "title": "Mac — Force Safe Mode Next Boot", "tag": "Mac", "description": "sudo nvram boot-args=\"-x\" — sets safe mode flag. Clear with boot-args=\"\".", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#nvram" },
+  { "title": "Mac — LogMeIn Resolve: Agent Check & Restart", "tag": "Mac", "description": "ps aux | grep -i logmein; sudo launchctl stop/start com.logmein.logmeindaemon", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#logmein-remote" },
+  { "title": "Mac — Check SIP Status", "tag": "Mac", "description": "csrutil status — check if System Integrity Protection is enabled or disabled.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#logmein-remote" },
+  { "title": "Mac Boot Failure — Recovery Mode Terminal Commands", "tag": "Mac", "description": "diskutil list; diskutil repairDisk disk0; fsck_apfs -y — run from Recovery Mode Terminal.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#boot-failure" },
+  { "title": "Mac Boot Failure — Disk Repair: diskutil, fsck, APFS", "tag": "Mac", "description": "diskutil repairVolume; diskutil apfs repairContainer disk0 — fix corrupted volumes.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#boot-failure" },
+  { "title": "Mac Boot Failure — Reset Startup Disk (bless)", "tag": "Mac", "description": "bless --mount \"/Volumes/Macintosh HD\" --setBoot --verbose — fix missing boot disk.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#boot-failure" },
+  { "title": "Mac Boot Failure — FileVault Status & Panic Logs", "tag": "Mac", "description": "fdesetup status; ls /Library/Logs/DiagnosticReports/ | grep panic", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#boot-failure" },
+  { "title": "Mac Lansweeper — lsAgent Reset & Force Scan", "tag": "Mac", "description": "Stop lsAgent, clear lsagent.ini, restart to force a clean re-scan in Lansweeper.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#lansweeper-mac-agent" },
+  { "title": "Mac Lansweeper — Clear lsagent.ini One-Liner", "tag": "Mac", "description": "sudo launchctl stop com.lansweeper.lsagent; sudo rm /Library/LsAgent/lsagent.ini; sudo launchctl start com.lansweeper.lsagent", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/sop-mac.html#lansweeper-mac-agent" },
+
+  { "title": "Jira — IT Help Desk Overview", "tag": "Jira", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html" },
+  { "title": "Jira — Create a New Ticket", "tag": "Jira", "description": "Submit a new issue in the HELP project from the Jira portal or email.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#create-ticket" },
+  { "title": "Jira — Assign and Prioritize a Ticket", "tag": "Jira", "description": "Set assignee, priority (High/Medium/Low), and due date on a HELP issue.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#assign-prioritize" },
+  { "title": "Jira — Transition Ticket Status", "tag": "Jira", "description": "Move a ticket from To Do → In Progress → Done. Find transition IDs for API automation.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#transitions" },
+  { "title": "Jira — Get Your API Token (Jira Cloud)", "tag": "Jira", "description": "Generate an Atlassian API token at id.atlassian.com for use with Power Automate and Clippy work mode.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#api-token" },
+  { "title": "Jira — Build Basic Auth Header for API Calls", "tag": "Jira", "description": "How to base64-encode email:apitoken to create the Authorization: Basic header required by the Jira REST API.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#basic-auth" },
+  { "title": "Jira — REST API: Search Issues (JQL)", "tag": "Jira", "description": "GET /rest/api/3/search?jql=... — the core Jira API call for fetching tickets. Used by Clippy work mode.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#api-search" },
+  { "title": "Jira — REST API: Update Issue Custom Fields", "tag": "Jira", "description": "PUT /rest/api/3/issue/{key} — write device data from Lansweeper into Jira custom fields.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#api-update-fields" },
+  { "title": "Jira — REST API: Post a Comment", "tag": "Jira", "description": "POST /rest/api/3/issue/{key}/comment with Atlassian Document Format (ADF) body.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#api-comment" },
+  { "title": "Jira — Find Custom Field IDs", "tag": "Jira", "description": "GET /rest/api/3/field — returns all fields including customfield_XXXXX IDs needed for API calls.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#custom-field-ids" },
+  { "title": "Jira — Find Workflow Transition IDs", "tag": "Jira", "description": "GET /rest/api/3/issue/{key}/transitions — returns transition IDs for the project workflow. Needed for automation.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#transition-ids" },
+  { "title": "Jira — JQL Quick Reference", "tag": "Jira", "description": "Common JQL filters: assignee = currentUser(), project = HELP, status != Done, created >= -7d.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/work-tools-query.html#5-jql-preset-browser" },
+  { "title": "Jira — PO Approval Tracking Setup", "tag": "Jira", "description": "How the Power Automate PO flows create and update HELP project issues for purchasing tracking.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#po-tracking" },
+  { "title": "Jira — Lansweeper Device Sync Setup", "tag": "Jira", "description": "Power Automate webhook flow that auto-populates Jira ticket custom fields from Lansweeper when a ticket is created.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#lansweeper-sync" },
+  { "title": "Jira — Cloud Sync Issues: Customer vs Agent Views", "tag": "Jira", "description": "Common Jira Cloud sync problems between customer portal submissions and agent-side views. Custom field visibility, webhook firing differences.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#cloud-sync-issues" },
+  { "title": "Jira — Webhook Setup for Power Automate", "tag": "Jira", "description": "Jira Settings > System > WebHooks — configure issue_created event to POST to a Power Automate HTTP trigger URL.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#webhook-setup" },
+  { "title": "Jira — CORS Errors from Browser API Calls", "tag": "Jira", "description": "Jira Cloud blocks direct browser-to-API calls from non-Atlassian domains. Fix: route through Power Automate as a proxy.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#cors-fix" },
+
+  { "title": "Lansweeper — Cloud vs On-Prem Sync", "tag": "Lansweeper", "description": "How lsAgent syncs asset data to Lansweeper Cloud. Differences between cloud-hosted scanning and on-prem Relay scanning.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment" },
+  { "title": "Lansweeper — Custom Fields Setup", "tag": "Lansweeper", "description": "Add user-defined custom fields in Lansweeper (Admin > Assets > Custom Fields). How they appear in GraphQL vs assetCustom built-ins.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#5-custom-tables--asset-reporting" },
+  { "title": "Lansweeper — GraphQL Custom Fields Query", "tag": "Lansweeper", "description": "How to query user-defined custom fields vs built-in assetCustom fields in the GraphQL API v2.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#3-graphql-api--key-queries" },
+  { "title": "Lansweeper — Asset Not Showing After Scan", "tag": "Lansweeper", "description": "Troubleshoot why a device doesn't appear in Lansweeper: agent not installed, firewall blocking, lsAgent not running.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment" },
+  { "title": "Lansweeper — User Not Matching Device", "tag": "Lansweeper", "description": "Why assetUsers.username may not match Entra/Azure AD UPN. Domain prefix format (NEWSBANK\\user) vs UPN (user@newsbank.com).", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#3-graphql-api--key-queries" },
+  { "title": "Lansweeper — Relay Setup for Remote Sites", "tag": "Lansweeper", "description": "Install a Lansweeper Relay to scan remote/branch networks that can't reach the cloud directly.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#1-lansweeper-agent-deployment" },
+  { "title": "Lansweeper — Power Automate: Get Device by UPN", "tag": "Lansweeper", "description": "HelpDesk_Get_Device_Data_Lansweeper flow — queries GraphQL by reporter email, returns hostname, OS, serial, warranty.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#4-power-automate-integration-via-http-connector" },
+  { "title": "Lansweeper — Jira Auto-Sync on Ticket Create", "tag": "Lansweeper", "description": "Jira_Lansweeper_Device_Sync flow: Jira webhook fires on issue_created, Lansweeper is queried by reporter UPN, device data written to Jira custom fields.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/jira.html#lansweeper-sync" },
+  { "title": "Lansweeper — Warranty Report", "tag": "Lansweeper", "description": "Find assets with warranty expiring in the next 90 days using GraphQL or SQL. Use for PO planning.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#5-custom-tables--asset-reporting" },
+  { "title": "Lansweeper — Site ID Location", "tag": "Lansweeper", "description": "Find your Lansweeper Cloud site ID: Admin > Settings > Site. Also stored in Azure Key Vault as lansweeper-site-id.", "url": "https://greenhornet-dev.github.io/SOP-IT-Help/lansweeper.html#2-api-setup--authentication--credentials" }
 ]

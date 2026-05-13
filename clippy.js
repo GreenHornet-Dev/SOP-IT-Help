@@ -164,6 +164,93 @@
       {label:'RSAT: DHCP',                 cmd:'Add-WindowsCapability -Online -Name "Rsat.DHCP.Tools~~~~0.0.1.0"',                   apps:['rsat dhcp','dhcp tools rsat']},
     ];
 
+    /* == MAC COMMANDS — synced with sop-mac.html == */
+    const MAC_COMMANDS = [
+      {section:'Network'},
+      {label:'Show IP (Wi-Fi / Ethernet)',       cmd:'ipconfig getifaddr en0; ipconfig getifaddr en1'},
+      {label:'Flush DNS cache',                  cmd:'sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'},
+      {label:'Show Wi-Fi network name',           cmd:'networksetup -getairportnetwork en0'},
+      {label:'Release / renew DHCP',             cmd:'sudo ipconfig set en0 DHCP'},
+      {label:'Ping test (4 packets)',            cmd:'ping -c 4 8.8.8.8'},
+      {label:'DNS resolution test',             cmd:'nslookup google.com'},
+      {section:'System Info'},
+      {label:'OS version + serial number',       cmd:'sw_vers; system_profiler SPHardwareDataType | grep -E "Serial|Model"'},
+      {label:'Hostname',                         cmd:'hostname'},
+      {label:'Uptime',                           cmd:'uptime'},
+      {label:'Disk space',                       cmd:'df -h /'},
+      {label:'RAM usage',                        cmd:'vm_stat | head -5'},
+      {label:'MAC address (en0)',                cmd:'ifconfig en0 | grep ether'},
+      {section:'User Account'},
+      {label:'Current user',                     cmd:'whoami; id'},
+      {label:'List all local users',             cmd:"dscl . list /Users | grep -v '^_'"},
+      {label:'Check admin group',                cmd:'dscl . read /Groups/admin GroupMembership'},
+      {label:'Reset password',                   cmd:'sudo dscl . -passwd /Users/USERNAME newpassword'},
+      {label:'Fix home folder permissions',      cmd:'sudo chown -R $(whoami) ~/'},
+      {section:'Software / App'},
+      {label:'Kill frozen app by name',          cmd:'pkill -x "App Name"'},
+      {label:'Force-quit all instances',         cmd:'killall "App Name"'},
+      {label:'Clear app cache',                  cmd:'rm -rf ~/Library/Caches/com.vendor.AppName'},
+      {label:'List recent crash logs',           cmd:'ls -lt ~/Library/Logs/DiagnosticReports | head -50'},
+      {label:'Rebuild Spotlight index',          cmd:'sudo mdutil -E /'},
+      {section:'Printer'},
+      {label:'List printers',                    cmd:'lpstat -p'},
+      {label:'Clear print queue',                cmd:'cancel -a PRINTERNAME'},
+      {label:'Remove printer (reset)',           cmd:'sudo lpadmin -x PRINTERNAME'},
+      {section:'LogMeIn / Remote'},
+      {label:'Check LogMeIn agent running',      cmd:'ps aux | grep -i logmein'},
+      {label:'Restart LogMeIn service',          cmd:'sudo launchctl stop com.logmein.logmeindaemon && sudo launchctl start com.logmein.logmeindaemon'},
+      {label:'Check SIP status',                 cmd:'csrutil status'},
+      {section:'NVRAM / Boot Flags'},
+      {label:'Flush NVRAM (Intel only)',         cmd:'sudo nvram -c'},
+      {label:'Force safe mode next boot',        cmd:'sudo nvram boot-args="-x"'},
+      {label:'Clear safe mode flag',             cmd:'sudo nvram boot-args=""'},
+      {label:'Check safe mode flags',            cmd:'nvram boot-args | grep "-x" && echo "Safe Mode set" || echo "Normal boot"'},
+      {section:'Boot Failure — Recovery Mode'},
+      {label:'List all disks',                   cmd:'diskutil list'},
+      {label:'Repair main disk',                 cmd:'diskutil repairDisk disk0'},
+      {label:'Repair boot volume',               cmd:'diskutil repairVolume disk1s1'},
+      {label:'APFS container repair',            cmd:'diskutil apfs repairContainer disk0'},
+      {label:'fsck (APFS)',                      cmd:'fsck_apfs -y /dev/disk1s1'},
+      {label:'Reset startup disk',               cmd:'bless --mount "/Volumes/Macintosh HD" --setBoot --verbose'},
+      {label:'Last boot log',                    cmd:'log show --last boot | tail -100'},
+      {label:'List panic logs',                  cmd:'ls /Library/Logs/DiagnosticReports/ | grep panic'},
+      {label:'Mount read-write (Single User)',   cmd:'/sbin/fsck -fy; /sbin/mount -uw /'},
+      {label:'Check FileVault status',           cmd:'fdesetup status'},
+      {section:'Lansweeper lsAgent'},
+      {label:'Find lsagent.ini',                 cmd:'sudo find /Library -name "lsagent.ini" 2>/dev/null'},
+      {label:'Stop lsAgent',                     cmd:'sudo launchctl stop com.lansweeper.lsagent'},
+      {label:'Clear lsagent.ini (full reset)',   cmd:'sudo rm /Library/LsAgent/lsagent.ini'},
+      {label:'Clear UniqueID only',              cmd:"sudo sed -i '' 's/^UniqueID=.*/UniqueID=/' /Library/LsAgent/lsagent.ini"},
+      {label:'Restart lsAgent',                  cmd:'sudo launchctl start com.lansweeper.lsagent'},
+      {label:'One-liner: stop → clear → restart',cmd:'sudo launchctl stop com.lansweeper.lsagent; sudo rm /Library/LsAgent/lsagent.ini; sudo launchctl start com.lansweeper.lsagent'},
+      {label:'Watch lsAgent log',                cmd:'sudo tail -f /Library/LsAgent/lsagent.log'},
+    ];
+
+    function showMacCommands(filter) {
+      const rows = MAC_COMMANDS.filter(m => !filter || m.section || m.label.toLowerCase().includes(filter) || m.cmd.toLowerCase().includes(filter));
+      if (!rows.length) { addHTML('<p style="color:#888">No matching Mac commands.</p>'); return; }
+      let html = `<div style="font-weight:700;color:#00ff64;margin-bottom:8px;"> Mac Commands <a href="./sop-mac.html" target="_blank" style="color:#00ff64;font-size:11px;margin-left:8px;">Open full page →</a></div>`;
+      html += `<div style="max-height:300px;overflow-y:auto;scrollbar-width:thin;">`;
+      rows.forEach(m => {
+        if (m.section) {
+          html += `<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;padding:8px 4px 4px;border-top:1px solid #1a1a2e;">${m.section}</div>`;
+        } else {
+          const safe = m.cmd.replace(/"/g,'&quot;');
+          html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 4px;border-bottom:1px solid #111;">
+            <div>
+              <div style="font-size:12px;color:#ddd;font-weight:600;">${m.label}</div>
+              <div style="font-family:monospace;font-size:11px;color:#00ff64;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;">${m.cmd}</div>
+            </div>
+            <button style="background:#00ff64;color:#000;border:none;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer;flex-shrink:0;margin-left:6px;"
+              data-cmd="${safe}"
+              onclick="navigator.clipboard.writeText(this.dataset.cmd);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button>
+          </div>`;
+        }
+      });
+      html += `</div>`;
+      addHTML(`<div id="clippy-result-hover">${html}</div>`);
+    }
+
     /* == Toggle Window == */
     /* == Page Context == */
     function getPageContext() {
@@ -185,11 +272,14 @@
         if (p.includes('logmein'))              return 'sop-logmein';
         if (p.includes('crowdstrike'))          return 'sop-crowdstrike';
         if (p.includes('winget-one-liners'))    return 'sop-winget';
+        if (p.includes('sop-mac'))              return 'sop-mac';
         if (p.includes('copilot-studio'))       return 'sop-copilot-studio';
         if (p.includes('work-tools-query'))     return 'sop-worktools';
         if (p.includes('python-vs-java'))       return 'sop-python';
         if (p.includes('vscode-dev-sop'))       return 'sop-vscode';
         if (p.includes('graphql-vs-sql'))       return 'sop-gqlsql';
+        if (p.includes('jira'))                 return 'sop-jira';
+        if (p.includes('newsbank-po'))          return 'sop-po';
         if (p.includes('training'))             return 'training';
         if (p.includes('services'))             return 'services';
         if (p.includes('shop'))                 return 'shop';
@@ -214,11 +304,14 @@
         'sop-logmein':    ['🖥️ Start Session','🔑 Password Reset','🔍 Lansweeper','🛡️ CrowdStrike','📋 All SOPs'],
         'sop-crowdstrike':['🛡️ Respond to Detection','🔒 Contain Host','🖥️ RTR Session','🔍 Lansweeper','📋 All SOPs'],
         'sop-winget':   ['📋 Copy All Apps','🌐 Install Chrome','💬 Install Teams','📝 Install Notepad++','📋 All SOPs'],
+        'sop-mac':      [' Mac Commands',' Flush DNS',' NVRAM Flush',' Boot Failure',' lsAgent Reset'],
         'sop-copilot-studio': ['🔑 Renew Azure Secret','📂 Fix SharePoint Knowledge','⚡ Fix Broken Flow','📋 Expiry Schedule','📋 All SOPs'],
         'sop-worktools': ['🗄️ SQL Queries','⬡ GraphQL','🎫 JQL Presets','🔗 Portal Queries','⚙️ Work Config'],
         'sop-python':   ['🐍 Python vs Java','📦 Key Libraries','🚀 Getting Started','🗺️ Learning Path','📋 All SOPs'],
         'sop-vscode':   ['🔌 Extensions','📡 API Calls','🗂️ Parsing','⚡ Power Automate','🏷️ SharePoint Labels'],
         'sop-gqlsql':   ['🌲 Why Nested?','⬡ Flatten GraphQL','🗄️ SQL vs GraphQL','🔍 Lansweeper Paths','📋 All SOPs'],
+        'sop-jira':     ['🎫 My Tickets','🔑 API Token','🔗 Basic Auth','🔍 Find Field IDs','⚙️ Work Config'],
+        'sop-po':       ['📋 Submit a PO','📊 Check Status','✅ Common Orders','📞 Contact IT'],
         'training':     ['📋 Browse SOPs','🖨️ Printer Fix','🔑 Password Reset','🛒 Shop Gear'],
         'services':     ['💰 Get a Quote','🛒 Shop Laptops','🖥️ Shop Monitors','📞 Services'],
         'shop':         ['🛒 Shop Laptops','🖥️ Shop Monitors','🖨️ Shop Printers','💰 View Quote'],
@@ -236,11 +329,14 @@
         'services':     "💼 Services page — ask about pricing, request support, or build a quote.",
         'shop':         "🛒 Shop — search products to build a quote. Try 'shop laptops' or 'shop monitors'.",
         'sop-winget':   "🪶 Winget One-Liners — click COPY on any row, or COPY ALL at the bottom for the full PowerShell install script.",
+        'sop-mac':      " Mac One-Liners — click any row or COPY to grab a command. Ask me about mac network, boot failure, nvram, or lsagent.",
         'sop-copilot-studio': "🤖 Copilot Studio Teams Bot — ask about renewing the Azure secret, fixing broken knowledge sources, or why publishing to Teams fails.",
         'sop-worktools': "⚡ Work Tools Query Hub — type <b>sql</b>, <b>graphql</b>, or <b>jql</b> to open query libraries. Type <b>work config</b> to set up your credentials (stored locally, never in the repo).",
         'sop-python':   "🐍 Python vs Java — ask about libraries, getting started, or how Python connects to Jira, Lansweeper, or Claude.",
         'sop-vscode':   "💻 VS Code Dev SOP — extensions, API calls, JSON/CSV parsing, Power Automate integration, and SharePoint sensitivity labels for HR &amp; Finance.",
         'sop-gqlsql':   "⬡ GraphQL vs SQL Parsing — why Lansweeper responses are nested, how to flatten them, and when SQL is the cleaner call.",
+        'sop-jira':     "🎫 Jira HELP Desk — ask about creating tickets, API token setup, Basic auth, JQL queries, PO tracking, or the Lansweeper device sync.",
+        'sop-po':       "🛒 Purchase Orders — ask how to submit a PO, check approval status, what happens after you submit, or what to put in the description.",
         'default':      "👋 Hi! I'm Clippy. Ask about SOPs, IT fixes, shortcuts, winget installs, or shop for gear.",
     };
 
@@ -1004,6 +1100,130 @@
     }
   );
 
+  /* == Mac Knowledge == */
+  SITE_KNOWLEDGE.push(
+    {
+      keys: ['mac terminal','mac one-liner','mac command','mac ip','mac flush dns','mac dns','flush dns mac','macos dns','mac wifi','mac network'],
+      icon: '', title: 'Mac — Network Commands',
+      related: ['LogMeIn Resolve','Mac lsAgent','Mac Boot Failure'],
+      steps: [
+        'Run these in a <b>LogMeIn Resolve terminal session</b>.',
+        '<b>Show IP (Wi-Fi / Ethernet):</b>',
+        '<code>ipconfig getifaddr en0; ipconfig getifaddr en1</code>',
+        '<b>Flush DNS cache:</b>',
+        '<code>sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder</code>',
+        '<b>Show Wi-Fi network name:</b>',
+        '<code>networksetup -getairportnetwork en0</code>',
+        '<b>Release / renew DHCP:</b>',
+        '<code>sudo ipconfig set en0 DHCP</code>',
+        '<b>Ping test:</b> <code>ping -c 4 8.8.8.8</code>',
+        '<a href="./sop-mac.html" style="color:#00ff64"> Full Mac One-Liners page →</a>'
+      ]
+    },
+    {
+      keys: ['mac system info','mac os version','mac serial number','mac hostname','mac disk space','mac uptime','mac ram','macos version','mac model'],
+      icon: '', title: 'Mac — System Info Commands',
+      related: ['Mac Network','LogMeIn Resolve'],
+      steps: [
+        '<b>OS version + serial number:</b>',
+        '<code>sw_vers; system_profiler SPHardwareDataType | grep -E "Serial|Model"</code>',
+        '<b>Hostname:</b> <code>hostname</code>',
+        '<b>Uptime:</b> <code>uptime</code>',
+        '<b>Disk space:</b> <code>df -h /</code>',
+        '<b>RAM usage:</b> <code>vm_stat | head -5</code>',
+        '<b>MAC address:</b> <code>ifconfig en0 | grep ether</code>',
+        '<a href="./sop-mac.html" style="color:#00ff64"> Full Mac One-Liners page →</a>'
+      ]
+    },
+    {
+      keys: ['mac nvram','nvram flush','nvram reset','nvram mac','pram reset','mac pram','flush nvram','clear nvram','mac boot args','mac safe mode','safe mode mac'],
+      icon: '', title: 'Mac — NVRAM Flush & Boot Flags',
+      related: ['Mac Boot Failure','Mac lsAgent'],
+      steps: [
+        '<b>Flush NVRAM (Intel Macs only):</b>',
+        '<code>sudo nvram -c</code>',
+        'Reboot after. Not needed on <b>Apple Silicon</b> — NVRAM resets on every clean shutdown.',
+        '<b>Force safe mode on next boot:</b>',
+        '<code>sudo nvram boot-args="-x"</code>',
+        '<b>Clear safe mode flag:</b>',
+        '<code>sudo nvram boot-args=""</code>',
+        '<b>Check safe mode flags:</b>',
+        '<code>nvram boot-args | grep "-x" && echo "Safe Mode set" || echo "Normal boot"</code>',
+        '<a href="./sop-mac.html" style="color:#00ff64"> Full Mac One-Liners page →</a>'
+      ]
+    },
+    {
+      keys: ['mac boot failure','mac wont boot','mac not booting','mac boot issue','mac recovery mode','recovery terminal','mac disk repair','mac diskutil','mac fsck','mac boot fix','mac startup disk','mac apfs repair','mac bless'],
+      icon: '', title: 'Mac Boot Failure — Recovery Mode Commands',
+      related: ['Mac NVRAM','Mac lsAgent','Mac System Info'],
+      steps: [
+        '<b>Enter Recovery Mode:</b> Hold <b>Cmd+R</b> (Intel) or <b>Power button</b> (Apple Silicon) at startup. Open Utilities → Terminal.',
+        '<b>List disks:</b> <code>diskutil list</code>',
+        '<b>Repair main disk:</b> <code>diskutil repairDisk disk0</code>',
+        '<b>Repair boot volume:</b> <code>diskutil repairVolume disk1s1</code>',
+        '<b>APFS container repair:</b> <code>diskutil apfs repairContainer disk0</code>',
+        '<b>fsck (APFS):</b> <code>fsck_apfs -y /dev/disk1s1</code>',
+        '<b>Reset startup disk:</b>',
+        '<code>bless --mount "/Volumes/Macintosh HD" --setBoot --verbose</code>',
+        '<b>View last boot log:</b> <code>log show --last boot | tail -100</code>',
+        '<b>Check FileVault:</b> <code>fdesetup status</code>',
+        '<b>Single User Mode (Intel only):</b> <code>/sbin/fsck -fy; /sbin/mount -uw /</code>',
+        '<a href="./sop-mac.html" style="color:#00ff64"> Full Mac One-Liners page →</a>'
+      ]
+    },
+    {
+      keys: ['lsagent mac','mac lsagent','lansweeper mac','mac lansweeper','lsagent.ini','mac scan lansweeper','mac asset scan','lsagent force scan','mac lsagent reset','lansweeper not showing mac','mac not in lansweeper'],
+      icon: '', title: 'Mac lsAgent — Reset & Force Scan',
+      related: ['Lansweeper','Mac Boot Failure','LogMeIn Resolve'],
+      steps: [
+        'Run in a <b>LogMeIn Resolve terminal session</b> on the Mac.',
+        '<b>Find lsagent.ini:</b>',
+        '<code>sudo find /Library -name "lsagent.ini" 2>/dev/null</code>',
+        'Typical path: <code>/Library/LsAgent/lsagent.ini</code>',
+        '<b>One-liner: stop → clear ini → restart (full re-register):</b>',
+        '<code>sudo launchctl stop com.lansweeper.lsagent; sudo rm /Library/LsAgent/lsagent.ini; sudo launchctl start com.lansweeper.lsagent</code>',
+        '<b>Clear UniqueID only (re-scan, no full re-register):</b>',
+        '<code>sudo sed -i \'\' \'s/^UniqueID=.*/UniqueID=/\' /Library/LsAgent/lsagent.ini</code>',
+        '<b>Watch log to confirm scan started:</b>',
+        '<code>sudo tail -f /Library/LsAgent/lsagent.log</code>',
+        '<a href="./lansweeper.html#1b-mac-lsagent-reset--force-scan" style="color:#00ff64"> Full lsAgent SOP →</a> | <a href="./sop-mac.html" style="color:#00ff64"> Mac One-Liners →</a>'
+      ]
+    }
+  );
+
+  // ── NewsBank-specific: PO + Jira knowledge entries ──────────────
+  SITE_KNOWLEDGE.push(
+    {
+      keys: ['submit po','purchase order','newsbank po','po process','place order','request equipment','order equipment','po approval','how to order','submit order','po form','po wizard help'],
+      icon: '🛒', title: 'Submit a Purchase Order',
+      related: ['PO Tracking Tickets', 'Contact Purchasing', 'Jira HELP Desk'],
+      steps: [
+        'Open the <a href="./newsbank-po.html" style="color:#00ff64">Purchase Order SOP</a> for the full process guide.',
+        '<b>To submit:</b> Open the PO PowerApp → fill in items, department, GL code → click Submit.',
+        'Your <b>department and GL code</b> auto-fill from your device record in Lansweeper — change if ordering for another dept.',
+        'On submit: a Jira HELP ticket is created (<code>HELP-XXXX</code>) + approval request sent to your manager.',
+        'Purchasing (<code>purchasing@newsbank.com</code>) is CC\'d on the approval email.',
+        'You will receive an email when your manager approves or rejects.',
+        '<b>Check status:</b> look for your <code>HELP-XXXX</code> Jira issue in the confirmation email.',
+        '<b>Questions:</b> <a href="mailto:helpdesk@newsbank.com" style="color:#00ff64">helpdesk@newsbank.com</a>',
+      ]
+    },
+    {
+      keys: ['jira', 'jira ticket', 'jira api', 'help project', 'help-', 'jira sop', 'jira setup', 'api token jira', 'jira basic auth', 'jql help'],
+      icon: '🎫', title: 'Jira HELP Desk',
+      related: ['API Token', 'Work Config', 'JQL Presets'],
+      steps: [
+        'Open the <a href="./jira.html" style="color:#00ff64">Jira SOP page</a> for full coverage.',
+        '<b>Project:</b> HELP &nbsp;·&nbsp; <b>Issue format:</b> <code>HELP-XXXX</code> &nbsp;·&nbsp; <b>Email:</b> <code>helpdesk@newsbank.com</code>',
+        '<b>Get API token:</b> <a href="https://id.atlassian.com" target="_blank" style="color:#00ff64">id.atlassian.com</a> → Security → Create API token',
+        '<b>Basic auth header:</b> <code>Basic base64(email:apitoken)</code>',
+        '<b>Search tickets (JQL):</b> <code>GET /rest/api/3/search?jql=assignee=currentUser()</code>',
+        '<b>In Clippy work mode:</b> type <b>my tickets</b> to pull your open Jira tickets.',
+        '<b>PO tracking:</b> type <b>jql</b> → select "PO Tracking Tickets" to see all purchase order issues.',
+      ]
+    }
+  );
+
   /* == Handle Query == */
   function handleQuery(q) {
     const lower = q.toLowerCase();
@@ -1023,6 +1243,7 @@
       { keys: ['services','support','tech support'], label: 'Services', url: 'https://greenhornet-dev.github.io/cds-green/services.html' },
       { keys: ['sop portal','sop list','all sops'], label: 'SOP Portal', url: './sop-portal.html' },
       { keys: ['winget one-liners','winget page','app installs','install all','winget table'], label: 'Winget One-Liners', url: './winget-one-liners.html' },
+      { keys: ['mac one-liners','mac commands','mac terminal','mac sop','mac help desk','macos commands'], label: 'Mac One-Liners', url: './sop-mac.html' },
       { keys: ['dev','developer','dev page'], label: 'Dev', url: 'https://greenhornet-dev.github.io/cds-green/dev.html' },
       // External portals
       { keys: ['adp','time card','timecard','adp timecard','workforcenow','adp portal','clock in','punch in'], label: 'ADP Time Card', url: 'https://workforcenow.adp.com/theme/index.html#/Myself/MyselfTabTimecardsAttendanceSchCategoryTLMWebMyTimecard' },
@@ -1032,6 +1253,8 @@
       { keys: ['power automate','make.powerautomate','flow portal','my flows'], label: 'Power Automate', url: 'https://make.powerautomate.com' },
       { keys: ['microsoft 365','m365 portal','office portal','o365 portal'], label: 'Microsoft 365', url: 'https://m365.cloud.microsoft/' },
       { keys: ['work tools sop','query sop','query hub','query center','work query','work tools page'], label: 'Work Tools Query Hub', url: './work-tools-query.html' },
+      { keys: ['jira sop','jira help','jira page','jira setup','jira sop page'], label: 'Jira SOP', url: './jira.html' },
+      { keys: ['po sop','purchase order sop','newsbank po','po guide','how to submit po','po sop page'], label: 'PO Guide', url: './newsbank-po.html' },
     ];
     const navMatch = NAV_PAGES.find(p => p.keys.some(k => lower.includes(k)));
     if (navMatch) {
@@ -1119,6 +1342,14 @@
     // Portal queries — Lansweeper portal report builder
     if (lower.includes('portal query') || lower.includes('portal queries') || lower.includes('portle query') || lower.includes('query portal') || lower === 'portal') {
       showPortalQueries(); return;
+    }
+
+    // Mac commands browser
+    if (lower === 'mac commands' || lower === 'mac one-liners' || lower === 'mac' ||
+        lower.startsWith('mac ') || lower.includes('mac terminal') || lower.includes('macos')) {
+      const macFilter = lower.replace(/^mac\s*/,'').trim() || null;
+      showMacCommands(macFilter);
+      return;
     }
 
     // Browse Topics \u2014 show all topic categories from sop-topics.json
