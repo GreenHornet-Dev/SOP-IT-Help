@@ -840,6 +840,85 @@
     }
   ];
 
+  /* ================================================================
+     NEWSBANK: PO Item Catalog
+     Dell Premier standard configs + common IT items for NewsBank.
+     Prices are estimated Premier-tier — confirm with Purchasing.
+     Extract this block when building a non-NB version.
+  ================================================================ */
+  const PO_CATALOG = [
+    // Laptops — Dell Premier
+    { id:'dell-lat15',  name:'Dell Latitude 5540 15.6"',          category:'Laptops',     vendor:'Dell',      sku:'LAT5540-NB',   price:1099, specs:'i5-1345U · 16GB · 256GB SSD · Win11 Pro',                tier:'Standard' },
+    { id:'dell-xps15',  name:'Dell XPS 15 9530',                  category:'Laptops',     vendor:'Dell',      sku:'XPS9530-NB',   price:1699, specs:'i7-13700H · 16GB · 512GB · Win11 Pro · OLED touch',     tier:'Pro Max 15"' },
+    { id:'dell-xps16',  name:'Dell XPS 16 9640',                  category:'Laptops',     vendor:'Dell',      sku:'XPS9640-NB',   price:2299, specs:'i9-14900HX · 32GB · 1TB · Win11 Pro · OLED',            tier:'Dev 16"' },
+    { id:'dell-prec16', name:'Dell Precision 5690 16"',           category:'Laptops',     vendor:'Dell',      sku:'PREC5690-NB',  price:2799, specs:'i9 · 32GB ECC · 1TB · Win11 Pro · NVIDIA RTX A1000',    tier:'Dev Workstation' },
+    // Monitors
+    { id:'dell-mon27',  name:'Dell 27" 4K Monitor P2723QE',       category:'Monitors',    vendor:'Dell',      sku:'P2723QE',      price:529,  specs:'27" 4K IPS · USB-C 90W · DP · HDMI',                    tier:'' },
+    { id:'dell-mon32',  name:'Dell 32" 4K Monitor P3223QE',       category:'Monitors',    vendor:'Dell',      sku:'P3223QE',      price:679,  specs:'32" 4K IPS · USB-C 90W · DP · HDMI · USB hub',          tier:'' },
+    // Peripherals
+    { id:'dell-dock',   name:'Dell WD19S 180W Dock',              category:'Peripherals', vendor:'Dell',      sku:'WD19S-180',    price:239,  specs:'USB-C · 3×USB-A · HDMI · 2×DP · 180W',                  tier:'' },
+    { id:'dell-kb',     name:'Dell Premier Keyboard KB900',        category:'Peripherals', vendor:'Dell',      sku:'KB900',        price:149,  specs:'Wireless BT · USB-C charge · Multi-device',              tier:'' },
+    { id:'dell-ms',     name:'Dell Premier Mouse MS900',           category:'Peripherals', vendor:'Dell',      sku:'MS900',        price:99,   specs:'Wireless BT · USB-C charge · Multi-device',              tier:'' },
+    { id:'headset',     name:'Logitech H390 USB Headset',         category:'Peripherals', vendor:'CDW',       sku:'LOG-H390',     price:49,   specs:'USB · Noise-cancelling mic · In-line controls',          tier:'' },
+    { id:'usbc-charger',name:'Dell 90W USB-C Charger',            category:'Peripherals', vendor:'Dell',      sku:'LA90PM170',    price:69,   specs:'90W USB-C · XPS/Latitude compatible',                    tier:'' },
+    // Software / Licenses
+    { id:'adobe-cc',    name:'Adobe Creative Cloud (1yr)',         category:'Software',    vendor:'Adobe',     sku:'ADOBE-CC-1YR', price:599,  specs:'All apps · 100GB cloud · 1 user',                        tier:'' },
+    { id:'gemini-ws',   name:'Gemini for Google Workspace (1yr)', category:'Software',    vendor:'Google',    sku:'GEMINI-BUS',   price:288,  specs:'$24/user/mo · AI in Gmail, Docs, Drive',                 tier:'' },
+    { id:'claude-pro',  name:'Claude AI Pro — Anthropic (1yr)',   category:'Software',    vendor:'Anthropic', sku:'CLAUDE-PRO',   price:240,  specs:'$20/user/mo · Claude 4 access',                          tier:'' },
+  ];
+
+  const CAT_ICONS = { Laptops:'💻', Monitors:'🖥️', Peripherals:'🖱️', Software:'💿' };
+
+  function showCatalogIntro(itemNum) {
+    botMsg(`📦 <b>Item #${itemNum}</b> — choose a category, search by name, or type manually:`);
+    document.getElementById('clippy-chips').innerHTML =
+      Object.keys(CAT_ICONS).map(c =>
+        `<button class="clippy-chip" onclick="poCatChip('${c}')">${CAT_ICONS[c]} ${c}</button>`
+      ).join('') +
+      `<button class="clippy-chip" onclick="clippyChip('manual')">✏️ Manual</button>`;
+  }
+
+  function showCatalogItems(items, label) {
+    const cards = items.map(item => {
+      const safeId = item.id.replace(/'/g, "\\'");
+      return `<div style="background:#0a1f12;border:1px solid #1a3a1a;border-radius:6px;padding:8px 10px;margin-bottom:6px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#00ff64'" onmouseout="this.style.borderColor='#1a3a1a'" onclick="poSelectItem('${safeId}')">
+        <div style="display:flex;justify-content:space-between;align-items:start;gap:8px">
+          <div>
+            <div style="color:#fff;font-weight:700;font-size:12px">${item.name}${item.tier ? `<span style="color:#888;font-size:10px;font-weight:400"> · ${item.tier}</span>` : ''}</div>
+            <div style="color:#666;font-size:10px;margin-top:2px">${item.specs}</div>
+            <div style="color:#444;font-size:10px">${item.vendor} · ${item.sku}</div>
+          </div>
+          <div style="color:#00ff64;font-weight:900;font-size:13px;white-space:nowrap">~$${item.price.toLocaleString()}</div>
+        </div>
+      </div>`;
+    }).join('');
+    addHTML(`<div id="clippy-msg-bot">
+      <div style="color:#00ff64;font-weight:700;margin-bottom:8px">${CAT_ICONS[label] || '🔍'} ${label}</div>
+      ${cards}
+      <div style="color:#555;font-size:10px;margin-top:6px">Click an item to select · or type to search · or type <b>manual</b></div>
+    </div>`);
+    document.getElementById('clippy-chips').innerHTML =
+      Object.keys(CAT_ICONS).map(c =>
+        `<button class="clippy-chip" onclick="poCatChip('${c}')">${CAT_ICONS[c]} ${c}</button>`
+      ).join('') +
+      `<button class="clippy-chip" onclick="clippyChip('manual')">✏️ Manual</button>`;
+  }
+
+  window.poCatChip = function(cat) {
+    poState = 'item_search';
+    showCatalogItems(PO_CATALOG.filter(i => i.category === cat), cat);
+  };
+
+  window.poSelectItem = function(id) {
+    const item = PO_CATALOG.find(i => i.id === id);
+    if (!item) return;
+    poData.currentItem = { name: item.name, sku: item.sku, price: item.price };
+    poState = 'item_qty';
+    botMsg(`✅ <b>${item.name}</b><br><span style="color:#666;font-size:11px">${item.specs}</span><br><br>🔢 <b>Quantity?</b>`);
+    document.getElementById('clippy-chips').innerHTML =
+      [1,2,3,4,5].map(n => `<button class="clippy-chip" onclick="clippyChip('${n}')">${n}</button>`).join('');
+  };
+
   /* == PURCHASE ORDER WIZARD == */
   function poGenNum() {
     return 'PO-' + new Date().getFullYear() + '-' + String(Date.now()).slice(-4);
@@ -877,20 +956,54 @@
         break;
       case 'contact':
         poData.contact = /^skip$/i.test(val) ? '' : val;
-        poState = 'item_name';
-        botMsg('📦 <b>Item #1</b> — Description and SKU?<br><span style="color:#888;font-size:11px;">Example: Samsung 980 Pro 1TB SSD, SAM-980<br>(comma-separated, SKU optional)</span>');
+        poState = 'item_cat';
+        showCatalogIntro(1);
         break;
+      case 'item_cat':
+      case 'item_search': {
+        if (/^manual$/i.test(val)) {
+          poState = 'item_name';
+          botMsg('📦 <b>Item #' + (poData.items.length + 1) + '</b> — Description and SKU?<br><span style="color:#888;font-size:11px;">e.g. Samsung 980 Pro 1TB SSD, SAM-980 (SKU optional)</span>');
+          break;
+        }
+        const q = val.toLowerCase();
+        const matches = PO_CATALOG.filter(i =>
+          i.name.toLowerCase().includes(q) || i.category.toLowerCase().includes(q) ||
+          i.vendor.toLowerCase().includes(q) || i.sku.toLowerCase().includes(q) ||
+          i.specs.toLowerCase().includes(q)
+        );
+        if (matches.length) {
+          poState = 'item_search';
+          showCatalogItems(matches, 'Search results');
+        } else {
+          const parts = val.split(',');
+          poData.currentItem = { name: parts[0].trim(), sku: (parts[1]||'').trim(), price: 0 };
+          poState = 'item_qty';
+          botMsg('🔢 Quantity for <b>' + poData.currentItem.name + '</b>?');
+          document.getElementById('clippy-chips').innerHTML =
+            [1,2,3,4,5].map(n => `<button class="clippy-chip" onclick="clippyChip('${n}')">${n}</button>`).join('');
+        }
+        break;
+      }
       case 'item_name': {
         const parts = val.split(',');
-        poData.currentItem = { name: parts[0].trim(), sku: (parts[1]||'').trim() };
+        poData.currentItem = { name: parts[0].trim(), sku: (parts[1]||'').trim(), price: 0 };
         poState = 'item_qty';
         botMsg('🔢 Quantity for <b>' + poData.currentItem.name + '</b>?');
+        document.getElementById('clippy-chips').innerHTML =
+          [1,2,3,4,5].map(n => `<button class="clippy-chip" onclick="clippyChip('${n}')">${n}</button>`).join('');
         break;
       }
       case 'item_qty':
         poData.currentItem.qty = parseInt(val) || 1;
         poState = 'item_price';
-        botMsg('💲 Unit price? <span style="color:#888;font-size:11px;">(e.g. 129.99)</span>');
+        if (poData.currentItem.price) {
+          botMsg('💲 Unit price? <span style="color:#888;font-size:11px;">(Est. Premier: <b style="color:#00ff64">$' + poData.currentItem.price.toFixed(2) + '</b> — accept or enter actual)</span>');
+          document.getElementById('clippy-chips').innerHTML =
+            `<button class="clippy-chip" onclick="clippyChip('${poData.currentItem.price}')">✅ Accept $${poData.currentItem.price.toFixed(2)}</button>`;
+        } else {
+          botMsg('💲 Unit price? <span style="color:#888;font-size:11px;">(e.g. 129.99)</span>');
+        }
         break;
       case 'item_price': {
         poData.currentItem.price = parseFloat(val.replace(/[$,]/g,'')) || 0;
@@ -905,8 +1018,8 @@
       }
       case 'more_items':
         if (/^y/i.test(val)) {
-          poState = 'item_name';
-          botMsg('📦 <b>Item #' + (poData.items.length+1) + '</b> — Description and SKU?');
+          poState = 'item_cat';
+          showCatalogIntro(poData.items.length + 1);
         } else {
           poState = 'shipping';
           botMsg('🚚 Shipping address or notes? <span style="color:#888;font-size:11px;">(or type "skip")</span>');
